@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Ui/shared/Components.dart';
+import 'package:online_order_client/Models/catalogue_model.dart';
 
 class CatalogueScreen extends StatefulWidget {
   const CatalogueScreen({Key? key}) : super(key: key);
@@ -53,19 +54,19 @@ class _CatalogueState extends State<CatalogueScreen> {
               SizedBox(
                 height: 40,
               ),
-          defaultbutton(CategorieName: 'pizza', function: (){ print("algeria");}),
+          defaultbutton(CategorieID:1, function: (){ print("algeria");}),
           SizedBox(
             height: 20,
           ),
-          defaultbutton(CategorieName: 'drins', function: (){ print("algeria");}),
+          defaultbutton(CategorieID:2, function: (){ print("algeria");}),
           SizedBox(
             height: 20,
           ),
-          defaultbutton(CategorieName: 'snacks', function: (){ print("algeria");}),
+          defaultbutton(CategorieID: 3, function: (){ print("algeria");}),
           SizedBox(
             height: 20,
           ),
-          defaultbutton(CategorieName: 'foods', function: (){ print("algeria");}),
+          defaultbutton(CategorieID: 5, function: (){ print("algeria");}),
             ]
             ),
         ),
