@@ -53,19 +53,19 @@ class _CatalogueState extends State<CatalogueScreen> {
               SizedBox(
                 height: 40,
               ),
-          defaultbutton(text: 'pizza', function: (){ print("algeria");}),
+          defaultbutton(CategorieName: 'pizza', function: (){ print("algeria");}),
           SizedBox(
             height: 20,
           ),
-          defaultbutton(text: 'drins', function: (){ print("algeria");}),
+          defaultbutton(CategorieName: 'drins', function: (){ print("algeria");}),
           SizedBox(
             height: 20,
           ),
-          defaultbutton(text: 'snacks', function: (){ print("algeria");}),
+          defaultbutton(CategorieName: 'snacks', function: (){ print("algeria");}),
           SizedBox(
             height: 20,
           ),
-          defaultbutton(text: '', function: (){ print("algeria");}),
+          defaultbutton(CategorieName: 'foods', function: (){ print("algeria");}),
             ]
             ),
         ),

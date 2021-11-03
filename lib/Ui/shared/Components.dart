@@ -6,7 +6,7 @@ Widget defaultbutton ({
    double? width=double.infinity,
    double? hight=70,
    double? raduis=0,
-  required String? text, 
+  required String? CategorieName, 
   required Function? function}){
     return Container(
             decoration: BoxDecoration(
@@ -17,7 +17,7 @@ Widget defaultbutton ({
             height:hight,
             child: MaterialButton(
               onPressed:(){ function; },
-              child: Text('$text',
+              child: Text('$CategorieName',
               style: const TextStyle(
                 fontSize: 40,
                 fontFamily: 'Dancing',
