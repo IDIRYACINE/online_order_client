@@ -16,9 +16,7 @@ class ProductsDatabase implements IProductsDatabase {
     return _databaseInstance;
   }
 
-  ProductsDatabase._() {
-    connect();
-  }
+  ProductsDatabase._();
 
   @override
   Future<void> connect() async {

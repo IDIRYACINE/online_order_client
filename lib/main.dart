@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Models/Products/products_factory.dart';
 import 'package:online_order_client/Models/catalogue_model.dart';
 import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
 import 'package:online_order_client/Utility/Database/products_database.dart';
@@ -8,10 +9,8 @@ import 'package:online_order_client/home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => NavigationModel()),
-    ChangeNotifierProvider(create: (_) => CatalogueModel()),
   ], child: const MyApp()));
 }
 
@@ -20,7 +19,8 @@ class MyApp extends StatelessWidget {
 
   Future<bool> _initApp() async {
     await Firebase.initializeApp();
-    ProductsDatabase();
+    await ProductsDatabase().connect();
+    await CatalogueModel().loadCategoriesInitProducts();
     await Future.delayed(const Duration(seconds: 5));
     return true;
   }

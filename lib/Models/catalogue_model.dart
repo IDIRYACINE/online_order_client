@@ -1,18 +1,20 @@
-import 'package:flutter/foundation.dart';
 import 'package:online_order_client/Models/Products/iproduct.dart';
 import 'package:online_order_client/Models/Products/products_factory.dart';
 
-class CatalogueModel with ChangeNotifier {
+class CatalogueModel {
+  static final CatalogueModel _catalogueModel = CatalogueModel._();
   final ProductsFactory _productsManager = ProductsFactory();
   final int _categoryMaxProductDisplay = 5;
   late List<String> _categories;
   final ProductsMap _products = {};
 
-  CatalogueModel() {
-    _loadCategoriesInitProducts();
+  factory CatalogueModel() {
+    return _catalogueModel;
   }
 
-  Future<void> _loadCategoriesInitProducts() async {
+  CatalogueModel._();
+
+  Future<void> loadCategoriesInitProducts() async {
     _categories = await _productsManager.getCategories();
     String categoryName;
     for (int i = 0; i < _categories.length; i++) {

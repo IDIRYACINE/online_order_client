@@ -5,14 +5,10 @@ import 'iproduct.dart';
 import 'product_model.dart';
 
 class ProductsFactory {
-  late IProductsDatabase _database;
+  late final IProductsDatabase _database;
 
-  ProductsFactory({IProductsDatabase? dataSource}) {
-    if (dataSource == null) {
-      _database = ProductsDatabase();
-    } else {
-      _database = dataSource;
-    }
+  ProductsFactory() {
+    _database = ProductsDatabase();
   }
 
   Future<List<IProduct>> getProducts(

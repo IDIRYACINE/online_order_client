@@ -3,11 +3,11 @@ import 'package:online_order_client/Models/catalogue_model.dart';
 import 'package:provider/provider.dart';
 
 class DefaultButton extends StatefulWidget {
-  Color? _color;
-  double? _width;
-  double? _height;
-  double? _raduis;
-  late int _categorieID;
+  late final Color _color;
+  late final double _width;
+  late final double _height;
+  late final double _raduis;
+  late final int _categorieID;
 
   DefaultButton(
       {Key? key,
@@ -18,10 +18,10 @@ class DefaultButton extends StatefulWidget {
       required int categorieID,
       required Function? function})
       : super(key: key) {
-    _color = color;
-    _width = width;
-    _height = height;
-    _raduis = raduis;
+    _color = color!;
+    _width = width!;
+    _height = height!;
+    _raduis = raduis!;
     _categorieID = categorieID;
   }
 
@@ -31,14 +31,12 @@ class DefaultButton extends StatefulWidget {
 
 class _DefaultButtonState extends State<DefaultButton> {
   late Function _function;
-
+  final CatalogueModel _model = CatalogueModel();
   @override
   Widget build(BuildContext context) {
-    final CatalogueModel _model = Provider.of<CatalogueModel>(context);
-
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(widget._raduis!),
+        borderRadius: BorderRadius.circular(widget._raduis),
         color: widget._color,
       ),
       width: widget._width,
