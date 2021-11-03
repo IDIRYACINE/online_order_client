@@ -10,7 +10,7 @@ class ProductModel implements IProduct {
     name = productMap['Name'] as String;
     imageUrl = productMap['Image_URL'] as String;
     description = productMap['Description'] as String;
-    price = double.parse((productMap['Price'] as String));
+    price = productMap['Price'] as double;
   }
 
   @override
