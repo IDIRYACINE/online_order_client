@@ -7,8 +7,12 @@ import 'product_model.dart';
 class ProductsFactory {
   late final IProductsDatabase _database;
 
-  ProductsFactory() {
-    _database = ProductsDatabase();
+  ProductsFactory({IProductsDatabase? dataSource}) {
+    if (dataSource != null) {
+      _database = dataSource;
+    } else {
+      _database = ProductsDatabase();
+    }
   }
 
   Future<List<IProduct>> getProducts(
