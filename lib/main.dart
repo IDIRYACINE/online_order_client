@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Models/catalogue_model.dart';
-import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
+import 'package:online_order_client/Ui/GpsLocation/deliveryaddres.dart';
 import 'package:online_order_client/Utility/Database/products_database.dart';
 import 'package:online_order_client/Utility/Navigation/navigation_model.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +16,9 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   Future<bool> _initApp() async {
-    await Firebase.initializeApp();
-    await ProductsDatabase().connect();
-    await CatalogueModel().loadCategoriesInitProducts();
-    await Future.delayed(const Duration(seconds: 5));
+//    await Firebase.initializeApp();
+//    await ProductsDatabase().connect();
+//    await CatalogueModel().loadCategoriesInitProducts();
     return true;
   }
 
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
       future: _initApp(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          return const CatalogueScreen();
+          return DeliveryAddresScreen();
         }
         if (snapshot.hasError) {
           return const Text('error');

@@ -7,8 +7,8 @@ import 'iprofile.dart';
 class ProfileModel implements IProfile {
   static final ProfileModel _profileModel = ProfileModel._();
   late String _email, _fullName, _phoneImei, _phoneNumber;
-  late AddressModel _address;
-  late String _json;
+  late Address _address;
+  String _json = '';
 
   factory ProfileModel() {
     return _profileModel;
@@ -54,39 +54,34 @@ class ProfileModel implements IProfile {
   }
 
   @override
-  AddressModel getAddress() {
+  Address getAddress() {
     return _address;
   }
 
   @override
-  void setAddress({required AddressModel addressModel}) {
-    _address = addressModel;
+  void setAddress({required Address address}) {
+    _address = address;
   }
 
   String _encodeToJson() {
-    String coordinationX = _address.getCoordinationX();
-    String coordinationY = _address.getCoordinationY();
-    String extraInfos = _address.getExtraInfos();
-    _json = jsonEncode({
-      _phoneImei: {
+    String addressJson = _address.toJson();
+    String profileJson = jsonEncode({
+      "profile": {
         'fullName': _fullName,
         'phoneNumber': _phoneNumber,
         'email': _email,
-        'coordinationX': coordinationX,
-        'coordinationY': coordinationY,
-        'extraInfos': extraInfos
       }
     });
+    _json = '{"$_phoneImei":$profileJson,$addressJson}';
     return _json;
   }
 
+  /// Save profile changes by writing it to json file
   @override
   Future<void> saveProfile() async {
     try {
       File profile = await _getProfileFile();
-      if (_json == '') {
-        _encodeToJson();
-      }
+      _encodeToJson();
       profile.writeAsString(_json);
     } catch (e) {}
   }
@@ -113,8 +108,7 @@ class ProfileModel implements IProfile {
     _fullName = '';
     _phoneImei = '6548bba32';
     _phoneNumber = '';
-    _address =
-        AddressModel(coordinationX: '', coordinationY: '', extraInfos: '');
+    _address = Address();
   }
 
   void _populateProfileData(Map<String, String> dataSource) {
@@ -122,12 +116,10 @@ class ProfileModel implements IProfile {
     _phoneNumber = dataSource['phoneNumber']!;
     _phoneImei = dataSource['phoneImei']!;
     _fullName = dataSource['fullName']!;
-    _address = AddressModel(
-        coordinationX: dataSource['coordinationX']!,
-        coordinationY: dataSource['coordinationY']!,
-        extraInfos: dataSource['extraInfos']!);
+    _address = Address();
   }
 
+  /// Read profile json from storage and decode it
   @override
   Future<void> loadProfile() async {
     try {
