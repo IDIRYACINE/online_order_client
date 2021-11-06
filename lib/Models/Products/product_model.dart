@@ -14,12 +14,6 @@ class ProductModel implements IProduct {
   }
 
   @override
-  String formatProductOrder() {
-    // TODO: implement formatProductOrder
-    throw UnimplementedError();
-  }
-
-  @override
   String getDescription() {
     return description;
   }

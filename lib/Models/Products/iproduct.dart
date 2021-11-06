@@ -6,5 +6,4 @@ abstract class IProduct {
   double getPrice();
   String getImageUrl();
   String getExtras();
-  String formatProductOrder();
 }

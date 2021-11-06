@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   Future<bool> _initApp() async {
-    await Firebase.initializeApp();
-    await ProductsDatabase().connect();
-    await CatalogueModel().loadCategoriesInitProducts();
+//    await Firebase.initializeApp();
+//    await ProductsDatabase().connect();
+//    await CatalogueModel().loadCategoriesInitProducts();
     return true;
   }
 

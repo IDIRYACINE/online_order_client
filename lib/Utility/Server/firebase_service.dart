@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:online_order_client/Utility/OnlineData/ionline_data_service.dart';
+import 'package:online_order_client/Utility/Server/ionline_data_service.dart';
 
 class FireBaseServices implements IOnlineServerAcess {
   static final FireBaseServices _fireBaseServices = FireBaseServices._();
@@ -59,7 +59,7 @@ class FireBaseServices implements IOnlineServerAcess {
   }
 
   @override
-  Stream<Event> subscribeToDataChange({required String dataUrl}) {
+  Stream<Event> getDataStream({required String dataUrl}) {
     return _firebaseDatabase.child(dataUrl).onValue;
   }
 

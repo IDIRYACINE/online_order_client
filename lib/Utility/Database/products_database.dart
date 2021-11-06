@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:online_order_client/Utility/Database/idatabase.dart';
-import 'package:online_order_client/Utility/OnlineData/firebase_service.dart';
-import 'package:online_order_client/Utility/OnlineData/ionline_data_service.dart';
+import 'package:online_order_client/Utility/Server/firebase_service.dart';
+import 'package:online_order_client/Utility/Server/ionline_data_service.dart';
 
 import 'package:sqflite/sqflite.dart';
 
