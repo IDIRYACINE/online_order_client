@@ -14,7 +14,6 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
   final Set<Marker> _deliveryAdressMarker = {};
   final Address _address = Address();
   final MarkerId _markerId = const MarkerId("deliveryAddress");
-  bool _markerMovementEnabled = false;
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     setState(() {
@@ -25,10 +24,10 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
   }
 
   Future<void> _onCameraMove(CameraPosition cameraPosition) async {
-    if (_markerMovementEnabled) {
+    setState(() {
       _deliveryAdressMarker
           .add(Marker(markerId: _markerId, position: cameraPosition.target));
-    }
+    });
   }
 
   @override
@@ -42,11 +41,6 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
             initialCameraPosition:
                 CameraPosition(target: _address.getLocation(), zoom: 10),
             markers: _deliveryAdressMarker,
-            onTap: (positon) {
-              setState(() {
-                _markerMovementEnabled = !_markerMovementEnabled;
-              });
-            },
             onCameraMove: _onCameraMove,
           );
         }
