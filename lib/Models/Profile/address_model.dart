@@ -45,13 +45,7 @@ class Address {
   }
 
   /// Encode address as a json
-  String toJson() {
-    return jsonEncode({
-      "address": {
-        "latitude": _latitude,
-        "longitude": _longitude,
-        "extras": _extras
-      }
-    });
+  Map<String, dynamic> toMap() {
+    return {"latitude": _latitude, "longitude": _longitude, "extras": _extras};
   }
 }

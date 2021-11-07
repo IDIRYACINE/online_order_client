@@ -24,23 +24,6 @@ class FireBaseServices implements IOnlineServerAcess {
         FirebaseDatabase(app: Firebase.app(), databaseURL: url).reference();
   }
 
-  Future<StreamSubscription> postOrder(
-      {required Map<String, dynamic> order}) async {
-    if (_orderStauts == null) {
-      String phoneMac = 'idir';
-      await _firebaseDatabase.child('orders').update(order);
-      DatabaseReference _orderRef = _firebaseDatabase.child('orders/$phoneMac');
-
-      _orderStauts = _orderRef.onValue.listen((event) {});
-      _orderRef.onChildRemoved.listen((event) {
-        if (_orderStauts != null) {
-          _orderStauts!.cancel();
-        }
-      });
-    }
-    return _orderStauts!;
-  }
-
   @override
   Future<dynamic> fetchData({required String dataUrl}) async {
     dynamic data;

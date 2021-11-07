@@ -30,16 +30,29 @@ class OrderService implements IOrderService {
 
   @override
   void sendOrderToShop(IOrder order) {
-    String ordersUrl = "OrdersStatus/idir";
     IOnlineServerAcess serverAcess = FireBaseServices();
-    Map<String, dynamic> _orderMap = order.formatOnlineOrder();
-    serverAcess.updateData(dataUrl: ordersUrl, data: _orderMap);
+    Map<String, dynamic> _orderMap = order.toMap();
+    serverAcess.postData(dataUrl: "OrdersStatus/idir", data: _orderMap);
+    _orderMap = order.formatOnlineOrder();
+    serverAcess.postData(dataUrl: 'Orders', data: _orderMap);
+    listenToOrderStatusOnServer();
+  }
+
+  @override
+  void listenToOrderStatusOnServer() {
+    IOnlineServerAcess serverAcess = FireBaseServices();
     if (!_isSubscribedToServer) {
-      _ordersStatusSubscription =
-          serverAcess.getDataStream(dataUrl: ordersUrl).listen((event) {
-        _ordersStatusSubscribers.forEach((key, subscriber) {
-          subscriber.notify(event.snapshot.value);
-        });
+      _ordersStatusSubscription = serverAcess
+          .getDataStream(dataUrl: "OrdersStatus/idir/status")
+          .listen((event) {
+        String? status = event.snapshot.value;
+        if (status != null) {
+          _ordersStatusSubscribers.forEach((key, subscriber) {
+            subscriber.notify(status);
+          });
+        } else {
+          cancelAllSubscribtions();
+        }
       });
       _isSubscribedToServer = true;
     }

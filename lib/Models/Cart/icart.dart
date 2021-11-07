@@ -1,11 +1,12 @@
-import 'package:online_order_client/Models/Products/iproduct.dart';
+import 'package:online_order_client/Models/Cart/icart_item.dart';
+import 'package:online_order_client/Models/Orders/iorder.dart';
 
 abstract class ICart {
-  void addProduct({required IProduct product});
+  void addProduct({required ICartItem product});
   void removeProduct({required int productId});
   void clearCart();
   double getTotalPrice();
-  bool placeOrder();
+  IOrder placeOrder();
   int getProductsCount();
-  IProduct getProduct({required int productId});
+  ICartItem getProduct({required int productId});
 }

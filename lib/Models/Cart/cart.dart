@@ -1,18 +1,20 @@
-import 'package:online_order_client/Models/Products/iproduct.dart';
+import 'package:online_order_client/Models/Cart/icart_item.dart';
+import 'package:online_order_client/Models/Orders/iorder.dart';
+import 'package:online_order_client/Models/Orders/order.dart';
 
 import 'icart.dart';
 
-class CartModel implements ICart {
-  static final CartModel _cartModel = CartModel._();
-  final List<IProduct> _products = [];
+class Cart implements ICart {
+  static final Cart _cartModel = Cart._();
+  final List<ICartItem> _products = [];
 
-  factory CartModel() {
+  factory Cart() {
     return _cartModel;
   }
-  CartModel._();
+  Cart._();
 
   @override
-  void addProduct({required IProduct product}) {
+  void addProduct({required ICartItem product}) {
     _products.add(product);
   }
 
@@ -32,9 +34,12 @@ class CartModel implements ICart {
   }
 
   @override
-  bool placeOrder() {
-    // TODO: implement placeOrder
-    throw UnimplementedError();
+  IOrder placeOrder() {
+    IOrder order = Order();
+    for (ICartItem _cartItem in _products) {
+      order.mapCartItemToOrder(cartItem: _cartItem);
+    }
+    return order;
   }
 
   @override
@@ -48,7 +53,7 @@ class CartModel implements ICart {
   }
 
   @override
-  IProduct getProduct({required int productId}) {
+  ICartItem getProduct({required int productId}) {
     return _products[productId];
   }
 }

@@ -64,15 +64,16 @@ class ProfileModel implements IProfile {
   }
 
   String _encodeToJson() {
-    String addressJson = _address.toJson();
-    String profileJson = jsonEncode({
-      "profile": {
-        'fullName': _fullName,
-        'phoneNumber': _phoneNumber,
-        'email': _email,
-      }
+    Map<String, dynamic> addressJson = _address.toMap();
+    Map<String, dynamic> profileJson = {
+      'fullName': _fullName,
+      'phoneNumber': _phoneNumber,
+      'email': _email,
+    };
+
+    _json = jsonEncode({
+      _phoneImei: {"profile": profileJson, "address": addressJson}
     });
-    _json = '{"$_phoneImei":$profileJson,$addressJson}';
     return _json;
   }
 

@@ -39,7 +39,7 @@ class ProductsFactory {
   }
 
   IProduct _mapResultSetToProduct(QueryResult queryResult) {
-    IProduct product = ProductModel(productMap: queryResult);
+    IProduct product = Product(productMap: queryResult);
     return product;
   }
 

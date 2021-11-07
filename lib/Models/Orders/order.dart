@@ -1,15 +1,12 @@
-import 'dart:convert';
-
 import 'package:online_order_client/Models/Cart/icart_item.dart';
 import 'package:online_order_client/Models/Orders/iorder.dart';
-import 'package:online_order_client/Utility/Orders/iorder_subscriber.dart';
 
-class OrdersModel implements IOrder, IOrderSubscriber {
+class Order implements IOrder {
   final Map<String, dynamic> _order = {};
-  late final String _orderId;
+  String _orderId = "0";
   String _orderStaus = "Waiting";
 
-  OrdersModel([String? id, String? status]) {
+  Order([String? id, String? status]) {
     if (id != null) {
       _orderId = id;
     }
@@ -26,12 +23,17 @@ class OrdersModel implements IOrder, IOrderSubscriber {
 
   @override
   Map<String, dynamic> formatOnlineOrder() {
-    return {_orderId: _order};
+    return _order;
   }
 
   @override
-  void setId({required String orderId}) {
-    _orderId = orderId;
+  Map<String, dynamic> toMap() {
+    return {"id": _orderId, "status": _orderStaus};
+  }
+
+  @override
+  String getStatus() {
+    return _orderStaus;
   }
 
   @override
@@ -40,12 +42,7 @@ class OrdersModel implements IOrder, IOrderSubscriber {
   }
 
   @override
-  String toJson() {
-    return jsonEncode({"orderId": _orderId, "orderStatus": _orderStaus});
-  }
-
-  @override
-  void notify(String orderStatus) {
-    _orderStaus = orderStatus;
+  void setStatus({required String status}) {
+    _orderStaus = status;
   }
 }

@@ -1,12 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:online_order_client/Models/Cart/cart_model.dart';
+import 'package:online_order_client/Models/Cart/cart_item.dart';
+import 'package:online_order_client/Models/Cart/cart.dart';
 import 'package:online_order_client/Models/Cart/icart.dart';
+import 'package:online_order_client/Models/Cart/icart_item.dart';
 import 'package:online_order_client/Models/Products/iproduct.dart';
 import 'package:online_order_client/Models/Products/product_model.dart';
 
 void main() {
-  final ICart cartMock = CartModel();
-  late IProduct mockProduct;
+  final ICart cartMock = Cart();
+  late ICartItem cartItem;
   setUp(() {
     Map<String, Object?> productMap = {
       'Name': 'IDIR',
@@ -14,11 +16,13 @@ void main() {
       'Price': '21',
       'Image_URL': 'test.com'
     };
-    mockProduct = ProductModel(productMap: productMap);
-    cartMock.addProduct(product: mockProduct);
+    IProduct product = Product(productMap: productMap);
+    cartItem = CartItem(id: '0', product: product, quantity: 1);
+
+    cartMock.addProduct(product: cartItem);
   });
   test('Should add product', () {
-    cartMock.addProduct(product: mockProduct);
+    cartMock.addProduct(product: cartItem);
     expect(cartMock.getProductsCount(), 2);
     expect(cartMock.getProduct(productId: 0).getName(), 'IDIR');
   });
@@ -32,7 +36,7 @@ void main() {
     expect(cartMock.getProductsCount(), 0);
   });
   test('Should calculate products total price', () {
-    cartMock.addProduct(product: mockProduct);
+    cartMock.addProduct(product: cartItem);
     expect(cartMock.getTotalPrice(), 42);
   });
 }
