@@ -1,12 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
-import 'package:online_order_client/Ui/GpsLocation/deliveryaddres.dart';
+import 'package:online_order_client/Ui/GpsLocation/deliveryaddres_screen.dart';
 import 'package:online_order_client/Ui/Orders/order_status_screen.dart';
 import 'package:online_order_client/Utility/Navigation/navigation_model.dart';
 import 'package:provider/provider.dart';
 
-import 'Models/catalogue_model.dart';
+import 'Models/Catalogue/catalogue_model.dart';
 import 'Utility/Database/products_database.dart';
 
 void main() {

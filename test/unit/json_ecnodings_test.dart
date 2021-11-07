@@ -6,7 +6,7 @@ import 'package:online_order_client/Models/Cart/icart_item.dart';
 import 'package:online_order_client/Models/Orders/iorder.dart';
 import 'package:online_order_client/Models/Products/iproduct.dart';
 import 'package:online_order_client/Models/Products/product_model.dart';
-import 'package:online_order_client/Models/Profile/address_model.dart';
+import 'package:online_order_client/Models/GpsLocation/address.dart';
 import 'package:online_order_client/Models/Profile/iprofile.dart';
 import 'package:online_order_client/Models/Profile/profile_model.dart';
 

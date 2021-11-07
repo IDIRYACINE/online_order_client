@@ -1,4 +1,4 @@
-import 'address_model.dart';
+import '../GpsLocation/address.dart';
 
 abstract class IProfile {
   String getFullName();

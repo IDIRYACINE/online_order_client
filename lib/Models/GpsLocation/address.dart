@@ -1,18 +1,18 @@
-import 'dart:convert';
-
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:online_order_client/Utility/permissions_service.dart';
 
 class Address {
+  static final Address _instance = Address._();
   late String _extras;
   late double _latitude, _longitude;
 
-  Address();
+  factory Address() {
+    return _instance;
+  }
+  Address._();
 
   /// Request device location.handle GPS permission issues
   Future<bool> getDeviceLocation() async {
-    PermissionService.requestLocationPermission();
     Location location = Location();
     LocationData _locationData;
     _locationData = await location.getLocation();

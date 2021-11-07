@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:online_order_client/Models/Profile/address_model.dart';
+import 'package:online_order_client/Application/delivery_address.dart';
 
 class DeliveryAddresScreen extends StatefulWidget {
   const DeliveryAddresScreen({Key? key}) : super(key: key);
@@ -12,7 +12,7 @@ class DeliveryAddresScreen extends StatefulWidget {
 
 class _DeliveryAddresState extends State<DeliveryAddresScreen> {
   final Set<Marker> _deliveryAdressMarker = {};
-  final Address _address = Address();
+  final DeliveryAddress _address = DeliveryAddress();
   final MarkerId _markerId = const MarkerId("deliveryAddress");
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
@@ -33,7 +33,7 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: _address.getDeviceLocation(),
+      future: _address.initGpsLocation(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
           return GoogleMap(

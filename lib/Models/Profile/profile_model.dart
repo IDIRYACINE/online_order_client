@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'address_model.dart';
+import '../GpsLocation/address.dart';
 import 'iprofile.dart';
 
 class ProfileModel implements IProfile {

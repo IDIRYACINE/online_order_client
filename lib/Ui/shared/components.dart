@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Models/catalogue_model.dart';
+import 'package:online_order_client/Application/catalogue.dart';
+import 'package:online_order_client/Models/Catalogue/catalogue_model.dart';
 
 class DefaultButton extends StatefulWidget {
   late final Color _color;
@@ -30,7 +31,7 @@ class DefaultButton extends StatefulWidget {
 
 class _DefaultButtonState extends State<DefaultButton> {
   late Function _function;
-  final CatalogueModel _model = CatalogueModel();
+  final Catalogue _model = Catalogue();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,7 +46,7 @@ class _DefaultButtonState extends State<DefaultButton> {
           _function;
         },
         child: Text(
-          _model.getCategoryName(categoryId: widget._categorieID),
+          _model.getCategoryName(widget._categorieID),
           style: const TextStyle(
               fontSize: 40, fontFamily: 'Dancing', fontWeight: FontWeight.bold),
         ),
