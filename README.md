@@ -132,7 +132,7 @@
 </tr>
  <tr>
     <td>Map Cart Products To Server Order</td>
-    <td>on progress</td>
+    <td>Done</td>
     <td>2</td>
     <td>IDIR</td>
   </tr>
