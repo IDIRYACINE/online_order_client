@@ -52,7 +52,7 @@
   </tr>
    <tr>
     <td>Customer Can Send Order </td>
-    <td>on progress</td>
+    <td>Done</td>
     <td>1</td>
     <td>IDIR</td>
   </tr>
@@ -74,15 +74,15 @@
   </tr>
    <tr>
     <td>Get Estimate Location</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
+    <td>Done</td>
+    <td>1</td>
+    <td>IDIR</td>
   </tr>
    <tr>
     <td>Set Location</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
+    <td>Done</td>
+    <td>1</td>
+    <td>IDIR</td>
   </tr>
 <table/>
 
@@ -156,12 +156,6 @@
   </tr>
     <tr>
     <td>Create Order Status Screen</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
-  </tr>
-    <tr>
-    <td>Customer Can Cancel Order</td>
     <td>Not Done</td>
     <td>None</td>
     <td>None</td>
