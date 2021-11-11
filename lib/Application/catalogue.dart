@@ -2,13 +2,7 @@ import 'package:online_order_client/Models/Catalogue/catalogue_model.dart';
 import 'package:online_order_client/Models/Products/iproduct.dart';
 
 class Catalogue {
-  static final Catalogue _instance = Catalogue._();
   final CatalogueModel _catalogueModel = CatalogueModel();
-  Catalogue._();
-
-  factory Catalogue() {
-    return _instance;
-  }
 
   Future<void> initCategories() async {
     await _catalogueModel.loadCategoriesInitProducts();

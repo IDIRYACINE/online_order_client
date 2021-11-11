@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Application/catalogue.dart';
 import 'package:online_order_client/Ui/shared/components.dart';
 
 class CatalogueScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class CatalogueScreen extends StatefulWidget {
 }
 
 class _CatalogueState extends State<CatalogueScreen> {
+  final Catalogue _catalogue = Catalogue();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,19 +52,12 @@ class _CatalogueState extends State<CatalogueScreen> {
           const SizedBox(
             height: 40,
           ),
-          DefaultButton(
-              categorieID: 0,
-              function: () {
-                print("algeria");
-              }),
-          const SizedBox(
-            height: 20,
-          ),
-          DefaultButton(
-              categorieID: 1,
-              function: () {
-                print("algeria");
-              })
+          ListView.separated(
+              itemBuilder: (buildContext, index) => DefaultButton(
+                  title: _catalogue.getCategoryName(index), function: () {}),
+              separatorBuilder: (buildContext, index) =>
+                  const SizedBox(height: 20),
+              itemCount: _catalogue.getCategoriesCount())
         ]),
       ),
     );

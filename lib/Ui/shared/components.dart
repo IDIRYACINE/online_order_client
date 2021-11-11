@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/catalogue.dart';
-import 'package:online_order_client/Models/Catalogue/catalogue_model.dart';
 
 class DefaultButton extends StatefulWidget {
   late final Color _color;
   late final double _width;
   late final double _height;
   late final double _raduis;
-  late final int _categorieID;
+  late final String _title;
 
   DefaultButton(
       {Key? key,
@@ -15,14 +13,14 @@ class DefaultButton extends StatefulWidget {
       double? width = double.infinity,
       double? height = 70,
       double? raduis = 0,
-      required int categorieID,
+      required String title,
       required Function? function})
       : super(key: key) {
     _color = color!;
     _width = width!;
     _height = height!;
     _raduis = raduis!;
-    _categorieID = categorieID;
+    _title = title;
   }
 
   @override
@@ -31,7 +29,6 @@ class DefaultButton extends StatefulWidget {
 
 class _DefaultButtonState extends State<DefaultButton> {
   late Function _function;
-  final Catalogue _model = Catalogue();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +43,7 @@ class _DefaultButtonState extends State<DefaultButton> {
           _function;
         },
         child: Text(
-          _model.getCategoryName(widget._categorieID),
+          widget._title,
           style: const TextStyle(
               fontSize: 40, fontFamily: 'Dancing', fontWeight: FontWeight.bold),
         ),
