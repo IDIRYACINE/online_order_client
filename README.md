@@ -178,8 +178,8 @@
   </tr>
    <tr>
     <td>Create Catalogue Screen</td>
-    <td>Not Done</td>
     <td>50%</td>
+    <td>None</td>
     <td>Houssem</td>
   </tr>
    <tr>
