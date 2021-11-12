@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DefaultButton extends StatefulWidget {
-   Color? _color;
-   double? _width;
-   double? _height;
+  late final Color _color;
+  late final double _width;
+  late final double _height;
   late final double _raduis;
   late final String _title;
 
