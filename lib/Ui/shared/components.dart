@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DefaultButton extends StatefulWidget {
-  late final Color _color;
-  late final double _width;
-  late final double _height;
+   Color? _color;
+   double? _width;
+   double? _height;
   late final double _raduis;
   late final String _title;
 
@@ -39,7 +39,8 @@ class _DefaultButtonState extends State<DefaultButton> {
       width: widget._width,
       height: widget._height,
       child: MaterialButton(
-        onPressed: () {
+        onPressed: (
+        ) {
           _function;
         },
         child: Text(

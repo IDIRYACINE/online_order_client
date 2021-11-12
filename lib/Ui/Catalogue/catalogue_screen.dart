@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/catalogue.dart';
 import 'package:online_order_client/Ui/shared/components.dart';
-
+import 'package:online_order_client/Ui/Catalogue/CategoryProductsScreen.dart';
 class CatalogueScreen extends StatefulWidget {
   const CatalogueScreen({Key? key}) : super(key: key);
 
@@ -52,12 +53,19 @@ class _CatalogueState extends State<CatalogueScreen> {
           const SizedBox(
             height: 40,
           ),
-          ListView.separated(
-              itemBuilder: (buildContext, index) => DefaultButton(
-                  title: _catalogue.getCategoryName(index), function: () {}),
-              separatorBuilder: (buildContext, index) =>
-                  const SizedBox(height: 20),
-              itemCount: _catalogue.getCategoriesCount())
+          Expanded(
+            child: ListView.separated(
+               itemBuilder: (buildContext, index) => DefaultButton(
+                   title: _catalogue.getCategoryName(index), function: () {
+                     Navigator.push(context, 
+                     MaterialPageRoute(builder: (context)=> CategoryproductsScreen())
+                     );
+                   }
+                   ),
+                separatorBuilder: (buildContext, index) =>
+                    const SizedBox(height: 20),
+                itemCount: _catalogue.getCategoriesCount()),
+          )
         ]),
       ),
     );
