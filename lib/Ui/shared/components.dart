@@ -39,7 +39,8 @@ class _DefaultButtonState extends State<DefaultButton> {
       width: widget._width,
       height: widget._height,
       child: MaterialButton(
-        onPressed: () {
+        onPressed: (
+        ) {
           _function;
         },
         child: Text(
