@@ -13,4 +13,5 @@ abstract class IProfile {
   String getProfileJson();
   Future<void> saveProfile();
   Future<void> loadProfile();
+  Map<String, dynamic> asMap();
 }

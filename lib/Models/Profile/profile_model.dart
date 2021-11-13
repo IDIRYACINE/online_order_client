@@ -132,4 +132,9 @@ class ProfileModel implements IProfile {
       _initProfileWithDefaults();
     }
   }
+
+  @override
+  Map<String, dynamic> asMap() {
+    return {"idir": "good"};
+  }
 }

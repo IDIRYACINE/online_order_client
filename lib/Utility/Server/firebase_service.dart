@@ -8,20 +8,22 @@ import 'package:online_order_client/Utility/Server/ionline_data_service.dart';
 class FireBaseServices implements IOnlineServerAcess {
   static final FireBaseServices _fireBaseServices = FireBaseServices._();
 
-  late final DatabaseReference _firebaseDatabase;
-  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
-  StreamSubscription? _orderStauts;
+  late DatabaseReference _firebaseDatabase;
+  late FirebaseStorage _firebaseStorage;
 
   factory FireBaseServices() {
     return _fireBaseServices;
   }
-
-  FireBaseServices._() {
-    //https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app
-    String url =
-        "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app";
+  /*https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app
+     
     _firebaseDatabase =
-        FirebaseDatabase(app: Firebase.app(), databaseURL: url).reference();
+        FirebaseDatabase(app: Firebase.app(), databaseURL: url).reference();*/
+  FireBaseServices._();
+
+  void initialize(
+      FirebaseStorage firebaseStorage, DatabaseReference rootDatabase) {
+    _firebaseDatabase = rootDatabase;
+    _firebaseStorage = firebaseStorage;
   }
 
   @override

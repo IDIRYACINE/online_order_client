@@ -14,6 +14,7 @@
 *.ipr
 *.iws
 .idea/
+.vscode/
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -54,3 +55,16 @@ pubspec.lock
 .firebase/hosting.cHVibGlj.cache
 database.rules.json
 pubspec.lock
+lib/test.dart
+/public/
+/functions/
+.gitignore
+functions/.eslintrc.js
+public/index.html
+firestore.indexes.json
+pubspec.lock
+firestore.rules
+pubspec.lock
+public/index.html
+public/index.html
+test/unit/authentification_test.dart
