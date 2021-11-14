@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 
-class NavigationModel with ChangeNotifier {
+class NavigationProvider with ChangeNotifier {
   final List<Widget> _screens = [];
   int _screenIndex = 0;
-  NavigationModel();
+  NavigationProvider();
 
   Widget getScreen() => _screens[_screenIndex];
   void setScreenIndex(int screenID) {

@@ -6,7 +6,7 @@ import 'iprofile.dart';
 
 class ProfileModel implements IProfile {
   static final ProfileModel _profileModel = ProfileModel._();
-  late String _email, _fullName, _phoneImei, _phoneNumber;
+  late String _email, _fullName, _phoneNumber;
   late Address _address;
   String _json = '';
 
@@ -26,11 +26,6 @@ class ProfileModel implements IProfile {
   @override
   String getFullName() {
     return _fullName;
-  }
-
-  @override
-  String getPhoneImei() {
-    return _phoneImei;
   }
 
   @override
@@ -71,9 +66,7 @@ class ProfileModel implements IProfile {
       'email': _email,
     };
 
-    _json = jsonEncode({
-      _phoneImei: {"profile": profileJson, "address": addressJson}
-    });
+    _json = jsonEncode({"profile": profileJson, "address": addressJson});
     return _json;
   }
 
@@ -107,7 +100,6 @@ class ProfileModel implements IProfile {
   void _initProfileWithDefaults() {
     _email = '';
     _fullName = '';
-    _phoneImei = '6548bba32';
     _phoneNumber = '';
     _address = Address();
   }
@@ -115,7 +107,6 @@ class ProfileModel implements IProfile {
   void _populateProfileData(Map<String, String> dataSource) {
     _email = dataSource['email']!;
     _phoneNumber = dataSource['phoneNumber']!;
-    _phoneImei = dataSource['phoneImei']!;
     _fullName = dataSource['fullName']!;
     _address = Address();
   }

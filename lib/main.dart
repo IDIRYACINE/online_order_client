@@ -1,22 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Ui/Catalogue/CategoryProductsScreen.dart';
-import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
-import 'package:online_order_client/Ui/GpsLocation/deliveryaddres_screen.dart';
-import 'package:online_order_client/Ui/Orders/order_status_screen.dart';
-import 'package:online_order_client/Utility/Authentication/authentication_service.dart';
-import 'package:online_order_client/Utility/Navigation/navigation_model.dart';
+import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
+import 'package:online_order_client/Utility/service_factory.dart';
 import 'package:online_order_client/test.dart';
 import 'package:provider/provider.dart';
 
-import 'Models/Catalogue/catalogue_model.dart';
-import 'Utility/Database/products_database.dart';
-
 void main() {
   runApp(MultiProvider(providers: [
-    ChangeNotifierProvider(create: (_) => NavigationModel()),
+    ChangeNotifierProvider(create: (_) => NavigationProvider()),
   ], child: const MyApp()));
 }
 
@@ -24,13 +15,9 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   Future<bool> _initApp() async {
-    const String localHost = "192.168.1.9";
     await Firebase.initializeApp();
-    FirebaseAuth auth = FirebaseAuth.instance;
-    FirebaseFirestore fire = FirebaseFirestore.instance;
-    fire.useFirestoreEmulator(localHost, 8080);
-    auth.useAuthEmulator(localHost, 9099);
-    FirebaseAuthenticationService().initialize(auth, fire);
+    ServiceFactory _factory = ServiceFactory();
+    await _factory.initialiaze();
     return true;
   }
 

@@ -10,13 +10,8 @@ void main() {
   final ICart cartMock = Cart();
   late ICartItem cartItem;
   setUp(() {
-    Map<String, Object?> productMap = {
-      'Name': 'IDIR',
-      'Description': 'Nothing',
-      'Price': '21',
-      'Image_URL': 'test.com'
-    };
-    IProduct product = Product(productMap: productMap);
+    IProduct product =
+        Product('IDIR', 'Nothing', 'test.com', [21, 32], ["mid,large"]);
     cartItem = CartItem(id: '0', product: product, quantity: 1);
 
     cartMock.addProduct(product: cartItem);

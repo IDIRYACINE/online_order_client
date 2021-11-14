@@ -2,20 +2,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:online_order_client/Models/Products/iproduct.dart';
-import 'package:online_order_client/Models/Products/products_factory.dart';
+import 'package:online_order_client/Utility/Database/products_mapper.dart';
 import 'package:online_order_client/Utility/Database/idatabase.dart';
 import 'catalogue_test.mocks.dart';
 
 @GenerateMocks([IProductsDatabase])
 void main() {
   IProductsDatabase _databaseMock = MockIProductsDatabase();
-  ProductsFactory _productsManager = ProductsFactory(dataSource: _databaseMock);
+  ProductsMapper _productsManager = ProductsMapper(_databaseMock);
 
   test('should return a list of categories', () async {
     when(_databaseMock.loadCategories())
         .thenAnswer((realInvocation) => Future(() => [
-              {'name': 'pizza'},
-              {'name': 'drinks'}
+              {'Name': 'pizza'},
+              {'Name': 'drinks'}
             ]));
 
     expect(await _productsManager.getCategories(), ['pizza', 'drinks']);
@@ -24,16 +24,18 @@ void main() {
     when(_databaseMock.loadProducts(category: 'pizza', count: 2))
         .thenAnswer((realInvocation) => Future(() => [
               {
-                'name': '4season',
-                'description': 'test',
-                'price': '32',
-                'image_url': 'test.com'
+                'Name': '4season',
+                'Description': 'test',
+                'Price': '32',
+                'Image_URL': 'test.com',
+                'Size': 'normal'
               },
               {
-                'name': 'auFeu',
-                'description': 'test',
-                'price': '64',
-                'image_url': 'test.com'
+                'Name': 'auFeu',
+                'Description': 'test',
+                'Price': '64',
+                'Image_URL': 'test.com',
+                'Size': 'big'
               },
             ]));
     List<IProduct> resultProducts = await _productsManager.getProducts(

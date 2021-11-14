@@ -36,10 +36,10 @@ class InvalidLoginInfos extends AuthException {
       : super(code: code, message: message, stackTrace: stackTrace);
 }
 
-class InvalidSmsCode extends AuthException {
-  InvalidSmsCode(
-      {String code = "Invalid-sms-code",
-      String message = "Incorrect sms code",
+class InvalidVerificationCode extends AuthException {
+  InvalidVerificationCode(
+      {String code = "Invalid-code",
+      String message = "Incorrect verification code",
       StackTrace? stackTrace})
       : super(code: code, message: message, stackTrace: stackTrace);
 }
@@ -48,6 +48,14 @@ class EmailAlreadyUsed extends AuthException {
   EmailAlreadyUsed(
       {String code = "Email-used",
       String message = "Email already used , try requesting validation email",
+      StackTrace? stackTrace})
+      : super(code: code, message: message, stackTrace: stackTrace);
+}
+
+class InvalidUser extends AuthException {
+  InvalidUser(
+      {String code = "User-not-exist",
+      String message = "User doesn't exist",
       StackTrace? stackTrace})
       : super(code: code, message: message, stackTrace: stackTrace);
 }

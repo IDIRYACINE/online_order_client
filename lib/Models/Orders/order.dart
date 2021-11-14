@@ -28,7 +28,7 @@ class Order implements IOrder {
 
   @override
   Map<String, dynamic> toMap() {
-    return {"id": _orderId, "status": _orderStaus};
+    return {"status": _orderStaus};
   }
 
   @override

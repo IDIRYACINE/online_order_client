@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:online_order_client/Utility/Authentication/authentication_service.dart';
 import 'package:online_order_client/Utility/Authentication/iauthentication_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:online_order_client/Utility/service_factory.dart';
 
 class FacebookAuthentication {
-  final IAuthenticationService _service = FirebaseAuthenticationService();
+  final IAuthenticationService _service =
+      ServiceFactory().authenticationService;
   final FacebookAuth _facebookAuth = FacebookAuth.instance;
 
   Future<void> singIn() async {

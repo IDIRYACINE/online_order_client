@@ -1,41 +1,35 @@
-import 'package:online_order_client/Utility/Database/idatabase.dart';
-
 import 'iproduct.dart';
 
 class Product implements IProduct {
-  late String name, description, imageUrl;
-  late double price;
+  final String _name, _description, _imageUrl;
+  final List<double> _prices;
+  final List<String> _sizes;
 
-  Product({required QueryResult productMap}) {
-    name = productMap['Name'] as String;
-    imageUrl = productMap['Image_URL'] as String;
-    description = productMap['Description'] as String;
-    price = productMap['Price'] as double;
-  }
+  Product(
+      this._name, this._description, this._imageUrl, this._prices, this._sizes);
 
   @override
   String getDescription() {
-    return description;
-  }
-
-  @override
-  String getExtras() {
-    // TODO: implement getExtras
-    throw UnimplementedError();
+    return _description;
   }
 
   @override
   String getImageUrl() {
-    return imageUrl;
+    return _imageUrl;
   }
 
   @override
   String getName() {
-    return name;
+    return _name;
   }
 
   @override
-  double getPrice() {
-    return price;
+  double getPrice(int size) {
+    return _prices[size];
+  }
+
+  @override
+  List<String> getSizes() {
+    return _sizes;
   }
 }

@@ -2,32 +2,18 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_order_client/Models/GpsLocation/address.dart';
-import 'package:online_order_client/Models/Profile/iprofile.dart';
-import 'package:online_order_client/Models/Profile/profile_model.dart';
 import 'package:online_order_client/Utility/Authentication/authentification_exceptions.dart';
 import 'package:online_order_client/Utility/Authentication/iauthentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthenticationService implements IAuthenticationService {
-  static final FirebaseAuthenticationService _instance =
-      FirebaseAuthenticationService._();
-
-  factory FirebaseAuthenticationService() {
-    return _instance;
-  }
-
-  FirebaseAuthenticationService._();
-
-  late FirebaseAuth _auth;
+  final FirebaseAuth _auth;
   late User _user;
-  late FirebaseFirestore _firestore;
+  final FirebaseFirestore _firestore;
   late String _smsCodeId;
   int? _forceSmsResendToken;
 
-  void initialize(FirebaseAuth auth, FirebaseFirestore firestore) {
-    _auth = auth;
-    _firestore = firestore;
-  }
+  FirebaseAuthenticationService(this._auth, this._firestore);
 
   @override
   Future<bool> accountIsActive() async {
@@ -45,9 +31,13 @@ class FirebaseAuthenticationService implements IAuthenticationService {
 
   @override
   Future<void> confirmPhoneVerification({required String smsCode}) async {
-    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
-        verificationId: _smsCodeId, smsCode: smsCode);
-    linkAuthProviderWithProfile(authProvider: phoneAuthCredential);
+    try {
+      PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+          verificationId: _smsCodeId, smsCode: smsCode);
+      linkAuthProviderWithProfile(authProvider: phoneAuthCredential);
+    } catch (e) {
+      throw InvalidVerificationCode();
+    }
   }
 
   @override
@@ -79,7 +69,7 @@ class FirebaseAuthenticationService implements IAuthenticationService {
     try {
       _auth.sendPasswordResetEmail(email: email);
     } catch (e) {
-      throw UnimplementedError();
+      throw InvalidUser();
     }
   }
 
@@ -115,7 +105,11 @@ class FirebaseAuthenticationService implements IAuthenticationService {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       _user = _auth.currentUser!;
     } on FirebaseAuthException catch (e) {
-      throw UnimplementedError();
+      if (e.code == "wrong-password") {
+        throw InvalidLoginInfos();
+      } else {
+        throw InvalidUser();
+      }
     }
   }
 
@@ -131,8 +125,8 @@ class FirebaseAuthenticationService implements IAuthenticationService {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       _user = _auth.currentUser!;
-    } on FirebaseAuthException catch (e) {
-      throw UnimplementedError();
+    } on FirebaseAuthException catch (_) {
+      throw EmailAlreadyUsed();
     }
   }
 

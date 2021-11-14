@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Utility/Navigation/navigation_model.dart';
+import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,7 +12,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    NavigationModel navigationModel = Provider.of<NavigationModel>(context);
+    NavigationProvider navigationModel =
+        Provider.of<NavigationProvider>(context);
 
     return Scaffold(
       body: const Center(child: Text('')),

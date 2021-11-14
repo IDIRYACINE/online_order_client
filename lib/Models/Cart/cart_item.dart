@@ -6,12 +6,15 @@ class CartItem implements ICartItem {
   late IProduct _product;
   late int _quantity;
   late double _price;
+  late String _size;
+  late List<String> _sizes;
   CartItem(
       {required String id, required IProduct product, required int quantity}) {
     _id = id;
     _product = product;
     _quantity = quantity;
-    _price = _quantity * _product.getPrice();
+    _price = _quantity * _product.getPrice(0);
+    _sizes = _product.getSizes();
   }
 
   @override
@@ -26,7 +29,7 @@ class CartItem implements ICartItem {
 
   @override
   Map<String, dynamic> getOnlineMap() {
-    return {'name': _product.getName(), 'quantity': _quantity};
+    return {'name': _product.getName(), 'quantity': _quantity, 'size': _size};
   }
 
   @override
@@ -42,5 +45,15 @@ class CartItem implements ICartItem {
   @override
   String getThumbnailUrl() {
     return _product.getImageUrl();
+  }
+
+  @override
+  List<String> getSizes() {
+    return _sizes;
+  }
+
+  @override
+  void setSize(int sizeIndex) {
+    _size = _sizes[sizeIndex];
   }
 }

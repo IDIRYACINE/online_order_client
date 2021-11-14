@@ -8,24 +8,20 @@ import 'package:sqflite/sqflite.dart';
 
 class ProductsDatabase implements IProductsDatabase {
   static const String _productsDatabaseName = 'Products.db';
-  static final ProductsDatabase _databaseInstance = ProductsDatabase._();
+
   late Database _productsDatabase;
-  final IOnlineServerAcess _fireBaseServices = FireBaseServices();
+  final IOnlineServerAcess _serverAccess;
 
-  factory ProductsDatabase() {
-    return _databaseInstance;
-  }
-
-  ProductsDatabase._();
+  ProductsDatabase(this._serverAccess);
 
   @override
   Future<void> connect() async {
     File databaseFile = await _getLocalDatabaseFile();
     int databaseVersion =
-        await _fireBaseServices.fetchData(dataUrl: 'databaseVersion');
+        await _serverAccess.fetchData(dataUrl: 'databaseVersion');
 
     if (!await databaseFile.exists()) {
-      _fireBaseServices.downloadFile(
+      _serverAccess.downloadFile(
           fileUrl: _productsDatabaseName, out: databaseFile);
     }
 
@@ -33,7 +29,7 @@ class ProductsDatabase implements IProductsDatabase {
 
     if (await _checkForNewVersion(databaseVersion)) {
       disconnect();
-      _fireBaseServices.downloadFile(
+      _serverAccess.downloadFile(
           fileUrl: _productsDatabaseName, out: databaseFile);
       await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
       _productsDatabase.setVersion(databaseVersion);

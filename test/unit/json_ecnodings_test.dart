@@ -22,14 +22,9 @@ Future<void> setUpProfile(IProfile profileMock) async {
 }
 
 Future<void> setUpOrderTest(ICart cart) async {
-  Map<String, dynamic> productMap = {
-    "Name": "pizza",
-    "Image_URL": "test.com",
-    "Description": "none",
-    "Price": 32.0
-  };
-  IProduct product = Product(productMap: productMap);
+  IProduct product = Product("pizza", "none", "test.com", [32.0], ["normal"]);
   ICartItem cartItem = CartItem(id: '0', product: product, quantity: 1);
+  cartItem.setSize(0);
   cart.addProduct(product: cartItem);
 }
 
@@ -38,7 +33,7 @@ void main() {
     IProfile profileMock = ProfileModel();
 
     String expectedJson =
-        '{"6548bba32":{"profile":{"fullName":"idir yacine","phoneNumber":"0621xxxxx","email":"idir@gmail"},"address":{"latitude":32.0,"longitude":64.0,"extras":"bloc C"}}}';
+        '{"profile":{"fullName":"idir yacine","phoneNumber":"0621xxxxx","email":"idir@gmail"},"address":{"latitude":32.0,"longitude":64.0,"extras":"bloc C"}}';
 
     setUpAll(() async {
       setUpProfile(profileMock);
@@ -59,13 +54,13 @@ void main() {
 
     test("encode order To Server Map Format", () {
       Map<String, dynamic> expectedResult = {
-        "0": {"name": "pizza", "quantity": 1}
+        "0": {"name": "pizza", "quantity": 1, "size": "normal"}
       };
       order = cartMock.placeOrder();
       expect(order.formatOnlineOrder(), expectedResult);
     });
     test("encode order to Status Map", () {
-      Map<String, dynamic> expectedResult = {"id": "0", "status": "Waiting"};
+      Map<String, dynamic> expectedResult = {"status": "Waiting"};
       order = cartMock.placeOrder();
       expect(order.toMap(), expectedResult);
     });

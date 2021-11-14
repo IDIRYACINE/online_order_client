@@ -1,18 +1,17 @@
+import 'dart:ffi';
+
 import 'package:online_order_client/Utility/Database/idatabase.dart';
 import 'package:online_order_client/Utility/Database/products_database.dart';
+import 'package:online_order_client/Utility/service_factory.dart';
 
-import 'iproduct.dart';
-import 'product_model.dart';
+import '../../Models/Products/iproduct.dart';
+import '../../Models/Products/product_model.dart';
 
-class ProductsFactory {
+class ProductsMapper {
   late final IProductsDatabase _database;
 
-  ProductsFactory({IProductsDatabase? dataSource}) {
-    if (dataSource != null) {
-      _database = dataSource;
-    } else {
-      _database = ProductsDatabase();
-    }
+  ProductsMapper(IProductsDatabase productsDatabase) {
+    _database = productsDatabase;
   }
 
   Future<List<IProduct>> getProducts(
@@ -39,8 +38,28 @@ class ProductsFactory {
   }
 
   IProduct _mapResultSetToProduct(QueryResult queryResult) {
-    IProduct product = Product(productMap: queryResult);
+    String name = queryResult['Name'] as String;
+    String imageUrl = queryResult['Image_URL'] as String;
+    String description = queryResult['Description'] as String;
+
+    String rawSize = queryResult['Size'] as String;
+    String rawPrice = queryResult['Price'] as String;
+
+    List<String> sizes = rawSize.split(",");
+    List<double> price = _rawStringToList(rawPrice);
+
+    IProduct product = Product(name, description, imageUrl, price, sizes);
+
     return product;
+  }
+
+  List<double> _rawStringToList(String raw) {
+    List<double> result = [];
+    List<String> rawList = raw.split(",");
+    for (String item in rawList) {
+      result.add(double.parse(item));
+    }
+    return result;
   }
 
   String _mapResultSetToCategory(QueryResult queryResult) {

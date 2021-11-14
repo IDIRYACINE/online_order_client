@@ -7,13 +7,14 @@ import 'package:online_order_client/Utility/Orders/iorder_service.dart';
 import 'package:online_order_client/Utility/Orders/iorder_subscriber.dart';
 
 class OrderService implements IOrderService {
-  static final OrderService _instance = OrderService._();
+  static late final OrderService? _instance;
   late final StreamSubscription _ordersStatusSubscription;
   final Map<String, IOrderSubscriber> _ordersStatusSubscribers = {};
   bool _isSubscribedToServer = false;
 
   factory OrderService() {
-    return _instance;
+    _instance ??= OrderService._();
+    return _instance!;
   }
   OrderService._();
 

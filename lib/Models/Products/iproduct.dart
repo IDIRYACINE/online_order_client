@@ -3,7 +3,7 @@ typedef ProductsMap = Map<String, List<IProduct>>;
 abstract class IProduct {
   String getName();
   String getDescription();
-  double getPrice();
+  double getPrice(int size);
   String getImageUrl();
-  String getExtras();
+  List<String> getSizes();
 }
