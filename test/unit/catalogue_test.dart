@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:online_order_client/Models/Products/iproduct.dart';
+import 'package:online_order_client/Models/Products/product_model.dart';
 import 'package:online_order_client/Utility/Database/products_mapper.dart';
 import 'package:online_order_client/Utility/Database/idatabase.dart';
 import 'catalogue_test.mocks.dart';
@@ -38,7 +38,7 @@ void main() {
                 'Size': 'big'
               },
             ]));
-    List<IProduct> resultProducts = await _productsManager.getProducts(
+    List<Product> resultProducts = await _productsManager.getProducts(
         productCategory: 'pizza', productsCount: 2);
     expect(resultProducts[0].getName(), "4season");
   });

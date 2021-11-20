@@ -1,5 +1,6 @@
 import 'package:online_order_client/Models/Catalogue/catalogue_model.dart';
-import 'package:online_order_client/Models/Products/iproduct.dart';
+import 'package:online_order_client/Models/Products/category_model.dart';
+import 'package:online_order_client/Models/Products/product_model.dart';
 
 class Catalogue {
   final CatalogueModel _catalogueModel = CatalogueModel();
@@ -8,12 +9,12 @@ class Catalogue {
     await _catalogueModel.loadCategoriesInitProducts();
   }
 
-  IProduct getProduct(int categoryId, int productId) {
+  Product getProduct(int categoryId, int productId) {
     return _catalogueModel.getProduct(
         categoryId: categoryId, productId: productId);
   }
 
-  String getCategoryName(int categoryId) {
+  Category getCategory(int categoryId) {
     return _catalogueModel.getCategoryName(categoryId: categoryId);
   }
 

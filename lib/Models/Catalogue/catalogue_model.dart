@@ -1,4 +1,5 @@
-import 'package:online_order_client/Models/Products/iproduct.dart';
+import 'package:online_order_client/Models/Products/category_model.dart';
+import 'package:online_order_client/Models/Products/product_model.dart';
 import 'package:online_order_client/Utility/Database/products_mapper.dart';
 import 'package:online_order_client/Utility/service_factory.dart';
 
@@ -6,8 +7,8 @@ class CatalogueModel {
   static final CatalogueModel _catalogueModel = CatalogueModel._();
   final ProductsMapper _productsManager = ServiceFactory().productsMapper;
   final int _categoryMaxProductDisplay = 5;
-  late List<String> _categories;
-  final ProductsMap _products = {};
+  late CategoryMap _categories;
+  late ProductMap _products;
 
   factory CatalogueModel() {
     return _catalogueModel;
@@ -17,22 +18,23 @@ class CatalogueModel {
 
   Future<void> loadCategoriesInitProducts() async {
     _categories = await _productsManager.getCategories();
-    String categoryName;
-    for (int i = 0; i < _categories.length; i++) {
-      categoryName = _categories[i];
-      _products[categoryName] = await _productsManager.getProducts(
-          productCategory: categoryName,
+    List<Product> _tempProducts;
+
+    for (Category category in _categories) {
+      _tempProducts = await _productsManager.getProducts(
+          productCategory: category.getName(),
           productsCount: _categoryMaxProductDisplay);
+      _products[category.getName()] = _tempProducts;
     }
   }
 
-  IProduct getProduct({required int categoryId, required int productId}) {
-    String categoryName = _categories[categoryId];
+  Product getProduct({required int categoryId, required int productId}) {
+    String categoryName = _categories[categoryId].getName();
 
     return _products[categoryName]![productId];
   }
 
-  String getCategoryName({required int categoryId}) {
+  Category getCategoryName({required int categoryId}) {
     return _categories[categoryId];
   }
 

@@ -3,14 +3,13 @@ import 'package:online_order_client/Models/Cart/cart_item.dart';
 import 'package:online_order_client/Models/Cart/cart.dart';
 import 'package:online_order_client/Models/Cart/icart.dart';
 import 'package:online_order_client/Models/Cart/icart_item.dart';
-import 'package:online_order_client/Models/Products/iproduct.dart';
 import 'package:online_order_client/Models/Products/product_model.dart';
 
 void main() {
   final ICart cartMock = Cart();
   late ICartItem cartItem;
   setUp(() {
-    IProduct product =
+    Product product =
         Product('IDIR', 'Nothing', 'test.com', [21, 32], ["mid,large"]);
     cartItem = CartItem(id: '0', product: product, quantity: 1);
 

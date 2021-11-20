@@ -1,10 +1,5 @@
-import 'dart:ffi';
-
+import 'package:online_order_client/Models/Products/category_model.dart';
 import 'package:online_order_client/Utility/Database/idatabase.dart';
-import 'package:online_order_client/Utility/Database/products_database.dart';
-import 'package:online_order_client/Utility/service_factory.dart';
-
-import '../../Models/Products/iproduct.dart';
 import '../../Models/Products/product_model.dart';
 
 class ProductsMapper {
@@ -14,9 +9,9 @@ class ProductsMapper {
     _database = productsDatabase;
   }
 
-  Future<List<IProduct>> getProducts(
+  Future<List<Product>> getProducts(
       {required String productCategory, required int productsCount}) async {
-    List<IProduct> products = [];
+    List<Product> products = [];
 
     ResultSet productsResultSet = await _database.loadProducts(
         category: productCategory, count: productsCount);
@@ -27,28 +22,31 @@ class ProductsMapper {
     return products;
   }
 
-  Future<List<String>> getCategories() async {
-    List<String> categories = [];
+  Future<CategoryMap> getCategories() async {
+    CategoryMap categories = [];
+    Category tempCategory;
     ResultSet categoriesResultSet = await _database.loadCategories();
     for (int i = 0; i < categoriesResultSet.length; i++) {
-      categories.add(_mapResultSetToCategory(categoriesResultSet[i]));
+      tempCategory = _mapResultSetToCategory(categoriesResultSet[i]);
+      categories.add(tempCategory);
     }
 
     return categories;
   }
 
-  IProduct _mapResultSetToProduct(QueryResult queryResult) {
-    String name = queryResult['Name'] as String;
-    String imageUrl = queryResult['Image_URL'] as String;
-    String description = queryResult['Description'] as String;
-
+  Product _mapResultSetToProduct(QueryResult queryResult) {
     String rawSize = queryResult['Size'] as String;
     String rawPrice = queryResult['Price'] as String;
 
     List<String> sizes = rawSize.split(",");
     List<double> price = _rawStringToList(rawPrice);
 
-    IProduct product = Product(name, description, imageUrl, price, sizes);
+    Product product = Product(
+        queryResult['Name'] as String,
+        queryResult['Description'] as String,
+        queryResult['Image_URL'] as String,
+        price,
+        sizes);
 
     return product;
   }
@@ -62,7 +60,8 @@ class ProductsMapper {
     return result;
   }
 
-  String _mapResultSetToCategory(QueryResult queryResult) {
-    return queryResult['Name'] as String;
+  Category _mapResultSetToCategory(QueryResult queryResult) {
+    return Category(
+        queryResult['Name'] as String, queryResult['Image_URL'] as String);
   }
 }

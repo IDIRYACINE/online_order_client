@@ -4,7 +4,6 @@ import 'package:online_order_client/Models/Cart/cart.dart';
 import 'package:online_order_client/Models/Cart/icart.dart';
 import 'package:online_order_client/Models/Cart/icart_item.dart';
 import 'package:online_order_client/Models/Orders/iorder.dart';
-import 'package:online_order_client/Models/Products/iproduct.dart';
 import 'package:online_order_client/Models/Products/product_model.dart';
 import 'package:online_order_client/Models/GpsLocation/address.dart';
 import 'package:online_order_client/Models/Profile/iprofile.dart';
@@ -22,7 +21,7 @@ Future<void> setUpProfile(IProfile profileMock) async {
 }
 
 Future<void> setUpOrderTest(ICart cart) async {
-  IProduct product = Product("pizza", "none", "test.com", [32.0], ["normal"]);
+  Product product = Product("pizza", "none", "test.com", [32.0], ["normal"]);
   ICartItem cartItem = CartItem(id: '0', product: product, quantity: 1);
   cartItem.setSize(0);
   cart.addProduct(product: cartItem);

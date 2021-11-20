@@ -1,15 +1,15 @@
 import 'package:online_order_client/Models/Cart/icart_item.dart';
-import 'package:online_order_client/Models/Products/iproduct.dart';
+import 'package:online_order_client/Models/Products/product_model.dart';
 
 class CartItem implements ICartItem {
   late String _id;
-  late IProduct _product;
+  late Product _product;
   late int _quantity;
   late double _price;
   late String _size;
   late List<String> _sizes;
   CartItem(
-      {required String id, required IProduct product, required int quantity}) {
+      {required String id, required Product product, required int quantity}) {
     _id = id;
     _product = product;
     _quantity = quantity;
