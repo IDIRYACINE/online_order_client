@@ -1,13 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:online_order_client/Models/Cart/cart_item.dart';
-import 'package:online_order_client/Models/Cart/cart.dart';
-import 'package:online_order_client/Models/Cart/icart.dart';
-import 'package:online_order_client/Models/Cart/icart_item.dart';
-import 'package:online_order_client/Models/Orders/iorder.dart';
-import 'package:online_order_client/Models/Products/product_model.dart';
-import 'package:online_order_client/Models/GpsLocation/address.dart';
-import 'package:online_order_client/Models/Profile/iprofile.dart';
-import 'package:online_order_client/Models/Profile/profile_model.dart';
+import 'package:online_order_client/Domain/Cart/cart_item.dart';
+import 'package:online_order_client/Domain/Cart/cart.dart';
+import 'package:online_order_client/Domain/Cart/icart.dart';
+import 'package:online_order_client/Domain/Cart/icart_item.dart';
+import 'package:online_order_client/Domain/Orders/iorder.dart';
+import 'package:online_order_client/Domain/Catalogue/product_model.dart';
+import 'package:online_order_client/Domain/GpsLocation/address.dart';
+import 'package:online_order_client/Domain/Profile/iprofile.dart';
+import 'package:online_order_client/Domain/Profile/profile_model.dart';
 
 Future<void> setUpProfile(IProfile profileMock) async {
   Address addressModel = Address();
@@ -17,6 +17,7 @@ Future<void> setUpProfile(IProfile profileMock) async {
   profileMock.setEmail(email: 'idir@gmail');
   profileMock.setFullName(fullName: 'idir yacine');
   profileMock.setPhoneNumber(number: '0621xxxxx');
+  profileMock.setUserId(id: "idir");
   profileMock.saveProfile();
 }
 
@@ -32,13 +33,14 @@ void main() {
     IProfile profileMock = ProfileModel();
 
     String expectedJson =
-        '{"profile":{"fullName":"idir yacine","phoneNumber":"0621xxxxx","email":"idir@gmail"},"address":{"latitude":32.0,"longitude":64.0,"extras":"bloc C"}}';
+        '{"profile":{"id":"idir","fullName":"idir yacine","phoneNumber":"0621xxxxx","email":"idir@gmail"},"address":{"latitude":32.0,"longitude":64.0,"extras":"bloc C"}}';
 
     setUpAll(() async {
       setUpProfile(profileMock);
     });
 
     test('should correctly Load profile Json', () {
+      profileMock.saveProfile();
       profileMock.loadProfile();
       expect(profileMock.getProfileJson(), expectedJson);
     });

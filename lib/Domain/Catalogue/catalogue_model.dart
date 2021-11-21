@@ -1,7 +1,7 @@
-import 'package:online_order_client/Models/Products/category_model.dart';
-import 'package:online_order_client/Models/Products/product_model.dart';
-import 'package:online_order_client/Utility/Database/products_mapper.dart';
-import 'package:online_order_client/Utility/service_factory.dart';
+import 'package:online_order_client/Domain/Catalogue/category_model.dart';
+import 'package:online_order_client/Domain/Catalogue/product_model.dart';
+import 'package:online_order_client/Infrastructure/Database/products_mapper.dart';
+import 'package:online_order_client/Infrastructure/service_factory.dart';
 
 class CatalogueModel {
   static final CatalogueModel _catalogueModel = CatalogueModel._();

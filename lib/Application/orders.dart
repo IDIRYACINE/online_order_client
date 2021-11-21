@@ -1,18 +1,19 @@
 import 'package:flutter/foundation.dart';
-import 'package:online_order_client/Models/Orders/iorder.dart';
-import 'package:online_order_client/Models/Orders/order.dart';
-import 'package:online_order_client/Utility/Orders/iorder_service.dart';
-import 'package:online_order_client/Utility/Orders/iorder_subscriber.dart';
-import 'package:online_order_client/Utility/Orders/order_service.dart';
+import 'package:online_order_client/Domain/Orders/iorder.dart';
+import 'package:online_order_client/Domain/Orders/order.dart';
+import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
+import 'package:online_order_client/Infrastructure/Orders/iorder_subscriber.dart';
+import 'package:online_order_client/Infrastructure/service_factory.dart';
 
 class OrdersModel implements IOrderSubscriber {
   final String _id = "OrderScreen";
   late VoidCallback _callback;
   late IOrder _order;
+  late IOrderService _orderService;
 
   OrdersModel() {
     _order = Order(_id);
-    IOrderService _orderService = OrderService();
+    _orderService = ServiceFactory().orderService;
     _orderService.sendOrderToShop(_order);
     _orderService.subscribeToOrdersStatus(this);
   }
@@ -22,7 +23,6 @@ class OrdersModel implements IOrderSubscriber {
   }
 
   void unsubscribeFromOrderStatusChange() {
-    IOrderService _orderService = OrderService();
     _orderService.unsubscribeFromOrdersStatus(_id);
   }
 

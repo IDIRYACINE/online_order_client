@@ -1,4 +1,4 @@
-import 'package:online_order_client/Models/Cart/icart_item.dart';
+import 'package:online_order_client/Domain/Cart/icart_item.dart';
 
 abstract class IOrder {
   String getId();

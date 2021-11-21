@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
-import 'package:online_order_client/Utility/service_factory.dart';
+import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
+import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
+import 'package:online_order_client/Infrastructure/service_factory.dart';
 import 'package:online_order_client/test.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
     await Firebase.initializeApp();
     ServiceFactory _factory = ServiceFactory();
     await _factory.initialiaze();
+    await CatalogueModel().loadCategoriesInitProducts();
     return true;
   }
 
@@ -28,7 +31,7 @@ class MyApp extends StatelessWidget {
       future: _initApp(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          return TestWidget();
+          return const CatalogueScreen();
         }
         if (snapshot.hasError) {
           print(snapshot.stackTrace);

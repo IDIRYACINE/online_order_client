@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:online_order_client/Models/Cart/cart_item.dart';
-import 'package:online_order_client/Models/Cart/cart.dart';
-import 'package:online_order_client/Models/Cart/icart.dart';
-import 'package:online_order_client/Models/Cart/icart_item.dart';
-import 'package:online_order_client/Models/Products/product_model.dart';
+import 'package:online_order_client/Domain/Cart/cart_item.dart';
+import 'package:online_order_client/Domain/Cart/cart.dart';
+import 'package:online_order_client/Domain/Cart/icart.dart';
+import 'package:online_order_client/Domain/Cart/icart_item.dart';
+import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 
 void main() {
   final ICart cartMock = Cart();

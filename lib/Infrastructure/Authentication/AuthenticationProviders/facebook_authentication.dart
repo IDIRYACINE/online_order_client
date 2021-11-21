@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:online_order_client/Utility/Authentication/iauthentication_service.dart';
+import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:online_order_client/Utility/service_factory.dart';
+import 'package:online_order_client/Infrastructure/service_factory.dart';
 
 class FacebookAuthentication {
   final IAuthenticationService _service =

@@ -6,7 +6,7 @@ import 'iprofile.dart';
 
 class ProfileModel implements IProfile {
   static final ProfileModel _profileModel = ProfileModel._();
-  late String _email, _fullName, _phoneNumber;
+  late String _email, _fullName, _phoneNumber, _id;
   late Address _address;
   String _json = '';
 
@@ -58,13 +58,19 @@ class ProfileModel implements IProfile {
     _address = address;
   }
 
+  @override
+  String getUserId() {
+    return _id;
+  }
+
+  @override
+  void setUserId({required String id}) {
+    _id = id;
+  }
+
   String _encodeToJson() {
     Map<String, dynamic> addressJson = _address.toMap();
-    Map<String, dynamic> profileJson = {
-      'fullName': _fullName,
-      'phoneNumber': _phoneNumber,
-      'email': _email,
-    };
+    Map<String, dynamic> profileJson = toMap();
 
     _json = jsonEncode({"profile": profileJson, "address": addressJson});
     return _json;
@@ -101,6 +107,7 @@ class ProfileModel implements IProfile {
     _email = '';
     _fullName = '';
     _phoneNumber = '';
+    _id = '';
     _address = Address();
   }
 
@@ -108,6 +115,7 @@ class ProfileModel implements IProfile {
     _email = dataSource['email']!;
     _phoneNumber = dataSource['phoneNumber']!;
     _fullName = dataSource['fullName']!;
+    _id = dataSource['id']!;
     _address = Address();
   }
 
@@ -125,7 +133,12 @@ class ProfileModel implements IProfile {
   }
 
   @override
-  Map<String, dynamic> asMap() {
-    return {"idir": "good"};
+  Map<String, dynamic> toMap() {
+    return {
+      'id': _id,
+      'fullName': _fullName,
+      'phoneNumber': _phoneNumber,
+      'email': _email,
+    };
   }
 }

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:online_order_client/Models/GpsLocation/address.dart';
-import 'package:online_order_client/Models/Profile/iprofile.dart';
+import 'package:online_order_client/Domain/GpsLocation/address.dart';
+import 'package:online_order_client/Domain/Profile/iprofile.dart';
 
 abstract class IAuthenticationService {
   Future<void> signUpWithEmailAndPassword(

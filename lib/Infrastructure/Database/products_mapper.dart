@@ -1,6 +1,6 @@
-import 'package:online_order_client/Models/Products/category_model.dart';
-import 'package:online_order_client/Utility/Database/idatabase.dart';
-import '../../Models/Products/product_model.dart';
+import 'package:online_order_client/Domain/Catalogue/category_model.dart';
+import 'package:online_order_client/Domain/Catalogue/product_model.dart';
+import 'package:online_order_client/Infrastructure/Database/idatabase.dart';
 
 class ProductsMapper {
   late final IProductsDatabase _database;

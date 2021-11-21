@@ -1,5 +1,5 @@
-import 'package:online_order_client/Models/Cart/icart_item.dart';
-import 'package:online_order_client/Models/Products/product_model.dart';
+import 'package:online_order_client/Domain/Cart/icart_item.dart';
+import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 
 class CartItem implements ICartItem {
   late String _id;

@@ -2,26 +2,13 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:online_order_client/Utility/Server/ionline_data_service.dart';
+import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 
 class FireBaseServices implements IOnlineServerAcess {
-  late DatabaseReference _firebaseDatabase;
-  late FirebaseStorage _firebaseStorage;
+  DatabaseReference _firebaseDatabase;
+  FirebaseStorage _firebaseStorage;
 
-  void initialize(
-      FirebaseStorage firebaseStorage, DatabaseReference? rootDatabase) {
-    if (rootDatabase == null) {
-      String url =
-          "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app";
-      _firebaseDatabase =
-          FirebaseDatabase(app: Firebase.app(), databaseURL: url).reference();
-    } else {
-      _firebaseDatabase = rootDatabase;
-    }
-    _firebaseStorage = firebaseStorage;
-  }
-
+  FireBaseServices(this._firebaseStorage, this._firebaseDatabase);
   @override
   Future<dynamic> fetchData({required String dataUrl}) async {
     dynamic data;

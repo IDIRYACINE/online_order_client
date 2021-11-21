@@ -1,23 +1,21 @@
 import 'dart:async';
 
-import 'package:online_order_client/Models/Orders/iorder.dart';
-import 'package:online_order_client/Utility/Server/firebase_service.dart';
-import 'package:online_order_client/Utility/Server/ionline_data_service.dart';
-import 'package:online_order_client/Utility/Orders/iorder_service.dart';
-import 'package:online_order_client/Utility/Orders/iorder_subscriber.dart';
+import 'package:online_order_client/Domain/Orders/iorder.dart';
+import 'package:online_order_client/Domain/Profile/iprofile.dart';
+import 'package:online_order_client/Domain/Profile/profile_model.dart';
+import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
+import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
+import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
+import 'package:online_order_client/Infrastructure/Orders/iorder_subscriber.dart';
 
 class OrderService implements IOrderService {
-  static late final OrderService? _instance;
   late final StreamSubscription _ordersStatusSubscription;
   final Map<String, IOrderSubscriber> _ordersStatusSubscribers = {};
   bool _isSubscribedToServer = false;
+  final IOnlineServerAcess _serverAcess;
+  final IAuthenticationService _authenticationService;
 
-  factory OrderService() {
-    _instance ??= OrderService._();
-    return _instance!;
-  }
-  OrderService._();
-
+  OrderService(this._serverAcess, this._authenticationService);
   @override
   void subscribeToOrdersStatus(IOrderSubscriber subscriber) {
     String subscriberId = subscriber.getId();
@@ -31,20 +29,21 @@ class OrderService implements IOrderService {
 
   @override
   void sendOrderToShop(IOrder order) {
-    IOnlineServerAcess serverAcess = FireBaseServices();
+    IProfile profile = ProfileModel();
     Map<String, dynamic> _orderMap = order.toMap();
-    serverAcess.postData(dataUrl: "OrdersStatus/idir", data: _orderMap);
+    _serverAcess.postData(
+        dataUrl: "OrdersStatus/${profile.getUserId()}", data: _orderMap);
     _orderMap = order.formatOnlineOrder();
-    serverAcess.postData(dataUrl: 'Orders', data: _orderMap);
+    _serverAcess.postData(dataUrl: 'Orders', data: _orderMap);
     listenToOrderStatusOnServer();
   }
 
   @override
   void listenToOrderStatusOnServer() {
-    IOnlineServerAcess serverAcess = FireBaseServices();
     if (!_isSubscribedToServer) {
-      _ordersStatusSubscription = serverAcess
-          .getDataStream(dataUrl: "OrdersStatus/idir/status")
+      IProfile profile = ProfileModel();
+      _ordersStatusSubscription = _serverAcess
+          .getDataStream(dataUrl: "OrdersStatus/${profile.getUserId()}/status")
           .listen((event) {
         String? status = event.snapshot.value;
         if (status != null) {

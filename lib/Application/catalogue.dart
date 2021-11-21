@@ -1,6 +1,6 @@
-import 'package:online_order_client/Models/Catalogue/catalogue_model.dart';
-import 'package:online_order_client/Models/Products/category_model.dart';
-import 'package:online_order_client/Models/Products/product_model.dart';
+import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
+import 'package:online_order_client/Domain/Catalogue/category_model.dart';
+import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 
 class Catalogue {
   final CatalogueModel _catalogueModel = CatalogueModel();

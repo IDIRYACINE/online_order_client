@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:online_order_client/Models/GpsLocation/address.dart';
-import 'package:online_order_client/Utility/Authentication/authentification_exceptions.dart';
-import 'package:online_order_client/Utility/Authentication/iauthentication_service.dart';
+import 'package:online_order_client/Domain/GpsLocation/address.dart';
+import 'package:online_order_client/Infrastructure/Authentication/authentification_exceptions.dart';
+import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthenticationService implements IAuthenticationService {
