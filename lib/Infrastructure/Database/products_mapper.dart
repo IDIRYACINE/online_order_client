@@ -16,7 +16,7 @@ class ProductsMapper {
     List<Product> products = [];
 
     ResultSet productsResultSet = await _database.loadProducts(
-        category: categoryId, count: productsCount);
+        category: categoryId, startIndex: startIndex, count: productsCount);
 
     for (int i = 0; i < productsResultSet.length; i++) {
       products.add(_mapResultSetToProduct(productsResultSet[i]));
@@ -46,7 +46,7 @@ class ProductsMapper {
     Product product = Product(
         queryResult['Name'] as String,
         queryResult['Description'] as String,
-        queryResult['Image_URL'] as String,
+        queryResult['ImageURL'] as String,
         price,
         sizes);
 

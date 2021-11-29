@@ -37,10 +37,13 @@ class MockIProductsDatabase extends _i1.Mock implements _i2.IProductsDatabase {
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
   _i3.Future<List<Map<String, Object?>>> loadProducts(
-          {String? category, int? count}) =>
+          {String? category, int? startIndex, int? count}) =>
       (super.noSuchMethod(
-              Invocation.method(
-                  #loadProducts, [], {#category: category, #count: count}),
+              Invocation.method(#loadProducts, [], {
+                #category: category,
+                #startIndex: startIndex,
+                #count: count
+              }),
               returnValue: Future<List<Map<String, Object?>>>.value(
                   <Map<String, Object?>>[]))
           as _i3.Future<List<Map<String, Object?>>>);
@@ -51,6 +54,5 @@ class MockIProductsDatabase extends _i1.Mock implements _i2.IProductsDatabase {
                   <Map<String, Object?>>[]))
           as _i3.Future<List<Map<String, Object?>>>);
   @override
-  // ignore: unnecessary_overrides
   String toString() => super.toString();
 }

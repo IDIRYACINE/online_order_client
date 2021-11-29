@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:online_order_client/Infrastructure/Database/idatabase.dart';
-import 'package:online_order_client/Infrastructure/Server/firebase_service.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 
 import 'package:sqflite/sqflite.dart';
@@ -26,7 +25,6 @@ class ProductsDatabase implements IProductsDatabase {
     }
 
     await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
-
     if (await _checkForNewVersion(databaseVersion)) {
       disconnect();
       _serverAccess.downloadFile(
@@ -43,14 +41,19 @@ class ProductsDatabase implements IProductsDatabase {
 
   @override
   Future<ResultSet> loadCategories() async {
-    return await _productsDatabase.query('Categories', columns: ['name']);
+    return await _productsDatabase.query('Categories',
+        columns: ['Name', 'ImageUrl', 'ProductsCount', 'Id']);
   }
 
   @override
   Future<ResultSet> loadProducts(
-      {required String category, required int count}) async {
+      {required String category,
+      required int startIndex,
+      required int count}) async {
     return await _productsDatabase.query(category,
-        columns: ['name', 'description', 'price', 'image_url'], limit: count);
+        columns: ['Name', 'Description', 'Price', 'ImageUrl', 'Size'],
+        limit: count,
+        where: "Id >= $startIndex");
   }
 
   Future<File> _getLocalDatabaseFile() async {

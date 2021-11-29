@@ -28,8 +28,9 @@ class ServicesProvider {
   late final IOrderService _orderService;
   late final IProductsDatabase _productsDatabase;
   late final ProductsMapper _productsMapper;
+
   Future<void> initialiaze() async {
-    await _useTestMode();
+    //await _useTestMode();
     await _initServices();
   }
 
@@ -39,16 +40,20 @@ class ServicesProvider {
         FirebaseAuth.instance, FirebaseFirestore.instance);
     _orderService = OrderService(_serverAcess, _authenticationService);
     _productsDatabase = ProductsDatabase(_serverAcess);
+    await _productsDatabase.connect();
     _productsMapper = ProductsMapper(_productsDatabase);
   }
 
   Future<void> _initServerAcess() async {
+    // http://192.168.1.6:9000/?ns=online-order-client";
     //"https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app";
     const String databaseUrl =
-        "http://192.168.1.6:9000/?ns=online-order-client";
+        "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app";
+
     DatabaseReference _databaseReference =
         FirebaseDatabase(app: Firebase.app(), databaseURL: databaseUrl)
             .reference();
+
     _serverAcess =
         FireBaseServices(FirebaseStorage.instance, _databaseReference);
   }

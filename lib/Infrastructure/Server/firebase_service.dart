@@ -5,10 +5,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 
 class FireBaseServices implements IOnlineServerAcess {
-  DatabaseReference _firebaseDatabase;
-  FirebaseStorage _firebaseStorage;
+  final DatabaseReference _firebaseDatabase;
+  final FirebaseStorage _firebaseStorage;
 
   FireBaseServices(this._firebaseStorage, this._firebaseDatabase);
+
   @override
   Future<dynamic> fetchData({required String dataUrl}) async {
     dynamic data;
@@ -17,7 +18,9 @@ class FireBaseServices implements IOnlineServerAcess {
           .child(dataUrl)
           .get()
           .then((value) => value.value);
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     return data;
   }
 

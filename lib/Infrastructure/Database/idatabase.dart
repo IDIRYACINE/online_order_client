@@ -5,6 +5,6 @@ abstract class IProductsDatabase {
   Future<void> connect();
   Future<void> disconnect();
   Future<ResultSet> loadProducts(
-      {required String category, required int count});
+      {required String category, required int startIndex, required int count});
   Future<ResultSet> loadCategories();
 }
