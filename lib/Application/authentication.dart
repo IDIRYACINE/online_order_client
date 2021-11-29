@@ -1,10 +1,10 @@
 import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
-import 'package:online_order_client/Infrastructure/service_factory.dart';
+import 'package:online_order_client/Infrastructure/service_provider.dart';
 
 class Authentication {
   final IAuthenticationService _authService =
-      ServiceFactory().authenticationService;
+      ServicesProvider().authenticationService;
   final FacebookAuthentication _fbAuthentication = FacebookAuthentication();
 
   Authentication();

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
 import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
 import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
-import 'package:online_order_client/Infrastructure/service_factory.dart';
+import 'package:online_order_client/Infrastructure/service_provider.dart';
 import 'package:online_order_client/test.dart';
 import 'package:provider/provider.dart';
 
@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
 
   Future<bool> _initApp() async {
     await Firebase.initializeApp();
-    ServiceFactory _factory = ServiceFactory();
+    ServicesProvider _factory = ServicesProvider();
     await _factory.initialiaze();
-    await CatalogueModel().loadCategoriesInitProducts();
+    await CatalogueModel().initCategories();
     return true;
   }
 

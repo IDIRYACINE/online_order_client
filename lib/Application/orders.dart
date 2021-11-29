@@ -3,7 +3,7 @@ import 'package:online_order_client/Domain/Orders/iorder.dart';
 import 'package:online_order_client/Domain/Orders/order.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_subscriber.dart';
-import 'package:online_order_client/Infrastructure/service_factory.dart';
+import 'package:online_order_client/Infrastructure/service_provider.dart';
 
 class OrdersModel implements IOrderSubscriber {
   final String _id = "OrderScreen";
@@ -13,7 +13,7 @@ class OrdersModel implements IOrderSubscriber {
 
   OrdersModel() {
     _order = Order(_id);
-    _orderService = ServiceFactory().orderService;
+    _orderService = ServicesProvider().orderService;
     _orderService.sendOrderToShop(_order);
     _orderService.subscribeToOrdersStatus(this);
   }

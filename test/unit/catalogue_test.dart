@@ -39,7 +39,7 @@ void main() {
               },
             ]));
     List<Product> resultProducts = await _productsManager.getProducts(
-        productCategory: 'pizza', productsCount: 2);
+        categoryId: 'pizza', startIndex: 0, productsCount: 2);
     expect(resultProducts[0].getName(), "4season");
   });
 }

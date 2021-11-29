@@ -13,13 +13,13 @@ import 'package:online_order_client/Infrastructure/Orders/order_service.dart';
 import 'package:online_order_client/Infrastructure/Server/firebase_service.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 
-class ServiceFactory {
-  static final ServiceFactory _instance = ServiceFactory._();
+class ServicesProvider {
+  static final ServicesProvider _instance = ServicesProvider._();
   static const String localHost = "192.168.1.6";
 
-  ServiceFactory._();
+  ServicesProvider._();
 
-  factory ServiceFactory() {
+  factory ServicesProvider() {
     return _instance;
   }
 

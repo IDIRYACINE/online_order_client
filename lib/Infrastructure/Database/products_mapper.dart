@@ -10,11 +10,13 @@ class ProductsMapper {
   }
 
   Future<List<Product>> getProducts(
-      {required String productCategory, required int productsCount}) async {
+      {required String categoryId,
+      required int startIndex,
+      required int productsCount}) async {
     List<Product> products = [];
 
     ResultSet productsResultSet = await _database.loadProducts(
-        category: productCategory, count: productsCount);
+        category: categoryId, count: productsCount);
 
     for (int i = 0; i < productsResultSet.length; i++) {
       products.add(_mapResultSetToProduct(productsResultSet[i]));
@@ -62,6 +64,9 @@ class ProductsMapper {
 
   Category _mapResultSetToCategory(QueryResult queryResult) {
     return Category(
-        queryResult['Name'] as String, queryResult['Image_URL'] as String);
+        id: queryResult['Id'] as String,
+        name: queryResult['Name'] as String,
+        imageUrl: queryResult['Image_URL'] as String,
+        productsCount: queryResult['ProductsCount'] as int);
   }
 }
