@@ -97,7 +97,14 @@ flutter:
       fonts:
         - asset: fonts/DancingScript-Bold.ttf
           weight: 700
-    
+    - family: Lobster
+      fonts:
+        - asset: fonts/Lobster-Regular.ttf
+          weight: 400
+    - family: Pacifico
+      fonts:
+        - asset: fonts/Pacifico-Regular.ttf
+          weight: 400
   
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

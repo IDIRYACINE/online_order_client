@@ -2,9 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
 import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
-import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
+import 'package:online_order_client/HomeScreen.dart';
+//import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
-import 'package:online_order_client/test.dart';
+//import 'package:online_order_client/test.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       future: _initApp(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          return const CatalogueScreen();
+          return  HomeScreen();
         }
         if (snapshot.hasError) {
           print(snapshot.stackTrace);
