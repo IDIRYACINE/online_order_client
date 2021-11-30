@@ -1,6 +1,10 @@
 import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:online_order_client/Ui/Catalogue/ProductScreen.dart';
+
 class DefaultButton extends StatefulWidget {
   late final Color _color;
   late final double _width;
@@ -64,38 +68,15 @@ class _CategoryLIstViewState extends State<CategoryLIstView> {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.max, children: [
-      Padding(
-        padding: const EdgeInsets.only(
-          left: 8,
-        ),
-        child: Container(
-          alignment: Alignment.centerLeft,
-          width: double.infinity,
-          decoration: BoxDecoration(),
-          child: Row(children: [
-            Text(
-              "PIZZAs",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: "Lobster",
-              ),
-            ),
-            SizedBox(
-              width: 2,
-            ),
-            line()
-          ]),
-        ),
-      ),
+      ElemTitle(context, "Pizza", 30, 3.0),
       Container(
-        decoration: BoxDecoration(),
+        decoration: const BoxDecoration(),
         height: 170,
         width: double.infinity,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => productINFO(),
-          separatorBuilder: (context, index) => SizedBox(width: 5),
+          separatorBuilder: (context, index) => const SizedBox(width: 5),
           itemCount: 10,
         ),
       ),
@@ -114,7 +95,7 @@ class _productINFOState extends State<productINFO> {
     return Container(
       decoration: BoxDecoration(
         color: parseColor("#FFB5A7"),
-        borderRadius: BorderRadiusDirectional.only(
+        borderRadius: const BorderRadiusDirectional.only(
           topStart: Radius.circular(30),
           topEnd: Radius.circular(30),
         ),
@@ -123,7 +104,7 @@ class _productINFOState extends State<productINFO> {
         mainAxisSize: MainAxisSize.max,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(30),
               topRight: Radius.circular(30),
             ),
@@ -144,7 +125,10 @@ class _productINFOState extends State<productINFO> {
           CircleAvatar(
               child: IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryproductsScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CategoryproductsScreen()));
                 },
                 icon: Icon(
                   Icons.add_circle_rounded,
@@ -169,18 +153,19 @@ Color parseColor(String color) {
   return col;
 }
 
-Widget line() {
-  return Container(
-    height: 1.0,
-    width: 200,
-    color: Colors.black,
+Widget line(double lineHieght, BuildContext context) {
+  return Expanded(
+    child: Container(
+      height: lineHieght,
+      color: Colors.black,
+    ),
   );
 }
 
 Widget CartIcon(int count) {
   return Container(
     child: Stack(children: [
-      Icon(
+      const Icon(
         Icons.shopping_cart,
         size: 30,
       ),
@@ -192,7 +177,7 @@ Widget CartIcon(int count) {
             child: CircleAvatar(
               child: Text(
                 "$count",
-                style: TextStyle(color: Colors.blue, fontSize: 10),
+                style: const TextStyle(color: Colors.blue, fontSize: 10),
               ),
               radius: 7,
               backgroundColor: Colors.red,
@@ -200,4 +185,149 @@ Widget CartIcon(int count) {
       ),
     ]),
   );
+}
+
+Widget ElemTitle(BuildContext context, String title,
+    [double Size = 30, double lineHieght = 3.0]) {
+  return Padding(
+    padding: const EdgeInsets.only(
+      left: 8,
+    ),
+    child: Container(
+      alignment: Alignment.centerLeft,
+      width: double.infinity,
+      decoration: const BoxDecoration(),
+      child: Row(children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: Size,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Lobster",
+          ),
+        ),
+        const SizedBox(
+          width: 2,
+        ),
+        line(lineHieght, context),
+      ]),
+    ),
+  );
+}
+
+Widget ProductPicture() {
+  return Container(
+    child: ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(30)),
+      child: Image.network(
+        'https://download.vikidia.org/vikidia/fr/images/a/a4/Pizza.jpg',
+        fit: BoxFit.cover,
+        height: 100.0,
+        width: 100.0,
+      ),
+    ),
+  );
+}
+
+Widget PicturesLV() {
+  return Container(
+    decoration: const BoxDecoration(),
+    height: 120,
+    width: double.infinity,
+    child: ListView.separated(
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (context, index) => ProductPicture(),
+      separatorBuilder: (context, index) => const SizedBox(width: 5),
+      itemCount: 10,
+    ),
+  );
+}
+
+class ProductDescription extends StatefulWidget {
+  const ProductDescription({Key? key}) : super(key: key);
+
+  @override
+  _ProductDescriptionState createState() => _ProductDescriptionState();
+}
+
+class _ProductDescriptionState extends State<ProductDescription> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      child: Ingrediant(
+          "Olive , fromage , Tomato slides , Shampooning , viand , Tona , Creame Bichamel , la sos Algerian , hachihch"),
+    );
+  }
+}
+
+Widget Ingrediant(String Ingridiant) {
+  return Text(
+    Ingridiant,
+    textAlign: TextAlign.start,
+    maxLines: 3,
+    style: const TextStyle(
+      fontSize: 16,
+      fontFamily: "Pacifico",
+      overflow: TextOverflow.ellipsis,
+    ),
+    softWrap: true,
+  );
+}
+
+Widget PricesTabl() {
+  return Table(
+      border: TableBorder.all(
+          width: 2.7,
+          color: parseColor(
+              "#FEC89A")), // Allows to add a border decoration around your table
+      children: [
+        TableRow(
+            decoration: BoxDecoration(color: parseColor("#FFB5A7")),
+            children: const [
+              Text(
+                'Sizes',
+                style: TextStyle(fontSize: 35, fontFamily: "Lobster"),
+              ),
+              Text(
+                'Mini',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25, fontFamily: "Lobster"),
+              ),
+              Text(
+                'Larg',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25, fontFamily: "Lobster"),
+              ),
+              Text(
+                'Extra Larg',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20, fontFamily: "Lobster"),
+              ),
+            ]),
+        const TableRow(children: [
+          Text(
+            'Prices(DA)',
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: "Lobster",
+            ),
+          ),
+          Text(
+            "2500\$",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 25, fontFamily: "Pacifico"),
+          ),
+          Text(
+            "3000\$",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 25, fontFamily: "Pacifico"),
+          ),
+          Text(
+            "3500\$",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 25, fontFamily: "Pacifico"),
+          ),
+        ]),
+      ]);
 }
