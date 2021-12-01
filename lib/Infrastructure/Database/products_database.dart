@@ -16,8 +16,7 @@ class ProductsDatabase implements IProductsDatabase {
   @override
   Future<void> connect() async {
     File databaseFile = await _getLocalDatabaseFile();
-    int databaseVersion =
-        await _serverAccess.fetchData(dataUrl: 'databaseVersion');
+    int databaseVersion = await _serverAccess.fetchData(dataUrl: 'version');
 
     if (!await databaseFile.exists()) {
       _serverAccess.downloadFile(
@@ -53,7 +52,7 @@ class ProductsDatabase implements IProductsDatabase {
     return await _productsDatabase.query(category,
         columns: ['Name', 'Description', 'Price', 'ImageUrl', 'Size'],
         limit: count,
-        where: "Id >= $startIndex");
+        where: "Position >= $startIndex");
   }
 
   Future<File> _getLocalDatabaseFile() async {

@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
 import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
-import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
 import 'package:online_order_client/test.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +19,9 @@ class MyApp extends StatelessWidget {
 
   Future<bool> _initApp() async {
     await Firebase.initializeApp();
-    ServicesProvider _factory = ServicesProvider();
-    await _factory.initialiaze();
+    ServicesProvider factory = ServicesProvider();
+    await factory.initialiaze();
+    await factory.productDatabase.connect();
     await CatalogueModel().initCategories();
     return true;
   }
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
       future: _initApp(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          return const CatalogueScreen();
+          return TestWidget();
         }
         if (snapshot.hasError) {
           print(snapshot.stackTrace);

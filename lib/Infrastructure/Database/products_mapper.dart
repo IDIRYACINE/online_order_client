@@ -46,7 +46,7 @@ class ProductsMapper {
     Product product = Product(
         queryResult['Name'] as String,
         queryResult['Description'] as String,
-        queryResult['ImageURL'] as String,
+        queryResult['ImageUrl'] as String,
         price,
         sizes);
 
@@ -66,7 +66,7 @@ class ProductsMapper {
     return Category(
         id: queryResult['Id'] as String,
         name: queryResult['Name'] as String,
-        imageUrl: queryResult['Image_URL'] as String,
+        imageUrl: queryResult['ImageUrl'] as String,
         productsCount: queryResult['ProductsCount'] as int);
   }
 }

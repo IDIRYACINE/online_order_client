@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "424442380556",
+    "firebase_url": "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "online-order-client",
     "storage_bucket": "online-order-client.appspot.com"
   },

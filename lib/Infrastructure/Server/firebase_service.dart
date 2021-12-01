@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
+
+import 'ionline_data_service.dart';
 
 class FireBaseServices implements IOnlineServerAcess {
   final DatabaseReference _firebaseDatabase;
@@ -13,14 +14,11 @@ class FireBaseServices implements IOnlineServerAcess {
   @override
   Future<dynamic> fetchData({required String dataUrl}) async {
     dynamic data;
-    try {
-      data = await _firebaseDatabase
-          .child(dataUrl)
-          .get()
-          .then((value) => value.value);
-    } catch (e) {
-      print(e);
-    }
+    data = await _firebaseDatabase
+        .child(dataUrl)
+        .get()
+        .then((value) => value.value);
+
     return data;
   }
 
@@ -37,11 +35,7 @@ class FireBaseServices implements IOnlineServerAcess {
   @override
   Future<void> downloadFile(
       {required String fileUrl, required File out}) async {
-    try {
-      await _firebaseStorage.ref(fileUrl).writeToFile(out);
-    } on FirebaseException catch (e) {
-      print(e);
-    }
+    await _firebaseStorage.ref(fileUrl).writeToFile(out);
   }
 
   @override

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:online_order_client/Infrastructure/Authentication/authentication_service.dart';
@@ -15,8 +14,8 @@ import 'package:online_order_client/Infrastructure/Server/ionline_data_service.d
 
 class ServicesProvider {
   static final ServicesProvider _instance = ServicesProvider._();
-  static const String localHost = "192.168.1.6";
-
+  static const String localHost = "192.168.1.8";
+  bool _isInit = false;
   ServicesProvider._();
 
   factory ServicesProvider() {
@@ -30,8 +29,12 @@ class ServicesProvider {
   late final ProductsMapper _productsMapper;
 
   Future<void> initialiaze() async {
+    if (_isInit) {
+      return;
+    }
     //await _useTestMode();
     await _initServices();
+    _isInit = true;
   }
 
   Future<void> _initServices() async {
@@ -40,19 +43,16 @@ class ServicesProvider {
         FirebaseAuth.instance, FirebaseFirestore.instance);
     _orderService = OrderService(_serverAcess, _authenticationService);
     _productsDatabase = ProductsDatabase(_serverAcess);
-    await _productsDatabase.connect();
     _productsMapper = ProductsMapper(_productsDatabase);
   }
 
   Future<void> _initServerAcess() async {
     // http://192.168.1.6:9000/?ns=online-order-client";
-    //"https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app";
-    const String databaseUrl =
-        "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app";
-
-    DatabaseReference _databaseReference =
-        FirebaseDatabase(app: Firebase.app(), databaseURL: databaseUrl)
-            .reference();
+    //https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app/
+    DatabaseReference _databaseReference = FirebaseDatabase(
+            databaseURL:
+                "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app")
+        .reference();
 
     _serverAcess =
         FireBaseServices(FirebaseStorage.instance, _databaseReference);
@@ -65,7 +65,7 @@ class ServicesProvider {
   }
 
   IAuthenticationService get authenticationService => _authenticationService;
-  IOnlineServerAcess get serverAcessServce => _serverAcess;
+  IOnlineServerAcess get serverAcessService => _serverAcess;
   IOrderService get orderService => _orderService;
   IProductsDatabase get productDatabase => _productsDatabase;
   ProductsMapper get productsMapper => _productsMapper;
