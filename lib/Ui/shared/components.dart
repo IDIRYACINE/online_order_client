@@ -331,3 +331,58 @@ Widget PricesTabl() {
         ]),
       ]);
 }
+Widget CartItem(){
+return Container(
+  height : 120,
+  width: double.infinity,
+child: Row(
+  mainAxisSize: MainAxisSize.max,
+  children: [
+    ProductPicture(),
+    VerticalDivider
+    (thickness: 3,
+    color: Colors.black,
+    ),
+    Container(
+      width: 250,
+      child: Column(
+        children: [
+          Text("algeria"),
+          Divider(thickness: 3,),
+          Row(
+            children: [
+              Text("Unities "),
+              VerticalDivider
+    (thickness: 3,
+    color: Colors.black,
+    ),              
+              Text("Hrisa "),
+              VerticalDivider
+    (thickness: 3,
+    color: Colors.black,
+    ),
+              Text("mayinaais "),
+              VerticalDivider
+    (thickness: 3,
+    color: Colors.black,
+    ),
+              Text("Price"),  
+            ],
+          )
+        ],
+      ),
+    ),
+    VerticalDivider
+    (thickness: 3,
+    color: Colors.black,
+    
+    ),
+    Container(
+      child: IconButton(onPressed: (){}, icon: Icon(Icons.delete))
+    )
+  ],
+),
+);
+
+}
+

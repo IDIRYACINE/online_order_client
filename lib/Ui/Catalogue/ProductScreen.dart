@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/HomeScreen.dart';
+import 'package:online_order_client/Ui/Orders/CartScreen.dart';
 import 'package:online_order_client/Ui/shared/Components.dart';
 
 class CategoryproductsScreen extends StatefulWidget {
@@ -9,6 +10,106 @@ class CategoryproductsScreen extends StatefulWidget {
 }
 
 class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
+  Future<void> ProductOrderDetail(BuildContext context) async{
+   return await showDialog(context: context,
+    builder: (context){
+      return AlertDialog(
+        content: Form(
+          child: Container(
+            alignment: Alignment.bottomCenter,
+            height: 150,
+            width: double.infinity,
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: 20,),
+                    child: Row(
+                      children: [
+                      Text("Hrissa",
+                      style:TextStyle(
+                          fontSize: 26
+                        ),),
+                        SizedBox(width: 60,),
+                      IconButton(onPressed: (){
+                      },icon: Icon(Icons.check_circle,
+                      color: Colors.green)
+                      ),
+                    ],),
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.only(
+                      left: 20,),
+                    child: Row(
+                      children: [
+                      Text("Mayounez",
+                      style:TextStyle(
+                          fontSize: 23
+                        ),),
+                        SizedBox(width: 30,),
+                      IconButton(onPressed: (){
+                      },icon: Icon(Icons.check_circle,
+                      color: Colors.green)
+                      ),
+                    ],),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left :20,
+                    ),
+                    child: Row(
+                      children: [
+                      Text("Unities",
+                      style:TextStyle(
+                        fontSize: 26
+                      ),),
+                      SizedBox(width: 10,),
+                      IconButton(onPressed: (){
+                        setState(() {
+                          Unities--;
+                        });
+                      }, icon: Icon(Icons.remove_circle,color: Colors.red,)),
+                      Text("$Unities"),
+                      IconButton(onPressed: (){
+                        setState(() {
+                          Unities++;
+                        });
+                      }, icon: Icon(Icons.add_circle, color: Colors.green,)),
+                      
+                    ],),
+                  ),
+                  Container(
+                  width: 90,
+                  height: 30,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: parseColor("#FFB5A7"),
+                    ),
+                    label: Text('Confirme'),
+                    icon: Icon(Icons.dinner_dining_rounded),
+                    onPressed: () {
+                      setState(() {
+                        count++;
+
+                      });
+                    }
+                  ),
+                ),
+                ]
+                ),
+            ),
+          )
+          ),
+        actions: [],
+      );
+    }
+
+   );
+  }
+  int Unities = 0;
   int currentindex = 0;
   int count = 0;
   @override
@@ -50,24 +151,26 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                       Icons.keyboard_return,
                     ),
                   ),
-                  label: 'hile',
+                  label: 'Return',
                 ),
                 BottomNavigationBarItem(
                   icon: IconButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen()));
+                      
                     },
                     icon: const Icon(Icons.home),
                     iconSize: 30,
                   ),
-                  label: 'hile',
+                  label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                    icon: IconButton(onPressed: () {}, icon: CartIcon(count)),
-                    label: 'hile'),
+                    icon: IconButton(onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>  CartScreen()));
+                    }, icon: CartIcon(count)),
+                    label: 'Cart'),
               ]),
         ),
         body: Padding(
@@ -84,6 +187,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                 height: 10,
                 thickness: 5,
               ),
+              SizedBox(height: 15),
               const Align(
                   alignment: Alignment.bottomCenter,
                   child: ProductDescription()),
@@ -101,8 +205,13 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                     label: const Text('ADD To Cart'),
                     icon: const Icon(Icons.dinner_dining_rounded),
                     onPressed: () {
+                      setState(() async {
+                        {
                       setState(() {
-                        count++;
+                      }
+                      );
+                       await ProductOrderDetail(context);
+                    };
                       });
                     },
                   ),
