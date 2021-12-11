@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/HomeScreen.dart';
+import 'package:online_order_client/Ui/Orders/CartScreen.dart';
 import 'package:online_order_client/Ui/shared/components.dart';
 
 class CategoryproductsScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class CategoryproductsScreen extends StatefulWidget {
 }
 
 class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
+  int Unities = 0;
   int currentindex = 0;
   int count = 0;
   @override
@@ -50,24 +52,26 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                       Icons.keyboard_return,
                     ),
                   ),
-                  label: 'hile',
+                  label: 'Return',
                 ),
                 BottomNavigationBarItem(
                   icon: IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen()));
-                    },
+                    onPressed: () {},
                     icon: const Icon(Icons.home),
                     iconSize: 30,
                   ),
-                  label: 'hile',
+                  label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                    icon: IconButton(onPressed: () {}, icon: CartIcon(count)),
-                    label: 'hile'),
+                    icon: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CartScreen()));
+                        },
+                        icon: CartIcon(count)),
+                    label: 'Cart'),
               ]),
         ),
         body: Padding(
@@ -84,6 +88,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                 height: 10,
                 thickness: 5,
               ),
+              const SizedBox(height: 15),
               const Align(
                   alignment: Alignment.bottomCenter,
                   child: ProductDescription()),
@@ -91,7 +96,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
               PricesTabl(),
               const SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Container(
+                SizedBox(
                   width: 180,
                   height: 60,
                   child: ElevatedButton.icon(
@@ -101,8 +106,10 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                     label: const Text('ADD To Cart'),
                     icon: const Icon(Icons.dinner_dining_rounded),
                     onPressed: () {
-                      setState(() {
-                        count++;
+                      setState(() async {
+                        {
+                          setState(() {});
+                        }
                       });
                     },
                   ),

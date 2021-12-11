@@ -1,9 +1,20 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
+import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Catalogue/ProductScreen.dart';
+
+import '../../Domain/Catalogue/category_model.dart';
+
+Color parseColor(String color) {
+  String hex = color.replaceAll("#", "");
+  if (hex.isEmpty) hex = "ffffff";
+  if (hex.length == 3) {
+    hex =
+        '${hex.substring(0, 1)}${hex.substring(0, 1)}${hex.substring(1, 2)}${hex.substring(1, 2)}${hex.substring(2, 3)}${hex.substring(2, 3)}';
+  }
+  Color col = Color(int.parse(hex, radix: 16)).withOpacity(1.0);
+  return col;
+}
 
 class DefaultButton extends StatefulWidget {
   late final Color _color;
@@ -58,7 +69,9 @@ class _DefaultButtonState extends State<DefaultButton> {
 }
 
 class CategoryLIstView extends StatefulWidget {
-  const CategoryLIstView({Key? key}) : super(key: key);
+  final Category _category = CatalogueModel().getCategory(categoryIndex: 0);
+
+  CategoryLIstView({Key? key}) : super(key: key);
 
   @override
   _CategoryLIstViewState createState() => _CategoryLIstViewState();
@@ -68,28 +81,35 @@ class _CategoryLIstViewState extends State<CategoryLIstView> {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.max, children: [
-      ElemTitle(context, "Pizza", 30, 3.0),
+      ElemTitle(context, widget._category.getName(), 30, 3.0),
       Container(
         decoration: const BoxDecoration(),
         height: 170,
         width: double.infinity,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) => productINFO(),
+          itemBuilder: (context, index) {
+            return ProductInfo(
+                widget._category.getProduct(productIndex: index));
+          },
           separatorBuilder: (context, index) => const SizedBox(width: 5),
-          itemCount: 10,
+          itemCount: widget._category.getProductCount(),
         ),
       ),
     ]);
   }
 }
 
-class productINFO extends StatefulWidget {
+class ProductInfo extends StatefulWidget {
+  final Product _product;
+
+  const ProductInfo(this._product, {Key? key}) : super(key: key);
+
   @override
-  State<productINFO> createState() => _productINFOState();
+  State<ProductInfo> createState() => _ProductInfoState();
 }
 
-class _productINFOState extends State<productINFO> {
+class _ProductInfoState extends State<ProductInfo> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -109,7 +129,7 @@ class _productINFOState extends State<productINFO> {
               topRight: Radius.circular(30),
             ),
             child: Image.network(
-              'https://download.vikidia.org/vikidia/fr/images/a/a4/Pizza.jpg',
+              widget._product.getImageUrl(),
               fit: BoxFit.cover,
               height: 100.0,
               width: 100.0,
@@ -117,9 +137,9 @@ class _productINFOState extends State<productINFO> {
           ),
           Container(
             alignment: Alignment.center,
-            child: const Text(
-              "pizza algeria",
-              style: TextStyle(fontFamily: "pacifico"),
+            child: Text(
+              widget._product.getName(),
+              style: const TextStyle(fontFamily: "pacifico"),
             ),
           ),
           CircleAvatar(
@@ -128,7 +148,8 @@ class _productINFOState extends State<productINFO> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const CategoryproductsScreen()));
+                          builder: (context) =>
+                              const CategoryproductsScreen()));
                 },
                 icon: Icon(
                   Icons.add_circle_rounded,
@@ -140,17 +161,6 @@ class _productINFOState extends State<productINFO> {
       ),
     );
   }
-}
-
-Color parseColor(String color) {
-  String hex = color.replaceAll("#", "");
-  if (hex.isEmpty) hex = "ffffff";
-  if (hex.length == 3) {
-    hex =
-        '${hex.substring(0, 1)}${hex.substring(0, 1)}${hex.substring(1, 2)}${hex.substring(1, 2)}${hex.substring(2, 3)}${hex.substring(2, 3)}';
-  }
-  Color col = Color(int.parse(hex, radix: 16)).withOpacity(1.0);
-  return col;
 }
 
 Widget line(double lineHieght, BuildContext context) {
@@ -188,7 +198,7 @@ Widget CartIcon(int count) {
 }
 
 Widget ElemTitle(BuildContext context, String title,
-    [double Size = 30, double lineHieght = 3.0]) {
+    [double size = 30, double lineHieght = 3.0]) {
   return Padding(
     padding: const EdgeInsets.only(
       left: 8,
@@ -201,7 +211,7 @@ Widget ElemTitle(BuildContext context, String title,
         Text(
           title,
           style: TextStyle(
-            fontSize: Size,
+            fontSize: size,
             fontWeight: FontWeight.bold,
             fontFamily: "Lobster",
           ),
@@ -330,4 +340,57 @@ Widget PricesTabl() {
           ),
         ]),
       ]);
+}
+
+Widget CartItem() {
+  return Container(
+    height: 120,
+    width: double.infinity,
+    child: Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        ProductPicture(),
+        VerticalDivider(
+          thickness: 3,
+          color: Colors.black,
+        ),
+        Container(
+          width: 250,
+          child: Column(
+            children: [
+              Text("algeria"),
+              Divider(
+                thickness: 3,
+              ),
+              Row(
+                children: [
+                  Text("Unities "),
+                  VerticalDivider(
+                    thickness: 3,
+                    color: Colors.black,
+                  ),
+                  Text("Hrisa "),
+                  VerticalDivider(
+                    thickness: 3,
+                    color: Colors.black,
+                  ),
+                  Text("mayinaais "),
+                  VerticalDivider(
+                    thickness: 3,
+                    color: Colors.black,
+                  ),
+                  Text("Price"),
+                ],
+              )
+            ],
+          ),
+        ),
+        VerticalDivider(
+          thickness: 3,
+          color: Colors.black,
+        ),
+        Container(child: IconButton(onPressed: () {}, icon: Icon(Icons.delete)))
+      ],
+    ),
+  );
 }

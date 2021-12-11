@@ -21,9 +21,9 @@ class MyApp extends StatelessWidget {
 
   Future<bool> _initApp() async {
     await Firebase.initializeApp();
-    ServicesProvider factory = ServicesProvider();
-    await factory.initialiaze();
-    await factory.productDatabase.connect();
+    ServicesProvider services = ServicesProvider();
+    await services.initialiaze();
+    await services.productDatabase.connect();
     await CatalogueModel().initCategories();
     return true;
   }

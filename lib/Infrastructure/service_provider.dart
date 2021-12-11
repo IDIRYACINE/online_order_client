@@ -14,7 +14,7 @@ import 'package:online_order_client/Infrastructure/Server/ionline_data_service.d
 
 class ServicesProvider {
   static final ServicesProvider _instance = ServicesProvider._();
-  static const String localHost = "192.168.1.8";
+  static const String localHost = "192.168.1.6";
   bool _isInit = false;
   ServicesProvider._();
 

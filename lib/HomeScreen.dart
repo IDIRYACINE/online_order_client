@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Ui/Orders/CartScreen.dart';
 import 'package:online_order_client/Ui/shared/components.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -32,7 +33,7 @@ class HomeScreen extends StatelessWidget {
         child: Container(
           child: ListView.separated(
             scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) => const CategoryLIstView(),
+            itemBuilder: (context, index) => CategoryLIstView(),
             separatorBuilder: (context, index) => Divider(
               color: parseColor("#F9DCC4"),
               height: 10,
@@ -53,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                   Icons.keyboard_return,
                 ),
               ),
-              label: 'hile',
+              label: 'return',
             ),
             BottomNavigationBarItem(
               icon: IconButton(
@@ -61,11 +62,18 @@ class HomeScreen extends StatelessWidget {
                 icon: const Icon(Icons.home),
                 iconSize: 40,
               ),
-              label: 'hile',
+              label: 'Home',
             ),
             BottomNavigationBarItem(
-                icon: IconButton(onPressed: () {}, icon: CartIcon(0)),
-                label: 'hile'),
+                icon: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CartScreen()));
+                    },
+                    icon: CartIcon(0)),
+                label: 'Cart'),
           ]),
     );
   }
