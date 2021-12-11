@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/HomeScreen.dart';
-import 'package:online_order_client/Ui/shared/Components.dart';
+import 'package:online_order_client/Ui/shared/components.dart';
 
 class CategoryproductsScreen extends StatefulWidget {
   const CategoryproductsScreen({Key? key}) : super(key: key);

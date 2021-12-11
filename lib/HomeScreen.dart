@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Ui/shared/Components.dart';
+import 'package:online_order_client/Ui/shared/components.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
