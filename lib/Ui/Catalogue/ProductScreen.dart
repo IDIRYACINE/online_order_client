@@ -1,21 +1,165 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/HomeScreen.dart';
+import 'package:online_order_client/Ui/Favorites/FavoritesScreen.dart';
 import 'package:online_order_client/Ui/Orders/CartScreen.dart';
-import 'package:online_order_client/Ui/shared/components.dart';
+import 'package:online_order_client/Ui/Profile/profile_screen.dart';
+import 'package:online_order_client/Ui/Settings/settings_screen.dart';
+import 'package:online_order_client/Ui/shared/Components.dart';
 
 class CategoryproductsScreen extends StatefulWidget {
-  const CategoryproductsScreen({Key? key}) : super(key: key);
+  final Product _product;
+  CategoryproductsScreen(this._product, {Key? key}) : super(key: key);
+
   @override
   _CategoryproductsScreenState createState() => _CategoryproductsScreenState();
 }
 
 class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
+  int count = 0;
   int Unities = 0;
   int currentindex = 0;
-  int count = 0;
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> ProductOrderDetail(BuildContext context) async {
+    return await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.red[50],
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            content: Form(
+                child: Container(
+              alignment: Alignment.bottomCenter,
+              height: 200,
+              width: double.infinity,
+              child: Center(
+                child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                        ),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Hrissa",
+                              style: TextStyle(
+                                  fontSize: 26, fontFamily: "Lobster"),
+                            ),
+                            const SizedBox(
+                              width: 60,
+                            ),
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.check_circle,
+                                    color: Colors.green)),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                        ),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Mayounez",
+                              style: TextStyle(
+                                  fontSize: 23, fontFamily: "Lobster"),
+                            ),
+                            const SizedBox(
+                              width: 30,
+                            ),
+                            IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.check_circle,
+                                    color: Colors.green)),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                        ),
+                        child: Row(
+                          children: [
+                            const Text(
+                              "Unities",
+                              style: TextStyle(
+                                  fontSize: 26, fontFamily: "Lobster"),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            FloatingActionButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (Unities <= 0) {
+                                    Unities == 0;
+                                  } else {
+                                    Unities--;
+                                  }
+                                });
+                              },
+                              child: const Icon(
+                                Icons.remove_circle,
+                                //   color: Colors.red,
+                              ),
+                              mini: true,
+                              heroTag: 'Unit--',
+                              backgroundColor: Colors.red[50],
+                              foregroundColor: parseColor("#FFB5A7"),
+                            ),
+                            Text("$Unities"),
+                            FloatingActionButton(
+                              onPressed: () {
+                                setState(() {
+                                  Unities++;
+                                });
+                              },
+                              child: const Icon(
+                                Icons.add_circle,
+                              ),
+                              mini: true,
+                              heroTag: 'Unit++',
+                              foregroundColor: Colors.red[50],
+                              backgroundColor: parseColor("#FFB5A7"),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        width: 140,
+                        height: 40,
+                        child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              primary: parseColor("#FFB5A7"),
+                            ),
+                            label: const Text('Confirme'),
+                            icon: const Icon(Icons.check),
+                            onPressed: () {
+                              setState(() {
+                                count++;
+                              });
+                              Navigator.pop(context, true);
+                            }),
+                      ),
+                    ]),
+              ),
+            )),
+            actions: [],
+          );
+        });
   }
 
   @override
@@ -33,10 +177,31 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
           ),
           backgroundColor: parseColor("#FCD5CE"),
           centerTitle: false,
-          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()));
+              },
+              icon: const Icon(Icons.person)),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingsScreen()));
+                },
+                icon: const Icon(Icons.settings)),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FavoritesScreen()));
+                },
+                icon: const Icon(Icons.favorite)),
           ],
         ),
         bottomNavigationBar: SizedBox(
@@ -52,11 +217,16 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                       Icons.keyboard_return,
                     ),
                   ),
-                  label: 'Return',
+                  label: 'return',
                 ),
                 BottomNavigationBarItem(
                   icon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    },
                     icon: const Icon(Icons.home),
                     iconSize: 30,
                   ),
@@ -81,19 +251,19 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElemTitle(context, "Pizza tunisian"),
-              PicturesLV(),
+              ElemTitle(context, widget._product.getName()),
+              PicturesLV(widget._product),
               Divider(
                 color: parseColor("#F9DCC4"),
                 height: 10,
                 thickness: 5,
               ),
-              const SizedBox(height: 15),
-              const Align(
+              const SizedBox(height: 20),
+              Align(
                   alignment: Alignment.bottomCenter,
-                  child: ProductDescription()),
-              const SizedBox(height: 10),
-              PricesTabl(),
+                  child: ProductDescription(widget._product)),
+              const SizedBox(height: 20),
+              PricesTabl(widget._product),
               const SizedBox(height: 10),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 SizedBox(
@@ -105,12 +275,8 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                     ),
                     label: const Text('ADD To Cart'),
                     icon: const Icon(Icons.dinner_dining_rounded),
-                    onPressed: () {
-                      setState(() async {
-                        {
-                          setState(() {});
-                        }
-                      });
+                    onPressed: () async {
+                      await ProductOrderDetail(context);
                     },
                   ),
                 ),

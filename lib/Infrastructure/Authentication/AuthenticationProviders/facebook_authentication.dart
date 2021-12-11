@@ -16,7 +16,9 @@ class FacebookAuthentication {
       try {
         _service.linkAuthProviderWithProfile(
             authProvider: facebookAuthCredential);
-      } catch (e) {}
+      } catch (e) {
+        print(e);
+      }
     }
   }
 

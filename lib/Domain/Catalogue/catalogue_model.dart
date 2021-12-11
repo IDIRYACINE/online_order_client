@@ -17,7 +17,7 @@ class CatalogueModel {
   Future<void> initCategories() async {
     _categories = await _productsManager.getCategories();
     for (Category category in _categories) {
-      category.loadProducts(productsCount: _categoryMaxProductDisplay);
+      await category.loadProducts(productsCount: _categoryMaxProductDisplay);
     }
   }
 

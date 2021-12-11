@@ -2,7 +2,7 @@ abstract class ICartItem {
   String getId();
   String getName();
   double getPrice();
-  List<String> getSizes();
+  String getSize(int index);
   void setSize(int sizeIndex);
   int getQuantity();
   String getThumbnailUrl();

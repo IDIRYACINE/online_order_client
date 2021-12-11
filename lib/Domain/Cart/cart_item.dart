@@ -7,14 +7,14 @@ class CartItem implements ICartItem {
   late int _quantity;
   late double _price;
   late String _size;
-  late List<String> _sizes;
+  late String _sizes;
   CartItem(
       {required String id, required Product product, required int quantity}) {
     _id = id;
     _product = product;
     _quantity = quantity;
     _price = _quantity * _product.getPrice(0);
-    _sizes = _product.getSizes();
+    _sizes = _product.getSize(0);
   }
 
   @override
@@ -48,8 +48,8 @@ class CartItem implements ICartItem {
   }
 
   @override
-  List<String> getSizes() {
-    return _sizes;
+  String getSize(int index) {
+    return _product.getSize(index);
   }
 
   @override

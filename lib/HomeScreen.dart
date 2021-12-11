@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Ui/Orders/CartScreen.dart';
-import 'package:online_order_client/Ui/shared/components.dart';
+import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
+import 'package:online_order_client/Ui/Favorites/FavoritesScreen.dart';
+import 'package:online_order_client/Ui/Profile/profile_screen.dart';
+import 'package:online_order_client/Ui/Settings/settings_screen.dart';
+import 'package:online_order_client/Ui/shared/Components.dart';
+
+import 'Ui/Orders/CartScreen.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final CatalogueModel _catalogueModel = CatalogueModel();
+
+  HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,27 +27,47 @@ class HomeScreen extends StatelessWidget {
         ),
         backgroundColor: parseColor("#FCD5CE"),
         centerTitle: false,
-        leading: IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()));
+            },
+            icon: const Icon(Icons.person)),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingsScreen()));
+              },
+              icon: const Icon(Icons.settings)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FavoritesScreen()));
+              },
+              icon: const Icon(Icons.favorite)),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(
           top: 16.0,
         ),
-        child: Container(
-          child: ListView.separated(
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) => CategoryLIstView(),
-            separatorBuilder: (context, index) => Divider(
-              color: parseColor("#F9DCC4"),
-              height: 10,
-              thickness: 5,
-            ),
-            itemCount: 4,
+        child: ListView.separated(
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            return CategoryWidget(
+                _catalogueModel.getCategory(categoryIndex: index));
+          },
+          separatorBuilder: (context, index) => Divider(
+            color: parseColor("#F9DCC4"),
+            height: 10,
+            thickness: 5,
           ),
+          itemCount: _catalogueModel.getCategoriesCount(),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(

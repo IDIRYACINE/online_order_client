@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
-import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Catalogue/ProductScreen.dart';
-
 import '../../Domain/Catalogue/category_model.dart';
+import '../../Domain/Catalogue/product_model.dart';
 
 Color parseColor(String color) {
   String hex = color.replaceAll("#", "");
@@ -68,16 +66,16 @@ class _DefaultButtonState extends State<DefaultButton> {
   }
 }
 
-class CategoryLIstView extends StatefulWidget {
-  final Category _category = CatalogueModel().getCategory(categoryIndex: 0);
+class CategoryWidget extends StatefulWidget {
+  final Category _category;
 
-  CategoryLIstView({Key? key}) : super(key: key);
+  const CategoryWidget(this._category, {Key? key}) : super(key: key);
 
   @override
-  _CategoryLIstViewState createState() => _CategoryLIstViewState();
+  _CategoryWidgetState createState() => _CategoryWidgetState();
 }
 
-class _CategoryLIstViewState extends State<CategoryLIstView> {
+class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.max, children: [
@@ -93,7 +91,7 @@ class _CategoryLIstViewState extends State<CategoryLIstView> {
                 widget._category.getProduct(productIndex: index));
           },
           separatorBuilder: (context, index) => const SizedBox(width: 5),
-          itemCount: widget._category.getProductCount(),
+          itemCount: widget._category.getProductCount() + 1,
         ),
       ),
     ]);
@@ -102,7 +100,6 @@ class _CategoryLIstViewState extends State<CategoryLIstView> {
 
 class ProductInfo extends StatefulWidget {
   final Product _product;
-
   const ProductInfo(this._product, {Key? key}) : super(key: key);
 
   @override
@@ -149,7 +146,7 @@ class _ProductInfoState extends State<ProductInfo> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              const CategoryproductsScreen()));
+                              CategoryproductsScreen(widget._product)));
                 },
                 icon: Icon(
                   Icons.add_circle_rounded,
@@ -173,28 +170,26 @@ Widget line(double lineHieght, BuildContext context) {
 }
 
 Widget CartIcon(int count) {
-  return Container(
-    child: Stack(children: [
-      const Icon(
-        Icons.shopping_cart,
-        size: 30,
-      ),
-      Positioned(
-        bottom: 13,
-        left: 9,
-        child: Container(
-            alignment: Alignment.topCenter,
-            child: CircleAvatar(
-              child: Text(
-                "$count",
-                style: const TextStyle(color: Colors.blue, fontSize: 10),
-              ),
-              radius: 7,
-              backgroundColor: Colors.red,
-            )),
-      ),
-    ]),
-  );
+  return Stack(children: [
+    const Icon(
+      Icons.shopping_cart,
+      size: 30,
+    ),
+    Positioned(
+      bottom: 13,
+      left: 9,
+      child: Container(
+          alignment: Alignment.topCenter,
+          child: CircleAvatar(
+            child: Text(
+              "$count",
+              style: const TextStyle(color: Colors.blue, fontSize: 10),
+            ),
+            radius: 7,
+            backgroundColor: Colors.red,
+          )),
+    ),
+  ]);
 }
 
 Widget ElemTitle(BuildContext context, String title,
@@ -225,36 +220,42 @@ Widget ElemTitle(BuildContext context, String title,
   );
 }
 
-Widget ProductPicture() {
-  return Container(
-    child: ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(30)),
-      child: Image.network(
-        'https://download.vikidia.org/vikidia/fr/images/a/a4/Pizza.jpg',
-        fit: BoxFit.cover,
-        height: 100.0,
-        width: 100.0,
-      ),
+Widget ProductPicture(
+    [String imageUrl =
+        'https://download.vikidia.org/vikidia/fr/images/a/a4/Pizza.jpg']) {
+  return ClipRRect(
+    borderRadius: const BorderRadius.all(Radius.circular(30)),
+    child: Image.network(
+      imageUrl,
+      fit: BoxFit.cover,
+      height: 100.0,
+      width: 100.0,
     ),
   );
 }
 
-Widget PicturesLV() {
+Widget PicturesLV(Product product) {
   return Container(
     decoration: const BoxDecoration(),
     height: 120,
     width: double.infinity,
     child: ListView.separated(
       scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) => ProductPicture(),
+      itemBuilder: (context, index) =>
+          ProductPicture(product.getDescriptionImageUrl(index)),
       separatorBuilder: (context, index) => const SizedBox(width: 5),
-      itemCount: 10,
+      itemCount: product.getDescrpitionImagesCount(),
     ),
   );
 }
 
 class ProductDescription extends StatefulWidget {
-  const ProductDescription({Key? key}) : super(key: key);
+  final Product _product;
+
+  const ProductDescription(
+    this._product, {
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ProductDescriptionState createState() => _ProductDescriptionState();
@@ -265,8 +266,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      child: Ingrediant(
-          "Olive , fromage , Tomato slides , Shampooning , viand , Tona , Creame Bichamel , la sos Algerian , hachihch"),
+      child: Ingrediant(widget._product.getDescription()),
     );
   }
 }
@@ -285,7 +285,7 @@ Widget Ingrediant(String Ingridiant) {
   );
 }
 
-Widget PricesTabl() {
+Widget PricesTabl(Product product) {
   return Table(
       border: TableBorder.all(
           width: 2.7,
@@ -294,102 +294,111 @@ Widget PricesTabl() {
       children: [
         TableRow(
             decoration: BoxDecoration(color: parseColor("#FFB5A7")),
-            children: const [
-              Text(
+            children: [
+              const Text(
                 'Sizes',
                 style: TextStyle(fontSize: 35, fontFamily: "Lobster"),
               ),
-              Text(
-                'Mini',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25, fontFamily: "Lobster"),
-              ),
-              Text(
-                'Larg',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 25, fontFamily: "Lobster"),
-              ),
-              Text(
-                'Extra Larg',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontFamily: "Lobster"),
+              ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => Text(
+                  product.getSize(index),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 25, fontFamily: "Lobster"),
+                ),
+                itemCount: product.getSizesCount(),
               ),
             ]),
-        const TableRow(children: [
-          Text(
-            'Prices(DA)',
-            style: TextStyle(
-              fontSize: 20,
-              fontFamily: "Lobster",
+        TableRow(children: [
+          const Text('Prices(DA)',
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: "Lobster",
+              )),
+          ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: (context, index) => Text(
+              "${product.getPrice(index)}\$",
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 25, fontFamily: "Pacifico"),
             ),
-          ),
-          Text(
-            "2500\$",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 25, fontFamily: "Pacifico"),
-          ),
-          Text(
-            "3000\$",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 25, fontFamily: "Pacifico"),
-          ),
-          Text(
-            "3500\$",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 25, fontFamily: "Pacifico"),
+            itemCount: product.getPricesCount(),
           ),
         ]),
       ]);
 }
 
 Widget CartItem() {
-  return Container(
-    height: 120,
-    width: double.infinity,
+  return SizedBox(
+    height: 100,
     child: Row(
       mainAxisSize: MainAxisSize.max,
       children: [
-        ProductPicture(),
-        VerticalDivider(
+        Expanded(
+          flex: 1,
+          child: SizedBox(height: 60, width: 60, child: ProductPicture()),
+        ),
+        const VerticalDivider(
           thickness: 3,
           color: Colors.black,
         ),
-        Container(
-          width: 250,
-          child: Column(
-            children: [
-              Text("algeria"),
-              Divider(
-                thickness: 3,
-              ),
-              Row(
-                children: [
-                  Text("Unities "),
-                  VerticalDivider(
-                    thickness: 3,
-                    color: Colors.black,
+        Expanded(
+          flex: 3,
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              children: [
+                const Text("algeria"),
+                Divider(
+                  thickness: 3,
+                  color: parseColor("#FFB5A7"),
+                ),
+                SizedBox(
+                  height: 60,
+                  child: Row(
+                    children: [
+                      Column(
+                        children: const [Text("Unities")],
+                      ),
+                      VerticalDivider(
+                        width: 8,
+                        thickness: 1,
+                        color: parseColor("#FFB5A7"),
+                      ),
+                      Column(
+                        children: const [Text("Hrisa")],
+                      ),
+                      VerticalDivider(
+                        width: 8,
+                        thickness: 1,
+                        color: parseColor("#FFB5A7"),
+                      ),
+                      Column(
+                        children: const [Text("MAyon")],
+                      ),
+                      VerticalDivider(
+                        width: 8,
+                        thickness: 1,
+                        color: parseColor("#FFB5A7"),
+                      ),
+                      Column(
+                        children: const [Text("Prices")],
+                      ),
+                    ],
                   ),
-                  Text("Hrisa "),
-                  VerticalDivider(
-                    thickness: 3,
-                    color: Colors.black,
-                  ),
-                  Text("mayinaais "),
-                  VerticalDivider(
-                    thickness: 3,
-                    color: Colors.black,
-                  ),
-                  Text("Price"),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
-        VerticalDivider(
+        const VerticalDivider(
           thickness: 3,
           color: Colors.black,
         ),
-        Container(child: IconButton(onPressed: () {}, icon: Icon(Icons.delete)))
+        Expanded(
+          flex: 1,
+          child: IconButton(onPressed: () {}, icon: const Icon(Icons.delete)),
+        )
       ],
     ),
   );
