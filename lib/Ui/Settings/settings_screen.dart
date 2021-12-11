@@ -1,4 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:online_order_client/HomeScreen.dart';
+import 'package:online_order_client/Ui/Favorites/FavoritesScreen.dart';
+import 'package:online_order_client/Ui/Profile/profile_screen.dart';
+import 'package:online_order_client/Ui/shared/Components.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -10,7 +15,77 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    return Scaffold(
+      backgroundColor: Colors.red[50],
+        appBar: AppBar(
+          title: Text(
+            "THe House restaurante",
+            style: TextStyle(
+              fontSize: 16.5,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: parseColor("#FCD5CE"),
+          centerTitle: false,
+          leading: IconButton(onPressed: () {
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfileScreen()));
+          }, icon: Icon(Icons.person)),
+          actions: [
+          IconButton(onPressed: () {
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingsScreen()));
+
+          }, icon: const Icon(Icons.settings)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FavoritesScreen()));
+              },
+              icon: const Icon(Icons.favorite)),
+        ],
+        ),
+        bottomNavigationBar: SizedBox(
+          height: 80,
+          child: BottomNavigationBar(
+              backgroundColor: parseColor("#FCD5CE"),
+              iconSize: 10,
+              items: [
+                BottomNavigationBarItem(
+                  icon: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.keyboard_return,
+                    ),
+                  ),
+                  label: 'return',
+                ),
+                BottomNavigationBarItem(
+                  icon: IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    },
+                    icon: const Icon(Icons.home),
+                    iconSize: 30,
+                  ),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                    icon: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
+                        },
+                        icon: CartIcon(5)),
+                    label: 'Cart'),
+              ]),
+        ),
+    );
   }
 }

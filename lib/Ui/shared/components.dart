@@ -1,8 +1,5 @@
 import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:online_order_client/Ui/Catalogue/ProductScreen.dart';
 
 class DefaultButton extends StatefulWidget {
@@ -128,7 +125,8 @@ class _productINFOState extends State<productINFO> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const CategoryproductsScreen()));
+                          builder: (context) =>
+                              const CategoryproductsScreen()));
                 },
                 icon: Icon(
                   Icons.add_circle_rounded,
@@ -331,58 +329,80 @@ Widget PricesTabl() {
         ]),
       ]);
 }
-Widget CartItem(){
-return Container(
-  height : 120,
-  width: double.infinity,
-child: Row(
-  mainAxisSize: MainAxisSize.max,
-  children: [
-    ProductPicture(),
-    VerticalDivider
-    (thickness: 3,
-    color: Colors.black,
-    ),
-    Container(
-      width: 250,
-      child: Column(
-        children: [
-          Text("algeria"),
-          Divider(thickness: 3,),
-          Row(
-            children: [
-              Text("Unities "),
-              VerticalDivider
-    (thickness: 3,
-    color: Colors.black,
-    ),              
-              Text("Hrisa "),
-              VerticalDivider
-    (thickness: 3,
-    color: Colors.black,
-    ),
-              Text("mayinaais "),
-              VerticalDivider
-    (thickness: 3,
-    color: Colors.black,
-    ),
-              Text("Price"),  
-            ],
-          )
-        ],
-      ),
-    ),
-    VerticalDivider
-    (thickness: 3,
-    color: Colors.black,
-    
-    ),
-    Container(
-      child: IconButton(onPressed: (){}, icon: Icon(Icons.delete))
-    )
-  ],
-),
-);
 
+Widget CartItem() {
+  return Container(
+    height: 100,
+    child: Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Expanded(
+          flex: 1,
+          child: Container(height: 60, width: 60, child: ProductPicture()),
+        ),
+        VerticalDivider(
+          thickness: 3,
+          color: Colors.black,
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            width: double.infinity,
+            child: Column(
+              children: [
+                Text("algeria"),
+                Divider(
+                  thickness: 3,
+                  color: parseColor("#FFB5A7"),
+                ),
+                Container(
+                  height: 60,
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [Text("Unities")],
+                      ),
+                      VerticalDivider(
+                        width: 8,
+                        thickness: 1,
+                        color: parseColor("#FFB5A7"),
+                      ),
+                      Column(
+                        children: [Text("Hrisa")],
+                      ),
+                      VerticalDivider(
+                        width: 8,
+                        thickness: 1,
+                        color: parseColor("#FFB5A7"),
+                      ),
+                      Column(
+                        children: [Text("MAyon")],
+                      ),
+                      VerticalDivider(
+                        width: 8,
+                        thickness: 1,
+                        color: parseColor("#FFB5A7"),
+                      ),
+                      Column(
+                        children: [Text("Prices")],
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        VerticalDivider(
+          thickness: 3,
+          color: Colors.black,
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+              child: IconButton(onPressed: () {}, icon: Icon(Icons.delete))),
+        )
+      ],
+    ),
+  );
 }
-

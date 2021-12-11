@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/HomeScreen.dart';
-import 'package:online_order_client/Ui/Catalogue/ProductScreen.dart';
+import 'package:online_order_client/Ui/Favorites/FavoritesScreen.dart';
+import 'package:online_order_client/Ui/Profile/profile_screen.dart';
+import 'package:online_order_client/Ui/Settings/settings_screen.dart';
 import 'package:online_order_client/Ui/shared/Components.dart';
 
 
-class CartScreen extends StatefulWidget {
 
+class CartScreen extends StatefulWidget {
   @override
   _CartScreenState createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
-    int count = 0;
+  int count = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-              backgroundColor: Colors.red[50],
-    appBar: AppBar(
-          title: const Text(
+        backgroundColor: Colors.red[50],
+        appBar: AppBar(
+          title: Text(
             "THe House restaurante",
             style: TextStyle(
               fontSize: 16.5,
@@ -27,11 +29,23 @@ class _CartScreenState extends State<CartScreen> {
           ),
           backgroundColor: parseColor("#FCD5CE"),
           centerTitle: false,
-          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
+          leading: IconButton(onPressed: () {
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfileScreen()));
+          }, icon: Icon(Icons.person)),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
-          ],
+          IconButton(onPressed: () {
+            Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SettingsScreen()));
+
+          }, icon: const Icon(Icons.settings)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FavoritesScreen()));
+              },
+              icon: const Icon(Icons.favorite)),
+        ],
         ),
         bottomNavigationBar: SizedBox(
           height: 80,
@@ -54,7 +68,7 @@ class _CartScreenState extends State<CartScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HomeScreen()));
+                              builder: (context) => HomeScreen()));
                     },
                     icon: const Icon(Icons.home),
                     iconSize: 30,
@@ -62,18 +76,48 @@ class _CartScreenState extends State<CartScreen> {
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                    icon: IconButton(onPressed: () {
-                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen()));
-                    }, icon: CartIcon(count)),
+                    icon: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
+                        },
+                        icon: CartIcon(count)),
                     label: 'Cart'),
               ]),
         ),
-        body: Container(
-          child: CartItem(),
-        ),
-    );
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              ElemTitle(context, "Cart ", 35),
+              ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) => CartItem(),
+                  separatorBuilder: (context, index) =>
+                      Divider(thickness: 3, color: parseColor("#F9DCC4")),
+                  itemCount: 5),
+              Container(
+                height: 40,
+                width: 180,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    primary: parseColor("#FFB5A7"),
+                  ),
+                  label: Text('Deliver It'),
+                  icon: Icon(Icons.send_outlined),
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  autofocus: true,
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
