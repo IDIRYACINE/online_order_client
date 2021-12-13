@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Domain/Cart/cart.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/HomeScreen.dart';
+import 'package:online_order_client/Ui/Catalogue/product_units_popup.dart';
 import 'package:online_order_client/Ui/Favorites/FavoritesScreen.dart';
 import 'package:online_order_client/Ui/Orders/CartScreen.dart';
 import 'package:online_order_client/Ui/Profile/profile_screen.dart';
@@ -9,22 +11,23 @@ import 'package:online_order_client/Ui/shared/Components.dart';
 
 class CategoryproductsScreen extends StatefulWidget {
   final Product _product;
-  CategoryproductsScreen(this._product, {Key? key}) : super(key: key);
+  const CategoryproductsScreen(this._product, {Key? key}) : super(key: key);
 
   @override
   _CategoryproductsScreenState createState() => _CategoryproductsScreenState();
 }
 
 class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
-  int count = 0;
-  int Unities = 0;
   int currentindex = 0;
+  int count = 0;
+  final Cart cart = Cart();
+
   @override
   void initState() {
     super.initState();
   }
 
-  Future<void> ProductOrderDetail(BuildContext context) async {
+  Future<void> displayProductUnitsPoupUp(BuildContext context) async {
     return await showDialog(
         context: context,
         builder: (context) {
@@ -32,132 +35,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
             backgroundColor: Colors.red[50],
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            content: Form(
-                child: Container(
-              alignment: Alignment.bottomCenter,
-              height: 200,
-              width: double.infinity,
-              child: Center(
-                child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                        ),
-                        child: Row(
-                          children: [
-                            const Text(
-                              "Hrissa",
-                              style: TextStyle(
-                                  fontSize: 26, fontFamily: "Lobster"),
-                            ),
-                            const SizedBox(
-                              width: 60,
-                            ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.check_circle,
-                                    color: Colors.green)),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                        ),
-                        child: Row(
-                          children: [
-                            const Text(
-                              "Mayounez",
-                              style: TextStyle(
-                                  fontSize: 23, fontFamily: "Lobster"),
-                            ),
-                            const SizedBox(
-                              width: 30,
-                            ),
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.check_circle,
-                                    color: Colors.green)),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                        ),
-                        child: Row(
-                          children: [
-                            const Text(
-                              "Unities",
-                              style: TextStyle(
-                                  fontSize: 26, fontFamily: "Lobster"),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            FloatingActionButton(
-                              onPressed: () {
-                                setState(() {
-                                  if (Unities <= 0) {
-                                    Unities == 0;
-                                  } else {
-                                    Unities--;
-                                  }
-                                });
-                              },
-                              child: const Icon(
-                                Icons.remove_circle,
-                                //   color: Colors.red,
-                              ),
-                              mini: true,
-                              heroTag: 'Unit--',
-                              backgroundColor: Colors.red[50],
-                              foregroundColor: parseColor("#FFB5A7"),
-                            ),
-                            Text("$Unities"),
-                            FloatingActionButton(
-                              onPressed: () {
-                                setState(() {
-                                  Unities++;
-                                });
-                              },
-                              child: const Icon(
-                                Icons.add_circle,
-                              ),
-                              mini: true,
-                              heroTag: 'Unit++',
-                              foregroundColor: Colors.red[50],
-                              backgroundColor: parseColor("#FFB5A7"),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      SizedBox(
-                        width: 140,
-                        height: 40,
-                        child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              primary: parseColor("#FFB5A7"),
-                            ),
-                            label: const Text('Confirme'),
-                            icon: const Icon(Icons.check),
-                            onPressed: () {
-                              setState(() {
-                                count++;
-                              });
-                              Navigator.pop(context, true);
-                            }),
-                      ),
-                    ]),
-              ),
-            )),
-            actions: [],
+            content: ProductUnitsPopUp(widget._product, parseColor("#FFB5A7")),
           );
         });
   }
@@ -238,9 +116,9 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => CartScreen()));
+                                  builder: (context) => const CartScreen()));
                         },
-                        icon: CartIcon(count)),
+                        icon: CartIcon(cart.getProductsCount())),
                     label: 'Cart'),
               ]),
         ),
@@ -276,7 +154,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                     label: const Text('ADD To Cart'),
                     icon: const Icon(Icons.dinner_dining_rounded),
                     onPressed: () async {
-                      await ProductOrderDetail(context);
+                      await displayProductUnitsPoupUp(context);
                     },
                   ),
                 ),

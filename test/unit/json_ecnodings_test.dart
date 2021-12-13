@@ -1,8 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Domain/Cart/cart.dart';
-import 'package:online_order_client/Domain/Cart/icart.dart';
-import 'package:online_order_client/Domain/Cart/icart_item.dart';
 import 'package:online_order_client/Domain/Orders/iorder.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Domain/GpsLocation/address.dart';
@@ -21,9 +19,9 @@ Future<void> setUpProfile(IProfile profileMock) async {
   profileMock.saveProfile();
 }
 
-Future<void> setUpOrderTest(ICart cart) async {
+Future<void> setUpOrderTest(Cart cart) async {
   Product product = Product("pizza", "none", "test.com", [32.0], ["normal"]);
-  ICartItem cartItem = CartItem(id: '0', product: product, quantity: 1);
+  CartItem cartItem = CartItem(product: product, quantity: 1);
   cartItem.setSize(0);
   cart.addProduct(product: cartItem);
 }
@@ -47,7 +45,7 @@ void main() {
   });
 
   group("Order encoding", () {
-    ICart cartMock = Cart();
+    Cart cartMock = Cart();
     IOrder order;
     setUpAll(() async {
       setUpOrderTest(cartMock);

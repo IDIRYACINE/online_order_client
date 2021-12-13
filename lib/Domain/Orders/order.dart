@@ -1,4 +1,4 @@
-import 'package:online_order_client/Domain/Cart/icart_item.dart';
+import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Domain/Orders/iorder.dart';
 
 class Order implements IOrder {
@@ -16,9 +16,9 @@ class Order implements IOrder {
   }
 
   @override
-  void mapCartItemToOrder({required ICartItem cartItem}) {
-    String itemId = cartItem.getId();
-    _order[itemId] = cartItem.getOnlineMap();
+  void mapCartItemToOrder({required CartItem cartItem}) {
+    String length = _order.length.toString();
+    _order[length] = cartItem.getOnlineMap();
   }
 
   @override

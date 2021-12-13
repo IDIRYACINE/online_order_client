@@ -1,29 +1,24 @@
-import 'package:online_order_client/Domain/Cart/icart_item.dart';
+import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Domain/Orders/iorder.dart';
 import 'package:online_order_client/Domain/Orders/order.dart';
 
-import 'icart.dart';
-
-class Cart implements ICart {
+class Cart {
   static final Cart _cartModel = Cart._();
-  final List<ICartItem> _products = [];
+  final List<CartItem> _products = [];
 
   factory Cart() {
     return _cartModel;
   }
   Cart._();
 
-  @override
-  void addProduct({required ICartItem product}) {
+  void addProduct({required CartItem product}) {
     _products.add(product);
   }
 
-  @override
   void clearCart() {
     _products.clear();
   }
 
-  @override
   double getTotalPrice() {
     double totalPrice = 0;
     int productsCount = getProductsCount();
@@ -33,27 +28,23 @@ class Cart implements ICart {
     return totalPrice;
   }
 
-  @override
   IOrder placeOrder() {
     IOrder order = Order();
-    for (ICartItem _cartItem in _products) {
+    for (CartItem _cartItem in _products) {
       order.mapCartItemToOrder(cartItem: _cartItem);
     }
     return order;
   }
 
-  @override
-  void removeProduct({required int productId}) {
-    _products.removeAt(productId);
+  void removeProduct({required CartItem item}) {
+    _products.remove(item);
   }
 
-  @override
   int getProductsCount() {
     return _products.length;
   }
 
-  @override
-  ICartItem getProduct({required int productId}) {
+  CartItem getProduct({required int productId}) {
     return _products[productId];
   }
 }
