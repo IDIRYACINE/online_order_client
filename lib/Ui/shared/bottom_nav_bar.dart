@@ -24,7 +24,7 @@ class _BottomNavBar extends State<BottomNavBar> {
           BottomNavigationBarItem(
             icon: IconButton(
               onPressed: () {
-                navigationProvider.navigateToCatalogue();
+                Navigator.of(context).pop();
               },
               icon: const Icon(
                 Icons.keyboard_return,
@@ -35,7 +35,7 @@ class _BottomNavBar extends State<BottomNavBar> {
           BottomNavigationBarItem(
             icon: IconButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                navigationProvider.navigateToCatalogue();
               },
               icon: const Icon(Icons.home),
               iconSize: 40,

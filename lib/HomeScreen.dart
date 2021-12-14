@@ -13,7 +13,6 @@ class HomeScreen extends StatelessWidget {
         Provider.of<NavigationProvider>(context);
 
     return Scaffold(
-        backgroundColor: Colors.red[50],
         appBar: AppBar(
           title: const Text(
             "THe House restaurante",
