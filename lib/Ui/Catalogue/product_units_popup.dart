@@ -136,10 +136,11 @@ class _UnitsPopUpState extends State<ProductUnitsPopUp> {
                     label: const Text('Confirme'),
                     icon: const Icon(Icons.check),
                     onPressed: () {
-                      _cart.addProduct(
-                          product: CartItem(
-                              product: widget._product, quantity: _units));
-                      setState(() {});
+                      setState(() {
+                        _cart.addProduct(
+                            product: CartItem(
+                                product: widget._product, quantity: _units));
+                      });
                       Navigator.pop(context, true);
                     }),
               ),
