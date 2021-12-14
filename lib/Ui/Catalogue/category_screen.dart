@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Application/catalogue_provider.dart';
 import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
 import 'package:online_order_client/Ui/shared/Components.dart';
+import 'package:provider/provider.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);
@@ -10,10 +12,11 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  final CatalogueModel _catalogueModel = CatalogueModel();
-
   @override
   Widget build(BuildContext context) {
+    CatalogueProvider catalogueProvider =
+        Provider.of<CatalogueProvider>(context);
+
     return Scaffold(
         backgroundColor: Colors.red[50],
         body: Padding(
@@ -23,15 +26,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
           child: ListView.separated(
             scrollDirection: Axis.vertical,
             itemBuilder: (context, index) {
-              return CategoryWidget(
-                  _catalogueModel.getCategory(categoryIndex: index));
+              return CategoryWidget(catalogueProvider.getCategory(index));
             },
             separatorBuilder: (context, index) => Divider(
               color: parseColor("#F9DCC4"),
               height: 10,
               thickness: 5,
             ),
-            itemCount: _catalogueModel.getCategoriesCount(),
+            itemCount: catalogueProvider.getCategoriesCount(),
           ),
         ));
   }

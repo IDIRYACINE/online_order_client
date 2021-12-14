@@ -15,12 +15,6 @@ class CategoryproductsScreen extends StatefulWidget {
 class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
   int currentindex = 0;
   int count = 0;
-  final Cart cart = Cart();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   Future<void> displayProductUnitsPoupUp(BuildContext context) async {
     return await showDialog(
@@ -37,7 +31,8 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Scaffold(
+        body: Padding(
       padding: const EdgeInsets.only(
         top: 16,
       ),
@@ -84,6 +79,6 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
           ]),
         ],
       ),
-    );
+    ));
   }
 }

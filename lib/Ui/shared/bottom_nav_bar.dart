@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
+import 'package:online_order_client/Application/catalogue_provider.dart';
 import 'package:online_order_client/Ui/shared/Components.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,9 @@ class _BottomNavBar extends State<BottomNavBar> {
     NavigationProvider navigationProvider =
         Provider.of<NavigationProvider>(context);
 
+    CatalogueProvider catalogueProvider =
+        Provider.of<CatalogueProvider>(context);
+
     return BottomNavigationBar(
         backgroundColor: parseColor("#FCD5CE"),
         iconSize: 10,
@@ -24,7 +28,7 @@ class _BottomNavBar extends State<BottomNavBar> {
           BottomNavigationBarItem(
             icon: IconButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context);
               },
               icon: const Icon(
                 Icons.keyboard_return,
@@ -47,7 +51,7 @@ class _BottomNavBar extends State<BottomNavBar> {
                   onPressed: () {
                     navigationProvider.navigateToCart();
                   },
-                  icon: CartIcon(0)),
+                  icon: CartIcon(catalogueProvider.getCartItemCount())),
               label: 'Cart'),
         ]);
   }

@@ -11,11 +11,6 @@ class NavigationProvider with ChangeNotifier {
 
   Widget getScreen() => _screens[_screenIndex];
 
-  void setScreenIndex(int screenID) {
-    _screenIndex = screenID;
-    notifyListeners();
-  }
-
   void navigateToCart() {
     _screenIndex = 0;
     notifyListeners();

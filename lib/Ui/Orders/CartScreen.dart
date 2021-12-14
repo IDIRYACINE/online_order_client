@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Domain/Cart/cart.dart';
+import 'package:online_order_client/Application/catalogue_provider.dart';
 import 'package:online_order_client/Ui/Orders/cart_item_widget.dart';
 import 'package:online_order_client/Ui/shared/Components.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -11,11 +12,13 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final Cart cart = Cart();
   final Color color = parseColor("#FFB5A7");
 
   @override
   Widget build(BuildContext context) {
+    CatalogueProvider catalogueProvider =
+        Provider.of<CatalogueProvider>(context);
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -27,11 +30,12 @@ class _CartScreenState extends State<CartScreen> {
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
-                return CartItemWidget(cart.getProduct(productId: index), color);
+                return CartItemWidget(
+                    catalogueProvider.getProduct(productId: index), color);
               },
               separatorBuilder: (context, index) =>
                   Divider(thickness: 3, color: parseColor("#F9DCC4")),
-              itemCount: cart.getProductsCount()),
+              itemCount: catalogueProvider.getCartItemCount()),
           SizedBox(
             height: 40,
             width: 180,
@@ -43,8 +47,8 @@ class _CartScreenState extends State<CartScreen> {
               icon: const Icon(Icons.send_outlined),
               onPressed: () {
                 setState(() {
-                  cart.placeOrder();
-                  cart.clearCart();
+                  catalogueProvider.placeOrder();
+                  catalogueProvider.clearCart();
                 });
               },
               autofocus: true,

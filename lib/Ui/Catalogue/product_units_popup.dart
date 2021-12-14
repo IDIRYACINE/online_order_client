@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Domain/Cart/cart.dart';
+import 'package:online_order_client/Application/catalogue_provider.dart';
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
+import 'package:provider/provider.dart';
 
 class ProductUnitsPopUp extends StatefulWidget {
   final Color _color;
@@ -19,10 +20,12 @@ class ProductUnitsPopUp extends StatefulWidget {
 
 class _UnitsPopUpState extends State<ProductUnitsPopUp> {
   int _units = 0;
-  final Cart _cart = Cart();
 
   @override
   Widget build(BuildContext context) {
+    CatalogueProvider catalogueProvider =
+        Provider.of<CatalogueProvider>(context);
+
     return Form(
         child: Container(
       alignment: Alignment.bottomCenter,
@@ -136,12 +139,9 @@ class _UnitsPopUpState extends State<ProductUnitsPopUp> {
                     label: const Text('Confirme'),
                     icon: const Icon(Icons.check),
                     onPressed: () {
-                      setState(() {
-                        _cart.addProduct(
-                            product: CartItem(
-                                product: widget._product, quantity: _units));
-                      });
-                      Navigator.pop(context, true);
+                      Navigator.pop(context);
+                      catalogueProvider.addCartItem(
+                          CartItem(product: widget._product, quantity: _units));
                     }),
               ),
             ]),

@@ -3,18 +3,12 @@ import 'package:online_order_client/Infrastructure/Database/products_mapper.dart
 import 'package:online_order_client/Infrastructure/service_provider.dart';
 
 class CatalogueModel {
-  static final CatalogueModel _catalogueModel = CatalogueModel._();
-  final ProductsMapper _productsManager = ServicesProvider().productsMapper;
+  late final ProductsMapper _productsManager;
   final int _categoryMaxProductDisplay = 5;
   late CategoryMap _categories;
 
-  factory CatalogueModel() {
-    return _catalogueModel;
-  }
-
-  CatalogueModel._();
-
   Future<void> initCategories() async {
+    _productsManager = ServicesProvider().productsMapper;
     _categories = await _productsManager.getCategories();
     for (Category category in _categories) {
       await category.loadProducts(productsCount: _categoryMaxProductDisplay);

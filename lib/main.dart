@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
+import 'package:online_order_client/Application/catalogue_provider.dart';
 import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
 import 'package:online_order_client/HomeScreen.dart';
 //import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
@@ -13,32 +14,25 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => NavigationProvider()),
+    ChangeNotifierProvider(create: (_) => CatalogueProvider()),
   ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  Future<bool> _initApp() async {
-    await Firebase.initializeApp();
-    ServicesProvider services = ServicesProvider();
-    await services.initialiaze();
-    await services.productDatabase.connect();
-    await CatalogueModel().initCategories();
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
+    CatalogueProvider _catalogue = Provider.of<CatalogueProvider>(context);
     return MaterialApp(
         home: FutureBuilder(
-      future: _initApp(),
+      future: _catalogue.initApp(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          return HomeScreen();
+          return const HomeScreen();
         }
         if (snapshot.hasError) {
-          print(snapshot.stackTrace);
+          print(snapshot.error);
           return const Text('error');
         } else {
           return const SplashScreen();
