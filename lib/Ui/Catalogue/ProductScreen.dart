@@ -3,6 +3,11 @@ import 'package:online_order_client/Domain/Cart/cart.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Catalogue/product_units_popup.dart';
 import 'package:online_order_client/Ui/shared/Components.dart';
+import 'package:online_order_client/Ui/shared/bottom_nav_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
+
+
 
 class CategoryproductsScreen extends StatefulWidget {
   final Product _product;
@@ -37,53 +42,75 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 16,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          ElemTitle(context, widget._product.getName()),
-          PicturesLV(widget._product),
-          Divider(
-            color: parseColor("#F9DCC4"),
-            height: 10,
-            thickness: 5,
+    NavigationProvider navigationProvider =
+        Provider.of<NavigationProvider>(context);
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text(
+            "THe House restaurante",
+            style: TextStyle(
+              fontSize: 16.5,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
           ),
-          const SizedBox(height: 20),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: ProductDescription(widget._product)),
-          const SizedBox(height: 20),
-          PricesTabl(widget._product),
-          const SizedBox(height: 10),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SizedBox(
-              width: 180,
-              height: 60,
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  primary: parseColor("#FFB5A7"),
+          backgroundColor: parseColor("#FCD5CE"),
+          centerTitle: false,
+          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
+          ],
+        ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+          top: 16,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ElemTitle(context, widget._product.getName()),
+            PicturesLV(widget._product),
+            Divider(
+              color: parseColor("#F9DCC4"),
+              height: 10,
+              thickness: 5,
+            ),
+            const SizedBox(height: 20),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: ProductDescription(widget._product)),
+            const SizedBox(height: 20),
+            PricesTabl(widget._product),
+            const SizedBox(height: 10),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SizedBox(
+                width: 180,
+                height: 60,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    primary: parseColor("#FFB5A7"),
+                  ),
+                  label: const Text('ADD To Cart'),
+                  icon: const Icon(Icons.dinner_dining_rounded),
+                  onPressed: () async {
+                    await displayProductUnitsPoupUp(context);
+                  },
                 ),
-                label: const Text('ADD To Cart'),
-                icon: const Icon(Icons.dinner_dining_rounded),
-                onPressed: () async {
-                  await displayProductUnitsPoupUp(context);
-                },
               ),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.favorite_border,
-                color: parseColor("#FFB5A7"),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.favorite_border,
+                  color: parseColor("#FFB5A7"),
+                ),
+                splashColor: parseColor("#FFB5A7"),
               ),
-              splashColor: parseColor("#FFB5A7"),
-            ),
-          ]),
-        ],
+            ]),
+          ],
+        ),
       ),
+      bottomNavigationBar: const BottomNavBar()
     );
   }
 }
