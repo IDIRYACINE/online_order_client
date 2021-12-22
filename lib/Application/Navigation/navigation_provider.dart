@@ -1,10 +1,10 @@
+
 import 'package:flutter/widgets.dart';
-import 'package:online_order_client/Ui/Catalogue/ProductScreen.dart';
 import 'package:online_order_client/Ui/Catalogue/category_screen.dart';
 import 'package:online_order_client/Ui/Orders/CartScreen.dart';
 
 class NavigationProvider with ChangeNotifier {
-  final List<Widget> _screens = const [CartScreen(), CategoryScreen(), CategoryproductsScreen()];
+  final List<Widget> _screens =  [ CartScreen(),   CategoryScreen(), /*CategoryproductsScreen()*/];
 
   int _screenIndex = 0;
 
@@ -22,7 +22,7 @@ class NavigationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void CategoryproductsScreen() {
+   void  navigateToCategoryproductsScreen() {
     _screenIndex = 2;
     notifyListeners();
   }

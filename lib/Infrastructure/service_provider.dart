@@ -58,11 +58,11 @@ class ServicesProvider {
         FireBaseServices(FirebaseStorage.instance, _databaseReference);
   }
 
-  Future<void> _useTestMode() async {
-    FirebaseAuth.instance.useAuthEmulator(localHost, 9099);
-    FirebaseFirestore.instance.useFirestoreEmulator(localHost, 8080);
-    FirebaseStorage.instance.useStorageEmulator(localHost, 9199);
-  }
+  // Future<void> _useTestMode() async {
+  //   FirebaseAuth.instance.useAuthEmulator(localHost, 9099);
+  //   FirebaseFirestore.instance.useFirestoreEmulator(localHost, 8080);
+  //   FirebaseStorage.instance.useStorageEmulator(localHost, 9199);
+  // }
 
   IAuthenticationService get authenticationService => _authenticationService;
   IOnlineServerAcess get serverAcessService => _serverAcess;
