@@ -7,7 +7,6 @@ import 'package:online_order_client/Application/catalogue_provider.dart';
 import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
 import 'package:online_order_client/HomeScreen.dart';
 //import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
-import 'package:online_order_client/Infrastructure/service_provider.dart';
 import 'package:online_order_client/Ui/Login/LoginScreen.dart';
 //import 'package:online_order_client/test.dart';
 import 'package:provider/provider.dart';
@@ -30,12 +29,11 @@ class MyApp extends StatelessWidget {
       future: _catalogue.initApp(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
-          return  LoginScreen();
+          return const HomeScreen();
         }
         if (snapshot.hasError) {
-        print(snapshot.error);
+          print(snapshot.error);
           return const Text('error');
-
         } else {
           return const SplashScreen();
         }

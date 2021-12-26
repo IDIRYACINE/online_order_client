@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-abstract class AuthException implements Exception {
-  AuthException({this.code = "unkown", this.message, this.stackTrace});
+abstract class CustomException implements Exception {
+  CustomException({this.code = "unkown", this.message, this.stackTrace});
 
   final String code;
   final String? message;
@@ -10,7 +10,7 @@ abstract class AuthException implements Exception {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (other is! AuthException) return false;
+    if (other is! CustomException) return false;
     return other.hashCode == hashCode;
   }
 
@@ -28,7 +28,7 @@ abstract class AuthException implements Exception {
   }
 }
 
-class InvalidLoginInfos extends AuthException {
+class InvalidLoginInfos extends CustomException {
   InvalidLoginInfos(
       {String code = "Invalid-login-infos",
       String message = "Incorrect password or email",
@@ -36,7 +36,7 @@ class InvalidLoginInfos extends AuthException {
       : super(code: code, message: message, stackTrace: stackTrace);
 }
 
-class InvalidVerificationCode extends AuthException {
+class InvalidVerificationCode extends CustomException {
   InvalidVerificationCode(
       {String code = "Invalid-code",
       String message = "Incorrect verification code",
@@ -44,7 +44,7 @@ class InvalidVerificationCode extends AuthException {
       : super(code: code, message: message, stackTrace: stackTrace);
 }
 
-class EmailAlreadyUsed extends AuthException {
+class EmailAlreadyUsed extends CustomException {
   EmailAlreadyUsed(
       {String code = "Email-used",
       String message = "Email already used , try requesting validation email",
@@ -52,10 +52,34 @@ class EmailAlreadyUsed extends AuthException {
       : super(code: code, message: message, stackTrace: stackTrace);
 }
 
-class InvalidUser extends AuthException {
+class InvalidUser extends CustomException {
   InvalidUser(
       {String code = "User-not-exist",
       String message = "User doesn't exist",
+      StackTrace? stackTrace})
+      : super(code: code, message: message, stackTrace: stackTrace);
+}
+
+class InvalidEmail extends CustomException {
+  InvalidEmail(
+      {String code = "Invalid-email",
+      String message = "Invalid email",
+      StackTrace? stackTrace})
+      : super(code: code, message: message, stackTrace: stackTrace);
+}
+
+class WeakPassword extends CustomException {
+  WeakPassword(
+      {String code = "Invalid-password",
+      String message = "Password should be at least 8 characters long",
+      StackTrace? stackTrace})
+      : super(code: code, message: message, stackTrace: stackTrace);
+}
+
+class InvalidNumber extends CustomException {
+  InvalidNumber(
+      {String code = "Invalid-phone-number",
+      String message = "Invalid phone number",
       StackTrace? stackTrace})
       : super(code: code, message: message, stackTrace: stackTrace);
 }
