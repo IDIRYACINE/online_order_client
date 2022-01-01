@@ -5,6 +5,8 @@ import 'package:online_order_client/Ui/Login/NewAccounScreen.dart';
 import 'package:online_order_client/Ui/Orders/CartScreen.dart';
 import 'package:flutter/material.dart';
 
+import '../../Ui/DelivrationInformations/GpsScreen.dart';
+
 class NavigationProvider with ChangeNotifier {
   final List<Widget> _screens = const [
     CartScreen(),
@@ -36,9 +38,15 @@ class NavigationProvider with ChangeNotifier {
   void navigateToFavorites() {}
   void navigateToProfile() {}
   void navigateToSettings() {}
+
   void navigateToLogin(BuildContext context) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => LoginScreen(_authentication)));
+  }
+
+  void navigateToGpsScreen(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const DeliveryAddresScreen()));
   }
 
   void navigateToNewAccount(BuildContext context) {
