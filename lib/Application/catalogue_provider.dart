@@ -35,7 +35,7 @@ class CatalogueProvider with ChangeNotifier {
 
   void addCartItem(CartItem cartItem) {
     _cart.addProduct(product: cartItem);
-    //notifyListeners();
+    notifyListeners();
   }
 
   int getCartItemCount() {
@@ -52,11 +52,11 @@ class CatalogueProvider with ChangeNotifier {
 
   void clearCart() {
     _cart.clearCart();
-    // notifyListeners();
+    notifyListeners();
   }
 
   void removeProduct({required CartItem item}) {
     _cart.removeProduct(item: item);
-    //notifyListeners();
+    notifyListeners();
   }
 }
