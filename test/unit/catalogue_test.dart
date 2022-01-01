@@ -28,14 +28,14 @@ void main() {
                 'Name': '4season',
                 'Description': 'test',
                 'Price': '32',
-                'Image_URL': 'test.com',
+                'ImageUrl': 'test.com',
                 'Size': 'normal'
               },
               {
                 'Name': 'auFeu',
                 'Description': 'test',
                 'Price': '64',
-                'Image_URL': 'test.com',
+                'ImageUrl': 'test.com',
                 'Size': 'big'
               },
             ]));

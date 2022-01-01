@@ -1,13 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
 import 'package:online_order_client/Application/catalogue_provider.dart';
-import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
 import 'package:online_order_client/HomeScreen.dart';
 //import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
-import 'package:online_order_client/Ui/Login/LoginScreen.dart';
 //import 'package:online_order_client/test.dart';
 import 'package:provider/provider.dart';
 

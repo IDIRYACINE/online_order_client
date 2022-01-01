@@ -3,7 +3,7 @@ import 'package:online_order_client/Infrastructure/Database/products_mapper.dart
 import 'package:online_order_client/Infrastructure/service_provider.dart';
 
 class CatalogueModel {
-  late final ProductsMapper _productsManager;
+  late ProductsMapper _productsManager;
   final int _categoryMaxProductDisplay = 5;
   late CategoryMap _categories;
 

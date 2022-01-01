@@ -71,7 +71,6 @@ class ProductsDatabase implements IProductsDatabase {
     int localDatabaseVersion = await _productsDatabase.getVersion();
     bool newUpdateAvaillable =
         (localDatabaseVersion != fireBaseDatabaseVersion);
-    print("$localDatabaseVersion:$fireBaseDatabaseVersion");
 
     return newUpdateAvaillable;
   }

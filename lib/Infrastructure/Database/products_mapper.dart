@@ -17,6 +17,7 @@ class ProductsMapper {
 
     ResultSet productsResultSet = await _database.loadProducts(
         category: categoryId, startIndex: startIndex, count: productsCount);
+
     for (int i = 0; i < productsResultSet.length; i++) {
       products.add(_mapResultSetToProduct(productsResultSet[i]));
     }
@@ -36,27 +37,18 @@ class ProductsMapper {
   }
 
   Product _mapResultSetToProduct(QueryResult queryResult) {
-    print(queryResult);
+    String rawSize = queryResult['Size'] as String;
+    String rawPrice = queryResult['Price'] as String;
 
-    //String rawSize = queryResult['Size'] as String;
-    //String rawPrice = queryResult['Price'] as String;
+    List<String> sizes = rawSize.split(",");
+    List<double> price = _rawStringToList(rawPrice);
 
-    //List<String> sizes = rawSize.split(",");
-    //List<double> price = _rawStringToList(rawPrice);
-
-    /*Product product = Product(
+    return Product(
         queryResult['Name'] as String,
         queryResult['Description'] as String,
         queryResult['ImageUrl'] as String,
         price,
-        sizes);*/
-
-    return Product(
-        "_name",
-        "_description",
-        "https://st.depositphotos.com/1900347/4146/i/600/depositphotos_41466555-stock-photo-image-of-slice-of-pizza.jpg",
-        [32],
-        ["S"]);
+        sizes);
   }
 
   List<double> _rawStringToList(String raw) {
