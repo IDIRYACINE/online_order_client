@@ -43,7 +43,7 @@ class ServicesProvider {
     await _initServerAcess();
     _authenticationService = FirebaseAuthenticationService(
         FirebaseAuth.instance, FirebaseFirestore.instance);
-    _orderService = OrderService(_serverAcess, _authenticationService);
+    _orderService = OrderService(_serverAcess);
     _productsDatabase = ProductsDatabase(_serverAcess);
     _productsMapper = ProductsMapper(_productsDatabase);
   }

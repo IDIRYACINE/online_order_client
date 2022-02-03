@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
 import 'package:online_order_client/Ui/Cart/cart_item_widget.dart';
 import 'package:online_order_client/Ui/shared/components.dart';
@@ -16,8 +17,7 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    CatalogueProvider catalogueProvider =
-        Provider.of<CatalogueProvider>(context);
+    CartHelper _cartHelper = Provider.of<CatalogueProvider>(context).cartHelper;
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -30,12 +30,11 @@ class _CartScreenState extends State<CartScreen> {
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
-                return CartItemWidget(
-                    catalogueProvider.getProduct(productId: index), color);
+                return CartItemWidget(_cartHelper.getProduct(index), color);
               },
               separatorBuilder: (context, index) =>
                   Divider(thickness: 3, color: parseColor("#F9DCC4")),
-              itemCount: catalogueProvider.getCartItemCount()),
+              itemCount: _cartHelper.getCartItemCount()),
           SizedBox(
             height: 40,
             width: 180,
@@ -47,8 +46,7 @@ class _CartScreenState extends State<CartScreen> {
               icon: const Icon(Icons.send_outlined),
               onPressed: () {
                 setState(() {
-                  catalogueProvider.placeOrder();
-                  catalogueProvider.clearCart();
+                  _cartHelper.placeOrder(context);
                 });
               },
               autofocus: true,

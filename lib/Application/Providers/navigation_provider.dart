@@ -8,10 +8,8 @@ import 'package:flutter/material.dart';
 import '../../Ui/DelivrationInformations/gps_screen.dart';
 
 class NavigationProvider with ChangeNotifier {
-  final List<Widget> _screens = const [
-    CartScreen(),
-    CategoryScreen(),
-  ];
+  final List<Widget> _screens = const [CartScreen(), CategoryScreen()];
+
   final Authentication _authentication = Authentication();
 
   int _screenIndex = 0;
@@ -35,7 +33,6 @@ class NavigationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void navigateToFavorites() {}
   void navigateToProfile() {}
   void navigateToSettings() {}
 

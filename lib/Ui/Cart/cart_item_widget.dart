@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class CartItemWidget extends StatefulWidget {
 class _CartItemState extends State<CartItemWidget> {
   @override
   Widget build(BuildContext context) {
-    CatalogueProvider _catalogue = Provider.of<CatalogueProvider>(context);
+    CartHelper _cartHelper = Provider.of<CatalogueProvider>(context).cartHelper;
 
     return SizedBox(
       height: 100,
@@ -95,7 +96,7 @@ class _CartItemState extends State<CartItemWidget> {
             child: IconButton(
                 onPressed: () {
                   setState(() {
-                    _catalogue.removeProduct(item: widget._cartItem);
+                    _cartHelper.removeProduct(widget._cartItem);
                   });
                 },
                 icon: const Icon(Icons.delete)),

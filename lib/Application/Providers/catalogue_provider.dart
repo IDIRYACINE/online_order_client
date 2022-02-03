@@ -1,19 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
-import 'package:online_order_client/Domain/Cart/cart.dart';
-import 'package:online_order_client/Domain/Cart/cart_item.dart';
+import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Domain/Catalogue/category_model.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
 
+import '../../Domain/Cart/cart.dart';
 import '../../Domain/Catalogue/catalogue_model.dart';
 
 class CatalogueProvider with ChangeNotifier {
   late final CatalogueModel _catalogueModel;
-  late final Cart _cart;
+  late final CartHelper _cartHelper;
 
   CatalogueProvider() {
     _catalogueModel = CatalogueModel();
-    _cart = Cart();
   }
 
   Future<bool> initApp() async {
@@ -22,6 +21,9 @@ class CatalogueProvider with ChangeNotifier {
     await services.initialiaze();
     await services.productDatabase.connect();
     await _catalogueModel.initCategories();
+
+    _cartHelper = CartHelper(
+        Cart(), services.orderService, services.authenticationService);
     return true;
   }
 
@@ -33,30 +35,5 @@ class CatalogueProvider with ChangeNotifier {
     return _catalogueModel.getCategoriesCount();
   }
 
-  void addCartItem(CartItem cartItem) {
-    _cart.addProduct(product: cartItem);
-    notifyListeners();
-  }
-
-  int getCartItemCount() {
-    return _cart.getProductsCount();
-  }
-
-  CartItem getProduct({required int productId}) {
-    return _cart.getProduct(productId: productId);
-  }
-
-  void placeOrder() {
-    _cart.placeOrder();
-  }
-
-  void clearCart() {
-    _cart.clearCart();
-    notifyListeners();
-  }
-
-  void removeProduct({required CartItem item}) {
-    _cart.removeProduct(item: item);
-    notifyListeners();
-  }
+  CartHelper get cartHelper => _cartHelper;
 }

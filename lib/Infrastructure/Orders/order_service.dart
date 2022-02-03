@@ -1,11 +1,8 @@
-// ignore_for_file: unused_field
-
 import 'dart:async';
 
 import 'package:online_order_client/Domain/Orders/iorder.dart';
 import 'package:online_order_client/Domain/Profile/iprofile.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
-import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_subscriber.dart';
@@ -15,9 +12,8 @@ class OrderService implements IOrderService {
   final Map<String, IOrderSubscriber> _ordersStatusSubscribers = {};
   bool _isSubscribedToServer = false;
   final IOnlineServerAcess _serverAcess;
-  final IAuthenticationService _authenticationService;
 
-  OrderService(this._serverAcess, this._authenticationService);
+  OrderService(this._serverAcess);
   @override
   void subscribeToOrdersStatus(IOrderSubscriber subscriber) {
     String subscriberId = subscriber.getId();
@@ -30,12 +26,14 @@ class OrderService implements IOrderService {
   }
 
   @override
-  void sendOrderToShop(IOrder order) {
-    IProfile profile = ProfileModel();
+  void sendOrderToShop(IOrder order, IProfile profile) {
     Map<String, dynamic> _orderMap = order.toMap();
+
     _serverAcess.postData(
         dataUrl: "OrdersStatus/${profile.getUserId()}", data: _orderMap);
+
     _orderMap = order.formatOnlineOrder();
+
     _serverAcess.postData(dataUrl: 'Orders', data: _orderMap);
     listenToOrderStatusOnServer();
   }

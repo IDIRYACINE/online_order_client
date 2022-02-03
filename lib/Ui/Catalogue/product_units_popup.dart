@@ -140,7 +140,7 @@ class _UnitsPopUpState extends State<ProductUnitsPopUp> {
                     icon: const Icon(Icons.check),
                     onPressed: () {
                       Navigator.pop(context);
-                      catalogueProvider.addCartItem(
+                      catalogueProvider.cartHelper.addCartItem(
                           CartItem(product: widget._product, quantity: _units));
                     }),
               ),

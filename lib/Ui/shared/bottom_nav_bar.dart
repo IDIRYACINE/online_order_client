@@ -51,7 +51,8 @@ class _BottomNavBar extends State<BottomNavBar> {
                   onPressed: () {
                     navigationProvider.navigateToCart();
                   },
-                  icon: cartIcon(catalogueProvider.getCartItemCount())),
+                  icon: cartIcon(
+                      catalogueProvider.cartHelper.getCartItemCount())),
               label: 'Cart'),
         ]);
   }
