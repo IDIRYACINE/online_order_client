@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/HomeScreen.dart';
-import 'package:online_order_client/Ui/Favorites/FavoritesScreen.dart';
+import 'package:online_order_client/home_screen.dart';
 import 'package:online_order_client/Ui/Profile/profile_screen.dart';
-import 'package:online_order_client/Ui/shared/Components.dart';
+import 'package:online_order_client/Ui/shared/components.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -44,12 +43,6 @@ class _SettingsState extends State<SettingsScreen> {
                         builder: (context) => const SettingsScreen()));
               },
               icon: const Icon(Icons.settings)),
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => FavoritesScreen()));
-              },
-              icon: const Icon(Icons.favorite)),
         ],
       ),
       bottomNavigationBar: SizedBox(
@@ -70,8 +63,10 @@ class _SettingsState extends State<SettingsScreen> {
               BottomNavigationBarItem(
                 icon: IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen()));
                   },
                   icon: const Icon(Icons.home),
                   iconSize: 30,
@@ -84,9 +79,9 @@ class _SettingsState extends State<SettingsScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+                                builder: (context) => const HomeScreen()));
                       },
-                      icon: CartIcon(5)),
+                      icon: cartIcon(5)),
                   label: 'Cart'),
             ]),
       ),

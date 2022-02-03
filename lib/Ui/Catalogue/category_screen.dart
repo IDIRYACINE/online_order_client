@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/catalogue_provider.dart';
-import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
-import 'package:online_order_client/Ui/shared/Components.dart';
+import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
+import 'package:online_order_client/Ui/shared/components.dart';
 import 'package:provider/provider.dart';
 
 class CategoryScreen extends StatefulWidget {

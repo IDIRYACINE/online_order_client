@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:online_order_client/Application/delivery_address.dart';
+import 'package:online_order_client/Application/DeliveryAddress/delivery_address.dart';
 
 class DeliveryAddresScreen extends StatefulWidget {
   const DeliveryAddresScreen({Key? key}) : super(key: key);

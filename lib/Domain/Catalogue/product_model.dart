@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 typedef ProductMap = Map<String, List<Product>>;
 
 class Product {

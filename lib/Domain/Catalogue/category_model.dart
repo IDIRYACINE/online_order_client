@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, prefer_final_fields
+
 import 'package:online_order_client/Infrastructure/Database/products_mapper.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
 

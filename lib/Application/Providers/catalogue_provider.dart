@@ -5,7 +5,7 @@ import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Domain/Catalogue/category_model.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
 
-import '../Domain/Catalogue/catalogue_model.dart';
+import '../../Domain/Catalogue/catalogue_model.dart';
 
 class CatalogueProvider with ChangeNotifier {
   late final CatalogueModel _catalogueModel;

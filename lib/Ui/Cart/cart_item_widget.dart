@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/catalogue_provider.dart';
-import 'package:online_order_client/Domain/Cart/cart.dart';
+import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:provider/provider.dart';
 
-import '../shared/Components.dart';
+import '../shared/components.dart';
 
 class CartItemWidget extends StatefulWidget {
   final CartItem _cartItem;
@@ -32,7 +31,7 @@ class _CartItemState extends State<CartItemWidget> {
             child: SizedBox(
                 height: 60,
                 width: 60,
-                child: ProductPicture(widget._cartItem.getThumbnailUrl())),
+                child: productPicture(widget._cartItem.getThumbnailUrl())),
           ),
           const VerticalDivider(
             thickness: 3,

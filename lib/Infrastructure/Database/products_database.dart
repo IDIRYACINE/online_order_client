@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'dart:io';
 
 import 'package:online_order_client/Infrastructure/Database/idatabase.dart';

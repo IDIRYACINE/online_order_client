@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/Navigation/navigation_provider.dart';
-import 'package:online_order_client/Application/catalogue_provider.dart';
-import 'package:online_order_client/HomeScreen.dart';
+import 'package:online_order_client/Application/Providers/navigation_provider.dart';
+import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
+import 'package:online_order_client/home_screen.dart';
 //import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
 //import 'package:online_order_client/test.dart';
 import 'package:provider/provider.dart';

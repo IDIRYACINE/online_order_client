@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element, unused_local_variable
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -32,7 +34,5 @@ class FacebookAuthentication {
   Future<void> _getUserData() async {
     Map<String, dynamic> profile =
         await _facebookAuth.getUserData(fields: "name,email");
-    print(profile["name"]);
-    print(profile["email"]);
   }
 }

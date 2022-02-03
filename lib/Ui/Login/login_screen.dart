@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/authentication.dart';
-import 'package:online_order_client/Infrastructure/service_provider.dart';
-import 'package:online_order_client/Ui/shared/Components.dart';
+import 'package:online_order_client/Application/Authentication/authentication.dart';
+import 'package:online_order_client/Ui/shared/components.dart';
 import 'package:provider/provider.dart';
 
-import '../../Application/Navigation/navigation_provider.dart';
+import '../../Application/Providers/navigation_provider.dart';
 
 class LoginScreen extends StatefulWidget {
-  final Authentication _authentication;
-  const LoginScreen(this._authentication, {Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();

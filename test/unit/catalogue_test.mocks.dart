@@ -2,6 +2,8 @@
 // in online_order_client/test/unit/catalogue_test.dart.
 // Do not manually edit this file.
 
+// ignore_for_file: unnecessary_overrides
+
 import 'dart:async' as _i3;
 
 import 'package:mockito/mockito.dart' as _i1;

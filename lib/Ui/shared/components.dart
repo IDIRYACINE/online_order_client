@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Ui/Catalogue/ProductScreen.dart';
+import 'package:online_order_client/Ui/Catalogue/product_screen.dart';
 import '../../Domain/Catalogue/category_model.dart';
 import '../../Domain/Catalogue/product_model.dart';
 
@@ -79,7 +79,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.max, children: [
-      ElemTitle(context, widget._category.getName(), 30, 3.0),
+      elemTitle(context, widget._category.getName(), 30, 3.0),
       Container(
         decoration: const BoxDecoration(),
         height: 170,
@@ -169,7 +169,7 @@ Widget line(double lineHieght, BuildContext context) {
   );
 }
 
-Widget CartIcon(int count) {
+Widget cartIcon(int count) {
   return Stack(children: [
     const Icon(
       Icons.shopping_cart,
@@ -192,7 +192,7 @@ Widget CartIcon(int count) {
   ]);
 }
 
-Widget ElemTitle(BuildContext context, String title,
+Widget elemTitle(BuildContext context, String title,
     [double size = 30, double lineHieght = 3.0]) {
   return Padding(
     padding: const EdgeInsets.only(
@@ -220,7 +220,7 @@ Widget ElemTitle(BuildContext context, String title,
   );
 }
 
-Widget ProductPicture(
+Widget productPicture(
     [String imageUrl =
         'https://download.vikidia.org/vikidia/fr/images/a/a4/Pizza.jpg']) {
   return ClipRRect(
@@ -234,7 +234,7 @@ Widget ProductPicture(
   );
 }
 
-Widget PicturesLV(Product product) {
+Widget picturesLV(Product product) {
   return Container(
     decoration: const BoxDecoration(),
     height: 120,
@@ -242,7 +242,7 @@ Widget PicturesLV(Product product) {
     child: ListView.separated(
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) =>
-          ProductPicture(product.getDescriptionImageUrl(index)),
+          productPicture(product.getDescriptionImageUrl(index)),
       separatorBuilder: (context, index) => const SizedBox(width: 5),
       itemCount: product.getDescrpitionImagesCount(),
     ),
@@ -266,14 +266,14 @@ class _ProductDescriptionState extends State<ProductDescription> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      child: Ingrediant(widget._product.getDescription()),
+      child: ingrediant(widget._product.getDescription()),
     );
   }
 }
 
-Widget Ingrediant(String Ingridiant) {
+Widget ingrediant(String ingridiant) {
   return Text(
-    Ingridiant,
+    ingridiant,
     textAlign: TextAlign.start,
     maxLines: 3,
     style: const TextStyle(
@@ -285,7 +285,7 @@ Widget Ingrediant(String Ingridiant) {
   );
 }
 
-Widget PricesTabl(Product product) {
+Widget pricesTabl(Product product) {
   return Table(
       border: TableBorder.all(
           width: 2.7,

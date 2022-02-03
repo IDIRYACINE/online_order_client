@@ -1,11 +1,11 @@
-import 'package:online_order_client/Application/authentication.dart';
+import 'package:online_order_client/Application/Authentication/authentication.dart';
 import 'package:online_order_client/Ui/Catalogue/category_screen.dart';
-import 'package:online_order_client/Ui/Login/LoginScreen.dart';
-import 'package:online_order_client/Ui/Login/NewAccounScreen.dart';
-import 'package:online_order_client/Ui/Orders/CartScreen.dart';
+import 'package:online_order_client/Ui/Login/login_screen.dart';
+import 'package:online_order_client/Ui/Login/new_accoun_screen.dart';
+import 'package:online_order_client/Ui/Cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../../Ui/DelivrationInformations/GpsScreen.dart';
+import '../../Ui/DelivrationInformations/gps_screen.dart';
 
 class NavigationProvider with ChangeNotifier {
   final List<Widget> _screens = const [
@@ -40,8 +40,8 @@ class NavigationProvider with ChangeNotifier {
   void navigateToSettings() {}
 
   void navigateToLogin(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => LoginScreen(_authentication)));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
   void navigateToGpsScreen(BuildContext context) {

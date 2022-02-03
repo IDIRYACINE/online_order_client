@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/authentication.dart';
-import 'package:online_order_client/Application/user_input_validator.dart';
-import 'package:online_order_client/Ui/shared/Components.dart';
-import 'package:provider/provider.dart';
+import 'package:online_order_client/Application/Authentication/authentication.dart';
+import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
+import 'package:online_order_client/Ui/shared/components.dart';
 
 class NewAccountScreen extends StatefulWidget {
   final Authentication _authentication;

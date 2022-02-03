@@ -9,6 +9,7 @@ class Cart {
   factory Cart() {
     return _cartModel;
   }
+
   Cart._();
 
   void addProduct({required CartItem product}) {

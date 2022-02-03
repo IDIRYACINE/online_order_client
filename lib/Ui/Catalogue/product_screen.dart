@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Domain/Cart/cart.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Catalogue/product_units_popup.dart';
-import 'package:online_order_client/Ui/shared/Components.dart';
+import 'package:online_order_client/Ui/shared/components.dart';
 
 class CategoryproductsScreen extends StatefulWidget {
   final Product _product;
@@ -39,8 +38,8 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ElemTitle(context, widget._product.getName()),
-          PicturesLV(widget._product),
+          elemTitle(context, widget._product.getName()),
+          picturesLV(widget._product),
           Divider(
             color: parseColor("#F9DCC4"),
             height: 10,
@@ -51,7 +50,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
               alignment: Alignment.bottomCenter,
               child: ProductDescription(widget._product)),
           const SizedBox(height: 20),
-          PricesTabl(widget._product),
+          pricesTabl(widget._product),
           const SizedBox(height: 10),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             SizedBox(
