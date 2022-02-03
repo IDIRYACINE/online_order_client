@@ -15,7 +15,13 @@ class AuthenticationHelper {
   }
 
   void signInWithEmailAndPassword(String email, String password) {
-    _authService.signInWithEmailAndPassword(email: email, password: password);
+    _authService
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((value) {
+      Navigator.pop(_context);
+    }).catchError((error) {
+      _popUpErrorBox(error);
+    });
   }
 
   void signUpWithEmailAndPassword(String email, String password) {
@@ -23,7 +29,7 @@ class AuthenticationHelper {
         .signUpWithEmailAndPassword(email: email, password: password)
         .then((value) => {_popUpRegsiteredBox()})
         .catchError((error) {
-      _popUpRegistrationErrorBox(error);
+      _popUpErrorBox(error);
     });
   }
 
@@ -63,7 +69,7 @@ class AuthenticationHelper {
             const PopUpWidget("Registered", "Confirmation Email Sent"));
   }
 
-  void _popUpRegistrationErrorBox(Error error) {
+  void _popUpErrorBox(Error error) {
     showDialog<String>(
         context: _context,
         builder: (context) =>
