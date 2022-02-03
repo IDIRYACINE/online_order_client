@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/Authentication/authentication.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
-import 'package:online_order_client/Ui/shared/components.dart';
+import 'package:online_order_client/Ui/Components/components.dart';
+import 'package:provider/provider.dart';
+
+import '../../Application/Authentication/authentication_helper.dart';
+import '../../Application/Providers/catalogue_provider.dart';
 
 class NewAccountScreen extends StatefulWidget {
-  final Authentication _authentication;
-  const NewAccountScreen(this._authentication, {Key? key}) : super(key: key);
+  final UserInputValidtor _validator;
+
+  const NewAccountScreen(this._validator, {Key? key}) : super(key: key);
 
   @override
   _NewAccountScreenState createState() => _NewAccountScreenState();
@@ -23,6 +27,9 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final AuthenticationHelper _authHelper =
+        Provider.of<CatalogueProvider>(context).authHelper;
+
     return Scaffold(
       backgroundColor: parseColor("#FCD5CE"),
       body: Padding(
@@ -154,17 +161,15 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    UserInputValidtor validator = UserInputValidtor();
                     String firstName = _firstNameController.text;
                     String lastName = _lastNameController.text;
                     String password = _passwordController.text;
                     String email = _emailController.text;
                     String phoneNumber = _phoneNumberController.text;
 
-                    if (validator.validateNewAccountRegistration(
+                    if (widget._validator.validateRegistrationData(
                         firstName, lastName, email, password, phoneNumber)) {
-                      widget._authentication
-                          .signUpWithEmailAndPassword(email, password);
+                      _authHelper.signUpWithEmailAndPassword(email, password);
                     }
                   },
                   child: const Text(

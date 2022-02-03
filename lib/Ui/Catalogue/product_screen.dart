@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Catalogue/product_units_popup.dart';
-import 'package:online_order_client/Ui/shared/components.dart';
+import 'package:online_order_client/Ui/Components/components.dart';
 
 class CategoryproductsScreen extends StatefulWidget {
   final Product _product;

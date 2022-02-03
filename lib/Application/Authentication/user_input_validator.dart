@@ -28,8 +28,8 @@ class UserInputValidtor {
     return validName;
   }
 
-  bool validateNewAccountRegistration(String firstName, String lastName,
-      String email, String password, String phoneNumber) {
+  bool validateRegistrationData(String firstName, String lastName, String email,
+      String password, String phoneNumber) {
     bool validFullName = _validateName(firstName) && _validateName(lastName);
 
     return validFullName &&

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/Authentication/authentication.dart';
-import 'package:online_order_client/Ui/shared/components.dart';
+import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
+import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
+import 'package:online_order_client/Ui/Components/components.dart';
 import 'package:provider/provider.dart';
 
 import '../../Application/Providers/navigation_provider.dart';
@@ -19,10 +20,12 @@ class _LoginScreenState extends State<LoginScreen> {
   IconData hide = Icons.remove_red_eye;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final Authentication _authentication = Authentication();
 
   @override
   Widget build(BuildContext context) {
+    final AuthenticationHelper _authentication =
+        Provider.of<CatalogueProvider>(context).authHelper;
+
     return Scaffold(
       backgroundColor: parseColor("#FCD5CE"),
       body: SingleChildScrollView(

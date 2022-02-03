@@ -1,7 +1,7 @@
-import 'package:online_order_client/Application/Authentication/authentication.dart';
+import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Ui/Catalogue/category_screen.dart';
 import 'package:online_order_client/Ui/Login/login_screen.dart';
-import 'package:online_order_client/Ui/Login/new_accoun_screen.dart';
+import 'package:online_order_client/Ui/Login/new_account_screen.dart';
 import 'package:online_order_client/Ui/Cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +9,6 @@ import '../../Ui/DelivrationInformations/gps_screen.dart';
 
 class NavigationProvider with ChangeNotifier {
   final List<Widget> _screens = const [CartScreen(), CategoryScreen()];
-
-  final Authentication _authentication = Authentication();
 
   int _screenIndex = 0;
 
@@ -50,7 +48,7 @@ class NavigationProvider with ChangeNotifier {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => NewAccountScreen(_authentication)));
+            builder: (context) => NewAccountScreen(UserInputValidtor())));
   }
 
   int getScreenIndex() {

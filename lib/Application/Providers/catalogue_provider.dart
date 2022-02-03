@@ -6,18 +6,20 @@ import 'package:online_order_client/Infrastructure/service_provider.dart';
 
 import '../../Domain/Cart/cart.dart';
 import '../../Domain/Catalogue/catalogue_model.dart';
+import '../../Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
+import '../Authentication/authentication_helper.dart';
 
 class CatalogueProvider with ChangeNotifier {
   late final CatalogueModel _catalogueModel;
   late final CartHelper _cartHelper;
-
+  late final ServicesProvider services;
   CatalogueProvider() {
     _catalogueModel = CatalogueModel();
   }
 
   Future<bool> initApp() async {
     await Firebase.initializeApp();
-    ServicesProvider services = ServicesProvider();
+    services = ServicesProvider();
     await services.initialiaze();
     await services.productDatabase.connect();
     await _catalogueModel.initCategories();
@@ -36,4 +38,6 @@ class CatalogueProvider with ChangeNotifier {
   }
 
   CartHelper get cartHelper => _cartHelper;
+  AuthenticationHelper get authHelper => AuthenticationHelper(
+      services.authenticationService, FacebookAuthentication());
 }

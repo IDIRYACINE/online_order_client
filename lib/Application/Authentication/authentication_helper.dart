@@ -1,20 +1,30 @@
+import 'package:flutter/material.dart';
 import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
-import 'package:online_order_client/Infrastructure/service_provider.dart';
+import 'package:online_order_client/Ui/Components/popup_widget.dart';
 
-class Authentication {
-  final IAuthenticationService _authService =
-      ServicesProvider().authenticationService;
-  final FacebookAuthentication _fbAuthentication = FacebookAuthentication();
+class AuthenticationHelper {
+  late final IAuthenticationService _authService;
+  late final FacebookAuthentication _fbAuthentication;
+  late BuildContext _context;
 
-  Authentication();
+  AuthenticationHelper(this._authService, this._fbAuthentication);
+
+  void setBuildContext(BuildContext context) {
+    _context = context;
+  }
 
   void signInWithEmailAndPassword(String email, String password) {
     _authService.signInWithEmailAndPassword(email: email, password: password);
   }
 
   void signUpWithEmailAndPassword(String email, String password) {
-    _authService.signUpWithEmailAndPassword(email: email, password: password);
+    _authService
+        .signUpWithEmailAndPassword(email: email, password: password)
+        .then((value) => {_popUpRegsiteredBox()})
+        .catchError((error) {
+      _popUpRegistrationErrorBox(error);
+    });
   }
 
   void signUpWithFacebook() {
@@ -44,5 +54,19 @@ class Authentication {
 
   void signOut() {
     _authService.signOut();
+  }
+
+  void _popUpRegsiteredBox() {
+    showDialog<String>(
+        context: _context,
+        builder: (context) =>
+            const PopUpWidget("Registered", "Confirmation Email Sent"));
+  }
+
+  void _popUpRegistrationErrorBox(Error error) {
+    showDialog<String>(
+        context: _context,
+        builder: (context) =>
+            const PopUpWidget("Error", "Replact with actual error message"));
   }
 }
