@@ -123,7 +123,7 @@ class _DelivrationInfoState extends State<DelivrationInfo> {
                   child: MaterialButton(
                     onPressed: () {
                       Provider.of<NavigationProvider>(context, listen: false)
-                          .navigateToGpsScreen(context);
+                          .navigateToDeliveryAddressScreen(context);
                     },
                     child: SizedBox(
                       width: 300,
