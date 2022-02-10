@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
-import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/components.dart';
 import 'package:provider/provider.dart';
 
@@ -23,8 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthenticationHelper _authentication =
-        Provider.of<CatalogueProvider>(context).authHelper;
+    final AuthenticationHelper _authenticationHelper =
+        Provider.of<HelpersProvider>(context, listen: false).authHelper;
 
     return Scaffold(
       backgroundColor: parseColor("#FCD5CE"),
@@ -122,9 +122,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: MaterialButton(
                               onPressed: () {
-                                _authentication.signInWithEmailAndPassword(
-                                    emailController.text,
-                                    passwordController.text);
+                                _authenticationHelper
+                                    .signInWithEmailAndPassword(
+                                        emailController.text,
+                                        passwordController.text);
                               },
                               child: const Text(
                                 "login",
@@ -143,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: MaterialButton(
                               onPressed: () {
-                                _authentication.signInWithFacebook();
+                                _authenticationHelper.signInWithFacebook();
                               },
                               child: Row(children: const [
                                 Text(
@@ -170,7 +171,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: MaterialButton(
                               splashColor: parseColor("#FFB5A7"),
                               onPressed: () {
-                                Provider.of<NavigationProvider>(context)
+                                Provider.of<NavigationProvider>(context,
+                                        listen: false)
                                     .navigateToNewAccount(context);
                               },
                               child: const Text("Create a New Account")))

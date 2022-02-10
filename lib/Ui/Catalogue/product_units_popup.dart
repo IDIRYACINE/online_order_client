@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +23,7 @@ class _UnitsPopUpState extends State<ProductUnitsPopUp> {
 
   @override
   Widget build(BuildContext context) {
-    CatalogueProvider catalogueProvider =
-        Provider.of<CatalogueProvider>(context);
+    HelpersProvider catalogueProvider = Provider.of<HelpersProvider>(context);
 
     return Form(
         child: Container(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/components.dart';
 import 'package:provider/provider.dart';
 
@@ -13,8 +13,7 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
-    CatalogueProvider catalogueProvider =
-        Provider.of<CatalogueProvider>(context);
+    HelpersProvider catalogueProvider = Provider.of<HelpersProvider>(context);
 
     return Scaffold(
         backgroundColor: Colors.red[50],

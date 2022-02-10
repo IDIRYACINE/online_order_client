@@ -4,7 +4,7 @@ import 'package:online_order_client/Ui/Components/components.dart';
 import 'package:provider/provider.dart';
 
 import '../../Application/Authentication/authentication_helper.dart';
-import '../../Application/Providers/catalogue_provider.dart';
+import '../../Application/Providers/helpers_provider.dart';
 
 class NewAccountScreen extends StatefulWidget {
   final UserInputValidtor _validator;
@@ -28,7 +28,7 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
   @override
   Widget build(BuildContext context) {
     final AuthenticationHelper _authHelper =
-        Provider.of<CatalogueProvider>(context).authHelper;
+        Provider.of<HelpersProvider>(context).authHelper;
 
     return Scaffold(
       backgroundColor: parseColor("#FCD5CE"),

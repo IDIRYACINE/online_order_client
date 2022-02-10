@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
-import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +20,7 @@ class CartItemWidget extends StatefulWidget {
 class _CartItemState extends State<CartItemWidget> {
   @override
   Widget build(BuildContext context) {
-    CartHelper _cartHelper = Provider.of<CatalogueProvider>(context).cartHelper;
+    CartHelper _cartHelper = Provider.of<HelpersProvider>(context).cartHelper;
 
     return SizedBox(
       height: 100,

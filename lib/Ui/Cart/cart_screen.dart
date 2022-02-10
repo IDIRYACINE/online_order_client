@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
-import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Cart/cart_item_widget.dart';
 import 'package:online_order_client/Ui/Components/components.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +17,7 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    CartHelper _cartHelper = Provider.of<CatalogueProvider>(context).cartHelper;
+    CartHelper _cartHelper = Provider.of<HelpersProvider>(context).cartHelper;
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,

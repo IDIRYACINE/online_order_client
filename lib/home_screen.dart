@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Ui/Components/components.dart';
 import 'package:online_order_client/Ui/Components/bottom_nav_bar.dart';
@@ -12,6 +13,8 @@ class HomeScreen extends StatelessWidget {
     NavigationProvider navigationProvider =
         Provider.of<NavigationProvider>(context);
 
+    HelpersProvider helpersProvider = Provider.of<HelpersProvider>(context);
+
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -24,7 +27,11 @@ class HomeScreen extends StatelessWidget {
           ),
           backgroundColor: parseColor("#FCD5CE"),
           centerTitle: false,
-          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.person)),
+          leading: IconButton(
+              onPressed: () {
+                helpersProvider.profileHelper.isLoggedIn(context);
+              },
+              icon: const Icon(Icons.person)),
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
             IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),

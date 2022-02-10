@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
-import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/home_screen.dart';
 //import 'package:online_order_client/Ui/Catalogue/catalogue_screen.dart';
 //import 'package:online_order_client/test.dart';
@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => NavigationProvider()),
-    ChangeNotifierProvider(create: (_) => CatalogueProvider()),
+    ChangeNotifierProvider(create: (_) => HelpersProvider()),
   ], child: const MyApp()));
 }
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CatalogueProvider _catalogue = Provider.of<CatalogueProvider>(context);
+    HelpersProvider _catalogue = Provider.of<HelpersProvider>(context);
     return MaterialApp(
         home: FutureBuilder(
       future: _catalogue.initApp(),

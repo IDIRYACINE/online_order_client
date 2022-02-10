@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
-import 'package:online_order_client/Application/Providers/catalogue_provider.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/components.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +17,7 @@ class _BottomNavBar extends State<BottomNavBar> {
     NavigationProvider navigationProvider =
         Provider.of<NavigationProvider>(context);
 
-    CatalogueProvider catalogueProvider =
-        Provider.of<CatalogueProvider>(context);
+    HelpersProvider catalogueProvider = Provider.of<HelpersProvider>(context);
 
     return BottomNavigationBar(
         backgroundColor: parseColor("#FCD5CE"),

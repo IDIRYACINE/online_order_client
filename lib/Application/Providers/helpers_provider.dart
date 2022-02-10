@@ -8,12 +8,15 @@ import '../../Domain/Cart/cart.dart';
 import '../../Domain/Catalogue/catalogue_model.dart';
 import '../../Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import '../Authentication/authentication_helper.dart';
+import '../Profile/profile_helper.dart';
 
-class CatalogueProvider with ChangeNotifier {
+class HelpersProvider with ChangeNotifier {
   late final CatalogueModel _catalogueModel;
   late final CartHelper _cartHelper;
   late final ServicesProvider services;
-  CatalogueProvider() {
+  late final ProfileHelper _profileHelper;
+
+  HelpersProvider() {
     _catalogueModel = CatalogueModel();
   }
 
@@ -26,6 +29,9 @@ class CatalogueProvider with ChangeNotifier {
 
     _cartHelper = CartHelper(
         Cart(), services.orderService, services.authenticationService);
+
+    _profileHelper = ProfileHelper(services.authenticationService);
+
     return true;
   }
 
@@ -38,6 +44,8 @@ class CatalogueProvider with ChangeNotifier {
   }
 
   CartHelper get cartHelper => _cartHelper;
+  ProfileHelper get profileHelper => _profileHelper;
+
   AuthenticationHelper get authHelper => AuthenticationHelper(
       services.authenticationService, FacebookAuthentication());
 }
