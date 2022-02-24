@@ -29,7 +29,8 @@ class HomeScreen extends StatelessWidget {
           centerTitle: false,
           leading: IconButton(
               onPressed: () {
-                helpersProvider.profileHelper.isLoggedIn(context);
+               // helpersProvider.profileHelper.isLoggedIn(context);
+                navigationProvider.navigateToProfile(context);
               },
               icon: const Icon(Icons.person)),
           actions: [

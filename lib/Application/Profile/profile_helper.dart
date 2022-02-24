@@ -21,7 +21,7 @@ class ProfileHelper {
               if (value)
                 {
                   Provider.of<NavigationProvider>(context, listen: false)
-                      .navigateToProfile()
+                      .navigateToProfile(context)
                 }
               else
                 {

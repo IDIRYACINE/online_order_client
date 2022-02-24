@@ -122,7 +122,7 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                         borderRadius: BorderRadius.circular(20)),
                     prefixIcon: Icon(
                       Icons.phone,
-                      color: parseColor("#FFB5A7"),
+                      color: parseColor("#FCD5CE"),
                     ),
                   ),
                 ),

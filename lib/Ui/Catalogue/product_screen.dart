@@ -41,7 +41,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
           elemTitle(context, widget._product.getName()),
           picturesLV(widget._product),
           Divider(
-            color: parseColor("#F9DCC4"),
+            color: parseColor("#FCD5CE"),
             height: 10,
             thickness: 5,
           ),
