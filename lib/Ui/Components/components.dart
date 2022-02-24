@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Ui/Catalogue/product_screen.dart';
+import 'package:online_order_client/Ui/Profile/Profile_dialoge.dart';
 import '../../Domain/Catalogue/category_model.dart';
 import '../../Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Profile/profile_screen.dart';
@@ -329,48 +330,45 @@ Widget pricesTabl(Product product) {
         ]),
       ]);
 }
-Widget ProfileInfo (String TitleType ,Function function, Icon iconfiled) {
+
+Widget ProfileInfo(String TitleType, Icon iconfiled) {
   return Row(
-    mainAxisSize: MainAxisSize.max,
-    mainAxisAlignment: MainAxisAlignment.center,
-    children:[
-      Container(
-        height:60 ,
-        width:275 ,
-        decoration : BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: parseColor("#FCD5CE")
-        ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 15,
-        ),
-        child: Row(
-          children:[
-            SizedBox(
-              width: 10,
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          height: 60,
+          width: 275,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: parseColor("#FCD5CE")),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 15,
             ),
-            iconfiled,
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Text(TitleType,
-                      style: TextStyle(
-              fontSize: 14,
-              overflow: TextOverflow.ellipsis,
-                      ),
-                      maxLines: 1,
-                      softWrap: false,
-                      textAlign: TextAlign.left,
-                      ),
-            ),]
+            child: Row(children: [
+              SizedBox(
+                width: 10,
+              ),
+              iconfiled,
+              SizedBox(
+                width: 10,
+              ),
+              Expanded(
+                child: Text(
+                  TitleType,
+                  style: TextStyle(
+                    fontSize: 14,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 1,
+                  softWrap: false,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ]),
+          ),
         ),
-      ),
-    ),
-    IconButton(
-      onPressed: (){ function; }
-, icon: Icon(Icons.rotate_left_rounded) ,
-      )
-    ]);
+      ]);
 }
+
