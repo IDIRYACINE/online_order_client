@@ -3,6 +3,7 @@ import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Ui/Catalogue/product_screen.dart';
 import '../../Domain/Catalogue/category_model.dart';
 import '../../Domain/Catalogue/product_model.dart';
+import 'package:online_order_client/Ui/Profile/profile_screen.dart';
 
 Color parseColor(String color) {
   String hex = color.replaceAll("#", "");
@@ -368,10 +369,8 @@ Widget ProfileInfo (String TitleType ,Function function, Icon iconfiled) {
       ),
     ),
     IconButton(
-      onPressed: (){
-          function;
-      }, icon: Icon(Icons.rotate_left_rounded) ,
+      onPressed: (){ function; }
+, icon: Icon(Icons.rotate_left_rounded) ,
       )
     ]);
-
 }
