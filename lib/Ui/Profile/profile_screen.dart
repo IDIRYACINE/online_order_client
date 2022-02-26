@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Ui/Components/components.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
+import 'package:online_order_client/Ui/Profile/Confirm_Email_Dailoge.dart';
 import 'package:online_order_client/Ui/Profile/Profile_dialoge.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -11,7 +12,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileState extends State<ProfileScreen> {
-  Future DisplayChangeElemntPoupUp(BuildContext context, Widget title) async {
+  final List<Widget> Dailoges = [ChangeElementProfile(), ConfirmEmail()];
+  int DailogeIndex = 0;
+  Future DisplayChangeElemntPoupUp(
+      BuildContext context, Widget title, int DailogeIndex,Function Confirmefunction) async {
+    this.DailogeIndex = DailogeIndex;
     return showDialog(
         context: context,
         builder: (context) {
@@ -20,12 +25,18 @@ class _ProfileState extends State<ProfileScreen> {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: const ChangeElementProfile()),
+                scrollDirection: Axis.vertical, child: Dailoges[DailogeIndex]),
             title: title,
             actions: [
-              ElevatedButton(onPressed: () {}, child: Text("data")),
-              ElevatedButton(onPressed: () {}, child: Text("data"))
+              Container(
+                child:
+                    ElevatedButton(onPressed: () {
+                      Confirmefunction;
+                    }, child: Text("Conferme")),
+                width: 50,
+              ),
+              SizedBox(width: 20),
+              ElevatedButton(onPressed: () {}, child: Text("Exit"))
             ],
             actionsAlignment: MainAxisAlignment.center,
           );
@@ -72,10 +83,15 @@ class _ProfileState extends State<ProfileScreen> {
                   IconButton(
                     onPressed: () {
                       DisplayChangeElemntPoupUp(
-                          context, Text("Set new Email : "));
+                          context, Text("Set new Email : "), DailogeIndex , (){
+                            setState(() {
+                              DailogeIndex == 1;
+                            });
+                          });
                     },
                     icon: Icon(Icons.rotate_left_rounded),
-                  )
+                  ),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.error)),
                 ]),
                 SizedBox(
                   height: 30,
