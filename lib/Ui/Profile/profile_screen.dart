@@ -14,8 +14,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileState extends State<ProfileScreen> {
   final List<Widget> Dailoges = [ChangeElementProfile(), ConfirmEmail()];
   int DailogeIndex = 0;
-  Future DisplayChangeElemntPoupUp(
-      BuildContext context, Widget title, int DailogeIndex,Function Confirmefunction) async {
+  Future DisplayChangeElemntPoupUp(BuildContext context, Widget title,
+      int DailogeIndex, Function Confirmefunction) async {
     this.DailogeIndex = DailogeIndex;
     return showDialog(
         context: context,
@@ -29,14 +29,27 @@ class _ProfileState extends State<ProfileScreen> {
             title: title,
             actions: [
               Container(
-                child:
-                    ElevatedButton(onPressed: () {
+                child: ElevatedButton(
+                    onPressed: () {
                       Confirmefunction;
-                    }, child: Text("Conferme")),
-                width: 50,
+                    },
+                    child: Text("Conferme"),
+                     style: ElevatedButton.styleFrom(
+                    primary: Colors.green
+                  ),
+                    ),
+                width: 200,
               ),
               SizedBox(width: 20),
-              ElevatedButton(onPressed: () {}, child: Text("Exit"))
+              Container(
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Exit"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red
+                  ),
+                ),
+              )
             ],
             actionsAlignment: MainAxisAlignment.center,
           );
@@ -49,7 +62,7 @@ class _ProfileState extends State<ProfileScreen> {
         backgroundColor: parseColor("#F8EDEB"),
         body: Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: 15,
+            vertical:24
           ),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -83,15 +96,22 @@ class _ProfileState extends State<ProfileScreen> {
                   IconButton(
                     onPressed: () {
                       DisplayChangeElemntPoupUp(
-                          context, Text("Set new Email : "), DailogeIndex , (){
+                          context, Text("Set new Email : "), DailogeIndex, () {
+                        setState(() {
+                          DailogeIndex == 1;
+                          DisplayChangeElemntPoupUp(
+                              context, Text("Set new Email : "), DailogeIndex,
+                              () {
                             setState(() {
-                              DailogeIndex == 1;
+                              DailogeIndex == 0;
                             });
                           });
+                        });
+                      });
                     },
                     icon: Icon(Icons.rotate_left_rounded),
+                    tooltip: "changer Email",
                   ),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.error)),
                 ]),
                 SizedBox(
                   height: 30,
@@ -99,9 +119,9 @@ class _ProfileState extends State<ProfileScreen> {
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   ProfileInfo("+2130541341655", Icon(Icons.phone)),
                   IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.rotate_left_rounded),
-                  )
+                      onPressed: () {},
+                      icon: Icon(Icons.rotate_left_rounded),
+                      tooltip: "Changer le numero de telephone ")
                 ]),
                 SizedBox(
                   height: 30,
@@ -111,6 +131,7 @@ class _ProfileState extends State<ProfileScreen> {
                   IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.rotate_left_rounded),
+                    tooltip: "Changer le mot de pass ",
                   )
                 ]),
                 SizedBox(
