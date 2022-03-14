@@ -4,7 +4,7 @@ class CartItem {
   late Product _product;
   late int _quantity;
   late double _price;
-  late String _size;
+  late String _size = "test";
   late String _sizes;
   CartItem({required Product product, required int quantity}) {
     _product = product;

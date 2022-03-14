@@ -29,8 +29,12 @@ class CartHelper {
   }
 
   void placeOrder(BuildContext context) {
+    /*
+    should check if logged in first , disabled for testing purpose;
     _authenticationService.accountIsActive().then((value) => _sendOrderToShop(
-        value, Provider.of<NavigationProvider>(context), context));
+        value, Provider.of<NavigationProvider>(context), context));*/
+    _sendOrderToShop(
+        true, Provider.of<NavigationProvider>(context, listen: false), context);
   }
 
   void removeProduct(CartItem item) {

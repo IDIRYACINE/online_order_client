@@ -8,7 +8,7 @@ import 'iprofile.dart';
 
 class ProfileModel implements IProfile {
   static final ProfileModel _profileModel = ProfileModel._();
-  late String _email, _fullName, _phoneNumber, _id;
+  late String _email, _fullName, _phoneNumber, _id = "f21";
   late Address _address;
   String _json = '';
 
