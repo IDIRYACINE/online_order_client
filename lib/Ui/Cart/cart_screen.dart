@@ -3,6 +3,7 @@ import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Cart/cart_item_widget.dart';
 import 'package:online_order_client/Ui/Components/components.dart';
+import 'package:online_order_client/Ui/DeliveryAddresse/delivrations_info.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
@@ -47,6 +48,7 @@ class _CartScreenState extends State<CartScreen> {
               onPressed: () {
                 setState(() {
                   _cartHelper.placeOrder(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DelivrationInfo()));
                 });
               },
               autofocus: true,

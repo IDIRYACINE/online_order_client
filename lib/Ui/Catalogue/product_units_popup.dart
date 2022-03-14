@@ -20,7 +20,13 @@ class ProductUnitsPopUp extends StatefulWidget {
 
 class _UnitsPopUpState extends State<ProductUnitsPopUp> {
   int _units = 0;
-
+  Icon Exist = Icon(Icons.check_circle, color: Colors.green);
+  Icon Notexist = Icon(
+    Icons.circle,
+    color: Colors.white,
+  );
+  bool IsExistHarisa = false;
+  bool IsExistMayon = false;
   @override
   Widget build(BuildContext context) {
     HelpersProvider catalogueProvider = Provider.of<HelpersProvider>(context);
@@ -49,9 +55,13 @@ class _UnitsPopUpState extends State<ProductUnitsPopUp> {
                       width: 60,
                     ),
                     IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.check_circle,
-                            color: Colors.green)),
+                      onPressed: () {
+                        setState(() {
+                          IsExistHarisa = !IsExistHarisa;
+                        });
+                      },
+                      icon: IsExistHarisa ? Exist : Notexist,
+                    )
                   ],
                 ),
               ),
@@ -69,9 +79,13 @@ class _UnitsPopUpState extends State<ProductUnitsPopUp> {
                       width: 30,
                     ),
                     IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.check_circle,
-                            color: Colors.green)),
+                      onPressed: () {
+                        setState(() {
+                          IsExistMayon = !IsExistMayon;
+                        });
+                      },
+                      icon: IsExistMayon ? Exist : Notexist,
+                    ),
                   ],
                 ),
               ),

@@ -1,14 +1,16 @@
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Ui/Catalogue/category_screen.dart';
+import 'package:online_order_client/Ui/Catalogue/product_screen.dart';
 import 'package:online_order_client/Ui/Login/login_screen.dart';
 import 'package:online_order_client/Ui/Login/new_account_screen.dart';
 import 'package:online_order_client/Ui/Cart/cart_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Ui/Profile/profile_screen.dart';
 
 import '../../Ui/DeliveryAddresse/gps_screen.dart';
 
 class NavigationProvider with ChangeNotifier {
-  final List<Widget> _screens = const [CartScreen(), CategoryScreen()];
+  final List<Widget> _screens = const [CartScreen(), CategoryScreen(), ProfileScreen()];
 
   int _screenIndex = 0;
 
@@ -31,7 +33,10 @@ class NavigationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void navigateToProfile() {}
+  void navigateToProfileScreen() {
+    _screenIndex = 3;
+    notifyListeners();
+  }
   void navigateToSettings() {}
 
   void navigateToLogin(BuildContext context) {
@@ -49,6 +54,12 @@ class NavigationProvider with ChangeNotifier {
         context,
         MaterialPageRoute(
             builder: (context) => NewAccountScreen(UserInputValidtor())));
+  }
+  void navigateToProfile(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const ProfileScreen()));
   }
 
   int getScreenIndex() {

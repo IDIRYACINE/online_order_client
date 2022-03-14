@@ -97,6 +97,7 @@ class _CartItemState extends State<CartItemWidget> {
                 onPressed: () {
                   setState(() {
                     _cartHelper.removeProduct(widget._cartItem);
+                    
                   });
                 },
                 icon: const Icon(Icons.delete)),

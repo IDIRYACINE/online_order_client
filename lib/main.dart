@@ -52,6 +52,7 @@ class SplashScreen extends StatelessWidget {
             children: const <Widget>[
               Text(
                 'Shop',
+                
                 style: TextStyle(fontSize: 40, color: Colors.white),
               ),
               SizedBox(
