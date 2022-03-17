@@ -18,24 +18,7 @@ class _ChangeElementProfileState extends State<ChangeElementProfile> {
         height: 150,
         child: Column(
           children: [
-            SizedBox(
-              width: 220,
-              child: TextFormField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  hintText: "current Email",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  prefixIcon: Icon(
-                    Icons.mail,
-                    color: parseColor("#FFB5A7"),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+
             SizedBox(
               width: 220,
               child: TextFormField(

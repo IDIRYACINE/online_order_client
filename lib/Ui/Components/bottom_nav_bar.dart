@@ -38,7 +38,9 @@ class _BottomNavBar extends State<BottomNavBar> {
           BottomNavigationBarItem(
             icon: IconButton(
               onPressed: () {
-                navigationProvider.navigateToCatalogue();
+                setState(() {
+                  navigationProvider.navigateToCatalogue();
+                });
               },
               icon: const Icon(Icons.home),
               iconSize: 40,

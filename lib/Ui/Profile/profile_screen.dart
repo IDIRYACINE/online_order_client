@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Ui/Components/bottom_nav_bar.dart';
 import 'package:online_order_client/Ui/Components/components.dart';
 import 'package:online_order_client/Ui/Profile/confirm_email_dailogue.dart';
 import 'package:online_order_client/Ui/Profile/profile_dialogue.dart';
@@ -57,8 +58,30 @@ class _ProfileState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: parseColor("#F8EDEB"),
+        bottomNavigationBar: const BottomNavBar(),
+        appBar: AppBar(
+          title: const Text(
+            "THe House restaurante",
+            style: TextStyle(
+              fontSize: 16.5,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: parseColor("#FCD5CE"),
+          centerTitle: false,
+          leading: IconButton(
+              onPressed: () {
+
+              },
+              icon: const Icon(Icons.person)),
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
+          ],
+        ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 24),
+          padding: const EdgeInsets.symmetric(vertical: 4),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -74,19 +97,20 @@ class _ProfileState extends State<ProfileScreen> {
                     fit: BoxFit.fill,
                   ),
                 ),
-                const Text(
-                  "Bensadi Houssem",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                const SizedBox(
+                  height: 10,
                 ),
                 const Text(
-                  "ID: 15241637",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  "Bensadi Houssem",
+                  style: TextStyle(fontWeight: FontWeight.bold,
+                  fontSize: 30
+                  ),
                 ),
                 const SizedBox(
                   height: 50,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ProfileInfo("wawadz2000ghgfhgfhfghfghfgh0@gmail.com",
+                  ProfileInfo("wawadz2000@gmail.com",
                       const Icon(Icons.email)),
                   IconButton(
                     onPressed: () {
@@ -105,7 +129,7 @@ class _ProfileState extends State<ProfileScreen> {
                         });
                       });
                     },
-                    icon: const Icon(Icons.rotate_left_rounded),
+                    icon: const Icon(Icons.edit),
                     tooltip: "changer Email",
                   ),
                 ]),
@@ -116,7 +140,7 @@ class _ProfileState extends State<ProfileScreen> {
                   ProfileInfo("+2130541341655", const Icon(Icons.phone)),
                   IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.rotate_left_rounded),
+                      icon: const Icon(Icons.edit),
                       tooltip: "Changer le numero de telephone ")
                 ]),
                 const SizedBox(
@@ -126,7 +150,7 @@ class _ProfileState extends State<ProfileScreen> {
                   ProfileInfo("*********", const Icon(Icons.lock)),
                   IconButton(
                     onPressed: () {},
-                    icon: const Icon(Icons.rotate_left_rounded),
+                    icon: const Icon(Icons.edit),
                     tooltip: "Changer le mot de pass ",
                   )
                 ]),
