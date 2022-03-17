@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
+import 'package:online_order_client/Application/DeliveryAddress/delivery_address.dart';
 import 'package:online_order_client/Domain/Catalogue/category_model.dart';
+import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
 
 import '../../Domain/Cart/cart.dart';
@@ -11,10 +13,11 @@ import '../Authentication/authentication_helper.dart';
 import '../Profile/profile_helper.dart';
 
 class HelpersProvider with ChangeNotifier {
-  late final CatalogueModel _catalogueModel;
-  late final CartHelper _cartHelper;
-  late final ServicesProvider services;
-  late final ProfileHelper _profileHelper;
+  late CatalogueModel _catalogueModel;
+  late CartHelper _cartHelper;
+  late ServicesProvider services;
+  late ProfileHelper _profileHelper;
+  late DeliveryAddress _addressHelper;
 
   HelpersProvider() {
     _catalogueModel = CatalogueModel();
@@ -29,10 +32,16 @@ class HelpersProvider with ChangeNotifier {
 
     _cartHelper = CartHelper(
         Cart(), services.orderService, services.authenticationService);
-
-    _profileHelper = ProfileHelper(services.authenticationService);
+    await _initProfile();
 
     return true;
+  }
+
+  Future<void> _initProfile() async {
+    ProfileModel profile = ProfileModel();
+    await profile.loadProfile();
+    _profileHelper = ProfileHelper(services.authenticationService, profile);
+    _addressHelper = DeliveryAddress(profile.getAddress());
   }
 
   Category getCategory(int categoryIndex) {
@@ -45,6 +54,7 @@ class HelpersProvider with ChangeNotifier {
 
   CartHelper get cartHelper => _cartHelper;
   ProfileHelper get profileHelper => _profileHelper;
+  DeliveryAddress get addressHelper => _addressHelper;
 
   AuthenticationHelper get authHelper => AuthenticationHelper(
       services.authenticationService, FacebookAuthentication());

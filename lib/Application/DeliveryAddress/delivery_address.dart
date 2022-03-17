@@ -3,7 +3,9 @@ import 'package:location/location.dart';
 import 'package:online_order_client/Domain/GpsLocation/address.dart';
 
 class DeliveryAddress {
-  final Address _address = Address();
+  final Address _address;
+
+  DeliveryAddress(this._address);
 
   Future<bool> initGpsLocation() async {
     await _requestLocationPermission();

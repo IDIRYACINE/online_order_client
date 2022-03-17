@@ -7,18 +7,9 @@ import '../GpsLocation/address.dart';
 import 'iprofile.dart';
 
 class ProfileModel implements IProfile {
-  static final ProfileModel _profileModel = ProfileModel._();
   late String _email, _fullName, _phoneNumber, _id = "f21";
   late Address _address;
   String _json = '';
-
-  factory ProfileModel() {
-    return _profileModel;
-  }
-
-  ProfileModel._() {
-    loadProfile();
-  }
 
   @override
   String getEmail() {
@@ -118,8 +109,7 @@ class ProfileModel implements IProfile {
     _phoneNumber = dataSource['phoneNumber']!;
     _fullName = dataSource['fullName']!;
     _id = dataSource['id']!;
-    _address = Address(dataSource['address'], dataSource['latitude'] as double,
-        dataSource['longitude'] as double);
+    _address = Address();
   }
 
   /// Read profile json from storage and decode it
