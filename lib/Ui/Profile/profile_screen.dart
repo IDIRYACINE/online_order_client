@@ -14,12 +14,10 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileState extends State<ProfileScreen> {
   final List<Widget> dialogues = [
     const ChangeElementProfile(),
-    const ConfirmEmail()
   ];
   int dialogueIndex = 0;
   Future displayChangeElemntPoupUp(BuildContext context, Widget title,
-      int dailogueIndex, Function confirmFunction) async {
-    dialogueIndex = dailogueIndex;
+     Function confirmFunction , String hint, Icon icon) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -29,7 +27,30 @@ class _ProfileState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: dialogues[dailogueIndex]),
+                child: Form(
+        child: SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: SizedBox(
+        height: 80,
+        child: Column(
+          children: [
+            SizedBox(
+              width: 220,
+              child: TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  hintText: "$hint",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  prefixIcon: icon
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ))
+                ),
             title: title,
             actions: [
               SizedBox(
@@ -115,19 +136,12 @@ class _ProfileState extends State<ProfileScreen> {
                   IconButton(
                     onPressed: () {
                       displayChangeElemntPoupUp(context,
-                          const Text("Set new Email : "), dialogueIndex, () {
-                        setState(() {
-                          dialogueIndex == 1;
-                          displayChangeElemntPoupUp(
-                              context,
-                              const Text("Set new Email : "),
-                              dialogueIndex, () {
-                            setState(() {
-                              dialogueIndex == 0;
-                            });
-                          });
-                        });
-                      });
+                          const Text("Set new Email : "), () {
+                        
+                      },
+                      "New Email Adresse",
+                      Icon(Icons.email)
+                      );
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "changer Email",
@@ -139,7 +153,15 @@ class _ProfileState extends State<ProfileScreen> {
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   ProfileInfo("+2130541341655", const Icon(Icons.phone)),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        displayChangeElemntPoupUp(context,
+                          const Text("Set new phone number : "),() {
+                        
+                      },
+                      " new phone number",
+                      Icon(Icons.phone)
+                      );
+                      },
                       icon: const Icon(Icons.edit),
                       tooltip: "Changer le numero de telephone ")
                 ]),
@@ -149,7 +171,15 @@ class _ProfileState extends State<ProfileScreen> {
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   ProfileInfo("*********", const Icon(Icons.lock)),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      displayChangeElemntPoupUp(context,
+                          const Text("Set new password : "),() {
+                        
+                      },
+                      " new password",
+                      Icon(Icons.lock)
+                      );
+                    },
                     icon: const Icon(Icons.edit),
                     tooltip: "Changer le mot de pass ",
                   )

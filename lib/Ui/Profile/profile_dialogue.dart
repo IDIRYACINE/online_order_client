@@ -11,26 +11,24 @@ class ChangeElementProfile extends StatefulWidget {
 class _ChangeElementProfileState extends State<ChangeElementProfile> {
   @override
   Widget build(BuildContext context) {
+    String? hint;
+    Icon? icon;
     return Form(
         child: SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: SizedBox(
-        height: 150,
+        height: 80,
         child: Column(
           children: [
-
             SizedBox(
               width: 220,
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  hintText: "new adresse Email",
+                  hintText: "$hint",
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  prefixIcon: Icon(
-                    Icons.mail,
-                    color: parseColor("#FFB5A7"),
-                  ),
+                  prefixIcon: icon
                 ),
               ),
             ),
