@@ -25,6 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final AuthenticationHelper _authenticationHelper =
         Provider.of<HelpersProvider>(context, listen: false).authHelper;
+    _authenticationHelper.setBuildContext(context);
 
     return Scaffold(
       backgroundColor: parseColor("#FCD5CE"),

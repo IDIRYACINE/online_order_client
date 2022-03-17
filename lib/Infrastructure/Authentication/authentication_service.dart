@@ -19,7 +19,10 @@ class FirebaseAuthenticationService implements IAuthenticationService {
 
   @override
   Future<bool> accountIsActive() async {
-    if (_user.emailVerified && _user.phoneNumber != null) {
+    //_user.emailVerified &&
+    //&& _user.phoneNumber != null fireAuth cant use both email and phone
+    // need a fix !
+    if (_auth.currentUser != null) {
       return true;
     }
     return false;

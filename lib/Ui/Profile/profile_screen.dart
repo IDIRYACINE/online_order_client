@@ -80,7 +80,7 @@ class _ProfileState extends State<ProfileScreen> {
                 ),
                 const Text(
                   "ID: 15241637",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
                   height: 50,
