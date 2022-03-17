@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Ui/Catalogue/product_screen.dart';
-import 'package:online_order_client/Ui/Profile/Profile_dialoge.dart';
+import 'package:online_order_client/Ui/Profile/profile_dialogue.dart';
 import '../../Domain/Catalogue/category_model.dart';
 import '../../Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Profile/profile_screen.dart';
@@ -371,4 +371,3 @@ Widget ProfileInfo(String TitleType, Icon iconfiled) {
         ),
       ]);
 }
-

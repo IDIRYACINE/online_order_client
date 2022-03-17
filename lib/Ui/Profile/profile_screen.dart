@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Ui/Components/components.dart';
-import 'package:online_order_client/Domain/Profile/profile_model.dart';
-import 'package:online_order_client/Ui/Profile/Confirm_Email_Dailoge.dart';
-import 'package:online_order_client/Ui/Profile/Profile_dialoge.dart';
+import 'package:online_order_client/Ui/Profile/confirm_email_dailogue.dart';
+import 'package:online_order_client/Ui/Profile/profile_dialogue.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -12,11 +11,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileState extends State<ProfileScreen> {
-  final List<Widget> Dailoges = [ChangeElementProfile(), ConfirmEmail()];
-  int DailogeIndex = 0;
-  Future DisplayChangeElemntPoupUp(BuildContext context, Widget title,
-      int DailogeIndex, Function Confirmefunction) async {
-    this.DailogeIndex = DailogeIndex;
+  final List<Widget> dialogues = [
+    const ChangeElementProfile(),
+    const ConfirmEmail()
+  ];
+  int dialogueIndex = 0;
+  Future displayChangeElemntPoupUp(BuildContext context, Widget title,
+      int dailogueIndex, Function confirmFunction) async {
+    dialogueIndex = dailogueIndex;
     return showDialog(
         context: context,
         builder: (context) {
@@ -25,30 +27,25 @@ class _ProfileState extends State<ProfileScreen> {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: SingleChildScrollView(
-                scrollDirection: Axis.vertical, child: Dailoges[DailogeIndex]),
+                scrollDirection: Axis.vertical,
+                child: dialogues[dailogueIndex]),
             title: title,
             actions: [
-              Container(
+              SizedBox(
                 child: ElevatedButton(
-                    onPressed: () {
-                      Confirmefunction;
-                    },
-                    child: Text("Conferme"),
-                     style: ElevatedButton.styleFrom(
-                    primary: Colors.green
-                  ),
-                    ),
+                  onPressed: () {
+                    confirmFunction;
+                  },
+                  child: const Text("Conferme"),
+                  style: ElevatedButton.styleFrom(primary: Colors.green),
+                ),
                 width: 200,
               ),
-              SizedBox(width: 20),
-              Container(
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Exit"),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.red
-                  ),
-                ),
+              const SizedBox(width: 20),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text("Exit"),
+                style: ElevatedButton.styleFrom(primary: Colors.red),
               )
             ],
             actionsAlignment: MainAxisAlignment.center,
@@ -61,9 +58,7 @@ class _ProfileState extends State<ProfileScreen> {
     return Scaffold(
         backgroundColor: parseColor("#F8EDEB"),
         body: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical:24
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 24),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -71,7 +66,7 @@ class _ProfileState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   height: 200,
                   width: 200,
                   child: Image.asset(
@@ -79,62 +74,63 @@ class _ProfileState extends State<ProfileScreen> {
                     fit: BoxFit.fill,
                   ),
                 ),
-                Text(
+                const Text(
                   "Bensadi Houssem",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(
+                const Text(
                   "ID: 15241637",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   ProfileInfo("wawadz2000ghgfhgfhfghfghfgh0@gmail.com",
-                      Icon(Icons.email)),
+                      const Icon(Icons.email)),
                   IconButton(
                     onPressed: () {
-                      DisplayChangeElemntPoupUp(
-                          context, Text("Set new Email : "), DailogeIndex, () {
+                      displayChangeElemntPoupUp(context,
+                          const Text("Set new Email : "), dialogueIndex, () {
                         setState(() {
-                          DailogeIndex == 1;
-                          DisplayChangeElemntPoupUp(
-                              context, Text("Set new Email : "), DailogeIndex,
-                              () {
+                          dialogueIndex == 1;
+                          displayChangeElemntPoupUp(
+                              context,
+                              const Text("Set new Email : "),
+                              dialogueIndex, () {
                             setState(() {
-                              DailogeIndex == 0;
+                              dialogueIndex == 0;
                             });
                           });
                         });
                       });
                     },
-                    icon: Icon(Icons.rotate_left_rounded),
+                    icon: const Icon(Icons.rotate_left_rounded),
                     tooltip: "changer Email",
                   ),
                 ]),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ProfileInfo("+2130541341655", Icon(Icons.phone)),
+                  ProfileInfo("+2130541341655", const Icon(Icons.phone)),
                   IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.rotate_left_rounded),
+                      icon: const Icon(Icons.rotate_left_rounded),
                       tooltip: "Changer le numero de telephone ")
                 ]),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ProfileInfo("*********", Icon(Icons.lock)),
+                  ProfileInfo("*********", const Icon(Icons.lock)),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.rotate_left_rounded),
+                    icon: const Icon(Icons.rotate_left_rounded),
                     tooltip: "Changer le mot de pass ",
                   )
                 ]),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
               ],

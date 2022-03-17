@@ -14,7 +14,7 @@ class _ChangeElementProfileState extends State<ChangeElementProfile> {
     return Form(
         child: SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Container(
+      child: SizedBox(
         height: 150,
         child: Column(
           children: [
@@ -33,7 +33,7 @@ class _ChangeElementProfileState extends State<ChangeElementProfile> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             SizedBox(
