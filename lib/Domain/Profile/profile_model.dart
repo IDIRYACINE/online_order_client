@@ -118,7 +118,8 @@ class ProfileModel implements IProfile {
     _phoneNumber = dataSource['phoneNumber']!;
     _fullName = dataSource['fullName']!;
     _id = dataSource['id']!;
-    _address = Address();
+    _address = Address(dataSource['address'], dataSource['latitude'] as double,
+        dataSource['longitude'] as double);
   }
 
   /// Read profile json from storage and decode it

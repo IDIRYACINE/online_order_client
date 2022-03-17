@@ -12,12 +12,12 @@ class DeliveryAddress {
   }
 
   LatLng getLocation() {
-    return _address.getLocation();
+    return _address.getCoordinates();
   }
 
   void setLocation({required LatLng coordinations, required String infos}) {
-    _address.updateInfos(infos: infos);
-    _address.updateLocation(
+    _address.updateAddress(infos: infos);
+    _address.updateCoordinates(
         latitude: coordinations.latitude, longitude: coordinations.longitude);
   }
 

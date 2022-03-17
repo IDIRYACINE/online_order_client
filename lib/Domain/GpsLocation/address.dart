@@ -2,14 +2,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class Address {
-  static final Address _instance = Address._();
-  late String _extras;
+  late String _address;
   late double _latitude, _longitude;
 
-  factory Address() {
-    return _instance;
+  Address([String? address, double? latitude, double? longitude]) {
+    _address = address ?? "";
+    _latitude = latitude ?? 0;
+    _longitude = longitude ?? 0;
   }
-  Address._();
 
   /// Request device location.handle GPS permission issues
   Future<bool> getDeviceLocation() async {
@@ -18,34 +18,39 @@ class Address {
     _locationData = await location.getLocation();
     _latitude = _locationData.latitude!;
     _longitude = _locationData.longitude!;
-    _extras = "bloc C";
+    _address = "bloc C";
     return true;
   }
 
   /// Return address aditional infos
   /// Example : door number 10 , bloc A
-  String getInfos() {
-    return _extras;
+  String getAddress() {
+    return _address;
   }
 
   /// Return address location on map as GPS coordinates
-  LatLng getLocation() {
+  LatLng getCoordinates() {
     return LatLng(_latitude, _longitude);
   }
 
   /// Update address location on map
-  void updateLocation({required double latitude, required double longitude}) {
+  void updateCoordinates(
+      {required double latitude, required double longitude}) {
     _latitude = latitude;
     _longitude = longitude;
   }
 
   /// Update associated address infos
-  void updateInfos({required String infos}) {
-    _extras = infos;
+  void updateAddress({required String infos}) {
+    _address = infos;
   }
 
   /// Encode address as a json
   Map<String, dynamic> toMap() {
-    return {"latitude": _latitude, "longitude": _longitude, "extras": _extras};
+    return {
+      "latitude": _latitude,
+      "longitude": _longitude,
+      "address": _address
+    };
   }
 }

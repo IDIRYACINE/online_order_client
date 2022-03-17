@@ -9,8 +9,8 @@ import 'package:online_order_client/Domain/Profile/profile_model.dart';
 
 Future<void> setUpProfile(IProfile profileMock) async {
   Address addressModel = Address();
-  addressModel.updateInfos(infos: "bloc C");
-  addressModel.updateLocation(latitude: 32.0, longitude: 64.0);
+  addressModel.updateAddress(infos: "bloc C");
+  addressModel.updateCoordinates(latitude: 32.0, longitude: 64.0);
   profileMock.setAddress(address: addressModel);
   profileMock.setEmail(email: 'idir@gmail');
   profileMock.setFullName(fullName: 'idir yacine');
