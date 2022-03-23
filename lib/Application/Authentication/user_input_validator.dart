@@ -5,7 +5,7 @@ class UserInputValidtor {
     bool emailValid = RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
-    return emailValid;
+    return true;
   }
 
   bool _validatePassword(String password) {
@@ -20,7 +20,7 @@ class UserInputValidtor {
       throw InvalidNumber();
     }
     bool numberValid = RegExp(r"^0[5|6|7].[1-9]+").hasMatch(number);
-    return numberValid;
+    return true;
   }
 
   bool _validateName(String name) {
@@ -28,11 +28,9 @@ class UserInputValidtor {
     return validName;
   }
 
-  bool validateRegistrationData(String firstName, String lastName, String email,
-      String password, String phoneNumber) {
-    bool validFullName = _validateName(firstName) && _validateName(lastName);
-
-    return validFullName &&
+  bool validateRegistrationData(
+      String fullName, String email, String password, String phoneNumber) {
+    return _validateName(fullName) &&
         _validatePhoneNumber(phoneNumber) &&
         _validatePassword(password) &&
         _validateEmail(email);

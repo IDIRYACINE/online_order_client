@@ -23,4 +23,5 @@ abstract class IAuthenticationService {
   Future<void> updateUserName({required String newUserName});
   Future<void> reAuthentificate(
       {required String password, required String email});
+  String getId();
 }

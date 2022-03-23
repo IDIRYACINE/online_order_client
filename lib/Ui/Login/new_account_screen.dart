@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Ui/Components/components.dart';
 import 'package:provider/provider.dart';
-
 import '../../Application/Authentication/authentication_helper.dart';
 import '../../Application/Providers/helpers_provider.dart';
 
@@ -21,8 +20,7 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
   IconData hide = Icons.remove_red_eye;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
 
   @override
@@ -63,27 +61,10 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
               SizedBox(
                 width: 300,
                 child: TextFormField(
-                  controller: _firstNameController,
+                  controller: _fullNameController,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    hintText: "prenome",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    prefixIcon: Icon(
-                      Icons.person,
-                      color: parseColor("#FFB5A7"),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                  controller: _lastNameController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: " nome",
+                    hintText: "full name",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
                     prefixIcon: Icon(
@@ -161,15 +142,15 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    String firstName = _firstNameController.text;
-                    String lastName = _lastNameController.text;
+                    String fullName = _fullNameController.text;
                     String password = _passwordController.text;
                     String email = _emailController.text;
                     String phoneNumber = _phoneNumberController.text;
-
                     if (widget._validator.validateRegistrationData(
-                        firstName, lastName, email, password, phoneNumber)) {
-                      _authHelper.signUpWithEmailAndPassword(email, password);
+                        fullName, email, password, phoneNumber)) {
+                      _authHelper.setBuildContext(context);
+                      _authHelper.signUpWithEmailAndPassword(
+                          fullName, email, password, phoneNumber);
                     }
                   },
                   child: const Text(

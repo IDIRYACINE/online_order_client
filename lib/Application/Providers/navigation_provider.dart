@@ -10,7 +10,11 @@ import 'package:online_order_client/Ui/Profile/profile_screen.dart';
 import '../../Ui/DeliveryAddresse/gps_screen.dart';
 
 class NavigationProvider with ChangeNotifier {
-  final List<Widget> _screens = const [CartScreen(), CategoryScreen(), ProfileScreen()];
+  final List<Widget> _screens = const [
+    CartScreen(),
+    CategoryScreen(),
+    ProfileScreen()
+  ];
 
   int _screenIndex = 0;
 
@@ -37,6 +41,7 @@ class NavigationProvider with ChangeNotifier {
     _screenIndex = 3;
     notifyListeners();
   }
+
   void navigateToSettings() {}
 
   void navigateToLogin(BuildContext context) {
@@ -44,9 +49,20 @@ class NavigationProvider with ChangeNotifier {
         context, MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
-  void navigateToDeliveryAddressScreen(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const DeliveryAddresScreen()));
+  void navigateToDeliveryAddressScreen(
+      BuildContext context, VoidCallback callback,
+      {required bool replace}) {
+    if (!replace) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DeliveryAddresScreen(callback)));
+    } else {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DeliveryAddresScreen(callback)));
+    }
   }
 
   void navigateToNewAccount(BuildContext context) {
@@ -55,11 +71,10 @@ class NavigationProvider with ChangeNotifier {
         MaterialPageRoute(
             builder: (context) => NewAccountScreen(UserInputValidtor())));
   }
+
   void navigateToProfile(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const ProfileScreen()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const ProfileScreen()));
   }
 
   int getScreenIndex() {

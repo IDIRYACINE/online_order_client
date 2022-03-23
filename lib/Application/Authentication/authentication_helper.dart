@@ -1,7 +1,11 @@
 import "package:flutter/material.dart";
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
+import 'package:provider/provider.dart';
+import '../Profile/profile_helper.dart';
 
 class AuthenticationHelper {
   late final IAuthenticationService _authService;
@@ -24,12 +28,25 @@ class AuthenticationHelper {
     });
   }
 
-  void signUpWithEmailAndPassword(String email, String password) {
+  void signUpWithEmailAndPassword(
+      String fullName, String email, String password, String phone) {
     _authService
         .signUpWithEmailAndPassword(email: email, password: password)
-        .then((value) => {_popUpRegsiteredBox()})
-        .catchError((error) {
-      _popUpErrorBox(error);
+        .then((value) {
+      _authService
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((value) {
+        ProfileHelper profileHelper =
+            Provider.of<HelpersProvider>(_context, listen: false).profileHelper;
+        Provider.of<NavigationProvider>(_context, listen: false)
+            .navigateToDeliveryAddressScreen(
+                _context,
+                () => {
+                      _setUpNewUserProfile(
+                          profileHelper, fullName, phone, email)
+                    },
+                replace: true);
+      });
     });
   }
 
@@ -74,5 +91,11 @@ class AuthenticationHelper {
         context: _context,
         builder: (context) =>
             const PopUpWidget("Error", "Replact with actual error message"));
+  }
+
+  void _setUpNewUserProfile(
+      ProfileHelper helper, String fullName, String phone, String email) {
+    helper.setProfile(fullName, phone, email);
+    helper.registerProfile(_authService.getId());
   }
 }

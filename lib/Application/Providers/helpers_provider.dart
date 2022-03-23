@@ -40,7 +40,8 @@ class HelpersProvider with ChangeNotifier {
   Future<void> _initProfile() async {
     ProfileModel profile = ProfileModel();
     await profile.loadProfile();
-    _profileHelper = ProfileHelper(services.authenticationService, profile);
+    _profileHelper = ProfileHelper(
+        services.authenticationService, profile, services.customerSynchroniser);
     _addressHelper = DeliveryAddress(profile.getAddress());
   }
 
@@ -50,6 +51,10 @@ class HelpersProvider with ChangeNotifier {
 
   int getCategoriesCount() {
     return _catalogueModel.getCategoriesCount();
+  }
+
+  void setUpHelpersContext(BuildContext context) {
+    authHelper.setBuildContext(context);
   }
 
   CartHelper get cartHelper => _cartHelper;

@@ -13,10 +13,13 @@ import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/order_service.dart';
 import 'package:online_order_client/Infrastructure/Server/firebase_service.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
+import 'package:online_order_client/Infrastructure/UserData/customer_data_synchroniser.dart';
+import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
 
 class ServicesProvider {
   static final ServicesProvider _instance = ServicesProvider._();
-  static const String localHost = "192.168.1.6";
+  static const String localHost = "192.168.1.7";
+  static const String nodeJsHost = "http://192.168.1.7:3001";
   bool _isInit = false;
   ServicesProvider._();
 
@@ -29,12 +32,13 @@ class ServicesProvider {
   late final IOrderService _orderService;
   late final IProductsDatabase _productsDatabase;
   late final ProductsMapper _productsMapper;
+  late final ICustomerDataSynchroniser _customerDataSynchroniser;
 
   Future<void> initialiaze() async {
     if (_isInit) {
       return;
     }
-    //await _useTestMode();
+    await _useTestMode();
     await _initServices();
     _isInit = true;
   }
@@ -46,14 +50,14 @@ class ServicesProvider {
     _orderService = OrderService(_serverAcess);
     _productsDatabase = ProductsDatabase(_serverAcess);
     _productsMapper = ProductsMapper(_productsDatabase);
+    _customerDataSynchroniser = CustomerDataSynchroniser(nodeJsHost);
   }
 
   Future<void> _initServerAcess() async {
     // http://192.168.1.6:9000/?ns=online-order-client";
     //https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app/
     DatabaseReference _databaseReference = FirebaseDatabase(
-            databaseURL:
-                "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app")
+            databaseURL: "http://192.168.1.7:9000/?ns=online-order-client")
         .reference();
 
     _serverAcess =
@@ -71,4 +75,6 @@ class ServicesProvider {
   IOrderService get orderService => _orderService;
   IProductsDatabase get productDatabase => _productsDatabase;
   ProductsMapper get productsMapper => _productsMapper;
+  ICustomerDataSynchroniser get customerSynchroniser =>
+      _customerDataSynchroniser;
 }

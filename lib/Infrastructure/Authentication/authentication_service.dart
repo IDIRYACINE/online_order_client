@@ -176,4 +176,9 @@ class FirebaseAuthenticationService implements IAuthenticationService {
       throw UnimplementedError();
     }
   }
+
+  @override
+  String getId() {
+    return _auth.currentUser!.uid;
+  }
 }

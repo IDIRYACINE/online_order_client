@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:online_order_client/Application/DeliveryAddress/delivery_address.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +6,9 @@ import 'package:provider/provider.dart';
 import '../../Application/Providers/helpers_provider.dart';
 
 class DeliveryAddresScreen extends StatefulWidget {
-  const DeliveryAddresScreen({Key? key}) : super(key: key);
+  final VoidCallback _callback;
+
+  const DeliveryAddresScreen(this._callback, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _DeliveryAddresState();
@@ -77,6 +78,7 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
                         _address.setLocation(
                             coordinations: _coordinations,
                             infos: _deliveryAddress);
+                        widget._callback();
                         Navigator.pop(context);
                       },
                     ),
