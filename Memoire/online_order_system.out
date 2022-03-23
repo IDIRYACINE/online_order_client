@@ -1,54 +1,54 @@
-\BOOKMARK [0][-]{part.1}{I State of the art}{}% 1
-\BOOKMARK [1][-]{section.1}{general introduction}{part.1}% 2
-\BOOKMARK [2][-]{subsection.1.1}{The Context}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.2}{The Project Objectives}{section.1}% 4
-\BOOKMARK [2][-]{subsection.1.3}{The MEMORY OVERVIEW}{section.1}% 5
-\BOOKMARK [1][-]{section.2}{the project introduction }{part.1}% 6
-\BOOKMARK [2][-]{subsection.2.1}{Introduction}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.2}{Project objectives}{section.2}% 8
-\BOOKMARK [3][-]{subsubsection.2.2.1}{the existence study}{subsection.2.2}% 9
-\BOOKMARK [3][-]{subsubsection.2.2.2}{the critique of the existence}{subsection.2.2}% 10
-\BOOKMARK [3][-]{subsubsection.2.2.3}{suggested solution}{subsection.2.2}% 11
-\BOOKMARK [3][-]{subsubsection.2.2.4}{Client Section}{subsection.2.2}% 12
-\BOOKMARK [3][-]{subsubsection.2.2.5}{Administrator section}{subsection.2.2}% 13
-\BOOKMARK [0][-]{part.2}{II Project Methologies}{}% 14
-\BOOKMARK [1][-]{section.3}{Agile Developement}{part.2}% 15
-\BOOKMARK [2][-]{subsection.3.1}{Continous Integration}{section.3}% 16
-\BOOKMARK [2][-]{subsection.3.2}{GitHub}{section.3}% 17
-\BOOKMARK [2][-]{subsection.3.3}{Code Quality}{section.3}% 18
-\BOOKMARK [2][-]{subsection.3.4}{Test Driven Developement}{section.3}% 19
-\BOOKMARK [1][-]{section.4}{Project Architecture}{part.2}% 20
-\BOOKMARK [2][-]{subsection.4.1}{Analysis Models}{section.4}% 21
-\BOOKMARK [2][-]{subsection.4.2}{Domain Driven Design}{section.4}% 22
-\BOOKMARK [2][-]{subsection.4.3}{Design Patterns}{section.4}% 23
-\BOOKMARK [1][-]{section.5}{Technologies}{part.2}% 24
-\BOOKMARK [2][-]{subsection.5.1}{TypeScript}{section.5}% 25
-\BOOKMARK [2][-]{subsection.5.2}{Sql}{section.5}% 26
-\BOOKMARK [2][-]{subsection.5.3}{Dart}{section.5}% 27
-\BOOKMARK [1][-]{section.6}{TechStack}{part.2}% 28
-\BOOKMARK [2][-]{subsection.6.1}{Flutter}{section.6}% 29
-\BOOKMARK [2][-]{subsection.6.2}{NodeJs}{section.6}% 30
-\BOOKMARK [2][-]{subsection.6.3}{React}{section.6}% 31
-\BOOKMARK [2][-]{subsection.6.4}{Firebase}{section.6}% 32
-\BOOKMARK [0][-]{part.3}{III Project Implementation}{}% 33
-\BOOKMARK [1][-]{section.7}{Mobile client app}{part.3}% 34
-\BOOKMARK [2][-]{subsection.7.1}{Project Structure}{section.7}% 35
-\BOOKMARK [2][-]{subsection.7.2}{UI}{section.7}% 36
-\BOOKMARK [2][-]{subsection.7.3}{Application}{section.7}% 37
-\BOOKMARK [2][-]{subsection.7.4}{Domain}{section.7}% 38
-\BOOKMARK [2][-]{subsection.7.5}{Infrastructure}{section.7}% 39
-\BOOKMARK [1][-]{section.8}{Shop react app}{part.3}% 40
-\BOOKMARK [2][-]{subsection.8.1}{Project Structure}{section.8}% 41
-\BOOKMARK [2][-]{subsection.8.2}{UI}{section.8}% 42
-\BOOKMARK [2][-]{subsection.8.3}{Application}{section.8}% 43
-\BOOKMARK [2][-]{subsection.8.4}{Domain}{section.8}% 44
-\BOOKMARK [2][-]{subsection.8.5}{Infrastructure}{section.8}% 45
-\BOOKMARK [1][-]{section.9}{Shop node app}{part.3}% 46
-\BOOKMARK [2][-]{subsection.9.1}{Project Structure}{section.9}% 47
-\BOOKMARK [2][-]{subsection.9.2}{Infrastructure}{section.9}% 48
-\BOOKMARK [1][-]{section.10}{Installation}{part.3}% 49
-\BOOKMARK [2][-]{subsection.10.1}{Dependencies}{section.10}% 50
-\BOOKMARK [2][-]{subsection.10.2}{Mobile App}{section.10}% 51
-\BOOKMARK [2][-]{subsection.10.3}{Node App}{section.10}% 52
-\BOOKMARK [2][-]{subsection.10.4}{React App}{section.10}% 53
-\BOOKMARK [0][-]{part.4}{IV Appendix}{}% 54
+\BOOKMARK [0][-]{part.1}{\376\377\000I\000\040\000S\000t\000a\000t\000e\000\040\000o\000f\000\040\000t\000h\000e\000\040\000a\000r\000t}{}% 1
+\BOOKMARK [1][-]{section.1}{\376\377\000g\000e\000n\000e\000r\000a\000l\000\040\000i\000n\000t\000r\000o\000d\000u\000c\000t\000i\000o\000n}{part.1}% 2
+\BOOKMARK [2][-]{subsection.1.1}{\376\377\000T\000h\000e\000\040\000C\000o\000n\000t\000e\000x\000t}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.2}{\376\377\000T\000h\000e\000\040\000P\000r\000o\000j\000e\000c\000t\000\040\000O\000b\000j\000e\000c\000t\000i\000v\000e\000s}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.3}{\376\377\000T\000h\000e\000\040\000M\000E\000M\000O\000R\000Y\000\040\000O\000V\000E\000R\000V\000I\000E\000W}{section.1}% 5
+\BOOKMARK [1][-]{section.2}{\376\377\000t\000h\000e\000\040\000p\000r\000o\000j\000e\000c\000t\000\040\000i\000n\000t\000r\000o\000d\000u\000c\000t\000i\000o\000n\000\040}{part.1}% 6
+\BOOKMARK [2][-]{subsection.2.1}{\376\377\000I\000n\000t\000r\000o\000d\000u\000c\000t\000i\000o\000n}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.2}{\376\377\000P\000r\000o\000j\000e\000c\000t\000\040\000o\000b\000j\000e\000c\000t\000i\000v\000e\000s}{section.2}% 8
+\BOOKMARK [3][-]{subsubsection.2.2.1}{\376\377\000t\000h\000e\000\040\000e\000x\000i\000s\000t\000e\000n\000c\000e\000\040\000s\000t\000u\000d\000y}{subsection.2.2}% 9
+\BOOKMARK [3][-]{subsubsection.2.2.2}{\376\377\000t\000h\000e\000\040\000c\000r\000i\000t\000i\000q\000u\000e\000\040\000o\000f\000\040\000t\000h\000e\000\040\000e\000x\000i\000s\000t\000e\000n\000c\000e}{subsection.2.2}% 10
+\BOOKMARK [3][-]{subsubsection.2.2.3}{\376\377\000s\000u\000g\000g\000e\000s\000t\000e\000d\000\040\000s\000o\000l\000u\000t\000i\000o\000n}{subsection.2.2}% 11
+\BOOKMARK [3][-]{subsubsection.2.2.4}{\376\377\000C\000l\000i\000e\000n\000t\000\040\000S\000e\000c\000t\000i\000o\000n}{subsection.2.2}% 12
+\BOOKMARK [3][-]{subsubsection.2.2.5}{\376\377\000A\000d\000m\000i\000n\000i\000s\000t\000r\000a\000t\000o\000r\000\040\000s\000e\000c\000t\000i\000o\000n}{subsection.2.2}% 13
+\BOOKMARK [0][-]{part.2}{\376\377\000I\000I\000\040\000P\000r\000o\000j\000e\000c\000t\000\040\000M\000e\000t\000h\000o\000l\000o\000g\000i\000e\000s}{}% 14
+\BOOKMARK [1][-]{section.3}{\376\377\000A\000g\000i\000l\000e\000\040\000D\000e\000v\000e\000l\000o\000p\000e\000m\000e\000n\000t}{part.2}% 15
+\BOOKMARK [2][-]{subsection.3.1}{\376\377\000C\000o\000n\000t\000i\000n\000o\000u\000s\000\040\000I\000n\000t\000e\000g\000r\000a\000t\000i\000o\000n}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.2}{\376\377\000G\000i\000t\000H\000u\000b}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.3}{\376\377\000C\000o\000d\000e\000\040\000Q\000u\000a\000l\000i\000t\000y}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.4}{\376\377\000T\000e\000s\000t\000\040\000D\000r\000i\000v\000e\000n\000\040\000D\000e\000v\000e\000l\000o\000p\000e\000m\000e\000n\000t}{section.3}% 19
+\BOOKMARK [1][-]{section.4}{\376\377\000P\000r\000o\000j\000e\000c\000t\000\040\000A\000r\000c\000h\000i\000t\000e\000c\000t\000u\000r\000e}{part.2}% 20
+\BOOKMARK [2][-]{subsection.4.1}{\376\377\000A\000n\000a\000l\000y\000s\000i\000s\000\040\000M\000o\000d\000e\000l\000s}{section.4}% 21
+\BOOKMARK [2][-]{subsection.4.2}{\376\377\000D\000o\000m\000a\000i\000n\000\040\000D\000r\000i\000v\000e\000n\000\040\000D\000e\000s\000i\000g\000n}{section.4}% 22
+\BOOKMARK [2][-]{subsection.4.3}{\376\377\000D\000e\000s\000i\000g\000n\000\040\000P\000a\000t\000t\000e\000r\000n\000s}{section.4}% 23
+\BOOKMARK [1][-]{section.5}{\376\377\000T\000e\000c\000h\000n\000o\000l\000o\000g\000i\000e\000s}{part.2}% 24
+\BOOKMARK [2][-]{subsection.5.1}{\376\377\000T\000y\000p\000e\000S\000c\000r\000i\000p\000t}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.2}{\376\377\000S\000q\000l}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.3}{\376\377\000D\000a\000r\000t}{section.5}% 27
+\BOOKMARK [1][-]{section.6}{\376\377\000T\000e\000c\000h\000S\000t\000a\000c\000k}{part.2}% 28
+\BOOKMARK [2][-]{subsection.6.1}{\376\377\000F\000l\000u\000t\000t\000e\000r}{section.6}% 29
+\BOOKMARK [2][-]{subsection.6.2}{\376\377\000N\000o\000d\000e\000J\000s}{section.6}% 30
+\BOOKMARK [2][-]{subsection.6.3}{\376\377\000R\000e\000a\000c\000t}{section.6}% 31
+\BOOKMARK [2][-]{subsection.6.4}{\376\377\000F\000i\000r\000e\000b\000a\000s\000e}{section.6}% 32
+\BOOKMARK [0][-]{part.3}{\376\377\000I\000I\000I\000\040\000P\000r\000o\000j\000e\000c\000t\000\040\000I\000m\000p\000l\000e\000m\000e\000n\000t\000a\000t\000i\000o\000n}{}% 33
+\BOOKMARK [1][-]{section.7}{\376\377\000M\000o\000b\000i\000l\000e\000\040\000c\000l\000i\000e\000n\000t\000\040\000a\000p\000p}{part.3}% 34
+\BOOKMARK [2][-]{subsection.7.1}{\376\377\000P\000r\000o\000j\000e\000c\000t\000\040\000S\000t\000r\000u\000c\000t\000u\000r\000e}{section.7}% 35
+\BOOKMARK [2][-]{subsection.7.2}{\376\377\000U\000I}{section.7}% 36
+\BOOKMARK [2][-]{subsection.7.3}{\376\377\000A\000p\000p\000l\000i\000c\000a\000t\000i\000o\000n}{section.7}% 37
+\BOOKMARK [2][-]{subsection.7.4}{\376\377\000D\000o\000m\000a\000i\000n}{section.7}% 38
+\BOOKMARK [2][-]{subsection.7.5}{\376\377\000I\000n\000f\000r\000a\000s\000t\000r\000u\000c\000t\000u\000r\000e}{section.7}% 39
+\BOOKMARK [1][-]{section.8}{\376\377\000S\000h\000o\000p\000\040\000r\000e\000a\000c\000t\000\040\000a\000p\000p}{part.3}% 40
+\BOOKMARK [2][-]{subsection.8.1}{\376\377\000P\000r\000o\000j\000e\000c\000t\000\040\000S\000t\000r\000u\000c\000t\000u\000r\000e}{section.8}% 41
+\BOOKMARK [2][-]{subsection.8.2}{\376\377\000U\000I}{section.8}% 42
+\BOOKMARK [2][-]{subsection.8.3}{\376\377\000A\000p\000p\000l\000i\000c\000a\000t\000i\000o\000n}{section.8}% 43
+\BOOKMARK [2][-]{subsection.8.4}{\376\377\000D\000o\000m\000a\000i\000n}{section.8}% 44
+\BOOKMARK [2][-]{subsection.8.5}{\376\377\000I\000n\000f\000r\000a\000s\000t\000r\000u\000c\000t\000u\000r\000e}{section.8}% 45
+\BOOKMARK [1][-]{section.9}{\376\377\000S\000h\000o\000p\000\040\000n\000o\000d\000e\000\040\000a\000p\000p}{part.3}% 46
+\BOOKMARK [2][-]{subsection.9.1}{\376\377\000P\000r\000o\000j\000e\000c\000t\000\040\000S\000t\000r\000u\000c\000t\000u\000r\000e}{section.9}% 47
+\BOOKMARK [2][-]{subsection.9.2}{\376\377\000I\000n\000f\000r\000a\000s\000t\000r\000u\000c\000t\000u\000r\000e}{section.9}% 48
+\BOOKMARK [1][-]{section.10}{\376\377\000I\000n\000s\000t\000a\000l\000l\000a\000t\000i\000o\000n}{part.3}% 49
+\BOOKMARK [2][-]{subsection.10.1}{\376\377\000D\000e\000p\000e\000n\000d\000e\000n\000c\000i\000e\000s}{section.10}% 50
+\BOOKMARK [2][-]{subsection.10.2}{\376\377\000M\000o\000b\000i\000l\000e\000\040\000A\000p\000p}{section.10}% 51
+\BOOKMARK [2][-]{subsection.10.3}{\376\377\000N\000o\000d\000e\000\040\000A\000p\000p}{section.10}% 52
+\BOOKMARK [2][-]{subsection.10.4}{\376\377\000R\000e\000a\000c\000t\000\040\000A\000p\000p}{section.10}% 53
+\BOOKMARK [0][-]{part.4}{\376\377\000I\000V\000\040\000A\000p\000p\000e\000n\000d\000i\000x}{}% 54
