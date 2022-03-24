@@ -49,6 +49,7 @@ class ProfileHelper {
 
   void registerProfile(String id) {
     _dataSynchroniser.setId(id);
+    _dataSynchroniser.setAddress(_profile.getAddress());
     _dataSynchroniser.registerUser();
   }
 }
