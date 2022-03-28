@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:provider/provider.dart';
@@ -29,12 +30,11 @@ class CartHelper {
   }
 
   void placeOrder(BuildContext context) {
-    /*
-    should check if logged in first , disabled for testing purpose;
+    //should check if logged in first , disabled for testing purpose;
     _authenticationService.accountIsActive().then((value) => _sendOrderToShop(
-        value, Provider.of<NavigationProvider>(context), context));*/
-    _sendOrderToShop(
-        true, Provider.of<NavigationProvider>(context, listen: false), context);
+        value,
+        Provider.of<NavigationProvider>(context, listen: false),
+        context));
   }
 
   void removeProduct(CartItem item) {
@@ -45,7 +45,7 @@ class CartHelper {
       BuildContext context) {
     if (isActive) {
       IOrder order = _cart.placeOrder();
-      _orderService.sendOrderToShop(order, ProfileModel());
+      _orderService.sendOrderToShop(order, _authenticationService.getId());
       _cart.clearCart();
     } else {
       navigationProvider.navigateToLogin(context);

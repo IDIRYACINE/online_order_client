@@ -38,6 +38,7 @@ class ProfileHelper {
     _profile.setEmail(email: email);
     _profile.setFullName(fullName: fullName);
     _profile.setPhoneNumber(number: phone);
+    _profile.saveProfile();
     _dataSynchroniser.setEmail(email);
     _dataSynchroniser.setFullName(fullName);
     _dataSynchroniser.setPhone(phone);
@@ -51,5 +52,14 @@ class ProfileHelper {
     _dataSynchroniser.setId(id);
     _dataSynchroniser.setAddress(_profile.getAddress());
     _dataSynchroniser.registerUser();
+  }
+
+  void setUserId(String id) {
+    _profile.setUserId(id: id);
+    _profile.saveProfile();
+  }
+
+  ProfileModel getProfile() {
+    return _profile;
   }
 }

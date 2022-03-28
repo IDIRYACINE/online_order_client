@@ -18,10 +18,12 @@ class AuthenticationHelper {
     _context = context;
   }
 
-  void signInWithEmailAndPassword(String email, String password) {
+  void signInWithEmailAndPassword(
+      ProfileHelper helper, String email, String password) {
     _authService
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
+      helper.setUserId(_authService.getId());
       Navigator.pop(_context);
     }).catchError((error) {
       _popUpErrorBox(error);

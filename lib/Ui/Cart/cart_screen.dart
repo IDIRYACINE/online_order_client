@@ -48,7 +48,6 @@ class _CartScreenState extends State<CartScreen> {
               onPressed: () {
                 setState(() {
                   _cartHelper.placeOrder(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>DelivrationInfo()));
                 });
               },
               autofocus: true,

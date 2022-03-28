@@ -125,6 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               onPressed: () {
                                 _authenticationHelper
                                     .signInWithEmailAndPassword(
+                                        Provider.of<HelpersProvider>(context,
+                                                listen: false)
+                                            .profileHelper,
                                         emailController.text,
                                         passwordController.text);
                               },
