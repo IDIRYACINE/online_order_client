@@ -6,6 +6,7 @@ class CartItem {
   late double _price;
   late String _size = "test";
   late String _sizes;
+
   CartItem({required Product product, required int quantity}) {
     _product = product;
     _quantity = quantity;
@@ -18,7 +19,12 @@ class CartItem {
   }
 
   Map<String, dynamic> getOnlineMap() {
-    return {'name': _product.getName(), 'quantity': _quantity, 'size': _size};
+    return {
+      'name': _product.getName(),
+      'quantity': _quantity,
+      'size': _size,
+      'price': _price
+    };
   }
 
   double getPrice() {
@@ -39,5 +45,6 @@ class CartItem {
 
   void setSize(int sizeIndex) {
     _size = _sizes[sizeIndex];
+    _price = _product.getPrice(sizeIndex);
   }
 }
