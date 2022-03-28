@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:online_order_client/Domain/Catalogue/category_model.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Infrastructure/Database/idatabase.dart';
@@ -40,7 +42,7 @@ class ProductsMapper {
     String rawSize = queryResult['Size'] as String;
     String rawPrice = queryResult['Price'] as String;
 
-    List<String> sizes = rawSize.split(",");
+    List<String> sizes = List<String>.from(jsonDecode(rawSize));
     List<double> price = _rawStringToList(rawPrice);
 
     return Product(
@@ -52,11 +54,9 @@ class ProductsMapper {
   }
 
   List<double> _rawStringToList(String raw) {
-    List<double> result = [];
-    List<String> rawList = raw.split(",");
-    for (String item in rawList) {
-      result.add(double.parse(item));
-    }
+    List<double> result =
+        List<String>.from(jsonDecode(raw)).map((e) => double.parse(e)).toList();
+
     return result;
   }
 
