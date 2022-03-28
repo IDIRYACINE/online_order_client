@@ -27,7 +27,7 @@ class ProductsDatabase implements IProductsDatabase {
     await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
     if (await _checkForNewVersion(databaseVersion)) {
       disconnect();
-      _serverAccess.downloadFile(
+      await _serverAccess.downloadFile(
           fileUrl: _productsDatabaseName, out: databaseFile);
       await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
       _productsDatabase.setVersion(databaseVersion);
@@ -53,7 +53,7 @@ class ProductsDatabase implements IProductsDatabase {
     return await _productsDatabase.query(category,
         columns: ['Name', 'Description', 'Price', 'ImageUrl', 'Size'],
         limit: count,
-        where: "Position >= $startIndex");
+        offset: startIndex);
   }
 
   Future<File> _getLocalDatabaseFile() async {

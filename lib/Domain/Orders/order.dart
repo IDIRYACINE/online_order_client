@@ -2,7 +2,7 @@ import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Domain/Orders/iorder.dart';
 
 class Order implements IOrder {
-  final Map<String, dynamic> _order = {};
+  final List<Map<String, dynamic>> _items = [];
   String _orderId = "0";
   String _orderStaus = "Waiting";
 
@@ -17,17 +17,16 @@ class Order implements IOrder {
 
   @override
   void mapCartItemToOrder({required CartItem cartItem}) {
-    String length = _order.length.toString();
-    _order[length] = cartItem.getOnlineMap();
+    _items.add(cartItem.getOnlineMap());
   }
 
   @override
   Map<String, dynamic> formatOnlineOrder() {
-    return _order;
+    return {'items': _items};
   }
 
   @override
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> orderStatusJson() {
     return {"status": _orderStaus};
   }
 

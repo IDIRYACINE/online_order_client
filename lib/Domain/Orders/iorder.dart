@@ -6,5 +6,5 @@ abstract class IOrder {
   void setStatus({required String status});
   Map<String, dynamic> formatOnlineOrder();
   void mapCartItemToOrder({required CartItem cartItem});
-  Map<String, dynamic> toMap();
+  Map<String, dynamic> orderStatusJson();
 }

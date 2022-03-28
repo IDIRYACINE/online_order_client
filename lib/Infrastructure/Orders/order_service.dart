@@ -27,14 +27,14 @@ class OrderService implements IOrderService {
 
   @override
   void sendOrderToShop(IOrder order, IProfile profile) {
-    Map<String, dynamic> _orderMap = order.toMap();
+    String userId = profile.getUserId();
 
     _serverAcess.postData(
-        dataUrl: "OrdersStatus/${profile.getUserId()}", data: _orderMap);
+        dataUrl: "OrdersStatus/$userId", data: order.orderStatusJson());
 
-    _orderMap = order.formatOnlineOrder();
-
-    _serverAcess.postData(dataUrl: 'Orders', data: _orderMap);
+    Map<String, dynamic> orderJson = order.formatOnlineOrder();
+    orderJson['id'] = userId;
+    _serverAcess.postData(dataUrl: 'Orders', data: orderJson);
     listenToOrderStatusOnServer();
   }
 
