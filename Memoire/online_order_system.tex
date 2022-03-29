@@ -167,23 +167,61 @@ Firebase is a platform and a framework developed by google that provide a range 
 \includegraphics[scale=0.3]{./out/MobileApp/Ui/8.png}
 
 \subsection{Application}
-\includegraphics[scale=0.3]{./out/MobileApp/Application/Application.png}
+\subsubsection{Providers}
+\includegraphics[scale=0.5]{./out/MobileApp/Application/Providers/Providers.png}
+\subsubsection{Helpers}
+
+\includegraphics[scale=0.5]{./out/MobileApp/Application/Authentication/AuthHelper.png}
+
+\includegraphics[scale=0.5]{./out/MobileApp/Application/Cart/CartHelper.png}
+
+\includegraphics[scale=0.5]{./out/MobileApp/Application/Profile/ProfileHelper.png}
+
+\includegraphics[scale=1]{./out/MobileApp/Application/Addresse/AddresseHelper.png}
+
+
 \subsection{Domain}
+\subsubsection{Profile}
 \includegraphics[scale=0.5]{./out/MobileApp/Domain/Profile/Profile.png}
+
+\subsubsection{Order}
 \includegraphics[scale=0.5]{./out/MobileApp/Domain/Order/Order.png}
+
+\subsubsection{Cart}
 \includegraphics[scale=0.5]{./out/MobileApp/Domain/Cart/Cart.png}\\
+
+\subsubsection{Catalogue}
 \includegraphics[scale=0.5]{./out/MobileApp/Domain/Catalogue/Catalogue.png}
 
 \subsection{Infrastructure}
-\includegraphics[scale=0.5]{./out/MobileApp/Infrastructure/infra.png}
-\includegraphics[scale=0.5]{./out/MobileApp/Infrastructure/infra3.png}\\
-\includegraphics[scale=0.5]{./out/MobileApp/Infrastructure/infra2.png}
+
+\subsubsection{Authentication}
+\includegraphics[scale=0.5]{./out/MobileApp/Infrastructure/Authentication/Authentication.png}
+
+\subsubsection{Orders}
+\includegraphics[scale=0.5]{./out/MobileApp/Infrastructure/Orders/Orders.png}
+
+\subsubsection{Database}
+\includegraphics[scale=0.5]{./out/MobileApp/Infrastructure/Database/Database.png}
  
+ 
+\subsubsection{UserData}
+\includegraphics[scale=0.5]{./out/MobileApp/Infrastructure/UserData/UserData.png}\\
+
+
+\subsubsection{ServerAcess}
+\includegraphics[scale=0.5]{./out/MobileApp/Infrastructure/ServerAcess/ServerAccess.png}\\
+
 \section{Shop react app}
 \subsection{Project Structure}
 \subsection{UI}
 
 \subsection{Application}
+\subsubsection{Attribute Cacher}
+
+\includegraphics[scale=0.5]{./out/ReactApp/Application/AttributeCacher/AttributeCacher.png}\\
+
+\subsubsection{Redux Store}
 \includegraphics[scale=0.5]{./out/ReactApp/Application/ReduxStore/Store.png}\\
 \includegraphics[scale=0.5]{./out/ReactApp/Application/ProductReducer/ProductReducer.png}\\
 \includegraphics[scale=0.5]{./out/ReactApp/Application/CategoryReducer/CategoryReducer.png}\\
@@ -191,13 +229,46 @@ Firebase is a platform and a framework developed by google that provide a range 
 
 \subsection{Domain}
 \subsection{Infrastructure}
-\includegraphics[scale=0.5]{./out/ReactApp/Infrastructure/ApiConfig/ApiConfig.png}\\
+\subsubsection{ApiConfig}
+\includegraphics[scale=0.5]{./out/ReactApp/Infrastructure/ApiConfig/ApiConfig.png}
+\subsubsection{Api}
 \includegraphics[scale=0.5]{./out/ReactApp/Infrastructure/Api/Api.png}
 \section{Shop node app}
 \subsection{Project Structure}
+\subsection{Customer Database}
+\includegraphics[scale=0.3]{./out/NodeApp/Database/CustomersTable.png}\newline
+\subsubsection{Ban mechanism}
+In order to avoid bad customers a \textbf{ban mechanism} was placed where the owner would be informed of a customer \textbf{behavior score} and manage a blacklist to filter out his orders .\\
+The ban mechanism uses a phone \textbf{IMEI number} to prevent a spammer from creating new accounts when banned .
+\subsubsection{Optimising requests}
+Embeding delivery data in each order can introduce a \textbf{data usage overhead} thus to reduce it a customer delivery data are cached in the database.In which enables the server of retreiving it using only the \textbf{customer id} included in the order. 
+\subsubsection{Explaining some keys}
+\textbf{Rating} represents the number of approved orders without issues while \textbf{Negative Rating} represents orders that weren't delivered in cause of a client fault or issue . This seperation is important in order to make a ban decision later on.
+
+\subsection{Product Database}
+\includegraphics[scale=0.3]{./out/NodeApp/Database/ProductsTable.png}
+\subsubsection{Explaining some keys}
+\textbf{Categories Table } holds records of categories metadata where each category-entry would have it's own \textbf{Category Table} that contains it's products .Thus each \textbf{category id} represents a table name in the database .\newline
+\textbf{Product Count} is important since it's used on the app product loader.
+
 \subsection{Infrastructure}
-\includegraphics[scale=0.5]{./out/NodeApp/main/Services.png}
-\includegraphics[scale=0.3]{./out/NodeApp/Database/Database.png}
+\subsubsection{AuthenticationService}
+\includegraphics[scale=0.75]{./out/NodeApp/AuthenticationService/AuthService.png}
+
+\subsubsection{StorageService}
+\includegraphics[scale=0.75]{./out/NodeApp/StorageService/StorageService.png}
+
+\subsubsection{OrdersService}
+\includegraphics[scale=1]{./out/NodeApp/OrdersService/OrdersService.png}
+
+\subsubsection{ProductsDtabase}
+\includegraphics[scale=0.38]{./out/NodeApp/Database/ProductsDatabase.png}
+
+\subsubsection{CustomersDatabase}
+\includegraphics[scale=0.75]{./out/NodeApp/Database/CustomersDatabase.png}
+
+\subsubsection{Configs}
+\includegraphics[scale=1]{./out/NodeApp/Database/SharedConfigFile.png}
 
 
 \section{Installation}
