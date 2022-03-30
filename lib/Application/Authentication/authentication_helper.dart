@@ -3,6 +3,7 @@ import 'package:online_order_client/Application/Providers/helpers_provider.dart'
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
+import 'package:online_order_client/Infrastructure/Exceptions/auth_exceptions.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:provider/provider.dart';
 import '../Profile/profile_helper.dart';
@@ -25,8 +26,8 @@ class AuthenticationHelper {
         .then((value) {
       helper.setUserId(_authService.getId());
       Navigator.pop(_context);
-    }).catchError((error) {
-      _popUpErrorBox(error);
+    }).catchError((e) {
+      _handleSignInErrors(e.code);
     });
   }
 
@@ -49,6 +50,8 @@ class AuthenticationHelper {
                     },
                 replace: true);
       });
+    }).catchError((e) {
+      _handleSignUpErrors(e.code);
     });
   }
 
@@ -63,9 +66,12 @@ class AuthenticationHelper {
   void requestPhoneValidation(String phone) {
     _authService.requestPhoneVerification(
         phone: phone,
-        onVerificationCompleted: () {},
+        onVerificationCompleted: () {
+          _popUpMessage("Success", "Your phone has been validated");
+        },
         onSmsCodeSent: () {
-          _authService.confirmPhoneVerification(smsCode: "913203");
+          //Make a pop up widget asking for the code
+          //_authService.confirmPhoneVerification(smsCode: "913203");
         });
   }
 
@@ -81,23 +87,42 @@ class AuthenticationHelper {
     _authService.signOut();
   }
 
-  void _popUpRegsiteredBox() {
+  void _popUpMessage(String title, String message) {
     showDialog<String>(
-        context: _context,
-        builder: (context) =>
-            const PopUpWidget("Registered", "Confirmation Email Sent"));
-  }
-
-  void _popUpErrorBox(Error error) {
-    showDialog<String>(
-        context: _context,
-        builder: (context) =>
-            const PopUpWidget("Error", "Replact with actual error message"));
+        context: _context, builder: (context) => PopUpWidget(title, message));
   }
 
   void _setUpNewUserProfile(
       ProfileHelper helper, String fullName, String phone, String email) {
     helper.setProfile(fullName, phone, email);
     helper.registerProfile(_authService.getId());
+  }
+
+  void _handleSignInErrors(String code) {
+    switch (code) {
+      case InvalidLoginInfos.errorCode:
+        {
+          _popUpMessage("Invalid Login", "Incorrect password or email");
+        }
+        break;
+      default:
+        {
+          _popUpMessage("Network Error", "You are offline");
+        }
+    }
+  }
+
+  void _handleSignUpErrors(String code) {
+    switch (code) {
+      case EmailAlreadyUsed.errorCode:
+        {
+          _popUpMessage("Invalid Email", "Email Already used");
+        }
+        break;
+      default:
+        {
+          _popUpMessage("Network Error", "You are offline");
+        }
+    }
   }
 }
