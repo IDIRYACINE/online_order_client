@@ -1,5 +1,3 @@
-import 'package:online_order_client/Domain/GpsLocation/address.dart';
-
 abstract class IAuthenticationService {
   Future<void> signUpWithEmailAndPassword(
       {required String email, required String password});
@@ -19,9 +17,5 @@ abstract class IAuthenticationService {
   Future<bool> accountIsActive();
   Future<void> updateEmail({required String newEmail});
   Future<void> updatePassword({required String newPassword});
-  Future<void> updateDeliveryAddress({required Address newAddress});
-  Future<void> updateUserName({required String newUserName});
-  Future<void> reAuthentificate(
-      {required String password, required String email});
   String getId();
 }

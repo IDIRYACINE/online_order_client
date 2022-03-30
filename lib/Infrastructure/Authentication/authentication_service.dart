@@ -4,9 +4,10 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_order_client/Domain/GpsLocation/address.dart';
-import 'package:online_order_client/Infrastructure/Exceptions/exceptions.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:online_order_client/Infrastructure/Exceptions/auth_exceptions.dart';
+import 'package:online_order_client/Infrastructure/Exceptions/server_exceptions.dart';
 
 class FirebaseAuthenticationService implements IAuthenticationService {
   final FirebaseAuth _auth;
@@ -50,14 +51,8 @@ class FirebaseAuthenticationService implements IAuthenticationService {
     try {
       _user.linkWithCredential(authProvider);
     } catch (e) {
-      throw UnimplementedError();
+      throw AccountAlreadyLinked();
     }
-  }
-
-  @override
-  Future<void> reAuthentificate(
-      {required String password, required String email}) async {
-    throw UnimplementedError();
   }
 
   @override
@@ -65,7 +60,7 @@ class FirebaseAuthenticationService implements IAuthenticationService {
     try {
       _user.sendEmailVerification();
     } catch (e) {
-      throw UnimplementedError();
+      throw NetworkError();
     }
   }
 
@@ -73,8 +68,12 @@ class FirebaseAuthenticationService implements IAuthenticationService {
   Future<void> requestNewPassword({required String email}) async {
     try {
       _auth.sendPasswordResetEmail(email: email);
-    } catch (e) {
-      throw InvalidUser();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        throw InvalidUser();
+      } else {
+        throw NetworkError();
+      }
     }
   }
 
@@ -99,7 +98,7 @@ class FirebaseAuthenticationService implements IAuthenticationService {
           },
           codeAutoRetrievalTimeout: (exception) {});
     } catch (e) {
-      throw UnimplementedError();
+      throw InvalidVerificationCode();
     }
   }
 
@@ -136,25 +135,11 @@ class FirebaseAuthenticationService implements IAuthenticationService {
   }
 
   @override
-  Future<void> updateDeliveryAddress({required Address newAddress}) async {
-    try {
-      DocumentReference addressDoc = _firestore
-          .collection("users")
-          .doc(_user.uid)
-          .collection("extras")
-          .doc("deliveryAddress");
-      addressDoc.update(newAddress.toMap());
-    } catch (e) {
-      throw UnimplementedError();
-    }
-  }
-
-  @override
   Future<void> updateEmail({required String newEmail}) async {
     try {
       _user.verifyBeforeUpdateEmail(newEmail);
     } catch (e) {
-      throw UnimplementedError();
+      throw NetworkError();
     }
   }
 
@@ -163,17 +148,7 @@ class FirebaseAuthenticationService implements IAuthenticationService {
     try {
       _user.updatePassword(newPassword);
     } catch (e) {
-      throw UnimplementedError();
-    }
-  }
-
-  @override
-  Future<void> updateUserName({required String newUserName}) async {
-    try {
-      DocumentReference userDoc = _firestore.collection("users").doc(_user.uid);
-      userDoc.update({"userName": newUserName});
-    } catch (e) {
-      throw UnimplementedError();
+      throw NetworkError();
     }
   }
 

@@ -1,4 +1,4 @@
-import 'package:online_order_client/Infrastructure/Exceptions/exceptions.dart';
+import 'package:online_order_client/Infrastructure/Exceptions/auth_exceptions.dart';
 
 class UserInputValidtor {
   bool _validateEmail(String email) {
