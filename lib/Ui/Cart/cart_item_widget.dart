@@ -4,7 +4,8 @@ import 'package:online_order_client/Application/Providers/helpers_provider.dart'
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:provider/provider.dart';
 
-import '../Components/components.dart';
+import '../Components/shared_components.dart';
+import '../Components/product_widget.dart';
 
 class CartItemWidget extends StatefulWidget {
   final CartItem _cartItem;
@@ -32,7 +33,7 @@ class _CartItemState extends State<CartItemWidget> {
             child: SizedBox(
                 height: 60,
                 width: 60,
-                child: productPicture(widget._cartItem.getThumbnailUrl())),
+                child: ProductPicture(widget._cartItem.getThumbnailUrl())),
           ),
           const VerticalDivider(
             thickness: 3,
@@ -97,7 +98,6 @@ class _CartItemState extends State<CartItemWidget> {
                 onPressed: () {
                   setState(() {
                     _cartHelper.removeProduct(widget._cartItem);
-                    
                   });
                 },
                 icon: const Icon(Icons.delete)),

@@ -1,4 +1,5 @@
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
+import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Catalogue/category_screen.dart';
 import 'package:online_order_client/Ui/Catalogue/product_screen.dart';
 import 'package:online_order_client/Ui/Login/login_screen.dart';
@@ -17,6 +18,7 @@ class NavigationProvider with ChangeNotifier {
   ];
 
   int _screenIndex = 0;
+  int _iconIndex = 0;
 
   NavigationProvider();
 
@@ -24,15 +26,17 @@ class NavigationProvider with ChangeNotifier {
 
   void navigateToCart() {
     _screenIndex = 0;
+    _iconIndex = 2;
     notifyListeners();
   }
 
   void navigateToCatalogue() {
     _screenIndex = 1;
+    _iconIndex = 1;
     notifyListeners();
   }
 
-  void navigateToCategoryproductsScreen() {
+  void navigateToCategoryProductsScreen() {
     _screenIndex = 2;
     notifyListeners();
   }
@@ -77,7 +81,18 @@ class NavigationProvider with ChangeNotifier {
         MaterialPageRoute(builder: (context) => const ProfileScreen()));
   }
 
+  void navigateToProductDetails(BuildContext context, Product product) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CategoryproductsScreen(product)));
+  }
+
   int getScreenIndex() {
     return _screenIndex;
+  }
+
+  int getIconIndex() {
+    return _iconIndex;
   }
 }

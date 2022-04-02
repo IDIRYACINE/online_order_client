@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Ui/Components/bottom_nav_bar.dart';
-import 'package:online_order_client/Ui/Components/components.dart';
-import 'package:online_order_client/Ui/Profile/confirm_email_dailogue.dart';
+import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:online_order_client/Ui/Profile/profile_dialogue.dart';
-import 'package:online_order_client/Application/Providers/navigation_provider.dart';
-import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -78,7 +73,6 @@ class _ProfileState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         backgroundColor: parseColor("#F8EDEB"),
         appBar: AppBar(
@@ -92,7 +86,9 @@ class _ProfileState extends State<ProfileScreen> {
           ),
           backgroundColor: parseColor("#FCD5CE"),
           centerTitle: false,
-          leading: IconButton(onPressed: () => Navigator.pop(context, false), icon: const Icon(Icons.keyboard_return)),
+          leading: IconButton(
+              onPressed: () => Navigator.pop(context, false),
+              icon: const Icon(Icons.keyboard_return)),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 4),
@@ -122,7 +118,8 @@ class _ProfileState extends State<ProfileScreen> {
                   height: 50,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ProfileInfo("wawadz2000@gmail.com", const Icon(Icons.email)),
+                  const ProfileInfoLabel(
+                      "wawadz2000@gmail.com", Icon(Icons.email)),
                   IconButton(
                     onPressed: () {
                       displayChangeElemntPoupUp(
@@ -130,7 +127,7 @@ class _ProfileState extends State<ProfileScreen> {
                           const Text("Set new Email : "),
                           () {},
                           "New Email Adresse",
-                          Icon(Icons.email));
+                          const Icon(Icons.email));
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "changer Email",
@@ -140,7 +137,7 @@ class _ProfileState extends State<ProfileScreen> {
                   height: 30,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ProfileInfo("+2130541341655", const Icon(Icons.phone)),
+                  const ProfileInfoLabel("+2130541341655", Icon(Icons.phone)),
                   IconButton(
                       onPressed: () {
                         displayChangeElemntPoupUp(
@@ -148,7 +145,7 @@ class _ProfileState extends State<ProfileScreen> {
                             const Text("Set new phone number : "),
                             () {},
                             " new phone number",
-                            Icon(Icons.phone));
+                            const Icon(Icons.phone));
                       },
                       icon: const Icon(Icons.edit),
                       tooltip: "Changer le numero de telephone ")
@@ -157,7 +154,7 @@ class _ProfileState extends State<ProfileScreen> {
                   height: 30,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ProfileInfo("*********", const Icon(Icons.lock)),
+                  const ProfileInfoLabel("*********", Icon(Icons.lock)),
                   IconButton(
                     onPressed: () {
                       displayChangeElemntPoupUp(
@@ -165,7 +162,7 @@ class _ProfileState extends State<ProfileScreen> {
                           const Text("Set new password : "),
                           () {},
                           " new password",
-                          Icon(Icons.lock));
+                          const Icon(Icons.lock));
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "Changer le mot de pass ",
@@ -178,5 +175,53 @@ class _ProfileState extends State<ProfileScreen> {
             ),
           ),
         ));
+  }
+}
+
+class ProfileInfoLabel extends StatelessWidget {
+  final String _title;
+  final Icon _icon;
+  const ProfileInfoLabel(this._title, this._icon, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            height: 60,
+            width: 275,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: parseColor("#FCD5CE")),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 15,
+              ),
+              child: Row(children: [
+                const SizedBox(
+                  width: 10,
+                ),
+                _icon,
+                const SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: Text(
+                    _title,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    maxLines: 1,
+                    softWrap: false,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ]),
+            ),
+          ),
+        ]);
   }
 }

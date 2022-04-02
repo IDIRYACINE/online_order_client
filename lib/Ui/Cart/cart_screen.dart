@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Cart/cart_item_widget.dart';
-import 'package:online_order_client/Ui/Components/components.dart';
-import 'package:online_order_client/Ui/DeliveryAddresse/delivrations_info.dart';
+import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
@@ -25,7 +24,7 @@ class _CartScreenState extends State<CartScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          elemTitle(context, "Cart ", 35),
+          const CustomTitle("Cart ", 35),
           ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Ui/Components/components.dart';
 
 class ChangeElementProfile extends StatefulWidget {
   const ChangeElementProfile({Key? key}) : super(key: key);
@@ -25,11 +24,10 @@ class _ChangeElementProfileState extends State<ChangeElementProfile> {
               child: TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  hintText: "$hint",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  prefixIcon: icon
-                ),
+                    hintText: "$hint",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    prefixIcon: icon),
               ),
             ),
           ],

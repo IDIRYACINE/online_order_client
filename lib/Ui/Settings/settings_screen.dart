@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/home_screen.dart';
 import 'package:online_order_client/Ui/Profile/profile_screen.dart';
-import 'package:online_order_client/Ui/Components/components.dart';
+import 'package:online_order_client/Ui/Components/shared_components.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -75,13 +75,34 @@ class _SettingsState extends State<SettingsScreen> {
               ),
               BottomNavigationBarItem(
                   icon: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomeScreen()));
-                      },
-                      icon: cartIcon(5)),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen()));
+                    },
+                    icon: Stack(children: [
+                      const Icon(
+                        Icons.shopping_cart,
+                        size: 30,
+                      ),
+                      Positioned(
+                        bottom: 13,
+                        left: 9,
+                        child: Container(
+                            alignment: Alignment.topCenter,
+                            child: const CircleAvatar(
+                              child: Text(
+                                "5",
+                                style:
+                                    TextStyle(color: Colors.blue, fontSize: 10),
+                              ),
+                              radius: 7,
+                              backgroundColor: Colors.red,
+                            )),
+                      ),
+                    ]),
+                  ),
                   label: 'Cart'),
             ]),
       ),
