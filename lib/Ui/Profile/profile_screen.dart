@@ -10,12 +10,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileState extends State<ProfileScreen> {
-  final List<Widget> dialogues = [
-    const ChangeElementProfile(),
-  ];
-  int dialogueIndex = 0;
+  var  NewEmail = TextEditingController();
+  var NewPhone = TextEditingController();
+  var NewPassword = TextEditingController();
   Future displayChangeElemntPoupUp(BuildContext context, Widget title,
-      Function confirmFunction, String hint, Icon icon) async {
+      Function NewInfo, String hint, Icon icon, TextEditingController controller) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -35,6 +34,7 @@ class _ProfileState extends State<ProfileScreen> {
                         SizedBox(
                           width: 220,
                           child: TextFormField(
+                            controller: controller,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                                 hintText: "$hint",
@@ -52,7 +52,7 @@ class _ProfileState extends State<ProfileScreen> {
               SizedBox(
                 child: ElevatedButton(
                   onPressed: () {
-                    confirmFunction;
+                    NewInfo;
                   },
                   child: const Text("Conferme"),
                   style: ElevatedButton.styleFrom(primary: Colors.green),
@@ -125,13 +125,18 @@ class _ProfileState extends State<ProfileScreen> {
                       displayChangeElemntPoupUp(
                           context,
                           const Text("Set new Email : "),
-                          () {},
+                          () {
+                          },
                           "New Email Adresse",
-                          const Icon(Icons.email));
+                          const Icon(Icons.email),
+                          NewEmail
+                          
+                          );
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "changer Email",
                   ),
+
                 ]),
                 const SizedBox(
                   height: 30,
@@ -145,7 +150,10 @@ class _ProfileState extends State<ProfileScreen> {
                             const Text("Set new phone number : "),
                             () {},
                             " new phone number",
-                            const Icon(Icons.phone));
+                            const Icon(Icons.phone),
+                            NewPhone
+                            
+                            );
                       },
                       icon: const Icon(Icons.edit),
                       tooltip: "Changer le numero de telephone ")
@@ -162,7 +170,9 @@ class _ProfileState extends State<ProfileScreen> {
                           const Text("Set new password : "),
                           () {},
                           " new password",
-                          const Icon(Icons.lock));
+                          const Icon(Icons.lock),
+                          NewPassword
+                          );
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "Changer le mot de pass ",

@@ -7,14 +7,16 @@ import 'package:online_order_client/Ui/Login/new_account_screen.dart';
 import 'package:online_order_client/Ui/Cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Ui/Profile/profile_screen.dart';
+import 'package:online_order_client/Ui/Status/Status.dart';
 
 import '../../Ui/DeliveryAddresse/gps_screen.dart';
 
 class NavigationProvider with ChangeNotifier {
-  final List<Widget> _screens = const [
+  final List<Widget> _screens =  [
     CartScreen(),
     CategoryScreen(),
-    ProfileScreen()
+    ProfileScreen(),
+    StepperDemo()
   ];
 
   int _screenIndex = 0;
@@ -45,6 +47,10 @@ class NavigationProvider with ChangeNotifier {
     _screenIndex = 3;
     notifyListeners();
   }
+  void navigateToStatusScreen() {
+    _screenIndex = 4;
+    notifyListeners();
+  }
 
   void navigateToSettings() {}
 
@@ -52,7 +58,10 @@ class NavigationProvider with ChangeNotifier {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
-
+ void navigateToStatus(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) =>  StepperDemo()));
+  }
   void navigateToDeliveryAddressScreen(
       BuildContext context, VoidCallback callback,
       {required bool replace}) {

@@ -3,6 +3,7 @@ import 'package:online_order_client/Application/Providers/helpers_provider.dart'
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:online_order_client/Ui/Components/bottom_nav_bar.dart';
+import 'package:online_order_client/Ui/Status/Status.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -33,8 +34,11 @@ class HomeScreen extends StatelessWidget {
               },
               icon: const Icon(Icons.person)),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.favorite)),
+            IconButton(onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => StepperDemo()));
+                }, icon: const Icon(Icons.delivery_dining_outlined)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.logout)),
           ],
         ),
         body: navigationProvider.getScreen(),
