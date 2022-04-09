@@ -16,7 +16,7 @@ class NavigationProvider with ChangeNotifier {
     CartScreen(),
     CategoryScreen(),
     ProfileScreen(),
-    StepperDemo()
+     StatusScreen()
   ];
 
   int _screenIndex = 0;
@@ -60,7 +60,7 @@ class NavigationProvider with ChangeNotifier {
   }
  void navigateToStatus(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) =>  StepperDemo()));
+        context, MaterialPageRoute(builder: (context) =>  StatusScreen()));
   }
   void navigateToDeliveryAddressScreen(
       BuildContext context, VoidCallback callback,

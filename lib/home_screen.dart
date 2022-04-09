@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
           actions: [
             IconButton(onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => StepperDemo()));
+                      MaterialPageRoute(builder: (context) => StatusScreen()));
                 }, icon: const Icon(Icons.delivery_dining_outlined)),
             IconButton(onPressed: () {}, icon: const Icon(Icons.logout)),
           ],
