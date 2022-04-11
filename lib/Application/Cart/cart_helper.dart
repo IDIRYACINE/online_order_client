@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
-import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../Domain/Cart/cart.dart';
@@ -21,6 +19,7 @@ class CartHelper {
 
   void addCartItem(CartItem cartItem) {
     _cart.addProduct(product: cartItem);
+    _notifyChange();
   }
 
   int getCartItemCount() {
@@ -41,6 +40,7 @@ class CartHelper {
 
   void removeProduct(CartItem item) {
     _cart.removeProduct(item: item);
+    _notifyChange();
   }
 
   void _sendOrderToShop(bool isActive, NavigationProvider navigationProvider,

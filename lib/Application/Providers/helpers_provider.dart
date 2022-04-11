@@ -18,6 +18,7 @@ class HelpersProvider with ChangeNotifier {
   late ServicesProvider services;
   late ProfileHelper _profileHelper;
   late DeliveryAddress _addressHelper;
+  late AuthenticationHelper _authHelper;
 
   HelpersProvider() {
     _catalogueModel = CatalogueModel();
@@ -33,6 +34,9 @@ class HelpersProvider with ChangeNotifier {
     _cartHelper = CartHelper(Cart(), services.orderService,
         services.authenticationService, notifyListeners);
     await _initProfile();
+
+    _authHelper = AuthenticationHelper(
+        services.authenticationService, FacebookAuthentication());
 
     return true;
   }
@@ -61,6 +65,5 @@ class HelpersProvider with ChangeNotifier {
   ProfileHelper get profileHelper => _profileHelper;
   DeliveryAddress get addressHelper => _addressHelper;
 
-  AuthenticationHelper get authHelper => AuthenticationHelper(
-      services.authenticationService, FacebookAuthentication());
+  AuthenticationHelper get authHelper => _authHelper;
 }

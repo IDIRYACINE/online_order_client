@@ -17,8 +17,6 @@ class _BottomNavBar extends State<BottomNavBar> {
     NavigationProvider navigationProvider =
         Provider.of<NavigationProvider>(context);
 
-    HelpersProvider catalogueProvider = Provider.of<HelpersProvider>(context);
-
     return BottomNavigationBar(
         backgroundColor: parseColor("#FCD5CE"),
         iconSize: 10,
@@ -63,11 +61,14 @@ class _BottomNavBar extends State<BottomNavBar> {
                     child: Container(
                         alignment: Alignment.topCenter,
                         child: CircleAvatar(
-                          child: Text(
-                            "${catalogueProvider.cartHelper.getCartItemCount()}",
-                            style: const TextStyle(
-                                color: Colors.blue, fontSize: 10),
-                          ),
+                          child: Consumer<HelpersProvider>(
+                              builder: (context, helpers, child) {
+                            return Text(
+                              "${helpers.cartHelper.getCartItemCount()}",
+                              style: const TextStyle(
+                                  color: Colors.blue, fontSize: 10),
+                            );
+                          }),
                           radius: 7,
                           backgroundColor: Colors.red,
                         )),

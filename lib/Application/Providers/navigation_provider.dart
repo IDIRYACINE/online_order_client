@@ -7,9 +7,9 @@ import 'package:online_order_client/Ui/Login/new_account_screen.dart';
 import 'package:online_order_client/Ui/Cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Ui/Profile/profile_screen.dart';
-import 'package:online_order_client/Ui/Status/status.dart';
 
 import '../../Ui/DeliveryAddresse/gps_screen.dart';
+import '../../Ui/Orders/order_status_screen.dart';
 
 class NavigationProvider with ChangeNotifier {
   final List<Widget> _screens = [
