@@ -1,13 +1,21 @@
+import 'package:flutter/foundation.dart';
+
 abstract class IAuthenticationService {
   Future<void> signUpWithEmailAndPassword(
       {required String email, required String password});
   Future<void> signInWithEmailAndPassword(
       {required String email, required String password});
   Future<void> signOut();
-  Future<void> requestNewPassword({required String email});
+  Future<void> requestNewPassword();
   Future<void> confirmNewPassword(
       {required String code, required String newPassword});
-  Future<void> requestEmailVerification({required String email});
+  Future<void> requestVerificationCode({required String email});
+
+  Future<void> confirmVerificationCode(
+      {required String code,
+      required VoidCallback onSucess,
+      required VoidCallback onFail});
+
   Future<void> requestPhoneVerification(
       {required String phone,
       required Function onVerificationCompleted,

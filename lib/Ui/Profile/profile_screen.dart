@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
+import 'package:online_order_client/Application/Profile/profile_helper.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
+import 'package:provider/provider.dart';
+
+import 'change_informartion_dialogue.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -12,71 +18,16 @@ class _ProfileState extends State<ProfileScreen> {
   final TextEditingController _newEmail = TextEditingController();
   final TextEditingController _newPhone = TextEditingController();
   final TextEditingController _newPassword = TextEditingController();
-  Future displayChangeElemntPoupUp(
-      BuildContext context,
-      Widget title,
-      Function _newInfo,
-      String hint,
-      Icon icon,
-      TextEditingController controller) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.red[50],
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            content: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Form(
-                    child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SizedBox(
-                    height: 80,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 220,
-                          child: TextFormField(
-                            controller: controller,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                                hintText: "$hint",
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                prefixIcon: icon),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ))),
-            title: title,
-            actions: [
-              SizedBox(
-                child: ElevatedButton(
-                  onPressed: () {
-                    _newInfo;
-                  },
-                  child: const Text("Conferme"),
-                  style: ElevatedButton.styleFrom(primary: Colors.green),
-                ),
-                width: 200,
-              ),
-              const SizedBox(width: 20),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text("Exit"),
-                style: ElevatedButton.styleFrom(primary: Colors.red),
-              )
-            ],
-            actionsAlignment: MainAxisAlignment.center,
-          );
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
+    HelpersProvider _helpers =
+        Provider.of<HelpersProvider>(context, listen: false);
+
+    ProfileHelper _profileHelper = _helpers.profileHelper;
+
+    AuthenticationHelper _authHelper = _helpers.authHelper;
+
     return Scaffold(
         backgroundColor: parseColor("#F8EDEB"),
         appBar: AppBar(
@@ -114,24 +65,25 @@ class _ProfileState extends State<ProfileScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  "Bensadi Houssem",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                Text(
+                  _profileHelper.getProfile().getFullName(),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 30),
                 ),
                 const SizedBox(
                   height: 50,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  const ProfileInfoLabel(
-                      "wawadz2000@gmail.com", Icon(Icons.email)),
+                  ProfileInfoLabel(_profileHelper.getProfile().getEmail(),
+                      const Icon(Icons.email)),
                   IconButton(
                     onPressed: () {
-                      displayChangeElemntPoupUp(
-                          context,
-                          const Text("Set new Email : "),
-                          () {},
-                          "New Email Adresse",
-                          const Icon(Icons.email),
+                      changeElementPoupUp(
+                          context, const Text("Set new Email : "), () {
+                        String email = _newEmail.text;
+                        _authHelper.updateEmail(
+                            email, () => {_profileHelper.updateEmail(email)});
+                      }, "New Email Adresse", const Icon(Icons.email),
                           _newEmail);
                     },
                     icon: const Icon(Icons.edit),
@@ -142,15 +94,14 @@ class _ProfileState extends State<ProfileScreen> {
                   height: 30,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  const ProfileInfoLabel("+2130541341655", Icon(Icons.phone)),
+                  ProfileInfoLabel(_profileHelper.getProfile().getPhoneNumber(),
+                      const Icon(Icons.phone)),
                   IconButton(
                       onPressed: () {
-                        displayChangeElemntPoupUp(
-                            context,
-                            const Text("Set new phone number : "),
-                            () {},
-                            " new phone number",
-                            const Icon(Icons.phone),
+                        changeElementPoupUp(
+                            context, const Text("Set new phone number : "), () {
+                          _profileHelper.updatePhoneNumber(_newPhone.text);
+                        }, " new phone number", const Icon(Icons.phone),
                             _newPhone);
                       },
                       icon: const Icon(Icons.edit),
@@ -163,13 +114,11 @@ class _ProfileState extends State<ProfileScreen> {
                   const ProfileInfoLabel("*********", Icon(Icons.lock)),
                   IconButton(
                     onPressed: () {
-                      displayChangeElemntPoupUp(
-                          context,
-                          const Text("Set new password : "),
-                          () {},
-                          " new password",
-                          const Icon(Icons.lock),
-                          _newPassword);
+                      changeElementPoupUp(
+                          context, const Text("Set new password : "), () {
+                        _authHelper.sendPasswordResetCode();
+                        _authHelper.updatePassword("Newpassword", "code");
+                      }, " new password", const Icon(Icons.lock), _newPassword);
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "Changer le mot de pass ",

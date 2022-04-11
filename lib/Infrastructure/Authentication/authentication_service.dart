@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:online_order_client/Infrastructure/Exceptions/auth_exceptions.dart';
@@ -55,7 +56,7 @@ class FirebaseAuthenticationService implements IAuthenticationService {
   }
 
   @override
-  Future<void> requestEmailVerification({required String email}) async {
+  Future<void> requestVerificationCode({required String email}) async {
     try {
       _user.sendEmailVerification();
     } catch (e) {
@@ -64,9 +65,24 @@ class FirebaseAuthenticationService implements IAuthenticationService {
   }
 
   @override
-  Future<void> requestNewPassword({required String email}) async {
+  Future<void> confirmVerificationCode(
+      {required String code,
+      required VoidCallback onSucess,
+      required VoidCallback onFail}) async {
+    _auth
+        .applyActionCode(code)
+        .then((value) => () {
+              onSucess();
+            })
+        .catchError((onError) {
+      onFail();
+    });
+  }
+
+  @override
+  Future<void> requestNewPassword() async {
     try {
-      _auth.sendPasswordResetEmail(email: email);
+      _auth.sendPasswordResetEmail(email: _user.email!);
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         throw InvalidUser();

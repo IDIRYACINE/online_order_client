@@ -17,7 +17,7 @@ class _ConfirmEmailState extends State<ConfirmEmail> {
         child: TextFormField(
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
-            hintText: "Confemation Code",
+            hintText: "Confirmation Code",
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
             prefixIcon: Icon(
               Icons.confirmation_number,

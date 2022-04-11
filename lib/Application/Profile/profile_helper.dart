@@ -14,6 +14,10 @@ class ProfileHelper {
   ProfileHelper(
       this._authenticationService, this._profile, this._dataSynchroniser);
 
+  ProfileModel getProfile() {
+    return _profile;
+  }
+
   void setDeliveryAddresse(BuildContext context) {
     Provider.of<NavigationProvider>(context, listen: false)
         .navigateToDeliveryAddressScreen(context, () => {}, replace: false);
@@ -59,7 +63,12 @@ class ProfileHelper {
     _profile.saveProfile();
   }
 
-  ProfileModel getProfile() {
-    return _profile;
+  void updateEmail(String newEmail) {}
+
+  void updatePhoneNumber(String newPhone) {
+    _dataSynchroniser.setPhone(newPhone);
+    _dataSynchroniser.updateUser();
   }
+
+  void updatePassword(String newPassword) {}
 }
