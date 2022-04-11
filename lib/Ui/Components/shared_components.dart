@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import '../../Domain/Catalogue/product_model.dart';
 
 Color parseColor(String color) {
   String hex = color.replaceAll("#", "");
@@ -19,6 +16,7 @@ class CustomTitle extends StatelessWidget {
   final double _size;
   final double _lineHeight;
 
+  // ignore: use_key_in_widget_constructors
   const CustomTitle(this._title, [this._size = 30, this._lineHeight = 3.0]);
 
   @override

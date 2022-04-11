@@ -7,16 +7,14 @@ import 'package:online_order_client/Ui/Login/new_account_screen.dart';
 import 'package:online_order_client/Ui/Cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Ui/Profile/profile_screen.dart';
-import 'package:online_order_client/Ui/Status/Status.dart';
+import 'package:online_order_client/Ui/Status/status.dart';
 
 import '../../Ui/DeliveryAddresse/gps_screen.dart';
 
 class NavigationProvider with ChangeNotifier {
-  final List<Widget> _screens =  [
-    CartScreen(),
-    CategoryScreen(),
-    ProfileScreen(),
-     StatusScreen()
+  final List<Widget> _screens = [
+    const CartScreen(),
+    const CategoryScreen(),
   ];
 
   int _screenIndex = 0;
@@ -43,25 +41,18 @@ class NavigationProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void navigateToProfileScreen() {
-    _screenIndex = 3;
-    notifyListeners();
-  }
-  void navigateToStatusScreen() {
-    _screenIndex = 4;
-    notifyListeners();
-  }
-
   void navigateToSettings() {}
 
   void navigateToLogin(BuildContext context) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
- void navigateToStatus(BuildContext context) {
+
+  void navigateToStatus(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) =>  StatusScreen()));
+        context, MaterialPageRoute(builder: (context) => const StatusScreen()));
   }
+
   void navigateToDeliveryAddressScreen(
       BuildContext context, VoidCallback callback,
       {required bool replace}) {
@@ -95,6 +86,11 @@ class NavigationProvider with ChangeNotifier {
         context,
         MaterialPageRoute(
             builder: (context) => CategoryproductsScreen(product)));
+  }
+
+  void navigateToStatusScreen(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const StatusScreen()));
   }
 
   int getScreenIndex() {

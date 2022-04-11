@@ -4,7 +4,6 @@ import 'package:online_order_client/Application/Providers/helpers_provider.dart'
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:provider/provider.dart';
 
-import '../Components/shared_components.dart';
 import '../Components/product_widget.dart';
 
 class CartItemWidget extends StatefulWidget {

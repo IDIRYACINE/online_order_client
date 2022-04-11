@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
-import 'package:online_order_client/Ui/Profile/profile_dialogue.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -10,11 +9,16 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileState extends State<ProfileScreen> {
-  var  NewEmail = TextEditingController();
-  var NewPhone = TextEditingController();
-  var NewPassword = TextEditingController();
-  Future displayChangeElemntPoupUp(BuildContext context, Widget title,
-      Function NewInfo, String hint, Icon icon, TextEditingController controller) async {
+  final TextEditingController _newEmail = TextEditingController();
+  final TextEditingController _newPhone = TextEditingController();
+  final TextEditingController _newPassword = TextEditingController();
+  Future displayChangeElemntPoupUp(
+      BuildContext context,
+      Widget title,
+      Function _newInfo,
+      String hint,
+      Icon icon,
+      TextEditingController controller) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -52,7 +56,7 @@ class _ProfileState extends State<ProfileScreen> {
               SizedBox(
                 child: ElevatedButton(
                   onPressed: () {
-                    NewInfo;
+                    _newInfo;
                   },
                   child: const Text("Conferme"),
                   style: ElevatedButton.styleFrom(primary: Colors.green),
@@ -125,18 +129,14 @@ class _ProfileState extends State<ProfileScreen> {
                       displayChangeElemntPoupUp(
                           context,
                           const Text("Set new Email : "),
-                          () {
-                          },
+                          () {},
                           "New Email Adresse",
                           const Icon(Icons.email),
-                          NewEmail
-                          
-                          );
+                          _newEmail);
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "changer Email",
                   ),
-
                 ]),
                 const SizedBox(
                   height: 30,
@@ -151,9 +151,7 @@ class _ProfileState extends State<ProfileScreen> {
                             () {},
                             " new phone number",
                             const Icon(Icons.phone),
-                            NewPhone
-                            
-                            );
+                            _newPhone);
                       },
                       icon: const Icon(Icons.edit),
                       tooltip: "Changer le numero de telephone ")
@@ -171,8 +169,7 @@ class _ProfileState extends State<ProfileScreen> {
                           () {},
                           " new password",
                           const Icon(Icons.lock),
-                          NewPassword
-                          );
+                          _newPassword);
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "Changer le mot de pass ",
