@@ -23,7 +23,8 @@ abstract class IAuthenticationService {
   Future<void> confirmPhoneVerification({required String smsCode});
   Future<void> linkAuthProviderWithProfile({required dynamic authProvider});
   Future<bool> accountIsActive();
-  Future<void> updateEmail({required String newEmail});
+  Future<void> updateEmail(
+      {required String newEmail, required String verificationCode});
   Future<void> updatePassword({required String newPassword});
   String getId();
 }

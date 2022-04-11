@@ -83,8 +83,10 @@ class AuthenticationHelper {
     _authService.confirmNewPassword(code: code, newPassword: password);
   }
 
-  void updateEmail(String newEmail, VoidCallback onSucess) {
-    _authService.updateEmail(newEmail: newEmail).then((value) => onSucess());
+  void updateEmail(String newEmail, String code, VoidCallback onSucess) {
+    _authService
+        .updateEmail(newEmail: newEmail, verificationCode: code)
+        .then((value) => onSucess());
   }
 
   void sendConfirmationEmail(String email) {

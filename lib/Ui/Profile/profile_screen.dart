@@ -81,8 +81,8 @@ class _ProfileState extends State<ProfileScreen> {
                       changeElementPoupUp(
                           context, const Text("Set new Email : "), () {
                         String email = _newEmail.text;
-                        _authHelper.updateEmail(
-                            email, () => {_profileHelper.updateEmail(email)});
+                        _authHelper.updateEmail(email, "code",
+                            () => {_profileHelper.updateEmail(email)});
                       }, "New Email Adresse", const Icon(Icons.email),
                           _newEmail);
                     },

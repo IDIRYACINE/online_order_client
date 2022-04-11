@@ -150,9 +150,12 @@ class FirebaseAuthenticationService implements IAuthenticationService {
   }
 
   @override
-  Future<void> updateEmail({required String newEmail}) async {
+  Future<void> updateEmail(
+      {required String newEmail, required String verificationCode}) async {
     try {
-      _user.verifyBeforeUpdateEmail(newEmail);
+      _auth
+          .applyActionCode(verificationCode)
+          .then((value) => _user.updateEmail(newEmail));
     } catch (e) {
       throw NetworkError();
     }
