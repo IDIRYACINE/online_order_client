@@ -14,8 +14,10 @@ class CartHelper {
   late final Cart _cart;
   late final IOrderService _orderService;
   late final IAuthenticationService _authenticationService;
+  late final VoidCallback _notifyChange;
 
-  CartHelper(this._cart, this._orderService, this._authenticationService);
+  CartHelper(this._cart, this._orderService, this._authenticationService,
+      this._notifyChange);
 
   void addCartItem(CartItem cartItem) {
     _cart.addProduct(product: cartItem);

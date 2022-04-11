@@ -30,8 +30,8 @@ class HelpersProvider with ChangeNotifier {
     await services.productDatabase.connect();
     await _catalogueModel.initCategories();
 
-    _cartHelper = CartHelper(
-        Cart(), services.orderService, services.authenticationService);
+    _cartHelper = CartHelper(Cart(), services.orderService,
+        services.authenticationService, notifyListeners);
     await _initProfile();
 
     return true;
