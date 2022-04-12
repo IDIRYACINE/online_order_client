@@ -93,7 +93,7 @@ class AuthenticationHelper {
     _authService.requestVerificationCode(email: email);
   }
 
-  void signOut() {
+  void logout() {
     _authService.signOut();
   }
 

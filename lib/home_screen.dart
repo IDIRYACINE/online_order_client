@@ -38,7 +38,11 @@ class HomeScreen extends StatelessWidget {
                   navigationProvider.navigateToStatusScreen(context);
                 },
                 icon: const Icon(Icons.delivery_dining_outlined)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.logout)),
+            IconButton(
+                onPressed: () {
+                  helpersProvider.authHelper.logout();
+                },
+                icon: const Icon(Icons.logout)),
           ],
         ),
         body: navigationProvider.getScreen(),
