@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
+import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 
 class ConfirmeEmailScreen extends StatefulWidget {
