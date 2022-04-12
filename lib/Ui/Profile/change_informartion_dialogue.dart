@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Future<dynamic> changeElementPoupUp(
     BuildContext context,
     Widget title,
-    VoidCallback onConfirmed,
+    Function onConfirmed,
     String hint,
     Icon icon,
     TextEditingController controller) async {
@@ -44,7 +44,10 @@ Future<dynamic> changeElementPoupUp(
             SizedBox(
               child: ElevatedButton(
                 onPressed: () {
+                  Navigator.of(context).pop();
                   onConfirmed;
+                  
+
                 },
                 child: const Text("Confirm"),
                 style: ElevatedButton.styleFrom(primary: Colors.green),
@@ -53,7 +56,10 @@ Future<dynamic> changeElementPoupUp(
             ),
             const SizedBox(width: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                                Navigator.of(context).pop();
+
+              },
               child: const Text("Exit"),
               style: ElevatedButton.styleFrom(primary: Colors.red),
             )

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
+import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
+import 'package:online_order_client/Ui/Profile/ConfimeEmail.dart';
+import 'package:online_order_client/Ui/Profile/ConfirmePassword.dart';
 import 'package:provider/provider.dart';
 
 import 'change_informartion_dialogue.dart';
@@ -18,7 +21,7 @@ class _ProfileState extends State<ProfileScreen> {
   final TextEditingController _newEmail = TextEditingController();
   final TextEditingController _newPhone = TextEditingController();
   final TextEditingController _newPassword = TextEditingController();
-
+  final UserInputValidtor valid = new UserInputValidtor();
   @override
   Widget build(BuildContext context) {
     HelpersProvider _helpers =
@@ -27,7 +30,6 @@ class _ProfileState extends State<ProfileScreen> {
     ProfileHelper _profileHelper = _helpers.profileHelper;
 
     AuthenticationHelper _authHelper = _helpers.authHelper;
-
     return Scaffold(
         backgroundColor: parseColor("#F8EDEB"),
         appBar: AppBar(
@@ -78,13 +80,11 @@ class _ProfileState extends State<ProfileScreen> {
                       const Icon(Icons.email)),
                   IconButton(
                     onPressed: () {
-                      changeElementPoupUp(
-                          context, const Text("Set new Email : "), () {
-                        String email = _newEmail.text;
-                        _authHelper.updateEmail(email, "code",
-                            () => {_profileHelper.updateEmail(email)});
-                      }, "New Email Adresse", const Icon(Icons.email),
-                          _newEmail);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ConfirmeEmailScreen()));
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "changer Email",
@@ -101,6 +101,8 @@ class _ProfileState extends State<ProfileScreen> {
                         changeElementPoupUp(
                             context, const Text("Set new phone number : "), () {
                           _profileHelper.updatePhoneNumber(_newPhone.text);
+                          Navigator.of(context).pop();
+                          valid.validatePhoneNumber(_newEmail.toString());
                         }, " new phone number", const Icon(Icons.phone),
                             _newPhone);
                       },
@@ -114,11 +116,11 @@ class _ProfileState extends State<ProfileScreen> {
                   const ProfileInfoLabel("*********", Icon(Icons.lock)),
                   IconButton(
                     onPressed: () {
-                      changeElementPoupUp(
-                          context, const Text("Set new password : "), () {
-                        _authHelper.sendPasswordResetCode();
-                        _authHelper.updatePassword("Newpassword", "code");
-                      }, " new password", const Icon(Icons.lock), _newPassword);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ConfirmePasswordScreen()));
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "Changer le mot de pass ",
