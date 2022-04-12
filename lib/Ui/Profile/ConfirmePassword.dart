@@ -1,7 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
+import 'package:online_order_client/Application/Profile/profile_helper.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
+import 'package:provider/provider.dart';
 
 class ConfirmePasswordScreen extends StatefulWidget {
   const ConfirmePasswordScreen({Key? key}) : super(key: key);
@@ -10,14 +14,20 @@ class ConfirmePasswordScreen extends StatefulWidget {
 }
 
 class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
-  TextEditingController? _PasswordController;
-  TextEditingController? _code;
+  TextEditingController _PasswordController = TextEditingController();
+  TextEditingController _code= TextEditingController();
    bool isVisible = false;
   IconData show = Icons.visibility_off;
   IconData hide = Icons.remove_red_eye;
   final UserInputValidtor valid = new UserInputValidtor();
   @override
   Widget build(BuildContext context) {
+     HelpersProvider _helpers =
+        Provider.of<HelpersProvider>(context, listen: false);
+
+    ProfileHelper _profileHelper = _helpers.profileHelper;
+
+    AuthenticationHelper _authHelper = _helpers.authHelper;
     return Scaffold(
       backgroundColor: parseColor("#F8EDEB"),
       appBar: AppBar(
@@ -77,9 +87,7 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
                 ),
                 IconButton(
                     onPressed: () {
-                          setState(() {
-                          valid.validatePassword(_PasswordController.toString());
-                          });
+                           _authHelper.sendPasswordResetCode();
                     },
                     icon: Icon(Icons.send),
                     hoverColor: parseColor("#FCD5CE"),
@@ -103,9 +111,13 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
                   ),
                 ),
               ),
-              TextButton(onPressed: () {}, child: Text("Resend Code")),
+              TextButton(onPressed: () {
+                _authHelper.sendPasswordResetCode();
+              }, child: Text("Resend Code")),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                  _authHelper.updatePassword(_PasswordController.text, _code.text);
+                  },
                   child: Text(
                     'Confirme',
                     style: TextStyle(),
