@@ -7,6 +7,7 @@ import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
+import 'package:online_order_client/Ui/Profile/SendCodePop.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmeEmailScreen extends StatefulWidget {
@@ -77,7 +78,9 @@ class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
                 ),
                 IconButton(
                     onPressed: () {
-                          _authHelper.sendConfirmationEmail(_newEmail.text);
+                          _authHelper.sendConfirmationEmail(_newEmail.text,(){});
+                          SendCodeAlert(
+                          context, "We send A code , Please check your Email!");
                     },
                     icon: Icon(Icons.send),
                     hoverColor: parseColor("#FCD5CE"),
@@ -102,12 +105,13 @@ class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
                 ),
               ),
               TextButton(onPressed: () {
-                 _authHelper.sendConfirmationEmail(_newEmail.text);
-
+                 _authHelper.sendConfirmationEmail(_newEmail.text,(){});
+                 SendCodeAlert(context,"We send A code , Please check your Email!");
+                                                                   
               }, child: Text("Resend Code")),
               ElevatedButton(
                   onPressed: () {
-                    _authHelper.updateEmail(_newEmail.text, _code.text, () {});
+                    _authHelper.updateEmail(_newEmail.text, _code.text, () {},(){});
                   },
                   child: Text(
                     'Confirme',

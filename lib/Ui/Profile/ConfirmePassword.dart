@@ -4,7 +4,9 @@ import 'package:online_order_client/Application/Authentication/authentication_he
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
+import 'package:online_order_client/Ui/Profile/SendCodePop.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmePasswordScreen extends StatefulWidget {
@@ -24,9 +26,7 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
   Widget build(BuildContext context) {
      HelpersProvider _helpers =
         Provider.of<HelpersProvider>(context, listen: false);
-
     ProfileHelper _profileHelper = _helpers.profileHelper;
-
     AuthenticationHelper _authHelper = _helpers.authHelper;
     return Scaffold(
       backgroundColor: parseColor("#F8EDEB"),
@@ -87,7 +87,7 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
                 ),
                 IconButton(
                     onPressed: () {
-                           _authHelper.sendPasswordResetCode();
+                           _authHelper.sendPasswordResetCode((){});
                     },
                     icon: Icon(Icons.send),
                     hoverColor: parseColor("#FCD5CE"),
@@ -112,7 +112,7 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
                 ),
               ),
               TextButton(onPressed: () {
-                _authHelper.sendPasswordResetCode();
+                _authHelper.sendPasswordResetCode((){});
               }, child: Text("Resend Code")),
               ElevatedButton(
                   onPressed: () {

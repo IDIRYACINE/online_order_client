@@ -75,22 +75,23 @@ class AuthenticationHelper {
         });
   }
 
-  void sendPasswordResetCode() {
-    _authService.requestNewPassword();
+  void sendPasswordResetCode(VoidCallback? onSeccus) {
+    _authService.requestNewPassword().then((value) => onSeccus!());
   }
 
   void updatePassword(String password, String code) {
     _authService.confirmNewPassword(code: code, newPassword: password);
   }
 
-  void updateEmail(String newEmail, String code, VoidCallback onSucess) {
+  void updateEmail(String newEmail, String code, VoidCallback onSucess, VoidCallback? onfail) {
     _authService
         .updateEmail(newEmail: newEmail, verificationCode: code)
-        .then((value) => onSucess());
+        .then((value) => onSucess()).catchError((error) => onfail!());
+        
   }
 
-  void sendConfirmationEmail(String email) {
-    _authService.requestVerificationCode(email: email);
+  void sendConfirmationEmail(String email,VoidCallback? onSeccus) {
+    _authService.requestVerificationCode(email: email).then((value) => onSeccus!());
   }
 
   void logout() {
