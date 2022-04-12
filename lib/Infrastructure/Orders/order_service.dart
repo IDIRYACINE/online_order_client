@@ -12,6 +12,7 @@ class OrderService implements IOrderService {
   final IOnlineServerAcess _serverAcess;
 
   OrderService(this._serverAcess);
+
   @override
   void subscribeToOrdersStatus(IOrderSubscriber subscriber) {
     String subscriberId = subscriber.getId();
