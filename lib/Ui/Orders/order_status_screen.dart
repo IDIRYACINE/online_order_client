@@ -9,41 +9,41 @@ class StatusScreen extends StatefulWidget {
 }
 
 class _StatusScreenState extends State<StatusScreen> {
-  IconData IconeStatus = Icons.access_time_outlined;
-  double AvatarSize = 35;
-  Color AvatarColor = parseColor("#FCD5CE");
-  Color IconColor = Colors.white;
-  double IconeSize = 35;
+  IconData iconStatus = Icons.access_time_outlined;
+  double avatarSize = 35;
+  Color avatarColor = parseColor("#FCD5CE");
+  Color iconColor = Colors.white;
+  double iconeSize = 35;
   static bool state = true; //as controller
-  String? Stt = state ? "Ready" : "Waiting. . .";
-  IconData IconeStatusTrue = Icons.check;
-  double IconeSizeTrue = 40;
-  double AvatarSizeTrue = 40;
-  Color AvatarColorTrue = Colors.green;
+  String? stt = state ? "Ready" : "Waiting. . .";
+  IconData iconeStatusTrue = Icons.check;
+  double iconeSizeTrue = 40;
+  double avatarSizeTrue = 40;
+  Color avatarColorTrue = Colors.green;
 //
-  IconData IconeStatus2 = Icons.access_time_outlined;
-  double AvatarSize2 = 35;
-  Color AvatarColor2 = parseColor("#FCD5CE");
-  Color IconColor2 = Colors.white;
-  double IconeSize2 = 35;
+  IconData iconeStatus2 = Icons.access_time_outlined;
+  double avatarSize2 = 35;
+  Color avatarColor2 = parseColor("#FCD5CE");
+  Color iconColor2 = Colors.white;
+  double iconeSize2 = 35;
   static bool state2 = true; //as controller
-  String? Stt2 = state2 ? "Ready" : "Waiting . . .";
-  IconData IconeStatusTrue2 = Icons.check;
-  double IconeSizeTrue2 = 40;
-  double AvatarSizeTrue2 = 40;
-  Color AvatarColorTrue2 = Colors.green;
+  String? stt2 = state2 ? "Ready" : "Waiting . . .";
+  IconData iconeStatusTrue2 = Icons.check;
+  double iconeSizeTrue2 = 40;
+  double avatarSizeTrue2 = 40;
+  Color avatarColorTrue2 = Colors.green;
 //
-  IconData IconeStatus3 = Icons.access_time_outlined;
-  double AvatarSize3 = 35;
-  Color AvatarColor3 = parseColor("#FCD5CE");
-  Color IconColor3 = Colors.white;
-  double IconeSize3 = 35;
+  IconData iconeStatus3 = Icons.access_time_outlined;
+  double avatarSize3 = 35;
+  Color avatarColor3 = parseColor("#FCD5CE");
+  Color iconColor3 = Colors.white;
+  double iconeSize3 = 35;
   static bool state3 = false; //as controller
-  String? Stt3 = state3 ? "Ready" : "Waiting . . .";
-  IconData IconeStatusTrue3 = Icons.check;
-  double IconeSizeTrue3 = 40;
-  double AvatarSizeTrue3 = 40;
-  Color AvatarColorTrue3 = Colors.green;
+  String? stt3 = state3 ? "Ready" : "Waiting . . .";
+  IconData iconeStatusTrue3 = Icons.check;
+  double iconeSizeTrue3 = 40;
+  double avatarSizeTrue3 = 40;
+  Color avatarColorTrue3 = Colors.green;
   @override
   Widget build(BuildContext context) {
     if (state == false) {
@@ -78,18 +78,18 @@ class _StatusScreenState extends State<StatusScreen> {
               children: [
                 CircleAvatar(
                   child: Icon(
-                    state ? IconeStatusTrue : IconeStatus,
-                    size: state ? IconeSizeTrue : IconeSize,
+                    state ? iconeStatusTrue : iconStatus,
+                    size: state ? iconeSizeTrue : iconeSize,
                   ),
-                  radius: state ? AvatarSizeTrue : AvatarSize,
-                  backgroundColor: state ? AvatarColorTrue : AvatarColor,
+                  radius: state ? avatarSizeTrue : avatarSize,
+                  backgroundColor: state ? avatarColorTrue : avatarColor,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
                   children: [
-                    Tooltip(
+                    const Tooltip(
                       message:
                           "here you can recieve your order Confirmation from the Manager",
                       child: Text(
@@ -98,12 +98,12 @@ class _StatusScreenState extends State<StatusScreen> {
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Text("$Stt"),
+                    Text("$stt"),
                   ],
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               child: VerticalDivider(
                 color: Colors.black,
                 thickness: 5.0,
@@ -114,17 +114,17 @@ class _StatusScreenState extends State<StatusScreen> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 CircleAvatar(
-                  child: Icon(state2 ? IconeStatusTrue2 : IconeStatus2,
-                      size: state2 ? IconeSizeTrue2 : IconeSize2),
-                  radius: state2 ? AvatarSizeTrue2 : AvatarSize2,
-                  backgroundColor: state2 ? AvatarColorTrue2 : AvatarColor2,
+                  child: Icon(state2 ? iconeStatusTrue2 : iconeStatus2,
+                      size: state2 ? iconeSizeTrue2 : iconeSize2),
+                  radius: state2 ? avatarSizeTrue2 : avatarSize2,
+                  backgroundColor: state2 ? avatarColorTrue2 : avatarColor2,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
                   children: [
-                    Tooltip(
+                    const Tooltip(
                       message: "Here you can track your Orderd food Status",
                       child: Text(
                         "Foods Status",
@@ -132,12 +132,12 @@ class _StatusScreenState extends State<StatusScreen> {
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Text("$Stt2"),
+                    Text("$stt2"),
                   ],
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               child: VerticalDivider(
                 color: Colors.black,
                 thickness: 5.0,
@@ -147,17 +147,17 @@ class _StatusScreenState extends State<StatusScreen> {
             Row(
               children: [
                 CircleAvatar(
-                  child: Icon(state3 ? IconeStatusTrue3 : IconeStatus3,
-                      size: state3 ? IconeSizeTrue3 : IconeSize3),
-                  radius: state3 ? AvatarSizeTrue3 : AvatarSize3,
-                  backgroundColor: state3 ? AvatarColorTrue3 : AvatarColor3,
+                  child: Icon(state3 ? iconeStatusTrue3 : iconeStatus3,
+                      size: state3 ? iconeSizeTrue3 : iconeSize3),
+                  radius: state3 ? avatarSizeTrue3 : avatarSize3,
+                  backgroundColor: state3 ? avatarColorTrue3 : avatarColor3,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Column(
                   children: [
-                    Tooltip(
+                    const Tooltip(
                       message: "Here you can track your order Delivery",
                       child: Text(
                         "Delivery Status",
@@ -165,7 +165,7 @@ class _StatusScreenState extends State<StatusScreen> {
                             fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Text("$Stt3"),
+                    Text("$stt3"),
                   ],
                 )
               ],

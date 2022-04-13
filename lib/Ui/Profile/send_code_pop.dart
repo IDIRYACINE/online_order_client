@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-Future<dynamic> SendCodeAlert(
-    BuildContext context,String message) async {
+Future<dynamic> sendCodeAlert(BuildContext context, String message) async {
   return showDialog(
       context: context,
       builder: (context) {
@@ -9,7 +8,7 @@ Future<dynamic> SendCodeAlert(
           backgroundColor: Colors.red[50],
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
-          content: Text("$message"),
+          content: Text(message),
           actions: [
             SizedBox(
               child: ElevatedButton(
@@ -20,7 +19,7 @@ Future<dynamic> SendCodeAlert(
                 style: ElevatedButton.styleFrom(primary: Colors.green),
               ),
               width: 200,
-            ),           
+            ),
           ],
           actionsAlignment: MainAxisAlignment.center,
         );

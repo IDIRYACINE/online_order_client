@@ -48,9 +48,7 @@ class ProfileHelper {
     _dataSynchroniser.setPhone(phone);
   }
 
-  void updateProfile() {
-    //TODO: not implemented
-  }
+  void updateProfile() {}
 
   void registerProfile(String id) {
     _dataSynchroniser.setId(id);

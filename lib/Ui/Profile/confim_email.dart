@@ -1,32 +1,24 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
-import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
-import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
-import 'package:online_order_client/Ui/Profile/SendCodePop.dart';
+import 'package:online_order_client/Ui/Profile/send_code_pop.dart';
 import 'package:provider/provider.dart';
 
-class ConfirmePasswordScreen extends StatefulWidget {
-  const ConfirmePasswordScreen({Key? key}) : super(key: key);
+class ConfirmeEmailScreen extends StatefulWidget {
+  const ConfirmeEmailScreen({Key? key}) : super(key: key);
   @override
-  State<ConfirmePasswordScreen> createState() => _ConfirmePasswordScreenState();
+  State<ConfirmeEmailScreen> createState() => _ConfirmeEmailScreenState();
 }
 
-class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
-  TextEditingController _PasswordController = TextEditingController();
-  TextEditingController _code= TextEditingController();
-   bool isVisible = false;
-  IconData show = Icons.visibility_off;
-  IconData hide = Icons.remove_red_eye;
-  final UserInputValidtor valid = new UserInputValidtor();
+class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
+  final TextEditingController _newEmail = TextEditingController();
+  final TextEditingController _code = TextEditingController();
   @override
   Widget build(BuildContext context) {
-     HelpersProvider _helpers =
+    HelpersProvider _helpers =
         Provider.of<HelpersProvider>(context, listen: false);
-    ProfileHelper _profileHelper = _helpers.profileHelper;
+
     AuthenticationHelper _authHelper = _helpers.authHelper;
     return Scaffold(
       backgroundColor: parseColor("#F8EDEB"),
@@ -54,47 +46,41 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 150,
               ),
-              Text("Set New Password :",
+              const Text("Set New Email :",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               Row(mainAxisSize: MainAxisSize.max, children: [
-                Container(
+                SizedBox(
                   height: 50,
                   width: 260,
                   child: TextFormField(
-                    controller: _PasswordController,
-                     obscureText: isVisible,
-                    keyboardType: TextInputType.visiblePassword,
+                    controller: _newEmail,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                      hintText: "New Password",
+                      hintText: "New Email",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20)),
                       prefixIcon: Icon(
-                        Icons.lock,
+                        Icons.mail,
                         color: parseColor("#FFB5A7"),
                       ),
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isVisible = !isVisible;
-                            });
-                          },
-                          icon: isVisible ? Icon(show) : Icon(hide)),
                     ),
                   ),
                 ),
                 IconButton(
                     onPressed: () {
-                           _authHelper.sendPasswordResetCode((){});
+                      _authHelper.sendConfirmationEmail(_newEmail.text);
+                      sendCodeAlert(
+                          context, "We send A code , Please check your Email!");
                     },
-                    icon: Icon(Icons.send),
+                    icon: const Icon(Icons.send),
                     hoverColor: parseColor("#FCD5CE"),
                     color: parseColor("#FFB5A7"),
                     tooltip: "Send Confirmation Code to the Email")
               ]),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               SizedBox(
                 width: 200,
                 child: TextFormField(
@@ -111,15 +97,17 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
                   ),
                 ),
               ),
-              TextButton(onPressed: () {
-                _authHelper.sendPasswordResetCode((){});
-              }, child: Text("Resend Code")),
+              TextButton(
+                  onPressed: () {
+                    _authHelper.sendConfirmationEmail(_newEmail.text);
+                  },
+                  child: const Text("Resend Code")),
               ElevatedButton(
                   onPressed: () {
-                  _authHelper.updatePassword(_PasswordController.text, _code.text);
+                    _authHelper.updateEmail(_newEmail.text, _code.text);
                   },
-                  child: Text(
-                    'Confirme',
+                  child: const Text(
+                    'Confirm',
                     style: TextStyle(),
                   ),
                   style:

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:online_order_client/Application/Orders/order_status_helper.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:online_order_client/Ui/Orders/ControllerBindings.dart';
+import 'package:online_order_client/Ui/Orders/controller_bindings.dart';
 import 'package:online_order_client/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +37,6 @@ class MyApp extends StatelessWidget {
               return const HomeScreen();
             }
             if (snapshot.hasError) {
-              print(snapshot.error);
               return const Text('error');
             } else {
               return const SplashScreen();

@@ -61,7 +61,7 @@ void main() {
     test("encode order to Status Map", () {
       Map<String, dynamic> expectedResult = {"status": "Waiting"};
       order = cartMock.placeOrder();
-      expect(order.toMap(), expectedResult);
+      expect(order.orderStatusJson(), expectedResult);
     });
   });
 }

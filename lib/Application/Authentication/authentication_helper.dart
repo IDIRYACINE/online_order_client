@@ -27,7 +27,7 @@ class AuthenticationHelper {
       helper.setUserId(_authService.getId());
       Navigator.pop(_context);
     }).catchError((e) {
-      _handleSignInErrors(e.code);
+      _handleErrors(e.code);
     });
   }
 
@@ -51,7 +51,7 @@ class AuthenticationHelper {
                 replace: true);
       });
     }).catchError((e) {
-      _handleSignUpErrors(e.code);
+      _handleErrors(e.code);
     });
   }
 
@@ -75,23 +75,26 @@ class AuthenticationHelper {
         });
   }
 
-  void sendPasswordResetCode(VoidCallback? onSeccus) {
-    _authService.requestNewPassword().then((value) => onSeccus!());
+  void sendPasswordResetCode() {
+    _authService.requestNewPassword();
   }
 
   void updatePassword(String password, String code) {
     _authService.confirmNewPassword(code: code, newPassword: password);
   }
 
-  void updateEmail(String newEmail, String code, VoidCallback onSucess, VoidCallback? onfail) {
-    _authService
-        .updateEmail(newEmail: newEmail, verificationCode: code)
-        .then((value) => onSucess()).catchError((error) => onfail!());
-        
+  void updateEmail(String newEmail, String code) {
+    _authService.updateEmail(newEmail: newEmail);
   }
 
-  void sendConfirmationEmail(String email,VoidCallback? onSeccus) {
-    _authService.requestVerificationCode(email: email).then((value) => onSeccus!());
+  void sendConfirmationEmail(String email) {
+    _authService.requestVerificationCode(email: email);
+  }
+
+  void confirmVerificationCode(
+      String code, VoidCallback onSucess, VoidCallback onFail) {
+    _authService.confirmVerificationCode(
+        code: code, onSucess: onSucess, onFail: onFail);
   }
 
   void logout() {
@@ -109,22 +112,13 @@ class AuthenticationHelper {
     helper.registerProfile(_authService.getId());
   }
 
-  void _handleSignInErrors(String code) {
+  void _handleErrors(String code) {
     switch (code) {
       case InvalidLoginInfos.errorCode:
         {
           _popUpMessage("Invalid Login", "Incorrect password or email");
         }
         break;
-      default:
-        {
-          _popUpMessage("Network Error", "You are offline");
-        }
-    }
-  }
-
-  void _handleSignUpErrors(String code) {
-    switch (code) {
       case EmailAlreadyUsed.errorCode:
         {
           _popUpMessage("Invalid Email", "Email Already used");

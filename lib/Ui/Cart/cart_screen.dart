@@ -4,7 +4,7 @@ import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Cart/cart_item_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
-import 'package:online_order_client/Ui/Orders/Controller.dart';
+import 'package:online_order_client/Ui/Orders/controller.dart';
 import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
@@ -51,7 +51,7 @@ class _CartScreenState extends State<CartScreen> {
                 setState(() {
                   _cartHelper.placeOrder(context);
                 });
-                _controller.SendNotification();
+                _controller.sendNotification();
               },
               autofocus: true,
             ),

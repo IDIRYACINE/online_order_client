@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element, unused_local_variable
+// ignore_for_file: unused_element, unused_local_variable, avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
-import 'package:online_order_client/Ui/Profile/ConfimeEmail.dart';
-import 'package:online_order_client/Ui/Profile/ConfirmePassword.dart';
+import 'package:online_order_client/Ui/Profile/confim_email.dart';
+import 'package:online_order_client/Ui/Profile/confirm_password.dart';
 import 'package:provider/provider.dart';
 
 import 'change_informartion_dialogue.dart';
@@ -20,8 +19,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileState extends State<ProfileScreen> {
   final TextEditingController _newEmail = TextEditingController();
   final TextEditingController _newPhone = TextEditingController();
-  final TextEditingController _newPassword = TextEditingController();
-  final UserInputValidtor valid = new UserInputValidtor();
+  final UserInputValidtor valid = UserInputValidtor();
   @override
   Widget build(BuildContext context) {
     HelpersProvider _helpers =
@@ -29,7 +27,6 @@ class _ProfileState extends State<ProfileScreen> {
 
     ProfileHelper _profileHelper = _helpers.profileHelper;
 
-    AuthenticationHelper _authHelper = _helpers.authHelper;
     return Scaffold(
         backgroundColor: parseColor("#F8EDEB"),
         appBar: AppBar(
