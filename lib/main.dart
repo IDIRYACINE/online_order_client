@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:online_order_client/Application/Orders/order_status_helper.dart';
@@ -9,12 +8,6 @@ import 'package:online_order_client/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  AwesomeNotifications().initialize(null, [
-    NotificationChannel(
-        channelKey: 'test_channel',
-        channelName: 'test notification',
-        channelDescription: "nottfication for basic testig")
-  ]);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => NavigationProvider()),
     ChangeNotifierProvider(create: (_) => HelpersProvider()),
@@ -27,11 +20,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HelpersProvider _catalogue = Provider.of<HelpersProvider>(context);
+    HelpersProvider _helpers = Provider.of<HelpersProvider>(context);
     return GetMaterialApp(
         initialBinding: ControllerBindings(),
         home: FutureBuilder(
-          future: _catalogue.initApp(),
+          future: _helpers.initApp(),
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData) {
               return const HomeScreen();

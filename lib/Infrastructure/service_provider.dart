@@ -11,6 +11,8 @@ import 'package:online_order_client/Infrastructure/Database/products_database.da
 import 'package:online_order_client/Infrastructure/Database/products_mapper.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/order_service.dart';
+import 'package:online_order_client/Infrastructure/Permissions/ipermissions_service.dart';
+import 'package:online_order_client/Infrastructure/Permissions/permissions_service.dart';
 import 'package:online_order_client/Infrastructure/Server/firebase_service.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 import 'package:online_order_client/Infrastructure/UserData/customer_data_synchroniser.dart';
@@ -33,6 +35,7 @@ class ServicesProvider {
   late final IProductsDatabase _productsDatabase;
   late final ProductsMapper _productsMapper;
   late final ICustomerDataSynchroniser _customerDataSynchroniser;
+  late final IPermissionsService _permissionsService;
 
   Future<void> initialiaze() async {
     if (_isInit) {
@@ -51,6 +54,7 @@ class ServicesProvider {
     _productsDatabase = ProductsDatabase(_serverAcess);
     _productsMapper = ProductsMapper(_productsDatabase);
     _customerDataSynchroniser = CustomerDataSynchroniser(nodeJsHost);
+    _permissionsService = PermissionsService();
   }
 
   Future<void> _initServerAcess() async {
@@ -76,6 +80,7 @@ class ServicesProvider {
   IOrderService get orderService => _orderService;
   IProductsDatabase get productDatabase => _productsDatabase;
   ProductsMapper get productsMapper => _productsMapper;
+  IPermissionsService get permissionsService => _permissionsService;
   ICustomerDataSynchroniser get customerSynchroniser =>
       _customerDataSynchroniser;
 }

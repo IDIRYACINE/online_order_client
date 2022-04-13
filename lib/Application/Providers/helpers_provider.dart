@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
@@ -37,6 +38,16 @@ class HelpersProvider with ChangeNotifier {
 
     _authHelper = AuthenticationHelper(
         services.authenticationService, FacebookAuthentication());
+
+    AwesomeNotifications().initialize(null, [
+      NotificationChannel(
+          channelKey: 'orderStatus',
+          channelName: 'orderStatus',
+          channelDescription: "Nottfication for OrderStatus")
+    ]);
+
+    await services.permissionsService.requestGpsPermission();
+    await services.permissionsService.requestNotificationPermission();
 
     return true;
   }

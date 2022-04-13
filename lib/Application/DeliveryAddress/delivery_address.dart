@@ -1,6 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 import 'package:online_order_client/Domain/GpsLocation/address.dart';
+import 'package:online_order_client/Infrastructure/service_provider.dart';
 
 class DeliveryAddress {
   final Address _address;
@@ -8,7 +8,7 @@ class DeliveryAddress {
   DeliveryAddress(this._address);
 
   Future<bool> initGpsLocation() async {
-    await _requestLocationPermission();
+    await ServicesProvider().permissionsService.requestGpsPermission();
     await _address.getDeviceLocation();
     return true;
   }
@@ -21,26 +21,5 @@ class DeliveryAddress {
     _address.updateAddress(infos: infos);
     _address.updateCoordinates(
         latitude: coordinations.latitude, longitude: coordinations.longitude);
-  }
-
-  Future<void> _requestLocationPermission() async {
-    Location location = Location();
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        throw Error();
-      }
-    }
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        throw Error();
-      }
-    }
   }
 }
