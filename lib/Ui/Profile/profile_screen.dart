@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:online_order_client/Ui/Profile/confim_email.dart';
 import 'package:online_order_client/Ui/Profile/confirm_password.dart';
+import 'package:online_order_client/Ui/Profile/send_code_pop.dart';
 import 'package:provider/provider.dart';
 
 import 'change_informartion_dialogue.dart';
@@ -77,11 +79,8 @@ class _ProfileState extends State<ProfileScreen> {
                       const Icon(Icons.email)),
                   IconButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const ConfirmeEmailScreen()));
+                      _profileHelper.updateEmail(_newEmail.text);
+                      sendCodeAlert(context, "We've send Email updating link , please check your email !");
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "changer Email",
@@ -113,11 +112,7 @@ class _ProfileState extends State<ProfileScreen> {
                   const ProfileInfoLabel("*********", Icon(Icons.lock)),
                   IconButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const ConfirmePasswordScreen()));
+                      sendCodeAlert(context, "We've send Password updating link , please check your email !");
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "Changer le mot de pass ",
