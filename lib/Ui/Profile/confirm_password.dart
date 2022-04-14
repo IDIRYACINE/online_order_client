@@ -83,6 +83,8 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
                 IconButton(
                     onPressed: () {
                       _authHelper.sendPasswordResetCode();
+                      _authHelper.sendCodeAlert(
+                          context, "We send A code , Please check your Email!");
                     },
                     icon: const Icon(Icons.send),
                     hoverColor: parseColor("#FCD5CE"),
@@ -113,11 +115,10 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
                   child: const Text("Resend Code")),
               ElevatedButton(
                   onPressed: () {
-                    _authHelper.updatePassword(
-                        _passwordController.text, _code.text);
+                    _authHelper.updatePassword(_passwordController.text);
                   },
                   child: const Text(
-                    'Confirme',
+                    'Confirm',
                     style: TextStyle(),
                   ),
                   style:

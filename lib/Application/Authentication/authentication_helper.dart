@@ -79,11 +79,11 @@ class AuthenticationHelper {
     _authService.requestNewPassword();
   }
 
-  void updatePassword(String password, String code) {
-    _authService.confirmNewPassword(code: code, newPassword: password);
+  void updatePassword(String password) {
+    _authService.confirmNewPassword(code: "code", newPassword: password);
   }
 
-  void updateEmail(String newEmail, String code) {
+  void updateEmail(String newEmail) {
     _authService.updateEmail(newEmail: newEmail);
   }
 
@@ -129,5 +129,31 @@ class AuthenticationHelper {
           _popUpMessage("Network Error", "You are offline");
         }
     }
+  }
+
+  Future<dynamic> sendCodeAlert(BuildContext context, String message) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.red[50],
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            content: Text(message),
+            actions: [
+              SizedBox(
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Confirm"),
+                  style: ElevatedButton.styleFrom(primary: Colors.green),
+                ),
+                width: 200,
+              ),
+            ],
+            actionsAlignment: MainAxisAlignment.center,
+          );
+        });
   }
 }

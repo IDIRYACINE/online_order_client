@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:online_order_client/Domain/Orders/iorder.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
@@ -8,11 +9,11 @@ import 'package:online_order_client/Infrastructure/Orders/iorder_subscriber.dart
 class OrderService implements IOrderService {
   late final StreamSubscription _ordersStatusSubscription;
   final Map<String, IOrderSubscriber> _ordersStatusSubscribers = {};
-  bool _isSubscribedToServer = false;
   final IOnlineServerAcess _serverAcess;
 
-  OrderService(this._serverAcess);
+  bool _isSubscribedToServer = false;
 
+  OrderService(this._serverAcess);
   @override
   void subscribeToOrdersStatus(IOrderSubscriber subscriber) {
     String subscriberId = subscriber.getId();
@@ -59,4 +60,5 @@ class OrderService implements IOrderService {
     _ordersStatusSubscription.cancel();
     _isSubscribedToServer = false;
   }
+
 }
