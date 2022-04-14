@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
-import 'package:online_order_client/Ui/Orders/Stat_Example.dart';
+import 'package:online_order_client/Ui/Orders/stat_example.dart';
 
 class StatusScreen extends StatefulWidget {
   const StatusScreen({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class StatusScreen extends StatefulWidget {
 }
 
 class _StatusScreenState extends State<StatusScreen> {
-  static bool state = false; //as controller
+  static bool state = true; //as controller
 //
   static bool state2 = true; //as controller
 //
