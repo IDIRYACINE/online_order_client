@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Application/Orders/order_status_helper.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
-import 'package:online_order_client/Ui/Orders/stat_example.dart';
+import 'package:online_order_client/Ui/Orders/status_widget.dart';
 
 class StatusScreen extends StatefulWidget {
   const StatusScreen({Key? key}) : super(key: key);
@@ -10,20 +11,8 @@ class StatusScreen extends StatefulWidget {
 }
 
 class _StatusScreenState extends State<StatusScreen> {
-  static bool state = true; //as controller
-//
-  static bool state2 = true; //as controller
-//
-  static bool state3 = false; //as controller
-
   @override
   Widget build(BuildContext context) {
-    if (state == false) {
-      state2 = false;
-    }
-    if (state2 == false) {
-      state3 = false;
-    }
     return Scaffold(
       backgroundColor: parseColor("#F8EDEB"),
       appBar: AppBar(
@@ -47,7 +36,13 @@ class _StatusScreenState extends State<StatusScreen> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            StateExample(state: state, avatarColor: parseColor("#FCD5CE"),title: "Order State",description: "Here you can track your order status (Confirmed or Refused)",),
+            StatusWidget(
+              state: (OrderStatus.waiting as String),
+              avatarColor: parseColor("#FCD5CE"),
+              title: "Order State",
+              description:
+                  "Here you can track your order status (Confirmed or Refused)",
+            ),
             const SizedBox(
               child: VerticalDivider(
                 color: Colors.black,
@@ -55,7 +50,11 @@ class _StatusScreenState extends State<StatusScreen> {
               ),
               height: 150,
             ),
-             StateExample(state: state2, avatarColor: parseColor("#FCD5CE"),title: "Food State",description: "Here you can check your Food status"),
+            StatusWidget(
+                state: (OrderStatus.confirmed as String),
+                avatarColor: parseColor("#FCD5CE"),
+                title: "Food State",
+                description: "Here you can check your Food status"),
             const SizedBox(
               child: VerticalDivider(
                 color: Colors.black,
@@ -63,7 +62,12 @@ class _StatusScreenState extends State<StatusScreen> {
               ),
               height: 150,
             ),
-             StateExample(state: state3, avatarColor: parseColor("#FCD5CE"),title: "Delivery State",description: "Here you can check your order Deliveration status"),
+            StatusWidget(
+                state: (OrderStatus.onDelivery as String),
+                avatarColor: parseColor("#FCD5CE"),
+                title: "Delivery State",
+                description:
+                    "Here you can check your order Deliveration status"),
           ],
         ),
       ),

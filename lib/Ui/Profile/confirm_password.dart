@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
 
@@ -83,7 +84,7 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
                 IconButton(
                     onPressed: () {
                       _authHelper.sendPasswordResetCode();
-                      _authHelper.sendCodeAlert(
+                      sendCodeAlert(
                           context, "We send A code , Please check your Email!");
                     },
                     icon: const Icon(Icons.send),

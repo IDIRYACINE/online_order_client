@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:online_order_client/Domain/Orders/iorder.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
@@ -60,5 +59,4 @@ class OrderService implements IOrderService {
     _ordersStatusSubscription.cancel();
     _isSubscribedToServer = false;
   }
-
 }

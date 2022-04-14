@@ -67,7 +67,7 @@ class AuthenticationHelper {
     _authService.requestPhoneVerification(
         phone: phone,
         onVerificationCompleted: () {
-          _popUpMessage("Success", "Your phone has been validated");
+          sendCodeAlert(_context, "Your phone has been validated");
         },
         onSmsCodeSent: () {
           //Make a pop up widget asking for the code
@@ -101,11 +101,6 @@ class AuthenticationHelper {
     _authService.signOut();
   }
 
-  void _popUpMessage(String title, String message) {
-    showDialog<String>(
-        context: _context, builder: (context) => PopUpWidget(title, message));
-  }
-
   void _setUpNewUserProfile(
       ProfileHelper helper, String fullName, String phone, String email) {
     helper.setProfile(fullName, phone, email);
@@ -116,44 +111,18 @@ class AuthenticationHelper {
     switch (code) {
       case InvalidLoginInfos.errorCode:
         {
-          _popUpMessage("Invalid Login", "Incorrect password or email");
+          sendCodeAlert(_context, "Incorrect password or email");
         }
         break;
       case EmailAlreadyUsed.errorCode:
         {
-          _popUpMessage("Invalid Email", "Email Already used");
+          sendCodeAlert(_context, "Email Already used");
         }
         break;
       default:
         {
-          _popUpMessage("Network Error", "You are offline");
+          sendCodeAlert(_context, "You are offline");
         }
     }
-  }
-
-  Future<dynamic> sendCodeAlert(BuildContext context, String message) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.red[50],
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            content: Text(message),
-            actions: [
-              SizedBox(
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Confirm"),
-                  style: ElevatedButton.styleFrom(primary: Colors.green),
-                ),
-                width: 200,
-              ),
-            ],
-            actionsAlignment: MainAxisAlignment.center,
-          );
-        });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
 
@@ -97,7 +98,7 @@ class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
               TextButton(
                   onPressed: () {
                     _authHelper.sendConfirmationEmail(_newEmail.text);
-                    _authHelper.sendCodeAlert(
+                    sendCodeAlert(
                         context, "We send A code , Please check your Email!");
                   },
                   child: const Text("Resend Code")),
