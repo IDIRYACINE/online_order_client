@@ -112,11 +112,18 @@ class _ConfirmePasswordScreenState extends State<ConfirmePasswordScreen> {
               TextButton(
                   onPressed: () {
                     _authHelper.sendPasswordResetCode();
+                    sendCodeAlert(
+                        context, "We send A code , Please check your Email!");
                   },
                   child: const Text("Resend Code")),
               ElevatedButton(
                   onPressed: () {
-                    _authHelper.updatePassword(_passwordController.text);
+                    _authHelper.confirmVerificationCode(_code.text, () {
+                      _authHelper.updatePassword(_passwordController.text);
+                      sendCodeAlert(context, "The Password has been changed");
+                    }, () {
+                      sendCodeAlert(context, "Wrong Code !");
+                    });
                   },
                   child: const Text(
                     'Confirm',

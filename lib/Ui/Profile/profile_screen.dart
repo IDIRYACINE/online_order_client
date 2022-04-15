@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
+import 'package:online_order_client/Ui/Profile/confim_email.dart';
 import 'package:provider/provider.dart';
 
 import 'change_informartion_dialogue.dart';
@@ -23,7 +25,7 @@ class _ProfileState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     HelpersProvider _helpers =
         Provider.of<HelpersProvider>(context, listen: false);
-
+    AuthenticationHelper _authHelper = _helpers.authHelper;
     ProfileHelper _profileHelper = _helpers.profileHelper;
 
     return Scaffold(
@@ -76,9 +78,10 @@ class _ProfileState extends State<ProfileScreen> {
                       const Icon(Icons.email)),
                   IconButton(
                     onPressed: () {
-                      _profileHelper.updateEmail(_newEmail.text);
-                      sendCodeAlert(context,
-                          "We've send Email updating link , please check your email !");
+                       Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ConfirmeEmailScreen()));
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "changer Email",
@@ -96,7 +99,6 @@ class _ProfileState extends State<ProfileScreen> {
                             context, const Text("Set new phone number : "), () {
                           _profileHelper.updatePhoneNumber(_newPhone.text);
                           Navigator.of(context).pop();
-                          valid.validatePhoneNumber(_newEmail.toString());
                         }, " new phone number", const Icon(Icons.phone),
                             _newPhone);
                       },
@@ -112,6 +114,8 @@ class _ProfileState extends State<ProfileScreen> {
                     onPressed: () {
                       sendCodeAlert(context,
                           "We've send Password updating link , please check your email !");
+                         _authHelper.sendPasswordResetCode();
+
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "Changer le mot de pass ",

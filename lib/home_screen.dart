@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
+import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:online_order_client/Ui/Components/bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,8 @@ class HomeScreen extends StatelessWidget {
             IconButton(
                 onPressed: () {
                   helpersProvider.authHelper.logout();
+                  sendCodeAlert(
+                      context, "you have been disconnected");
                 },
                 icon: const Icon(Icons.logout)),
           ],
