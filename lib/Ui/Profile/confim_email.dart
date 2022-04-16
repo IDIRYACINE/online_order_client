@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
-import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
@@ -19,7 +18,6 @@ class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
   Widget build(BuildContext context) {
     HelpersProvider _helpers =
         Provider.of<HelpersProvider>(context, listen: false);
-    ProfileHelper _profileHelper = _helpers.profileHelper;
     AuthenticationHelper _authHelper = _helpers.authHelper;
     return Scaffold(
       backgroundColor: parseColor("#F8EDEB"),
@@ -72,10 +70,10 @@ class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
                 ),
                 IconButton(
                     onPressed: () {
-                      _authHelper.sendConfirmationEmail(_newEmail.text);
-                      sendCodeAlert(
-                          context, "We send A code , Please check your New email !");
-                          },
+                      _authHelper.updateEmail(_newEmail.text);
+                      sendCodeAlert(context,
+                          "We send A code , Please check your New email !");
+                    },
                     icon: const Icon(Icons.send),
                     hoverColor: parseColor("#FCD5CE"),
                     color: parseColor("#FFB5A7"),
@@ -100,20 +98,19 @@ class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
               ),
               TextButton(
                   onPressed: () {
-                    _authHelper.sendConfirmationEmail(_newEmail.text);
-                    sendCodeAlert(
-                          context, "We send A code , Please check your New email !");
-                          },
+                    /*_authHelper.sendConfirmationEmail(_newEmail.text);
+                    sendCodeAlert(context,
+                        "We send A code , Please check your New email !");*/
+                  },
                   child: const Text("Resend Code")),
               ElevatedButton(
                   onPressed: () {
-                    _authHelper.confirmVerificationCode(_code.text, () {
+                    /* _authHelper.confirmVerificationCode(_code.text, () {
                       _authHelper.updateEmail(_newEmail.text);
                       sendCodeAlert(context, "The Email has been changed");
                     }, () {
                       sendCodeAlert(context, "Wrong Code !");
-                    }); 
-                    
+                    });*/
                   },
                   child: const Text(
                     'Confirm',

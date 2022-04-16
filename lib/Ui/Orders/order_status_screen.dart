@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/Orders/order_status_helper.dart';
+import 'package:online_order_client/Domain/Orders/order_status.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:online_order_client/Ui/Orders/status_widget.dart';
 
@@ -37,7 +37,7 @@ class _StatusScreenState extends State<StatusScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             StatusWidget(
-              state: (OrderStatus.waiting as String),
+              state: (OrderStatus.waiting),
               avatarColor: parseColor("#FCD5CE"),
               title: "Order State",
               description:
@@ -51,7 +51,7 @@ class _StatusScreenState extends State<StatusScreen> {
               height: 150,
             ),
             StatusWidget(
-                state: (OrderStatus.confirmed as String),
+                state: (OrderStatus.confirmed),
                 avatarColor: parseColor("#FCD5CE"),
                 title: "Food State",
                 description: "Here you can check your Food status"),
@@ -63,7 +63,7 @@ class _StatusScreenState extends State<StatusScreen> {
               height: 150,
             ),
             StatusWidget(
-                state: (OrderStatus.onDelivery as String),
+                state: (OrderStatus.onDelivery),
                 avatarColor: parseColor("#FCD5CE"),
                 title: "Delivery State",
                 description:

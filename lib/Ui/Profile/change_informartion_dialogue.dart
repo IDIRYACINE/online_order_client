@@ -16,7 +16,7 @@ Future<dynamic> changeElementPoupUp(
               borderRadius: BorderRadius.all(Radius.circular(20.0))),
           content: SingleChildScrollView(
               scrollDirection: Axis.vertical,
-              child: Container(
+              child: SizedBox(
                 height: 80,
                 child: Form(
                     child: SingleChildScrollView(

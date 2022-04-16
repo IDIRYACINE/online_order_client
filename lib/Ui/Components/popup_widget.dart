@@ -10,10 +10,9 @@ class _PopUpWidget extends StatelessWidget {
       backgroundColor: Colors.red[50],
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0))),
-      content: Text(_message,
-      style: TextStyle(
-        fontWeight: FontWeight.bold
-      ),
+      content: Text(
+        _message,
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       actions: [
         SizedBox(
@@ -21,8 +20,8 @@ class _PopUpWidget extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text("OK",
-           
+            child: const Text(
+              "OK",
             ),
             style: ElevatedButton.styleFrom(primary: Colors.green),
           ),

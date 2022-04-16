@@ -87,16 +87,6 @@ class AuthenticationHelper {
     _authService.updateEmail(newEmail: newEmail);
   }
 
-  void sendConfirmationEmail(String email) {
-    _authService.requestVerificationCode(email: email);
-  }
-
-  void confirmVerificationCode(
-      String code, VoidCallback onSucess, VoidCallback onFail) {
-    _authService.confirmVerificationCode(
-        code: code, onSucess: onSucess, onFail: onFail);
-  }
-
   void logout() {
     _authService.signOut();
   }
