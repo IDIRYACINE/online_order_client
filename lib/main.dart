@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:online_order_client/Application/Orders/order_status_helper.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:online_order_client/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,9 @@ class MyApp extends StatelessWidget {
           return const HomeScreen();
         }
         if (snapshot.hasError) {
-          return const Text('error');
+          sendCodeAlert(context,
+              "An error occured some functionality might not work as expected");
+          return const HomeScreen();
         } else {
           return const SplashScreen();
         }

@@ -26,12 +26,13 @@ class HelpersProvider with ChangeNotifier {
   }
 
   Future<bool> initApp() async {
-    await Firebase.initializeApp();
-    services = ServicesProvider();
-    await services.initialiaze();
-    await services.productDatabase.connect();
-    await _catalogueModel.initCategories();
-
+    try {
+      await Firebase.initializeApp();
+      services = ServicesProvider();
+      await services.initialiaze();
+      await services.productDatabase.connect();
+      await _catalogueModel.initCategories();
+    } catch (exception) {}
     _cartHelper = CartHelper(Cart(), services.orderService,
         services.authenticationService, notifyListeners);
     await _initProfile();

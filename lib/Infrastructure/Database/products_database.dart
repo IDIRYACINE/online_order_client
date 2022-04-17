@@ -17,7 +17,6 @@ class ProductsDatabase implements IProductsDatabase {
   @override
   Future<void> connect() async {
     File databaseFile = await _getLocalDatabaseFile();
-    int databaseVersion = await _serverAccess.fetchData(dataUrl: 'version');
 
     if (!await databaseFile.exists()) {
       _serverAccess.downloadFile(
@@ -25,13 +24,17 @@ class ProductsDatabase implements IProductsDatabase {
     }
 
     await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
-    if (await _checkForNewVersion(databaseVersion)) {
-      disconnect();
-      await _serverAccess.downloadFile(
-          fileUrl: _productsDatabaseName, out: databaseFile);
-      await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
-      _productsDatabase.setVersion(databaseVersion);
-    }
+    try {
+      int databaseVersion = await _serverAccess.fetchData(dataUrl: 'version');
+
+      if (await _checkForNewVersion(databaseVersion)) {
+        disconnect();
+        await _serverAccess.downloadFile(
+            fileUrl: _productsDatabaseName, out: databaseFile);
+        await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
+        _productsDatabase.setVersion(databaseVersion);
+      }
+    } catch (exception) {}
   }
 
   @override
