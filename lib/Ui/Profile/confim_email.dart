@@ -103,8 +103,8 @@ class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
                         "Email can't be Empty !",
                         "Email invalid !",
                         "We have been send you a link to your Email , please check your Email !");
-                                  _authHelper.updateEmail(_newEmail!.text);
-                                             _profileHelper.updateEmail(_newEmail!.text);
+                         _authHelper.updateEmail(_newEmail!.text);
+                         _profileHelper.updateEmail(_newEmail!.text);
                   },
                   child: const Text(
                     'Confirm',
