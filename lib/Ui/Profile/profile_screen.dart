@@ -18,7 +18,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileState extends State<ProfileScreen> {
-  final TextEditingController _newEmail = TextEditingController();
   final TextEditingController _newPhone = TextEditingController();
   final UserInputValidtor valid = UserInputValidtor();
   @override
