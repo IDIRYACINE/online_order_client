@@ -7,7 +7,6 @@ import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:online_order_client/Ui/Profile/confim_email.dart';
 import 'package:provider/provider.dart';
-
 import 'change_informartion_dialogue.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -77,10 +76,11 @@ class _ProfileState extends State<ProfileScreen> {
                       const Icon(Icons.email)),
                   IconButton(
                     onPressed: () {
-                       Navigator.push(
+                      Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ConfirmeEmailScreen()));
+                              builder: (context) =>
+                                  const ConfirmeEmailScreen()));
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "changer Email",
@@ -113,8 +113,7 @@ class _ProfileState extends State<ProfileScreen> {
                     onPressed: () {
                       sendCodeAlert(context,
                           "We've send Password updating link , please check your email !");
-                         _authHelper.sendPasswordResetCode();
-
+                      _authHelper.sendPasswordResetCode();
                     },
                     icon: const Icon(Icons.edit),
                     tooltip: "Changer le mot de pass ",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Ui/Cart/cart_item_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     CartHelper _cartHelper = Provider.of<HelpersProvider>(context).cartHelper;
+    NavigationProvider _navigation = Provider.of<NavigationProvider>(context);
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -45,9 +47,11 @@ class _CartScreenState extends State<CartScreen> {
               label: const Text('Deliver It'),
               icon: const Icon(Icons.send_outlined),
               onPressed: () {
-                setState(() {
-                  _cartHelper.placeOrder(context);
-                });
+                _navigation.navigateToDeliveryAddressScreen(context, () {
+                  setState(() {
+                    _cartHelper.placeOrder(context);
+                  });
+                }, replace: true);
               },
               autofocus: true,
             ),

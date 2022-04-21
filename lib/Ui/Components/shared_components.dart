@@ -1,7 +1,5 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
-
 
 Color parseColor(String color) {
   String hex = color.replaceAll("#", "");
@@ -52,37 +50,6 @@ class CustomTitle extends StatelessWidget {
           ),
         ]),
       ),
-    );
-  }
-}
-class EmailValid extends StatefulWidget {
-  const EmailValid({ Key? key }) : super(key: key);
-
-  @override
-  State<EmailValid> createState() => _EmailValidState();
-}
-
-class _EmailValidState extends State<EmailValid> {
-  @override
-  Widget build(BuildContext context) {
-    void validateEmail(BuildContext context,
-        String val, String empty, String invalid, String seccus) {
-      if (val.isEmpty) {
-        setState(() {
-          sendCodeAlert(context, empty);
-        });
-      } else if (!EmailValidator.validate(val, true)) {
-        setState(() {
-          sendCodeAlert(context, invalid);
-        });
-      } else {
-        setState(() {
-          sendCodeAlert(context, seccus);
-        });
-      }
-    }
-    return Container(
-      
     );
   }
 }

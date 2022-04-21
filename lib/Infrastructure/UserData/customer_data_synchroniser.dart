@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:online_order_client/Domain/GpsLocation/address.dart';
+import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
 import 'package:http/http.dart' as http;
 
@@ -58,5 +59,18 @@ class CustomerDataSynchroniser implements ICustomerDataSynchroniser {
 
     http.Response response =
         await http.post(url, body: {infos: infos, extras: extras});
+  }
+
+  @override
+  Future<void> fetchUser(ProfileModel profile) async {
+    Uri url = Uri.parse(
+        '$_host/FetchCustomerInfos?customerId=${profile.getUserId()}');
+
+    http.get(url).then((value) {
+      final data = jsonDecode(value.body);
+      profile.setFullName(fullName: data["FullName"]);
+      profile.setPhoneNumber(number: data["PhoneNumber"]);
+      profile.saveProfile();
+    });
   }
 }

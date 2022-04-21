@@ -6,9 +6,7 @@ import '../../Application/Authentication/authentication_helper.dart';
 import '../../Application/Providers/helpers_provider.dart';
 
 class NewAccountScreen extends StatefulWidget {
-  final UserInputValidtor _validator;
-
-  const NewAccountScreen(this._validator, {Key? key}) : super(key: key);
+  const NewAccountScreen({Key? key}) : super(key: key);
 
   @override
   _NewAccountScreenState createState() => _NewAccountScreenState();
@@ -146,7 +144,7 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                     String password = _passwordController.text;
                     String email = _emailController.text;
                     String phoneNumber = _phoneNumberController.text;
-                    if (widget._validator.validateRegistrationData(
+                    if (UserInputValidtor.validateRegistrationData(
                         fullName, email, password, phoneNumber)) {
                       _authHelper.setBuildContext(context);
                       _authHelper.signUpWithEmailAndPassword(

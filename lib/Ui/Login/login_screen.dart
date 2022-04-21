@@ -1,6 +1,6 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
+import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
@@ -22,17 +22,6 @@ class _LoginScreenState extends State<LoginScreen> {
   IconData hide = Icons.remove_red_eye;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  void validateEmail(String val, String empty, String invalid) {
-    if (val.isEmpty) {
-      setState(() {
-        sendCodeAlert(context, empty);
-      });
-    } else if (!EmailValidator.validate(val, true)) {
-      setState(() {
-        sendCodeAlert(context, invalid);
-      });
-    } 
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: MaterialButton(
                               onPressed: () {
-                                validateEmail(emailController.text, "Email cant be Empty !", "Email is Invalid");
+                                UserInputValidtor.validateEmail(
+                                  emailController.text,
+                                );
                                 _authenticationHelper
                                     .signInWithEmailAndPassword(
                                         Provider.of<HelpersProvider>(context,

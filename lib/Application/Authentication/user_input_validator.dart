@@ -3,21 +3,21 @@
 import 'package:online_order_client/Infrastructure/Exceptions/auth_exceptions.dart';
 
 class UserInputValidtor {
-  bool validateEmail(String email) {
+  static bool validateEmail(String email) {
     bool emailValid = RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
     return true;
   }
 
-  bool validatePassword(String password) {
+  static bool validatePassword(String password) {
     if (password.length < 8) {
       throw WeakPassword();
     }
     return true;
   }
 
-  bool validatePhoneNumber(String number) {
+  static bool validatePhoneNumber(String number) {
     if (number.length < 8) {
       throw InvalidNumber();
     }
@@ -25,12 +25,12 @@ class UserInputValidtor {
     return true;
   }
 
-  bool _validateName(String name) {
+  static bool _validateName(String name) {
     bool validName = true;
     return validName;
   }
 
-  bool validateRegistrationData(
+  static bool validateRegistrationData(
       String fullName, String email, String password, String phoneNumber) {
     return _validateName(fullName) &&
         validatePhoneNumber(phoneNumber) &&

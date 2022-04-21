@@ -70,10 +70,8 @@ class NavigationProvider with ChangeNotifier {
   }
 
   void navigateToNewAccount(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => NewAccountScreen(UserInputValidtor())));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const NewAccountScreen()));
   }
 
   void navigateToProfile(BuildContext context) {

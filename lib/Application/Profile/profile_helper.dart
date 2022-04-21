@@ -48,7 +48,11 @@ class ProfileHelper {
     _dataSynchroniser.setPhone(phone);
   }
 
-  void updateProfile() {}
+  void updateProfile(String id, String email) {
+    _profile.setUserId(id: id);
+    _profile.setEmail(email: email);
+    _dataSynchroniser.fetchUser(_profile);
+  }
 
   void registerProfile(String id) {
     _dataSynchroniser.setId(id);
@@ -61,12 +65,14 @@ class ProfileHelper {
     _profile.saveProfile();
   }
 
-  void updateEmail(String newEmail) {}
+  void updateEmail(String newEmail) {
+    _profile.setEmail(email: newEmail);
+  }
 
   void updatePhoneNumber(String newPhone) {
+    _profile.setPhoneNumber(number: newPhone);
+    _profile.saveProfile();
     _dataSynchroniser.setPhone(newPhone);
     _dataSynchroniser.updateUser();
   }
-
-  void updatePassword(String newPassword) {}
 }

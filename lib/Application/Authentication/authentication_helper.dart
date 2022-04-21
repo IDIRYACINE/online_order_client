@@ -24,7 +24,7 @@ class AuthenticationHelper {
     _authService
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      helper.setUserId(_authService.getId());
+      helper.updateProfile(_authService.getId(), email);
       Navigator.pop(_context);
     }).catchError((e) {
       _handleErrors(e.code);
