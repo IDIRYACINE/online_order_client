@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
+import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../Domain/Cart/cart.dart';
@@ -17,9 +18,13 @@ class CartHelper {
   CartHelper(this._cart, this._orderService, this._authenticationService,
       this._notifyChange);
 
-  void addCartItem(CartItem cartItem) {
-    _cart.addProduct(product: cartItem);
-    _notifyChange();
+  void addCartItem(CartItem cartItem, BuildContext context) {
+    if (cartItem.getQuantity() != 0) {
+      _cart.addProduct(product: cartItem);
+      _notifyChange();
+    } else {
+      sendCodeAlert(context, "Can't add 0 units to cart");
+    }
   }
 
   int getCartItemCount() {
@@ -31,7 +36,6 @@ class CartHelper {
   }
 
   void placeOrder(BuildContext context) {
-    //should check if logged in first , disabled for testing purpose;
     _authenticationService.accountIsActive().then((value) => _sendOrderToShop(
         value,
         Provider.of<NavigationProvider>(context, listen: false),

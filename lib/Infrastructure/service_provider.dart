@@ -21,7 +21,7 @@ import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synch
 class ServicesProvider {
   static final ServicesProvider _instance = ServicesProvider._();
   static const String localHost = "192.168.1.7";
-  static const String nodeJsHost = "http://192.168.1.7:3001";
+  static const String nodeJsHost = "https://orsnodejs.herokuapp.com";
   bool _isInit = false;
   ServicesProvider._();
 

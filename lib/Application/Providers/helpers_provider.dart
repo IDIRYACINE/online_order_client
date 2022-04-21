@@ -40,15 +40,7 @@ class HelpersProvider with ChangeNotifier {
     _authHelper = AuthenticationHelper(
         services.authenticationService, FacebookAuthentication());
 
-    AwesomeNotifications().initialize(null, [
-      NotificationChannel(
-          channelKey: 'orderStatus',
-          channelName: 'orderStatus',
-          channelDescription: "Nottfication for OrderStatus")
-    ]);
-
     await services.permissionsService.requestGpsPermission();
-    await services.permissionsService.requestNotificationPermission();
 
     return true;
   }

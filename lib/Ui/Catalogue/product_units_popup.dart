@@ -154,7 +154,8 @@ class _UnitsPopUpState extends State<ProductUnitsPopUp> {
                     onPressed: () {
                       Navigator.pop(context);
                       catalogueProvider.cartHelper.addCartItem(
-                          CartItem(product: widget._product, quantity: _units));
+                          CartItem(product: widget._product, quantity: _units),
+                          context);
                     }),
               ),
             ]),
