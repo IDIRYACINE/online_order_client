@@ -80,14 +80,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                 },
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.favorite_border,
-                color: parseColor("#FFB5A7"),
-              ),
-              splashColor: parseColor("#FFB5A7"),
-            ),
+           
           ]),
         ],
       ),
@@ -135,23 +128,27 @@ class PricesTable extends StatelessWidget {
                 const Text(
                   'Sizes',
                   style: TextStyle(fontSize: 35, fontFamily: "Lobster"),
+                  textAlign: TextAlign.center,
+
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => Text(
-                    _product.getSize(index),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 25, fontFamily: "Lobster"),
-                  ),
-                  itemCount: _product.getSizesCount(),
+                const Text(
+                  'Prices',
+                  style: TextStyle(fontSize: 35, fontFamily: "Lobster"),
+                  textAlign: TextAlign.center,
                 ),
               ]),
-          TableRow(children: [
-            const Text('Prices(DA)',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: "Lobster",
-                )),
+          TableRow(
+            children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: (context, index) => Text(
+                _product.getSize(index),
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 25, fontFamily: "Lobster",
+                ),
+              ),
+              itemCount: _product.getSizesCount(),
+            ),
             ListView.builder(
               shrinkWrap: true,
               itemBuilder: (context, index) => Text(

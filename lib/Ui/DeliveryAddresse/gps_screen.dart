@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:online_order_client/Application/DeliveryAddress/delivery_address.dart';
+import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
 
 import '../../Application/Providers/helpers_provider.dart';
@@ -46,6 +47,7 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
+            backgroundColor:parseColor("#F8EDEB"),
               appBar: PreferredSize(
                   preferredSize: const Size.fromHeight(100),
                   child: Padding(
@@ -71,9 +73,25 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
                   ),
                   Container(
                     alignment: Alignment.bottomCenter,
+                    decoration: BoxDecoration(
+                      borderRadius:BorderRadius.circular(20)
+                    ),
                     child: MaterialButton(
-                      color: Colors.red,
-                      child: const Text("Confirm"),
+                      minWidth: 130,
+                      height: 50,
+                      shape: const StadiumBorder(),
+
+                      color: parseColor("#FFB5A7"),
+                      child: Row(mainAxisSize: MainAxisSize.min, 
+                      children: const [
+                        Text(
+                          "Confirm",
+                          style: TextStyle(
+                            fontFamily: "Lobster",
+                          ),
+                        ),
+                        Icon(Icons.gps_fixed),
+                      ]),
                       onPressed: () {
                         _address.setLocation(
                             coordinations: _coordinations,
