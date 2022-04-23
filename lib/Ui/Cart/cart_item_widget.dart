@@ -44,7 +44,10 @@ class _CartItemState extends State<CartItemWidget> {
               width: double.infinity,
               child: Column(
                 children: [
-                  Text(widget._cartItem.getName()),
+                  Text(
+                    widget._cartItem.getName(),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   Divider(
                     thickness: 3,
                     color: widget._color,
@@ -53,32 +56,51 @@ class _CartItemState extends State<CartItemWidget> {
                     height: 60,
                     child: Row(
                       children: [
-                        Column(
-                          children: const [Text("Unities")],
+                        Container(
+                          width: 90,
+                          child: Column(
+                            children:  [
+                              Text(
+                                "Quantity :",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
+                              ),
+                              SizedBox(
+                                height: 7,
+                              ),
+                              Text(
+                                widget._cartItem.getQuantity().toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              )
+                            ],
+                          ),
                         ),
                         VerticalDivider(
                           width: 8,
                           thickness: 1,
                           color: widget._color,
                         ),
-                        Column(
-                          children: const [Text("Hrisa")],
-                        ),
-                        VerticalDivider(
-                          width: 8,
-                          thickness: 1,
-                          color: widget._color,
-                        ),
-                        Column(
-                          children: const [Text("MAyon")],
-                        ),
-                        VerticalDivider(
-                          width: 8,
-                          thickness: 1,
-                          color: widget._color,
-                        ),
-                        Column(
-                          children: const [Text("Prices")],
+                        Container(
+                          width: 90,
+                          child: Column(
+                            children:  [
+                              Text(
+                                "Price :",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              ),
+                              SizedBox(
+                                height: 7,
+                              ),
+                              Text(
+                                widget._cartItem.getPrice().toString() + "\$",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 22),
+                              )
+                            ],
+                          ),
                         ),
                       ],
                     ),

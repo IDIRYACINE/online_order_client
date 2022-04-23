@@ -56,7 +56,7 @@ class _CartScreenState extends State<CartScreen> {
               )
           ),
           Text(
-            "Total price : " + cartMock.getTotalPrice().toString()+"\$",
+            "Total price : " + cartMock.getTotalPrice().toStringAsFixed(2)+"\$",
             textAlign: TextAlign.center,
             style:TextStyle(
                fontWeight: FontWeight.bold,
