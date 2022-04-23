@@ -57,4 +57,8 @@ class CartHelper {
       navigationProvider.navigateToLogin(context);
     }
   }
+
+  String getTotalPrice() {
+    return _cart.getTotalPrice().toStringAsFixed(2);
+  }
 }

@@ -9,6 +9,7 @@ class PermissionsService implements IPermissionsService {
     PermissionStatus _permissionGranted;
 
     _serviceEnabled = await location.serviceEnabled();
+
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
       if (!_serviceEnabled) {

@@ -7,7 +7,7 @@ class UserInputValidtor {
     bool emailValid = RegExp(
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
-    return true;
+    return emailValid;
   }
 
   static bool validatePassword(String password) {

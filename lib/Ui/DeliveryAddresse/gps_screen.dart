@@ -47,7 +47,7 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            backgroundColor:parseColor("#F8EDEB"),
+              backgroundColor: parseColor("#F8EDEB"),
               appBar: PreferredSize(
                   preferredSize: const Size.fromHeight(100),
                   child: Padding(
@@ -73,17 +73,15 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
                   ),
                   Container(
                     alignment: Alignment.bottomCenter,
-                    decoration: BoxDecoration(
-                      borderRadius:BorderRadius.circular(20)
-                    ),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
                     child: MaterialButton(
                       minWidth: 130,
                       height: 50,
                       shape: const StadiumBorder(),
-
                       color: parseColor("#FFB5A7"),
-                      child: Row(mainAxisSize: MainAxisSize.min, 
-                      children: const [
+                      child:
+                          Row(mainAxisSize: MainAxisSize.min, children: const [
                         Text(
                           "Confirm",
                           style: TextStyle(
