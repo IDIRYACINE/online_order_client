@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
+import 'package:online_order_client/Domain/Cart/cart.dart';
 import 'package:online_order_client/Ui/Cart/cart_item_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
@@ -15,12 +16,21 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final Color color = parseColor("#FFB5A7");
-
+ final Cart cartMock = Cart();
   @override
   Widget build(BuildContext context) {
     CartHelper _cartHelper = Provider.of<HelpersProvider>(context).cartHelper;
     NavigationProvider _navigation = Provider.of<NavigationProvider>(context);
-
+    var _OnPressed;
+    if (_cartHelper.getCartItemCount() > 0) {
+      _OnPressed = () {
+        _navigation.navigateToDeliveryAddressScreen(context, () {
+          setState(() {
+            _cartHelper.placeOrder(context);
+          });
+        }, replace: true);
+      };
+    }
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -37,6 +47,22 @@ class _CartScreenState extends State<CartScreen> {
               separatorBuilder: (context, index) =>
                   Divider(thickness: 3, color: parseColor("#F9DCC4")),
               itemCount: _cartHelper.getCartItemCount()),
+          Text(
+            "Number of items : " + _cartHelper.getCartItemCount().toString(),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              )
+          ),
+          Text(
+            "Total price : " + cartMock.getTotalPrice().toString()+"\$",
+            textAlign: TextAlign.center,
+            style:TextStyle(
+               fontWeight: FontWeight.bold,
+               fontSize: 18,
+            )
+          ),
           SizedBox(
             height: 40,
             width: 180,
@@ -46,13 +72,7 @@ class _CartScreenState extends State<CartScreen> {
               ),
               label: const Text('Deliver It'),
               icon: const Icon(Icons.send_outlined),
-              onPressed: () {
-                _navigation.navigateToDeliveryAddressScreen(context, () {
-                  setState(() {
-                    _cartHelper.placeOrder(context);
-                  });
-                }, replace: true);
-              },
+              onPressed: _OnPressed,
               autofocus: true,
             ),
           ),

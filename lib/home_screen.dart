@@ -21,9 +21,10 @@ class HomeScreen extends StatelessWidget {
           title: const Text(
             "THe House restaurante",
             style: TextStyle(
-              fontSize: 16.5,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.black,
+               fontFamily: "Lobster",
             ),
           ),
           backgroundColor: parseColor("#FCD5CE"),

@@ -29,12 +29,13 @@ class _ProfileState extends State<ProfileScreen> {
     return Scaffold(
         backgroundColor: parseColor("#F8EDEB"),
         appBar: AppBar(
-          title: const Text(
-            "Profile",
+         title: const Text(
+            "personal informations",
             style: TextStyle(
-              fontSize: 16.5,
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.black,
+              fontFamily: "Lobster",
             ),
           ),
           backgroundColor: parseColor("#FCD5CE"),
@@ -69,7 +70,7 @@ class _ProfileState extends State<ProfileScreen> {
                       fontWeight: FontWeight.bold, fontSize: 30),
                 ),
                 const SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   ProfileInfoLabel(_profileHelper.getProfile().getEmail(),

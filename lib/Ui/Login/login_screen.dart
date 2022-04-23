@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       isVisible = !isVisible;
                                     });
                                   },
-                                  icon: isVisible ? Icon(show) : Icon(hide)),
+                                  icon: isVisible ? Icon(hide) : Icon(show)),
                             )),
                       ),
                       const Padding(
