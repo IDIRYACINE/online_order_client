@@ -98,6 +98,7 @@ class _ProfileState extends State<ProfileScreen> {
                         changeElementPoupUp(
                             context, const Text("Set new phone number : "), () {
                           _profileHelper.updatePhoneNumber(_newPhone.text);
+                          _authHelper.requestPhoneValidation(_newPhone.text);
                           Navigator.of(context).pop();
                         }, " new phone number", const Icon(Icons.phone),
                             _newPhone);

@@ -63,5 +63,5 @@ firestore.rules
 public/index.html
 public/index.html
 test/unit/authentification_test.dart
-*.lock
+/*.lock
 

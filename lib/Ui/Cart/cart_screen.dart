@@ -23,6 +23,7 @@ class _CartScreenState extends State<CartScreen> {
     CartHelper _cartHelper = Provider.of<HelpersProvider>(context).cartHelper;
 
     NavigationProvider _navigation = Provider.of<NavigationProvider>(context);
+      var _OnPressed;
 
     if (_cartHelper.getCartItemCount() > 0) {
       _sendOrder = () {
