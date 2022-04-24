@@ -21,6 +21,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     CartHelper _cartHelper = Provider.of<HelpersProvider>(context).cartHelper;
     NavigationProvider _navigation = Provider.of<NavigationProvider>(context);
+      var _OnPressed;
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
