@@ -47,7 +47,7 @@ Future<dynamic> changeElementPoupUp(
             SizedBox(
               child: ElevatedButton(
                 onPressed: () {
-                  onConfirmed;
+                  onConfirmed();
                   Navigator.of(context).pop();
                 },
                 child: const Text("Confirm"),

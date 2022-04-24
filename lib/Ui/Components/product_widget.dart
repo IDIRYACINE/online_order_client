@@ -77,6 +77,10 @@ class ProductPicture extends StatelessWidget {
       borderRadius: const BorderRadius.all(Radius.circular(30)),
       child: Image.network(
         _imageUrl,
+        errorBuilder:
+            (BuildContext context, Object exception, StackTrace? stackTrace) {
+          return Image.asset('assets/images/PizzaLogo.png');
+        },
         fit: BoxFit.cover,
         height: 100.0,
         width: 100.0,

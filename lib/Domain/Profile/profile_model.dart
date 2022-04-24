@@ -76,7 +76,9 @@ class ProfileModel implements IProfile {
       File profile = await _getProfileFile();
       _encodeToJson();
       profile.writeAsString(_json);
-    } catch (e) {}
+    } catch (e) {
+      throw (e as Error);
+    }
   }
 
   Future<File> _getProfileFile() async {
@@ -118,6 +120,7 @@ class ProfileModel implements IProfile {
     try {
       File profile = await _getProfileFile();
       _json = await profile.readAsString();
+
       Map<String, String> decodedProfile = jsonDecode(_json);
       _populateProfileData(decodedProfile);
     } catch (e) {

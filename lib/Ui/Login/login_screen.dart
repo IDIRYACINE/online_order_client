@@ -125,16 +125,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: MaterialButton(
                               onPressed: () {
-                                UserInputValidtor.validateEmail(
+                                if (UserInputValidtor.validateEmail(
                                   emailController.text,
-                                );
-                                _authenticationHelper
-                                    .signInWithEmailAndPassword(
-                                        Provider.of<HelpersProvider>(context,
-                                                listen: false)
-                                            .profileHelper,
-                                        emailController.text,
-                                        passwordController.text);
+                                )) {
+                                  _authenticationHelper
+                                      .signInWithEmailAndPassword(
+                                          Provider.of<HelpersProvider>(context,
+                                                  listen: false)
+                                              .profileHelper,
+                                          emailController.text,
+                                          passwordController.text);
+                                }
                               },
                               child: const Text(
                                 "login",

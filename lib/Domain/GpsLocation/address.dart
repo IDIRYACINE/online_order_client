@@ -1,5 +1,5 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 
 class Address {
   late String _address;
@@ -13,11 +13,9 @@ class Address {
 
   /// Request device location.handle GPS permission issues
   Future<bool> getDeviceLocation() async {
-    Location location = Location();
-    LocationData _locationData;
-    _locationData = await location.getLocation();
-    _latitude = _locationData.latitude!;
-    _longitude = _locationData.longitude!;
+    Position position = await Geolocator.getCurrentPosition();
+    _latitude = position.latitude;
+    _longitude = position.longitude;
     _address = "bloc C";
     return true;
   }

@@ -80,7 +80,6 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                 },
               ),
             ),
-           
           ]),
         ],
       ),
@@ -124,27 +123,27 @@ class PricesTable extends StatelessWidget {
         children: [
           TableRow(
               decoration: BoxDecoration(color: parseColor("#FFB5A7")),
-              children: [
-                const Text(
+              children: const [
+                Text(
                   'Sizes',
                   style: TextStyle(fontSize: 35, fontFamily: "Lobster"),
                   textAlign: TextAlign.center,
-
                 ),
-                const Text(
+                Text(
                   'Prices',
                   style: TextStyle(fontSize: 35, fontFamily: "Lobster"),
                   textAlign: TextAlign.center,
                 ),
               ]),
-          TableRow(
-            children: [
+          TableRow(children: [
             ListView.builder(
               shrinkWrap: true,
               itemBuilder: (context, index) => Text(
                 _product.getSize(index),
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 25, fontFamily: "Lobster",
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontFamily: "Lobster",
                 ),
               ),
               itemCount: _product.getSizesCount(),

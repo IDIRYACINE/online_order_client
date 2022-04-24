@@ -49,16 +49,15 @@ class CustomerDataSynchroniser implements ICustomerDataSynchroniser {
     Uri url = Uri.parse('$_host/RegisterCustomer');
     http.Response response = await http.post(url,
         headers: {"Content-Type": "application/json; charset=utf-8"},
-        body: jsonEncode({'infos': infos, 'extras': extras}).toString());
+        body: jsonEncode({'infos': infos, 'extras': extras}));
   }
 
   ///not implemented on server
   @override
   Future<void> updateUser() async {
     Uri url = Uri.parse('$_host/UpdateCustomer');
-
-    http.Response response =
-        await http.post(url, body: {infos: infos, extras: extras});
+    String json = jsonEncode({'infos': infos, 'extras': extras});
+    http.Response response = await http.post(url, body: json);
   }
 
   @override
