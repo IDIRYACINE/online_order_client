@@ -1,8 +1,7 @@
-import 'package:online_order_client/Domain/Orders/iorder.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_subscriber.dart';
 
 abstract class IOrderService {
-  void sendOrderToShop(IOrder order, String userId);
+  void sendOrderToShop(Map<String, dynamic> order, String userId);
   void subscribeToOrdersStatus(IOrderSubscriber subscriber);
   void unsubscribeFromOrdersStatus(String subscriberId);
   void cancelAllSubscribtions();

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Ui/Components/popup_widget.dart';
 
 Color parseColor(String color) {
   String hex = color.replaceAll("#", "");

@@ -16,14 +16,13 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final Color color = parseColor("#FFB5A7");
 
-  var _sendOrder;
+  VoidCallback? _sendOrder;
 
   @override
   Widget build(BuildContext context) {
     CartHelper _cartHelper = Provider.of<HelpersProvider>(context).cartHelper;
 
     NavigationProvider _navigation = Provider.of<NavigationProvider>(context);
-      var _OnPressed;
 
     if (_cartHelper.getCartItemCount() > 0) {
       _sendOrder = () {

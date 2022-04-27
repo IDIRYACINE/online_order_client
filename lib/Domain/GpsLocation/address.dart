@@ -1,21 +1,22 @@
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../../Application/DeliveryAddress/latlng.dart';
 
 class Address {
   late String _address;
-  late double _latitude, _longitude;
+  late final LatLng _latlng = LatLng(0, 0);
 
   Address([String? address, double? latitude, double? longitude]) {
     _address = address ?? "";
-    _latitude = latitude ?? 0;
-    _longitude = longitude ?? 0;
+    _latlng.latitude = latitude ?? 0;
+    _latlng.longitude = longitude ?? 0;
   }
 
   /// Request device location.handle GPS permission issues
   Future<bool> getDeviceLocation() async {
     Position position = await Geolocator.getCurrentPosition();
-    _latitude = position.latitude;
-    _longitude = position.longitude;
+    _latlng.latitude = position.latitude;
+    _latlng.longitude = position.longitude;
     _address = "bloc C";
     return true;
   }
@@ -28,14 +29,14 @@ class Address {
 
   /// Return address location on map as GPS coordinates
   LatLng getCoordinates() {
-    return LatLng(_latitude, _longitude);
+    return _latlng;
   }
 
   /// Update address location on map
   void updateCoordinates(
       {required double latitude, required double longitude}) {
-    _latitude = latitude;
-    _longitude = longitude;
+    _latlng.latitude = latitude;
+    _latlng.longitude = longitude;
   }
 
   /// Update associated address infos
@@ -46,8 +47,8 @@ class Address {
   /// Encode address as a json
   Map<String, dynamic> toMap() {
     return {
-      "latitude": _latitude,
-      "longitude": _longitude,
+      "latitude": _latlng.latitude,
+      "longitude": _latlng.longitude,
       "address": _address
     };
   }

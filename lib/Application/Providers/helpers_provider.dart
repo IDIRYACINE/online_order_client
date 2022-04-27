@@ -10,13 +10,11 @@ import '../../Domain/Cart/cart.dart';
 import '../../Domain/Catalogue/catalogue_model.dart';
 import '../../Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import '../Authentication/authentication_helper.dart';
-import '../Profile/profile_helper.dart';
 
 class HelpersProvider with ChangeNotifier {
   late CatalogueModel _catalogueModel;
   late CartHelper _cartHelper;
   late ServicesProvider services;
-  late ProfileHelper _profileHelper;
   late DeliveryAddress _addressHelper;
   late AuthenticationHelper _authHelper;
 
@@ -36,9 +34,6 @@ class HelpersProvider with ChangeNotifier {
         services.authenticationService, notifyListeners);
     await _initProfile();
 
-    _authHelper = AuthenticationHelper(
-        services.authenticationService, FacebookAuthentication());
-
     await services.permissionsService.requestGpsPermission();
 
     return true;
@@ -47,8 +42,9 @@ class HelpersProvider with ChangeNotifier {
   Future<void> _initProfile() async {
     ProfileModel profile = ProfileModel();
     await profile.loadProfile();
-    _profileHelper = ProfileHelper(
-        services.authenticationService, profile, services.customerSynchroniser);
+    _authHelper = AuthenticationHelper(
+        profile, services.authenticationService, FacebookAuthentication());
+
     _addressHelper = DeliveryAddress(profile.getAddress());
   }
 
@@ -65,7 +61,6 @@ class HelpersProvider with ChangeNotifier {
   }
 
   CartHelper get cartHelper => _cartHelper;
-  ProfileHelper get profileHelper => _profileHelper;
   DeliveryAddress get addressHelper => _addressHelper;
 
   AuthenticationHelper get authHelper => _authHelper;

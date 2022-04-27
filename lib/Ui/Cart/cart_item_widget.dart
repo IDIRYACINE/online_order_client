@@ -46,7 +46,7 @@ class _CartItemState extends State<CartItemWidget> {
                 children: [
                   Text(
                     widget._cartItem.getName(),
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   Divider(
                     thickness: 3,
@@ -56,21 +56,21 @@ class _CartItemState extends State<CartItemWidget> {
                     height: 60,
                     child: Row(
                       children: [
-                        Container(
+                        SizedBox(
                           width: 90,
                           child: Column(
-                            children:  [
-                              Text(
+                            children: [
+                              const Text(
                                 "Quantity :",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 7,
                               ),
                               Text(
                                 widget._cartItem.getQuantity().toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 22),
                               )
                             ],
@@ -81,22 +81,22 @@ class _CartItemState extends State<CartItemWidget> {
                           thickness: 1,
                           color: widget._color,
                         ),
-                        Container(
+                        SizedBox(
                           width: 90,
                           child: Column(
-                            children:  [
-                              Text(
+                            children: [
+                              const Text(
                                 "Price :",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 22),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 7,
                               ),
                               Text(
                                 widget._cartItem.getPrice().toString() + "\$",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 22),
                               )
                             ],

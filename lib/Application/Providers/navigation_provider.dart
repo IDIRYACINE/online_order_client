@@ -1,4 +1,3 @@
-import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Catalogue/category_screen.dart';
 import 'package:online_order_client/Ui/Catalogue/product_screen.dart';

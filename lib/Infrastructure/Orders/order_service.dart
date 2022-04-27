@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:online_order_client/Domain/Orders/iorder.dart';
+import 'package:online_order_client/Domain/Orders/order_status.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_subscriber.dart';
@@ -25,13 +25,15 @@ class OrderService implements IOrderService {
   }
 
   @override
-  void sendOrderToShop(IOrder order, String userId) {
-    _serverAcess.postData(
-        dataUrl: "OrdersStatus/$userId", data: order.orderStatusJson());
-
-    Map<String, dynamic> orderJson = order.formatOnlineOrder();
-    _serverAcess.postData(dataUrl: 'Orders/$userId', data: orderJson);
-    listenToOrderStatusOnServer(userId);
+  void sendOrderToShop(Map<String, dynamic> order, String userId) {
+    _serverAcess
+        .postData(dataUrl: 'Orders/$userId', data: order)
+        .then((value) => {
+              _serverAcess.postData(
+                  dataUrl: "OrdersStatus/$userId",
+                  data: {"status": OrderStatus.waiting})
+            })
+        .then((value) => {listenToOrderStatusOnServer(userId)});
   }
 
   @override

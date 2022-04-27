@@ -171,4 +171,8 @@ class FirebaseAuthenticationService implements IAuthenticationService {
   String getId() {
     return _auth.currentUser!.uid;
   }
+
+  Future<void> updateUsername({required String newUsername}) async {
+    _user.updateDisplayName(newUsername);
+  }
 }

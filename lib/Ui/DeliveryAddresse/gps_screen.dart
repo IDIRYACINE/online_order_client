@@ -1,14 +1,19 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:online_order_client/Application/DeliveryAddress/delivery_address.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_map/flutter_map.dart';
 import '../../Application/Providers/helpers_provider.dart';
+import 'package:latlong2/latlong.dart';
 
 class DeliveryAddresScreen extends StatefulWidget {
   final VoidCallback _callback;
-
+  final double _mapZoom = 13;
+  final double _markerHeight = 80;
+  final double _markerWidth = 80;
+  final Key _markerKey = const Key("marker");
   const DeliveryAddresScreen(this._callback, {Key? key}) : super(key: key);
 
   @override
@@ -16,31 +21,16 @@ class DeliveryAddresScreen extends StatefulWidget {
 }
 
 class _DeliveryAddresState extends State<DeliveryAddresScreen> {
-  final Set<Marker> _deliveryAdressMarker = {};
-  final MarkerId _markerId = const MarkerId("deliveryAddress");
   String _deliveryAddress = "";
-  LatLng _coordinations = const LatLng(0, 0);
+  late DeliveryAddress _address;
 
   @override
   Widget build(BuildContext context) {
-    final DeliveryAddress _address =
-        Provider.of<HelpersProvider>(context).addressHelper;
+    _address =
+        Provider.of<HelpersProvider>(context, listen: false).addressHelper;
 
-    Future<void> _onMapCreated(GoogleMapController controller) async {
-      setState(() {
-        Marker marker =
-            Marker(markerId: _markerId, position: _address.getLocation());
-        _deliveryAdressMarker.add(marker);
-      });
-    }
-
-    Future<void> _onCameraMove(CameraPosition cameraPosition) async {
-      _coordinations = cameraPosition.target;
-      setState(() {
-        _deliveryAdressMarker
-            .add(Marker(markerId: _markerId, position: cameraPosition.target));
-      });
-    }
+    ValueNotifier<LatLng> _markerLocation =
+        ValueNotifier<LatLng>(_address.getLocation().instance);
 
     return FutureBuilder(
       future: _address.initGpsLocation(),
@@ -64,17 +54,38 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
               body: Stack(
                 clipBehavior: Clip.hardEdge,
                 children: [
-                  GoogleMap(
-                    onMapCreated: _onMapCreated,
-                    initialCameraPosition: CameraPosition(
-                        target: _address.getLocation(), zoom: 10),
-                    markers: _deliveryAdressMarker,
-                    onCameraMove: _onCameraMove,
+                  FlutterMap(
+                    options: MapOptions(
+                      center: _markerLocation.value,
+                      onPositionChanged: (position, hasGesture) {
+                        _markerLocation.value = position.center!;
+                      },
+                      zoom: widget._mapZoom,
+                    ),
+                    nonRotatedChildren: [
+                      TileLayerWidget(
+                          options: TileLayerOptions(
+                              urlTemplate:
+                                  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                              subdomains: ['a', 'b', 'c'])),
+                      ValueListenableBuilder<LatLng>(
+                          valueListenable: _markerLocation,
+                          builder: (context, value, child) {
+                            return MarkerLayerWidget(
+                                key: widget._markerKey,
+                                options: MarkerLayerOptions(markers: [
+                                  Marker(
+                                    width: widget._markerWidth,
+                                    height: widget._markerHeight,
+                                    point: value,
+                                    builder: (ctx) => const FlutterLogo(),
+                                  )
+                                ]));
+                          })
+                    ],
                   ),
                   Container(
                     alignment: Alignment.bottomCenter,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
                     child: MaterialButton(
                       minWidth: 130,
                       height: 50,
@@ -92,7 +103,8 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
                       ]),
                       onPressed: () {
                         _address.setLocation(
-                            coordinations: _coordinations,
+                            latitude: _markerLocation.value.latitude,
+                            longitude: _markerLocation.value.longitude,
                             infos: _deliveryAddress);
                         widget._callback();
                         Navigator.pop(context);

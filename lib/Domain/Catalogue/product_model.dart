@@ -1,7 +1,5 @@
 // ignore_for_file: unused_field
 
-import 'package:flutter/widgets.dart';
-
 typedef ProductMap = Map<String, List<Product>>;
 
 class Product {

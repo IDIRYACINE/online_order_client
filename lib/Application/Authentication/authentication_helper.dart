@@ -1,33 +1,36 @@
 import "package:flutter/material.dart";
-import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Application/Authentication/authentication_error_handler.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
+import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
-import 'package:online_order_client/Infrastructure/Exceptions/auth_exceptions.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:provider/provider.dart';
-import '../Profile/profile_helper.dart';
 
 class AuthenticationHelper {
   late final IAuthenticationService _authService;
   late final FacebookAuthentication _fbAuthentication;
+  late final ProfileModel _profile;
+  late final AuthenticationErrorHandler _errorHandler;
   late BuildContext _context;
 
-  AuthenticationHelper(this._authService, this._fbAuthentication);
+  AuthenticationHelper(
+      this._profile, this._authService, this._fbAuthentication) {
+    _errorHandler = AuthenticationErrorHandler();
+  }
 
   void setBuildContext(BuildContext context) {
     _context = context;
+    _errorHandler.setBuildContext(context);
   }
 
-  void signInWithEmailAndPassword(
-      ProfileHelper helper, String email, String password) {
+  void signInWithEmailAndPassword(String email, String password) {
     _authService
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      helper.updateProfile(_authService.getId(), email);
       Navigator.pop(_context);
     }).catchError((e) {
-      _handleErrors(e.code);
+      _errorHandler.handleErrors(e.code);
     });
   }
 
@@ -39,19 +42,13 @@ class AuthenticationHelper {
       _authService
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        ProfileHelper profileHelper =
-            Provider.of<HelpersProvider>(_context, listen: false).profileHelper;
         Provider.of<NavigationProvider>(_context, listen: false)
             .navigateToDeliveryAddressScreen(
-                _context,
-                () => {
-                      _setUpNewUserProfile(
-                          profileHelper, fullName, phone, email)
-                    },
+                _context, () => {_updateProfile(fullName, phone, email)},
                 replace: true);
       });
     }).catchError((e) {
-      _handleErrors(e.code);
+      _errorHandler.handleErrors(e.code);
     });
   }
 
@@ -84,35 +81,48 @@ class AuthenticationHelper {
   }
 
   void updateEmail(String newEmail) {
-    _authService.updateEmail(newEmail: newEmail);
+    _authService
+        .updateEmail(newEmail: newEmail)
+        .then((value) => {_profile.setEmail(email: newEmail)});
   }
 
   void logout() {
     _authService.signOut();
   }
 
-  void _setUpNewUserProfile(
-      ProfileHelper helper, String fullName, String phone, String email) {
-    helper.setProfile(fullName, phone, email);
-    helper.registerProfile(_authService.getId());
+  void updatePhoneNumber(String newPhone) {
+    _profile.setPhoneNumber(number: newPhone);
+    _profile.saveProfile();
   }
 
-  void _handleErrors(String code) {
-    switch (code) {
-      case InvalidLoginInfos.errorCode:
-        {
-          sendCodeAlert(_context, "Incorrect password or email");
-        }
-        break;
-      case EmailAlreadyUsed.errorCode:
-        {
-          sendCodeAlert(_context, "Email Already used");
-        }
-        break;
-      default:
-        {
-          sendCodeAlert(_context, "You are offline");
-        }
-    }
+  void _updateProfile(String fullName, String phone, String email) {
+    _profile.setEmail(email: email);
+    _profile.setFullName(fullName: fullName);
+    _profile.setPhoneNumber(number: phone);
+    _profile.saveProfile();
+  }
+
+  void setDeliveryAddresse(BuildContext context) {
+    Provider.of<NavigationProvider>(context, listen: false)
+        .navigateToDeliveryAddressScreen(context, () => {}, replace: false);
+  }
+
+  void isLoggedIn(BuildContext context) {
+    _authService.accountIsActive().then((value) {
+      if (value) {
+        Provider.of<NavigationProvider>(context, listen: false)
+            .navigateToProfile(context);
+      } else {
+        Provider.of<NavigationProvider>(context, listen: false)
+            .navigateToLogin(context);
+      }
+    }).catchError((error) {
+      Provider.of<NavigationProvider>(context, listen: false)
+          .navigateToLogin(context);
+    });
+  }
+
+  ProfileModel getProfile() {
+    return _profile;
   }
 }

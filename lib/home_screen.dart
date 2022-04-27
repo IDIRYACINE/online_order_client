@@ -24,14 +24,14 @@ class HomeScreen extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.black,
-               fontFamily: "Lobster",
+              fontFamily: "Lobster",
             ),
           ),
           backgroundColor: parseColor("#FCD5CE"),
           centerTitle: false,
           leading: IconButton(
               onPressed: () {
-                helpersProvider.profileHelper.isLoggedIn(context);
+                helpersProvider.authHelper.isLoggedIn(context);
               },
               icon: const Icon(Icons.person)),
           actions: [
@@ -43,8 +43,7 @@ class HomeScreen extends StatelessWidget {
             IconButton(
                 onPressed: () {
                   helpersProvider.authHelper.logout();
-                  sendCodeAlert(
-                      context, "you have been disconnected");
+                  sendCodeAlert(context, "you have been disconnected");
                 },
                 icon: const Icon(Icons.logout)),
           ],

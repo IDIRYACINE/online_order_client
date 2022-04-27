@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
-import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +19,6 @@ class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
     HelpersProvider _helpers =
         Provider.of<HelpersProvider>(context, listen: false);
     AuthenticationHelper _authHelper = _helpers.authHelper;
-    ProfileHelper _profileHelper = _helpers.profileHelper;
 
     return Scaffold(
       backgroundColor: parseColor("#F8EDEB"),
@@ -79,7 +77,6 @@ class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
                       _newEmail!.text,
                     );
                     _authHelper.updateEmail(_newEmail!.text);
-                    _profileHelper.updateEmail(_newEmail!.text);
                   },
                   child: const Text(
                     'Confirm',

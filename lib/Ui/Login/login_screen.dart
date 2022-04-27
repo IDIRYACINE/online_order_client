@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
 
@@ -130,9 +129,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 )) {
                                   _authenticationHelper
                                       .signInWithEmailAndPassword(
-                                          Provider.of<HelpersProvider>(context,
-                                                  listen: false)
-                                              .profileHelper,
                                           emailController.text,
                                           passwordController.text);
                                 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
-import 'package:online_order_client/Application/Profile/profile_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:online_order_client/Ui/Components/shared_components.dart';
@@ -24,12 +23,11 @@ class _ProfileState extends State<ProfileScreen> {
     HelpersProvider _helpers =
         Provider.of<HelpersProvider>(context, listen: false);
     AuthenticationHelper _authHelper = _helpers.authHelper;
-    ProfileHelper _profileHelper = _helpers.profileHelper;
 
     return Scaffold(
         backgroundColor: parseColor("#F8EDEB"),
         appBar: AppBar(
-         title: const Text(
+          title: const Text(
             "personal informations",
             style: TextStyle(
               fontSize: 20,
@@ -65,7 +63,7 @@ class _ProfileState extends State<ProfileScreen> {
                   height: 10,
                 ),
                 Text(
-                  _profileHelper.getProfile().getFullName(),
+                  _authHelper.getProfile().getFullName(),
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 30),
                 ),
@@ -73,7 +71,7 @@ class _ProfileState extends State<ProfileScreen> {
                   height: 10,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ProfileInfoLabel(_profileHelper.getProfile().getEmail(),
+                  ProfileInfoLabel(_authHelper.getProfile().getEmail(),
                       const Icon(Icons.email)),
                   IconButton(
                     onPressed: () {
@@ -91,14 +89,13 @@ class _ProfileState extends State<ProfileScreen> {
                   height: 30,
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ProfileInfoLabel(_profileHelper.getProfile().getPhoneNumber(),
+                  ProfileInfoLabel(_authHelper.getProfile().getPhoneNumber(),
                       const Icon(Icons.phone)),
                   IconButton(
                       onPressed: () {
                         changeElementPoupUp(
                             context, const Text("Set new phone number : "), () {
-                          _profileHelper.updatePhoneNumber(_newPhone.text);
-                          _authHelper.requestPhoneValidation(_newPhone.text);
+                          _authHelper.updatePhoneNumber(_newPhone.text);
                           Navigator.of(context).pop();
                         }, " new phone number", const Icon(Icons.phone),
                             _newPhone);

@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:online_order_client/Application/DeliveryAddress/latlng.dart';
 import 'package:online_order_client/Domain/GpsLocation/address.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
