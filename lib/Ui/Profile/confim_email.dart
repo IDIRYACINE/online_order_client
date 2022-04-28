@@ -13,7 +13,7 @@ class ConfirmeEmailScreen extends StatefulWidget {
 }
 
 class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
-  final TextEditingController? _newEmail = TextEditingController();
+   final TextEditingController? _newEmail = TextEditingController();
   @override
   Widget build(BuildContext context) {
     HelpersProvider _helpers =
@@ -73,9 +73,7 @@ class _ConfirmeEmailScreenState extends State<ConfirmeEmailScreen> {
               const SizedBox(height: 15),
               ElevatedButton(
                   onPressed: () {
-                    UserInputValidtor.validateEmail(
-                      _newEmail!.text,
-                    );
+                    UserInputValidtor.validateEmail(context, _newEmail!.text ,empty: "Email can not be Empty !",invalid: "Invalid email !", seccus: "We have ben send a link , please check your email !");
                     _authHelper.updateEmail(_newEmail!.text);
                   },
                   child: const Text(

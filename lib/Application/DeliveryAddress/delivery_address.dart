@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:online_order_client/Application/DeliveryAddress/latlng.dart';
 import 'package:online_order_client/Domain/GpsLocation/address.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
