@@ -1,9 +1,6 @@
 // ignore_for_file: unused_local_variable
 
 import 'dart:convert';
-
-import 'package:online_order_client/Application/DeliveryAddress/latlng.dart';
-import 'package:online_order_client/Domain/GpsLocation/address.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
 import 'package:http/http.dart' as http;
@@ -11,27 +8,8 @@ import 'package:http/http.dart' as http;
 class CustomerDataSynchroniser implements ICustomerDataSynchroniser {
   final String _host;
   final Map<String, Object> infos = {};
-  final Map<String, Object> extras = {};
 
   CustomerDataSynchroniser(this._host);
-
-  @override
-  void setAddress(Address address) {
-    extras['Address'] = address.getAddress();
-    LatLng coordinates = address.getCoordinates();
-    extras['Latitude'] = coordinates.latitude;
-    extras['Longitude'] = coordinates.longitude;
-  }
-
-  @override
-  void setEmail(String email) {
-    infos['Email'] = email;
-  }
-
-  @override
-  void setFullName(String fullName) {
-    infos['FullName'] = fullName;
-  }
 
   @override
   void setPhone(String phoneNumber) {
@@ -41,35 +19,27 @@ class CustomerDataSynchroniser implements ICustomerDataSynchroniser {
   @override
   void setId(String id) {
     infos['Id'] = id;
-    extras['Id'] = id;
   }
 
   @override
-  Future<void> registerUser() async {
-    Uri url = Uri.parse('$_host/RegisterCustomer');
+  Future<void> updateUserPhone() async {
+    Uri url = Uri.parse('$_host/UpdateCustomerPhone');
+    String json = jsonEncode(infos);
     http.Response response = await http.post(url,
         headers: {"Content-Type": "application/json; charset=utf-8"},
-        body: jsonEncode({'infos': infos, 'extras': extras}));
-  }
-
-  ///not implemented on server
-  @override
-  Future<void> updateUser() async {
-    Uri url = Uri.parse('$_host/UpdateCustomer');
-    String json = jsonEncode({'infos': infos, 'extras': extras});
-    http.Response response = await http.post(url, body: json);
+        body: json);
   }
 
   @override
-  Future<void> fetchUser(ProfileModel profile) async {
+  Future<void> fetchUserPhone(ProfileModel profile) async {
     Uri url = Uri.parse(
-        '$_host/FetchCustomerInfos?customerId=${profile.getUserId()}');
-
-    http.get(url).then((value) {
-      final data = jsonDecode(value.body);
-      profile.setFullName(fullName: data["FullName"]);
-      profile.setPhoneNumber(number: data["PhoneNumber"]);
-      profile.saveProfile();
-    });
+        '$_host/FetchCustomerPhone?customerId=${profile.getUserId()}');
+    try {
+      http.get(url).then((value) {
+        final data = jsonDecode(value.body);
+        profile.setPhoneNumber(number: data["PhoneNumber"]);
+        profile.saveProfile();
+      });
+    } catch (e) {}
   }
 }

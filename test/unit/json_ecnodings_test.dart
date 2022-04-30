@@ -31,7 +31,7 @@ void main() {
     IProfile profileMock = ProfileModel();
 
     String expectedJson =
-        '{"profile":{"id":"idir","fullName":"idir yacine","phoneNumber":"0621xxxxx","email":"idir@gmail"},"address":{"latitude":32.0,"longitude":64.0,"extras":"bloc C"}}';
+        '{"profile":{"id":"idir","fullName":"idir yacine","phoneNumber":"0621xxxxx","email":"idir@gmail"},"address":{"latitude":32.0,"longitude":64.0,"address":"bloc C"}}';
 
     setUpAll(() async {
       setUpProfile(profileMock);
@@ -53,7 +53,9 @@ void main() {
 
     test("encode order To Server Map Format", () {
       Map<String, dynamic> expectedResult = {
-        "0": {"name": "pizza", "quantity": 1, "size": "normal"}
+        'items': [
+          {'name': 'pizza', 'quantity': 1, 'size': 'n', 'price': 32.0}
+        ]
       };
       order = cartMock.placeOrder();
       expect(order.formatOnlineOrder(), expectedResult);

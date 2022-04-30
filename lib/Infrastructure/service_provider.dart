@@ -20,7 +20,7 @@ import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synch
 
 class ServicesProvider {
   static final ServicesProvider _instance = ServicesProvider._();
-  static const String localHost = "192.168.1.7";
+  static const String localHost = "192.168.1.8";
   static const String nodeJsHost = "https://orsnodejs.herokuapp.com";
   bool _isInit = false;
   ServicesProvider._();
@@ -41,7 +41,7 @@ class ServicesProvider {
     if (_isInit) {
       return;
     }
-    //await _useTestMode();
+    await _useTestMode();
     await _initServices();
     _isInit = true;
   }
@@ -58,11 +58,10 @@ class ServicesProvider {
   }
 
   Future<void> _initServerAcess() async {
-    // http://192.168.1.6:9000/?ns=online-order-client";
+    // http://192.168.1.8:9000/?ns=online-order-client";
     //https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app/
     DatabaseReference _databaseReference = FirebaseDatabase(
-            databaseURL:
-                "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app")
+            databaseURL: "http://192.168.1.8:9000/?ns=online-order-client")
         .reference();
 
     _serverAcess =

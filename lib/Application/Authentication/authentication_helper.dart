@@ -4,6 +4,7 @@ import 'package:online_order_client/Application/Providers/navigation_provider.da
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
+import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -12,12 +13,11 @@ class AuthenticationHelper {
   late final FacebookAuthentication _fbAuthentication;
   late final ProfileModel _profile;
   late final AuthenticationErrorHandler _errorHandler;
+  late final ICustomerDataSynchroniser _dataSynchroniser;
   late BuildContext _context;
 
-  AuthenticationHelper(
-      this._profile, this._authService, this._fbAuthentication) {
-    _errorHandler = AuthenticationErrorHandler();
-  }
+  AuthenticationHelper(this._profile, this._authService, this._fbAuthentication,
+      this._errorHandler, this._dataSynchroniser);
 
   void setBuildContext(BuildContext context) {
     _context = context;
@@ -28,6 +28,7 @@ class AuthenticationHelper {
     _authService
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
+      _reloadProfile();
       Navigator.pop(_context);
     }).catchError((e) {
       _errorHandler.handleErrors(e.code);
@@ -49,6 +50,15 @@ class AuthenticationHelper {
       });
     }).catchError((e) {
       _errorHandler.handleErrors(e.code);
+    });
+  }
+
+  void _reloadProfile() {
+    _dataSynchroniser.setId(_authService.getId());
+    _dataSynchroniser.fetchUserPhone(_profile).then((value) {
+      _profile.setEmail(email: _authService.getEmail());
+      _profile.setFullName(fullName: _authService.getUsername());
+      _profile.saveProfile();
     });
   }
 
@@ -91,8 +101,11 @@ class AuthenticationHelper {
   }
 
   void updatePhoneNumber(String newPhone) {
-    _profile.setPhoneNumber(number: newPhone);
-    _profile.saveProfile();
+    _dataSynchroniser.setPhone(newPhone);
+    _dataSynchroniser.updateUserPhone().then((value) {
+      _profile.setPhoneNumber(number: newPhone);
+      _profile.saveProfile();
+    });
   }
 
   void _updateProfile(String fullName, String phone, String email) {

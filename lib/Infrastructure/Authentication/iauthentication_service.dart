@@ -36,5 +36,7 @@ abstract class IAuthenticationService {
 
   Future<void> updatePassword({required String newPassword});
 
+  String getEmail();
+  String getUsername();
   String getId();
 }

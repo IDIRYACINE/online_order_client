@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
+import 'package:online_order_client/Application/Authentication/authentication_error_handler.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/DeliveryAddress/delivery_address.dart';
 import 'package:online_order_client/Domain/Catalogue/category_model.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
+import 'package:online_order_client/Infrastructure/UserData/customer_data_synchroniser.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
 
 import '../../Domain/Cart/cart.dart';
@@ -43,7 +45,12 @@ class HelpersProvider with ChangeNotifier {
     ProfileModel profile = ProfileModel();
     await profile.loadProfile();
     _authHelper = AuthenticationHelper(
-        profile, services.authenticationService, FacebookAuthentication());
+        profile,
+        services.authenticationService,
+        FacebookAuthentication(),
+        AuthenticationErrorHandler(),
+        CustomerDataSynchroniser(
+            "http://" + ServicesProvider.localHost + ":3001"));
 
     _addressHelper = DeliveryAddress(profile.getAddress());
   }

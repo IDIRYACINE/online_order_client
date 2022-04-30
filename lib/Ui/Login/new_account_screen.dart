@@ -144,12 +144,10 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                     String password = _passwordController.text;
                     String email = _emailController.text;
                     String phoneNumber = _phoneNumberController.text;
-                    if (UserInputValidtor.validateRegistrationData(
-                        fullName, email, password, phoneNumber)) {
-                      _authHelper.setBuildContext(context);
-                      _authHelper.signUpWithEmailAndPassword(
-                          fullName, email, password, phoneNumber);
-                    }
+                    /* TODO */
+                    _authHelper.setBuildContext(context);
+                    _authHelper.signUpWithEmailAndPassword(
+                        fullName, email, password, phoneNumber);
                   },
                   child: const Text(
                     "Sign up",

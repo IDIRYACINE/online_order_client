@@ -124,10 +124,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: MaterialButton(
                               onPressed: () {
-                                setState(() {
-                                  UserInputValidtor.validateEmail(context, emailController.text, empty: "Email cant be empty !", invalid: "invalid Email !", seccus: "Secceful login !");
-                                });
-                                if (UserInputValidtor.validateEmail(context, emailController.text)) {
+                                if (UserInputValidtor.validateEmail(
+                                    context,
+                                    emailController.text,
+                                    "Email cant be empty !",
+                                    "invalid Email !",
+                                    "Secceful login !")) {
                                   _authenticationHelper
                                       .signInWithEmailAndPassword(
                                           emailController.text,

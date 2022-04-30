@@ -106,7 +106,7 @@ class ProfileModel implements IProfile {
     _address = Address();
   }
 
-  void _populateProfileData(Map<String, String> dataSource) {
+  void _populateProfileData(Map<String, dynamic> dataSource) {
     _email = dataSource['email']!;
     _phoneNumber = dataSource['phoneNumber']!;
     _fullName = dataSource['fullName']!;
@@ -120,9 +120,8 @@ class ProfileModel implements IProfile {
     try {
       File profile = await _getProfileFile();
       _json = await profile.readAsString();
-
-      Map<String, String> decodedProfile = jsonDecode(_json);
-      _populateProfileData(decodedProfile);
+      Map<String, dynamic> decodedProfile = jsonDecode(_json);
+      _populateProfileData(decodedProfile['profile']);
     } catch (e) {
       _initProfileWithDefaults();
     }

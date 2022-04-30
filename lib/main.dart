@@ -29,8 +29,6 @@ class MyApp extends StatelessWidget {
           return const HomeScreen();
         }
         if (snapshot.hasError) {
-          sendCodeAlert(context,
-              "An error occured some functionality might not work as expected");
           return const HomeScreen();
         } else {
           return const SplashScreen();
