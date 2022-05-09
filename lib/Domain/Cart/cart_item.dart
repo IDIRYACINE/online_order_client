@@ -4,14 +4,15 @@ class CartItem {
   late Product _product;
   late int _quantity;
   late double _price;
-  late String _size = "test";
-  late String _sizes;
+  late String _size;
 
-  CartItem({required Product product, required int quantity}) {
+  CartItem(
+      {required Product product,
+      required int quantity,
+      int selectedSizeIndex = 0}) {
     _product = product;
     _quantity = quantity;
-    _price = _quantity * _product.getPrice(0);
-    _sizes = _product.getSize(0);
+    _size = _product.getSize(selectedSizeIndex);
   }
 
   String getName() {
@@ -28,11 +29,15 @@ class CartItem {
   }
 
   double getPrice() {
-    return _price;
+    return _price * _quantity;
   }
 
   int getQuantity() {
     return _quantity;
+  }
+
+  void setQuantity(int quantity) {
+    _quantity = quantity;
   }
 
   String getThumbnailUrl() {
@@ -44,7 +49,7 @@ class CartItem {
   }
 
   void setSize(int sizeIndex) {
-    _size = _sizes[sizeIndex];
+    _size = _product.getSize(sizeIndex);
     _price = _product.getPrice(sizeIndex);
   }
 }

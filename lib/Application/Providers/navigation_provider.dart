@@ -1,19 +1,19 @@
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
-import 'package:online_order_client/Ui/Catalogue/category_screen.dart';
-import 'package:online_order_client/Ui/Catalogue/product_screen.dart';
-import 'package:online_order_client/Ui/Login/login_screen.dart';
-import 'package:online_order_client/Ui/Login/new_account_screen.dart';
-import 'package:online_order_client/Ui/Cart/cart_screen.dart';
+import 'package:online_order_client/Ui/Screens/Catalogue/category_screen.dart';
+import 'package:online_order_client/Ui/Screens/Catalogue/product_screen.dart';
+import 'package:online_order_client/Ui/Screens/DeliveryAddresse/gps_screen.dart';
+import 'package:online_order_client/Ui/Screens/Login/login_screen.dart';
+import 'package:online_order_client/Ui/Screens/Login/new_account_screen.dart';
+import 'package:online_order_client/Ui/Screens/Cart/cart_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Ui/Profile/profile_screen.dart';
-
-import '../../Ui/DeliveryAddresse/gps_screen.dart';
-import '../../Ui/Orders/order_status_screen.dart';
+import 'package:online_order_client/Ui/Screens/Orders/order_status_screen.dart';
+import 'package:online_order_client/Ui/Screens/Profile/profile_screen.dart';
 
 class NavigationProvider with ChangeNotifier {
   final List<Widget> _screens = [
     const CartScreen(),
     const CategoryScreen(),
+    const StatusScreen()
   ];
 
   int _screenIndex = 0;
@@ -31,12 +31,13 @@ class NavigationProvider with ChangeNotifier {
 
   void navigateToCatalogue() {
     _screenIndex = 1;
-    _iconIndex = 1;
+    _iconIndex = 0;
     notifyListeners();
   }
 
-  void navigateToCategoryProductsScreen() {
-    _screenIndex = 2;
+  void navigateToStatusScreen() {
+    _screenIndex = 3;
+    _iconIndex = 1;
     notifyListeners();
   }
 
@@ -83,11 +84,6 @@ class NavigationProvider with ChangeNotifier {
         context,
         MaterialPageRoute(
             builder: (context) => CategoryproductsScreen(product)));
-  }
-
-  void navigateToStatusScreen(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const StatusScreen()));
   }
 
   int getScreenIndex() {

@@ -1,7 +1,6 @@
 // ignore_for_file: empty_catches
 
 import 'dart:io';
-
 import 'package:online_order_client/Infrastructure/Database/idatabase.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 import 'package:sqflite/sqflite.dart';
@@ -24,17 +23,15 @@ class ProductsDatabase implements IProductsDatabase {
     }
 
     await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
-    try {
-      int databaseVersion = await _serverAccess.fetchData(dataUrl: 'version');
+    int databaseVersion = await _serverAccess.fetchData(dataUrl: 'version');
 
-      if (await _checkForNewVersion(databaseVersion)) {
-        disconnect();
-        await _serverAccess.downloadFile(
-            fileUrl: _productsDatabaseName, out: databaseFile);
-        await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
-        _productsDatabase.setVersion(databaseVersion);
-      }
-    } catch (exception) {}
+    if (await _checkForNewVersion(databaseVersion)) {
+      disconnect();
+      await _serverAccess.downloadFile(
+          fileUrl: _productsDatabaseName, out: databaseFile);
+      await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
+      _productsDatabase.setVersion(databaseVersion);
+    }
   }
 
   @override

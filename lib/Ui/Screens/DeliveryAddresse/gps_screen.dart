@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/DeliveryAddress/delivery_address.dart';
-import 'package:online_order_client/Ui/Components/shared_components.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Ui/Components/forms.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';
-import '../../Application/Providers/helpers_provider.dart';
 import 'package:latlong2/latlong.dart';
 
 class DeliveryAddresScreen extends StatefulWidget {
@@ -35,7 +35,6 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-              backgroundColor: parseColor("#F8EDEB"),
               appBar: PreferredSize(
                   preferredSize: const Size.fromHeight(100),
                   child: Padding(
@@ -88,7 +87,6 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
                       minWidth: 130,
                       height: 50,
                       shape: const StadiumBorder(),
-                      color: parseColor("#FFB5A7"),
                       child:
                           Row(mainAxisSize: MainAxisSize.min, children: const [
                         Text(

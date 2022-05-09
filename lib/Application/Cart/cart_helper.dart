@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
-import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../Domain/Cart/cart.dart';
@@ -21,12 +20,8 @@ class CartHelper {
       this._notifyChange);
 
   void addCartItem(CartItem cartItem, BuildContext context) {
-    if (cartItem.getQuantity() != 0) {
-      _cart.addProduct(product: cartItem);
-      _notifyChange();
-    } else {
-      sendCodeAlert(context, "Can't add 0 units to cart");
-    }
+    _cart.addProduct(product: cartItem);
+    _notifyChange();
   }
 
   int getCartItemCount() {

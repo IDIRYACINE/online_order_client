@@ -10,15 +10,15 @@
 </tr>
  <tr>
     <td>Design Cart Screen</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
+    <td> Done</td>
+    <td>1</td>
+    <td>Houssem</td>
   </tr>
  <tr>
     <td>Display Products In Cart</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
+    <td> Done</td>
+    <td>1</td>
+    <td>Houssem</td>
   </tr>
   <tr>
     <td>Customer Can Add Product To Cart</td>
@@ -34,9 +34,9 @@
   </tr>
    <tr>
     <td>Customer Can Edit Products</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
+    <td> Done</td>
+    <td>1</td>
+    <td>Houssem</td>
   </tr>
    <tr>
     <td>Customer Can Clear Cart</td>
@@ -138,9 +138,9 @@
   </tr>
  <tr>
     <td>Check Deliverability To Address</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
+    <td>Done</td>
+    <td>1</td>
+    <td>Houssem</td>
   </tr>
   <tr>
     <td>Check Ban Status</td>
@@ -156,9 +156,9 @@
   </tr>
     <tr>
     <td>Create Order Status Screen</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
+    <td>Done</td>
+    <td>1</td>
+    <td>Houssem</td>
   </tr>
 <table/>
 
@@ -172,14 +172,14 @@
 </tr>
  <tr>
     <td>Display Products By Category</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
+    <td> Done</td>
+    <td>1</td>
+    <td>Houssem</td>
   </tr>
    <tr>
     <td>Create Catalogue Screen</td>
-    <td>50%</td>
-    <td>None</td>
+    <td>Done</td>
+    <td>1</td>
     <td>Houssem</td>
   </tr>
    <tr>
@@ -200,9 +200,9 @@
 </tr>
  <tr>
     <td>Create Product Details Screen</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
+    <td> Done</td>
+    <td>1</td>
+    <td>Houssem</td>
   </tr>
 </table>
   
@@ -216,9 +216,9 @@
 </tr>
  <tr>
     <td>Create Profile Screen</td>
-    <td>Not Done</td>
-    <td>None</td>
-    <td>None</td>
+    <td>Done</td>
+    <td>1</td>
+    <td>Houssem</td>
   </tr>
  <tr>
     <td>Create Profile Model</td>

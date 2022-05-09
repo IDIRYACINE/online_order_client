@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/category_widget.dart';
-import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -27,8 +26,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             itemBuilder: (context, index) {
               return CategoryWidget(catalogueProvider.getCategory(index));
             },
-            separatorBuilder: (context, index) => Divider(
-              color: parseColor("#F9DCC4"),
+            separatorBuilder: (context, index) => const Divider(
               height: 10,
               thickness: 5,
             ),

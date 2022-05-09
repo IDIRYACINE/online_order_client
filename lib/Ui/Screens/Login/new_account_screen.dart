@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
-import 'package:online_order_client/Ui/Components/shared_components.dart';
+import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
+import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:provider/provider.dart';
-import '../../Application/Authentication/authentication_helper.dart';
-import '../../Application/Providers/helpers_provider.dart';
 
 class NewAccountScreen extends StatefulWidget {
   const NewAccountScreen({Key? key}) : super(key: key);
@@ -27,7 +25,6 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
         Provider.of<HelpersProvider>(context).authHelper;
 
     return Scaffold(
-      backgroundColor: parseColor("#FCD5CE"),
       body: Padding(
         padding: const EdgeInsets.only(
           top: 40,
@@ -65,9 +62,8 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                     hintText: "full name",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.person,
-                      color: parseColor("#FFB5A7"),
                     ),
                   ),
                 ),
@@ -82,9 +78,8 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                     hintText: "l'adresse Email",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.mail,
-                      color: parseColor("#FFB5A7"),
                     ),
                   ),
                 ),
@@ -99,9 +94,8 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                     hintText: "number phone",
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    prefixIcon: Icon(
+                    prefixIcon: const Icon(
                       Icons.phone,
-                      color: parseColor("#FCD5CE"),
                     ),
                   ),
                 ),
@@ -117,9 +111,8 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                       hintText: "Password",
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.lock,
-                        color: parseColor("#FFB5A7"),
                       ),
                       suffixIcon: IconButton(
                           onPressed: () {
@@ -136,7 +129,6 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                 width: 220,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: parseColor("#FFB5A7"),
                 ),
                 child: MaterialButton(
                   onPressed: () {

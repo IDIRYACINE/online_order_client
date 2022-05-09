@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Domain/Orders/order_status.dart';
-import 'package:online_order_client/Ui/Components/shared_components.dart';
-import 'package:online_order_client/Ui/Orders/status_widget.dart';
+import 'package:online_order_client/Ui/Components/forms.dart';
+import 'package:online_order_client/Ui/Screens/Orders/status_widget.dart';
 
 class StatusScreen extends StatefulWidget {
   const StatusScreen({Key? key}) : super(key: key);
@@ -14,7 +14,6 @@ class _StatusScreenState extends State<StatusScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: parseColor("#F8EDEB"),
       appBar: AppBar(
         title: const Text(
           "order status",
@@ -24,7 +23,6 @@ class _StatusScreenState extends State<StatusScreen> {
             color: Colors.black,
           ),
         ),
-        backgroundColor: parseColor("#FCD5CE"),
         centerTitle: false,
         leading: IconButton(
             onPressed: () => Navigator.pop(context, false),
@@ -38,7 +36,6 @@ class _StatusScreenState extends State<StatusScreen> {
           children: [
             StatusWidget(
               state: (OrderStatus.waiting),
-              avatarColor: parseColor("#FCD5CE"),
               title: "Order State",
               description:
                   "Here you can track your order status (Confirmed or Refused)",
@@ -52,7 +49,6 @@ class _StatusScreenState extends State<StatusScreen> {
             ),
             StatusWidget(
                 state: (OrderStatus.confirmed),
-                avatarColor: parseColor("#FCD5CE"),
                 title: "Food State",
                 description: "Here you can check your Food status"),
             const SizedBox(
@@ -64,7 +60,6 @@ class _StatusScreenState extends State<StatusScreen> {
             ),
             StatusWidget(
                 state: (OrderStatus.onDelivery),
-                avatarColor: parseColor("#FCD5CE"),
                 title: "Delivery State",
                 description:
                     "Here you can check your order Deliveration status"),

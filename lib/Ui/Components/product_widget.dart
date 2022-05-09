@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
-import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:provider/provider.dart';
 
 class ProductWidget extends StatefulWidget {
@@ -16,9 +15,8 @@ class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: parseColor("#FFB5A7"),
-        borderRadius: const BorderRadiusDirectional.only(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadiusDirectional.only(
           topStart: Radius.circular(30),
           topEnd: Radius.circular(30),
         ),
@@ -47,16 +45,14 @@ class _ProductWidgetState extends State<ProductWidget> {
           ),
           CircleAvatar(
               child: IconButton(
-                onPressed: () {
-                  Provider.of<NavigationProvider>(context, listen: false)
-                      .navigateToProductDetails(context, widget._product);
-                },
-                icon: Icon(
-                  Icons.add_circle_rounded,
-                  color: parseColor("#FEC89A"),
-                ),
-              ),
-              backgroundColor: parseColor("#F8EDEB"))
+            onPressed: () {
+              Provider.of<NavigationProvider>(context, listen: false)
+                  .navigateToProductDetails(context, widget._product);
+            },
+            icon: const Icon(
+              Icons.add_circle_rounded,
+            ),
+          )),
         ],
       ),
     );

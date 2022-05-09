@@ -3,8 +3,6 @@ import 'package:online_order_client/Application/Authentication/authentication_he
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
-import 'package:online_order_client/Ui/Components/shared_components.dart';
-import 'package:online_order_client/Ui/Profile/confim_email.dart';
 import 'package:provider/provider.dart';
 import 'change_informartion_dialogue.dart';
 
@@ -25,7 +23,6 @@ class _ProfileState extends State<ProfileScreen> {
     AuthenticationHelper _authHelper = _helpers.authHelper;
 
     return Scaffold(
-        backgroundColor: parseColor("#F8EDEB"),
         appBar: AppBar(
           title: const Text(
             "personal informations",
@@ -36,7 +33,6 @@ class _ProfileState extends State<ProfileScreen> {
               fontFamily: "Lobster",
             ),
           ),
-          backgroundColor: parseColor("#FCD5CE"),
           centerTitle: false,
           leading: IconButton(
               onPressed: () => Navigator.pop(context, false),
@@ -74,13 +70,7 @@ class _ProfileState extends State<ProfileScreen> {
                   ProfileInfoLabel(_authHelper.getProfile().getEmail(),
                       const Icon(Icons.email)),
                   IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const ConfirmeEmailScreen()));
-                    },
+                    onPressed: () {},
                     icon: const Icon(Icons.edit),
                     tooltip: "changer Email",
                   ),
@@ -139,12 +129,9 @@ class ProfileInfoLabel extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             height: 60,
             width: 275,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: parseColor("#FCD5CE")),
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 15,
@@ -158,17 +145,16 @@ class ProfileInfoLabel extends StatelessWidget {
                   width: 10,
                 ),
                 Expanded(
-                  child: Text(
-                    _title,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    maxLines: 1,
-                    softWrap: false,
-                    textAlign: TextAlign.left,
+                    child: Text(
+                  _title,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
+                  maxLines: 1,
+                  softWrap: false,
+                  textAlign: TextAlign.left,
+                )),
               ]),
             ),
           ),

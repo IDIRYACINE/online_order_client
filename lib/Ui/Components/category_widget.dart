@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Domain/Catalogue/category_model.dart';
-import 'package:online_order_client/Ui/Components/shared_components.dart';
 import 'package:online_order_client/Ui/Components/product_widget.dart';
 
 class CategoryWidget extends StatefulWidget {
@@ -16,7 +15,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisSize: MainAxisSize.max, children: [
-      CustomTitle(widget._category.getName(), 30, 3.0),
+      Text(widget._category.getName()),
       Container(
         decoration: const BoxDecoration(),
         height: 170,

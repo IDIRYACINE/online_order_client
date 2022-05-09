@@ -7,7 +7,7 @@ import 'package:online_order_client/Domain/Catalogue/category_model.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/UserData/customer_data_synchroniser.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
-
+import 'dart:developer' as dev;
 import '../../Domain/Cart/cart.dart';
 import '../../Domain/Catalogue/catalogue_model.dart';
 import '../../Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
@@ -31,7 +31,9 @@ class HelpersProvider with ChangeNotifier {
       await services.initialiaze();
       await services.productDatabase.connect();
       await _catalogueModel.initCategories();
-    } catch (exception) {}
+    } catch (exception) {
+      dev.log(exception.toString(), name: "IDIRIDR");
+    }
     _cartHelper = CartHelper(Cart(), services.orderService,
         services.authenticationService, notifyListeners);
     await _initProfile();
@@ -49,8 +51,7 @@ class HelpersProvider with ChangeNotifier {
         services.authenticationService,
         FacebookAuthentication(),
         AuthenticationErrorHandler(),
-        CustomerDataSynchroniser(
-            "http://" + ServicesProvider.localHost + ":3001"));
+        CustomerDataSynchroniser(ServicesProvider.nodeJsHost));
 
     _addressHelper = DeliveryAddress(profile.getAddress());
   }

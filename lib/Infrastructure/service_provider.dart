@@ -41,7 +41,7 @@ class ServicesProvider {
     if (_isInit) {
       return;
     }
-    await _useTestMode();
+    //await _useTestMode();
     await _initServices();
     _isInit = true;
   }
@@ -61,7 +61,8 @@ class ServicesProvider {
     // http://192.168.1.8:9000/?ns=online-order-client";
     //https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app/
     DatabaseReference _databaseReference = FirebaseDatabase(
-            databaseURL: "http://192.168.1.8:9000/?ns=online-order-client")
+            databaseURL:
+                "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app/")
         .reference();
 
     _serverAcess =
