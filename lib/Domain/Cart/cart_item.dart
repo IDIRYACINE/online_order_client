@@ -12,6 +12,7 @@ class CartItem {
       int selectedSizeIndex = 0}) {
     _product = product;
     _quantity = quantity;
+    _price = _product.getPrice(selectedSizeIndex);
     _size = _product.getSize(selectedSizeIndex);
   }
 

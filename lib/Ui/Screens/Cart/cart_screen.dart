@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
-import 'package:online_order_client/Ui/Themes/messages.dart';
+import 'package:online_order_client/Ui/Components/buttons.dart';
+import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 
 import 'cart_item_widget.dart';
@@ -36,11 +37,11 @@ class _CartScreenState extends State<CartScreen> {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
@@ -49,25 +50,14 @@ class _CartScreenState extends State<CartScreen> {
                   separatorBuilder: (context, index) => const Spacer(flex: 1),
                   itemCount: _cartHelper.getCartItemCount())),
           Text(
-            "${Messages.cartTotalPrice} : ${_cartHelper.getTotalPrice()} \$",
+            "$cartTotalPrice : ${_cartHelper.getTotalPrice()} \$",
             textAlign: TextAlign.center,
             style: theme.textTheme.headline2,
           ),
           Align(
               alignment: AlignmentDirectional.bottomCenter,
-              child: MaterialButton(
-                color: theme.primaryColor,
-                height: 50.0,
-                shape: const StadiumBorder(),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      Messages.buttonDelivery,
-                      style: theme.textTheme.bodyText1,
-                    )
-                  ],
-                ),
+              child: DefaultButton(
+                text: buttonDelivery,
                 onPressed: _sendOrder,
               ))
         ],

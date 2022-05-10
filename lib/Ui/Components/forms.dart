@@ -11,6 +11,8 @@ class CustomTextFormField extends StatefulWidget {
   final IconData? showTextIcon;
   final IconData? hideTextIcon;
   final OnChangeFunction onChange;
+  final EdgeInsets? paddings;
+  final Color? textFieldColor;
 
   const CustomTextFormField({
     Key? key,
@@ -22,6 +24,8 @@ class CustomTextFormField extends StatefulWidget {
     this.hideTextIcon,
     this.canToggleObsecureText = false,
     required this.onChange,
+    this.paddings,
+    this.textFieldColor,
   }) : super(key: key);
 
   @override
@@ -38,9 +42,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     obsecureText = ValueNotifier<bool>(widget.obsecureText);
 
     if (widget.canToggleObsecureText) {
-      sufficxIcon = showTextIcon;
       showTextIcon = widget.showTextIcon ?? Icons.visibility_off;
       hideTextIcon = widget.hideTextIcon ?? Icons.visibility;
+      sufficxIcon = showTextIcon;
     }
   }
 
@@ -57,11 +61,20 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (widget.label != null) Text(widget.label!),
-        TextFormField(
+    ThemeData theme = Theme.of(context);
+    setup();
+
+    return Padding(
+        padding: widget.paddings ?? const EdgeInsets.all(8),
+        child: TextFormField(
           decoration: InputDecoration(
+            filled: true,
+            fillColor: widget.textFieldColor ?? theme.scaffoldBackgroundColor,
+            labelStyle: theme.textTheme.subtitle1,
+            labelText: widget.label,
+            hintText: widget.hint,
+            hintStyle: theme.textTheme.bodyText1,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
             suffixIcon: widget.canToggleObsecureText
                 ? ValueListenableBuilder<bool>(
                     valueListenable: obsecureText,
@@ -77,16 +90,17 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           initialValue: widget.initialValue,
           obscureText: widget.obsecureText,
           onChanged: widget.onChange,
-        ),
-      ],
-    );
+        ));
   }
 }
 
 class FaultTolerantImage extends StatelessWidget {
   final String src;
 
-  const FaultTolerantImage({Key? key, required this.src}) : super(key: key);
+  const FaultTolerantImage(
+    this.src, {
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Image.network(

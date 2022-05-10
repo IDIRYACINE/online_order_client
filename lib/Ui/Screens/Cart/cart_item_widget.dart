@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Ui/Components/buttons.dart';
-import 'package:online_order_client/Ui/Components/product_widget.dart';
+import 'package:online_order_client/Ui/Components/forms.dart';
 
 class CartItemWidget extends StatefulWidget {
   final CartItem _cartItem;
@@ -15,36 +15,22 @@ class CartItemWidget extends StatefulWidget {
 class _CartItemState extends State<CartItemWidget> {
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return Card(
-      elevation: 10.0,
-      shape: const StadiumBorder(),
-      child: SizedBox(
-        height: 100,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Expanded(
-              flex: 2,
-              child: ProductPicture(widget._cartItem.getThumbnailUrl()),
-            ),
-            Expanded(
-              flex: 2,
-              child: Column(
-                children: [
-                  Text(widget._cartItem.getName()),
-                  Text(widget._cartItem.getPrice().toString())
-                ],
-              ),
-            ),
-            Expanded(
-                flex: 2,
-                child: UnitButton(
-                  initialCount: widget._cartItem.getQuantity(),
-                  onCountChange: widget._cartItem.setQuantity,
-                )),
-          ],
-        ),
-      ),
-    );
+        elevation: 4.0,
+        color: theme.cardColor,
+        child: ListTile(
+          shape: const StadiumBorder(),
+          leading: FaultTolerantImage(
+            widget._cartItem.getThumbnailUrl(),
+          ),
+          title: Text(widget._cartItem.getName()),
+          subtitle: Text(widget._cartItem.getPrice().toString()),
+          trailing: UnitButton(
+            initialCount: widget._cartItem.getQuantity(),
+            onCountChange: widget._cartItem.setQuantity,
+          ),
+        ));
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:online_order_client/Ui/Themes/messages.dart';
+import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -19,8 +19,8 @@ class _BottomNavBar extends State<BottomNavBar> {
         Provider.of<NavigationProvider>(context);
 
     return BottomNavigationBar(
-        backgroundColor: theme.backgroundColor,
-        iconSize: 10,
+        iconSize: 40,
+        selectedItemColor: theme.primaryColor,
         currentIndex: navigationProvider.getIconIndex(),
         items: [
           BottomNavigationBarItem(
@@ -29,9 +29,8 @@ class _BottomNavBar extends State<BottomNavBar> {
                 navigationProvider.navigateToCatalogue();
               },
               icon: const Icon(Icons.home),
-              iconSize: 40,
             ),
-            label: Messages.bottomNavBarHome,
+            label: bottomNavBarHome,
           ),
           BottomNavigationBarItem(
             icon: IconButton(
@@ -39,12 +38,11 @@ class _BottomNavBar extends State<BottomNavBar> {
                 navigationProvider.navigateToStatusScreen();
               },
               icon: const Icon(Icons.notifications),
-              iconSize: 40,
             ),
-            label: Messages.bottomNavBarHome,
+            label: bottomNavBarOrders,
           ),
           BottomNavigationBarItem(
-            label: Messages.bottomNavBarCart,
+            label: bottomNavBarCart,
             icon: IconButton(
               onPressed: () {
                 navigationProvider.navigateToCart();
@@ -52,20 +50,17 @@ class _BottomNavBar extends State<BottomNavBar> {
               icon: Stack(children: [
                 const Icon(
                   Icons.shopping_cart,
-                  size: 30,
                 ),
                 Positioned(
-                  bottom: 13,
-                  left: 9,
                   child: Container(
-                      alignment: Alignment.topCenter,
+                      alignment: Alignment.topRight,
                       child: CircleAvatar(
                         child: Consumer<HelpersProvider>(
                             builder: (context, helpers, child) {
                           return Text(
                             "${helpers.cartHelper.getCartItemCount()}",
                             style: const TextStyle(
-                                color: Colors.blue, fontSize: 10),
+                                color: Colors.white, fontSize: 10),
                           );
                         }),
                         radius: 7,

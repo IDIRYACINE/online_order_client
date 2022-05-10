@@ -16,7 +16,7 @@ class NavigationProvider with ChangeNotifier {
     const StatusScreen()
   ];
 
-  int _screenIndex = 0;
+  int _screenIndex = 1;
   int _iconIndex = 0;
 
   NavigationProvider();
@@ -36,7 +36,7 @@ class NavigationProvider with ChangeNotifier {
   }
 
   void navigateToStatusScreen() {
-    _screenIndex = 3;
+    _screenIndex = 2;
     _iconIndex = 1;
     notifyListeners();
   }

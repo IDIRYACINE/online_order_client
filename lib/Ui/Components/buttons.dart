@@ -1,54 +1,43 @@
 import 'package:flutter/material.dart';
 
-class DefaultButton extends StatefulWidget {
-  late final Color _color;
-  late final double _width;
-  late final double _height;
-  late final double _raduis;
-  late final String _title;
+class DefaultButton extends StatelessWidget {
+  final Color? textColor;
+  final Color? backgroundColor;
+  final String text;
+  final VoidCallback? onPressed;
+  final ShapeBorder? shape;
+  final double? width;
+  final double? height;
 
-  DefaultButton(
+  const DefaultButton(
       {Key? key,
-      Color? color = Colors.red,
-      double? width = double.infinity,
-      double? height = 70,
-      double? raduis = 0,
-      required String title,
-      required Function? function})
-      : super(key: key) {
-    _color = color!;
-    _width = width!;
-    _height = height!;
-    _raduis = raduis!;
-    _title = title;
-  }
+      this.textColor,
+      this.backgroundColor,
+      required this.text,
+      this.onPressed,
+      this.shape,
+      this.width,
+      this.height})
+      : super(key: key);
 
-  @override
-  State<DefaultButton> createState() => _DefaultButtonState();
-}
+  final double defaultHeight = 50.0;
 
-class _DefaultButtonState extends State<DefaultButton> {
-  late Function _function;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(widget._raduis),
-        color: widget._color,
-      ),
-      width: widget._width,
-      height: widget._height,
-      child: MaterialButton(
-        onPressed: () {
-          _function;
-        },
-        child: Text(
-          widget._title,
-          style: const TextStyle(
-              fontSize: 40, fontFamily: 'Dancing', fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
+    ThemeData theme = Theme.of(context);
+
+    return SizedBox(
+        width: width ?? double.infinity,
+        height: height ?? defaultHeight,
+        child: MaterialButton(
+          color: backgroundColor ?? theme.primaryColor,
+          shape: shape ?? const StadiumBorder(),
+          child: Text(
+            text,
+            style: theme.textTheme.button,
+          ),
+          onPressed: onPressed ?? () {},
+        ));
   }
 }
 
@@ -79,13 +68,9 @@ class _UnitButtonState extends State<UnitButton> {
   late Color _iconColor;
   late TextStyle _counterTextStyle;
 
-  _UnitButtonState() {
-    _units = 1;
-  }
-
   void _increameant(int step) {
     int temp = _units + step;
-    if (temp > widget.initialCount) {
+    if (temp > 0) {
       widget.onCountChange(temp);
       setState(() {
         _units = temp;
@@ -93,7 +78,9 @@ class _UnitButtonState extends State<UnitButton> {
     }
   }
 
-  void _setupColors(ThemeData theme) {
+  void _setup(ThemeData theme) {
+    _units = widget.initialCount;
+
     if (widget.fillBackground) {
       _backgroundColor = theme.primaryColor;
       _counterTextStyle = theme.textTheme.bodyText1!;
@@ -109,7 +96,7 @@ class _UnitButtonState extends State<UnitButton> {
 
   @override
   Widget build(BuildContext context) {
-    _setupColors(Theme.of(context));
+    _setup(Theme.of(context));
 
     return Container(
       decoration: BoxDecoration(
@@ -120,25 +107,33 @@ class _UnitButtonState extends State<UnitButton> {
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          IconButton(
-              onPressed: () {
-                _increameant(-1);
-              },
-              color: _iconBackgroundColor,
-              icon: Icon(
-                Icons.remove_circle_outlined,
-                color: _iconColor,
-              )),
+          InkResponse(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () {
+              _increameant(-1);
+            },
+            child: ColoredBox(
+                color: _iconBackgroundColor,
+                child: Icon(
+                  Icons.remove_circle_outlined,
+                  color: _iconColor,
+                )),
+          ),
           Text(_units.toString(),
               textAlign: TextAlign.center, style: _counterTextStyle),
-          IconButton(
-              onPressed: () {
-                _increameant(1);
-              },
-              color: _iconBackgroundColor,
-              icon: Icon(Icons.add_circle_rounded, color: _iconColor)),
+          InkResponse(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () {
+              _increameant(1);
+            },
+            child: ColoredBox(
+                color: _iconBackgroundColor,
+                child: Icon(Icons.add_circle_rounded, color: _iconColor)),
+          )
         ],
       ),
     );

@@ -12,7 +12,7 @@ class Category {
   late String _name;
   late String _imageUrl;
   late int _productCount;
-  int _loadedProducts = 0;
+  int _loadedProductsCount = 0;
   final List<Product> _products = [];
 
   Category(
@@ -35,7 +35,7 @@ class Category {
   }
 
   int getProductCount() {
-    return _loadedProducts;
+    return _products.length;
   }
 
   Product getProduct({required int productIndex}) {
@@ -47,7 +47,7 @@ class Category {
 
     List<Product> loadedProducts = await mapper.getProducts(
         categoryId: _id,
-        startIndex: _loadedProducts,
+        startIndex: _loadedProductsCount,
         productsCount: productsCount);
 
     for (Product product in loadedProducts) {
