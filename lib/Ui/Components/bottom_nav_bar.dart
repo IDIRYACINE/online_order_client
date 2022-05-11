@@ -64,7 +64,7 @@ class _BottomNavBar extends State<BottomNavBar> {
                           );
                         }),
                         radius: 7,
-                        backgroundColor: Colors.red,
+                        backgroundColor: theme.colorScheme.error,
                       )),
                 ),
               ]),

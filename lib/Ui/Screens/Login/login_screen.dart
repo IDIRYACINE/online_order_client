@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
+import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Ui/Components/buttons.dart';
 import 'package:online_order_client/Ui/Components/forms.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
@@ -15,7 +17,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool isVisible = false;
+  GlobalKey<FormState> formKey = GlobalKey();
 
   String email = "";
   String password = "";
@@ -33,7 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final ThemeData theme = Theme.of(context);
     final AuthenticationHelper _authenticationHelper =
         Provider.of<HelpersProvider>(context, listen: false).authHelper;
-
+    final NavigationProvider _navigationHelper =
+        Provider.of<NavigationProvider>(context, listen: false);
     _authenticationHelper.setBuildContext(context);
 
     return Scaffold(
@@ -52,26 +55,66 @@ class _LoginScreenState extends State<LoginScreen> {
         Container(
             padding: const EdgeInsets.all(16),
             color: theme.backgroundColor,
-            child: Wrap(runSpacing: widget.runSpacing, children: [
-              CustomTextFormField(
-                label: emailLabel,
-                hint: emailHint,
-                onChange: onEmailChanged,
-              ),
-              CustomTextFormField(
-                label: passwordLabel,
-                hint: passwordHint,
-                canToggleObsecureText: true,
-                onChange: onPasswordChanged,
-              ),
-              DefaultButton(
-                text: login,
-                onPressed: () {
-                  _authenticationHelper.signInWithEmailAndPassword(
-                      email, password);
-                },
-              ),
-            ])),
+            child: Form(
+              key: formKey,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomTextFormField(
+                      label: emailLabel,
+                      hint: emailHint,
+                      onChange: onEmailChanged,
+                      validator: UserInputValidtor.validateEmail,
+                    ),
+                    CustomTextFormField(
+                      label: passwordLabel,
+                      hint: passwordHint,
+                      canToggleObsecureText: true,
+                      onChange: onPasswordChanged,
+                    ),
+                    DefaultButton(
+                      text: loginLabel,
+                      width: double.infinity,
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          _authenticationHelper.signInWithEmailAndPassword(
+                              email, password);
+                        }
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(alternativeLoginLabel,
+                          style: theme.textTheme.subtitle2),
+                    ),
+                    const Divider(
+                      thickness: 4.0,
+                    ),
+                    DefaultButton(
+                      backgroundColor: Colors.blue,
+                      text: facebookLoginLabel,
+                      width: double.infinity,
+                      onPressed: () {
+                        _authenticationHelper.signInWithFacebook();
+                      },
+                    ),
+                    Row(
+                      children: [
+                        const Text(registerAccountLabel),
+                        TextButton(
+                            onPressed: () {
+                              _navigationHelper.navigateToNewAccount(context,
+                                  replace: true);
+                            },
+                            child: Text(
+                              registerLabel,
+                              style: theme.textTheme.subtitle2,
+                            ))
+                      ],
+                    )
+                  ]),
+            )),
       ],
     ));
   }

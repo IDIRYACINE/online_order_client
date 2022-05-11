@@ -15,6 +15,7 @@ class CategoryproductsScreen extends StatefulWidget {
   final double appBarElevation = 0.0;
   final double padding = 15.0;
   final double backbuttonPadding = 10.0;
+  final double optionalItemsYpadding = 4.0;
   const CategoryproductsScreen(this.product, {Key? key}) : super(key: key);
 
   @override
@@ -45,24 +46,18 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
     theme = Theme.of(context);
 
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, 150.0),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: ListTile(
-              title: Text(
-                appTitle,
-                style: theme.textTheme.headline2,
-              ),
-              leading: Card(
-                elevation: 4.0,
-                color: theme.cardColor,
-                child: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(Icons.arrow_back_ios)),
-              ),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: Card(
+              elevation: 4.0,
+              color: theme.cardColor,
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.arrow_back_ios)),
             ),
           ),
         ),
@@ -109,17 +104,33 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                   style: theme.textTheme.subtitle1,
                 ),
               ),
-              Flexible(
-                child: OptionalItemsWidget(
-                  sizesTitle,
-                  itemCount: widget.product.getSizesCount(),
-                  itemPopulater: getSize,
-                  onItemPressed: selectSize,
-                ),
-              ),
+              Padding(
+                  padding: EdgeInsets.only(
+                      top: widget.optionalItemsYpadding,
+                      bottom: widget.optionalItemsYpadding),
+                  child: OptionalItemsWidget(
+                    sizesTitle,
+                    unselectedItemColor: theme.colorScheme.background,
+                    itemCount: widget.product.getSizesCount(),
+                    itemPopulater: getSize,
+                    onItemPressed: selectSize,
+                  )),
+              Padding(
+                  padding: EdgeInsets.only(
+                      top: widget.optionalItemsYpadding,
+                      bottom: widget.optionalItemsYpadding),
+                  child: OptionalItemsWidget(
+                    sizesTitle,
+                    itemShape: const RoundedRectangleBorder(),
+                    unselectedItemColor: theme.colorScheme.background,
+                    itemCount: widget.product.getSizesCount(),
+                    itemPopulater: getSize,
+                    onItemPressed: selectSize,
+                  )),
               Flexible(
                 child: DefaultButton(
                   text: buttonDelivery,
+                  width: double.infinity,
                   onPressed: () {
                     Provider.of<HelpersProvider>(context, listen: false)
                         .cartHelper

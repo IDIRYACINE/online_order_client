@@ -1,49 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Ui/Themes/constants.dart';
 
+//Themes
 ThemeData primaryTheme = ThemeData(
-  primaryColor: Colors.orange,
-  errorColor: Colors.red,
-  backgroundColor: Colors.white,
-  scaffoldBackgroundColor: Colors.grey[200],
-  secondaryHeaderColor: Colors.white,
-  hintColor: Colors.grey[200],
-  shadowColor: Colors.black,
-  cardColor: Colors.white,
-  dividerColor: Colors.grey[300],
-  appBarTheme: AppBarTheme(backgroundColor: Colors.grey[200]),
+  primaryColor: primaryColor,
+  errorColor: errorColor,
+  backgroundColor: surfaceColor,
+  scaffoldBackgroundColor: backgroundColor,
+  hintColor: hintColor,
+  shadowColor: darkColor,
+  cardColor: backgroundColor,
+  dividerColor: notSetYet,
+
+  //Icons
+  iconTheme: const IconThemeData(color: primaryColor),
+
+  //appBar
+  appBarTheme: AppBarTheme(
+    backgroundColor: surfaceColor,
+    centerTitle: true,
+    elevation: 0,
+  ),
+
+  //colors
   colorScheme: ColorScheme(
-      primary: Colors.orange,
-      primaryVariant: Colors.white,
-      secondary: Colors.white,
-      secondaryVariant: Colors.white,
-      surface: Colors.white,
-      background: Colors.grey[200]!,
-      error: Colors.red,
-      onPrimary: Colors.white,
-      onSecondary: Colors.white,
-      onSurface: Colors.black,
-      onBackground: Colors.black,
-      onError: Colors.white,
+      primary: primaryColor,
+      primaryVariant: notSetYet,
+      secondary: notSetYet,
+      secondaryVariant: notSetYet,
+      surface: surfaceColor,
+      background: backgroundColor,
+      error: errorColor,
+      onPrimary: onPrimary,
+      onSecondary: notSetYet,
+      onSurface: darkColor,
+      onBackground: darkColor,
+      onError: notSetYet,
       brightness: Brightness.light),
-  // font
-  fontFamily: 'Georgia',
+
+  // fonts
+  fontFamily: 'Roboto',
+
   //text style
   textTheme: TextTheme(
     headline1: const TextStyle(
-        fontSize: 36.0, fontWeight: FontWeight.bold, color: Colors.black),
+        fontSize: 36.0, fontWeight: FontWeight.bold, color: darkColor),
     headline2: const TextStyle(
-        fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
-    subtitle1: const TextStyle(fontSize: 18.0, color: Colors.grey),
-    bodyText1: TextStyle(fontSize: 14.0, color: Colors.grey[200]),
-    bodyText2: const TextStyle(fontSize: 14.0, color: Colors.black),
-    button: const TextStyle(fontSize: 14.0, color: Colors.white),
+        fontSize: 18.0, fontWeight: FontWeight.bold, color: darkColor),
+    headline3: const TextStyle(
+        fontSize: 18.0, fontWeight: FontWeight.bold, color: darkColor),
+    subtitle1: const TextStyle(fontSize: 18.0, color: darkColor),
+    subtitle2: const TextStyle(fontSize: 14.0, color: primaryColor),
+    bodyText1: TextStyle(fontSize: 14.0, color: surfaceColor),
+    bodyText2: const TextStyle(fontSize: 14.0, color: darkColor),
+    button: TextStyle(fontSize: 14.0, color: surfaceColor),
   ),
 
+  //button
   textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Colors.orange),
-          textStyle: MaterialStateProperty.all(
-              const TextStyle(fontSize: 14.0, color: Colors.white)),
-          shape: MaterialStateProperty.all(const StadiumBorder()),
-          minimumSize: MaterialStateProperty.all(const Size(200.0, 100.0)))),
+    backgroundColor: MaterialStateProperty.all(backgroundColor),
+    textStyle: MaterialStateProperty.all(
+        const TextStyle(fontSize: 14.0, color: primaryColor)),
+  )),
 );

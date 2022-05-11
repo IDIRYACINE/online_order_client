@@ -4,9 +4,11 @@ import 'package:online_order_client/Ui/Components/buttons.dart';
 import 'package:online_order_client/Ui/Components/forms.dart';
 
 class CartItemWidget extends StatefulWidget {
-  final CartItem _cartItem;
-
-  const CartItemWidget(this._cartItem, {Key? key}) : super(key: key);
+  final CartItem cartItem;
+  final int thumbnailFlex = 3;
+  final int contentFlex = 3;
+  final int actionsFLex = 1;
+  const CartItemWidget(this.cartItem, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _CartItemState();
@@ -18,19 +20,41 @@ class _CartItemState extends State<CartItemWidget> {
     ThemeData theme = Theme.of(context);
 
     return Card(
-        elevation: 4.0,
-        color: theme.cardColor,
-        child: ListTile(
-          shape: const StadiumBorder(),
-          leading: FaultTolerantImage(
-            widget._cartItem.getThumbnailUrl(),
-          ),
-          title: Text(widget._cartItem.getName()),
-          subtitle: Text(widget._cartItem.getPrice().toString()),
-          trailing: UnitButton(
-            initialCount: widget._cartItem.getQuantity(),
-            onCountChange: widget._cartItem.setQuantity,
-          ),
-        ));
+      elevation: 4.0,
+      child: Row(
+        children: [
+          Expanded(
+              flex: widget.thumbnailFlex,
+              child: FaultTolerantImage(
+                widget.cartItem.getThumbnailUrl(),
+              )),
+          Expanded(
+              flex: widget.contentFlex,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.cartItem.getName(),
+                        style: theme.textTheme.headline2),
+                    Text(
+                      widget.cartItem.getPrice().toString(),
+                      style: theme.textTheme.headline2,
+                    )
+                  ],
+                ),
+              )),
+          Expanded(
+            flex: widget.actionsFLex,
+            child: UnitButton(
+              direction: Axis.vertical,
+              iconsPadding: const EdgeInsets.all(2.0),
+              initialCount: widget.cartItem.getQuantity(),
+              onCountChange: widget.cartItem.setQuantity,
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

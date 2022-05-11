@@ -54,7 +54,7 @@ class _OptionalItemsWidgetState extends State<OptionalItemsWidget> {
       icon: item.getIconData(),
       selectedItemColor: widget.selectedItemColor ?? theme.primaryColor,
       unselectedItemColor:
-          widget.unselectedItemColor ?? theme.scaffoldBackgroundColor,
+          widget.unselectedItemColor ?? theme.colorScheme.background,
       selectedItemTextColor:
           widget.selectedItemTextColor ?? theme.backgroundColor,
       unselectedItemTextColor:

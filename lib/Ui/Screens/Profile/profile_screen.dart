@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:online_order_client/Ui/Components/popup_widget.dart';
+import 'package:online_order_client/Ui/Components/buttons.dart';
+import 'package:online_order_client/Ui/Components/cards.dart';
+import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
-import 'change_informartion_dialogue.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final double cardsPadding = 10.0;
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
@@ -14,150 +16,90 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileState extends State<ProfileScreen> {
-  final TextEditingController _newPhone = TextEditingController();
-  final UserInputValidtor valid = UserInputValidtor();
+  final formKey = GlobalKey<FormState>();
+  final UserInputValidtor userInputValidtor = UserInputValidtor();
+
   @override
   Widget build(BuildContext context) {
-    HelpersProvider _helpers =
-        Provider.of<HelpersProvider>(context, listen: false);
-    AuthenticationHelper _authHelper = _helpers.authHelper;
+    AuthenticationHelper _authHelper =
+        Provider.of<HelpersProvider>(context, listen: false).authHelper;
+
+    ThemeData theme = Theme.of(context);
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            "personal informations",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontFamily: "Lobster",
-            ),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: theme.colorScheme.surface,
+        title:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Card(
+              elevation: 4.0,
+              color: theme.cardColor,
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(Icons.arrow_back_ios))),
+          Text(profileTitle, style: theme.textTheme.headline3),
+          Card(
+            elevation: 4.0,
+            color: theme.cardColor,
+            child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.supervised_user_circle_sharp)),
           ),
-          centerTitle: false,
-          leading: IconButton(
-              onPressed: () => Navigator.pop(context, false),
-              icon: const Icon(Icons.keyboard_return)),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: Image.asset(
-                    'assets/images/profile.png',
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  _authHelper.getProfile().getFullName(),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 30),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ProfileInfoLabel(_authHelper.getProfile().getEmail(),
-                      const Icon(Icons.email)),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    tooltip: "changer Email",
-                  ),
-                ]),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ProfileInfoLabel(_authHelper.getProfile().getPhoneNumber(),
-                      const Icon(Icons.phone)),
-                  IconButton(
-                      onPressed: () {
-                        changeElementPoupUp(
-                            context, const Text("Set new phone number : "), () {
-                          _authHelper.updatePhoneNumber(_newPhone.text);
-                          Navigator.of(context).pop();
-                        }, " new phone number", const Icon(Icons.phone),
-                            _newPhone);
-                      },
-                      icon: const Icon(Icons.edit),
-                      tooltip: "Changer le numero de telephone ")
-                ]),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  const ProfileInfoLabel("*********", Icon(Icons.lock)),
-                  IconButton(
-                    onPressed: () {
-                      sendCodeAlert(context,
-                          "We've send Password updating link , please check your email !");
-                      _authHelper.sendPasswordResetCode();
-                    },
-                    icon: const Icon(Icons.edit),
-                    tooltip: "Changer le mot de pass ",
-                  )
-                ]),
-                const SizedBox(
-                  height: 30,
-                ),
-              ],
-            ),
-          ),
-        ));
-  }
-}
-
-class ProfileInfoLabel extends StatelessWidget {
-  final String _title;
-  final Icon _icon;
-  const ProfileInfoLabel(this._title, this._icon, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 60,
-            width: 275,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 15,
+        ]),
+      ),
+      backgroundColor: theme.colorScheme.surface,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(widget.cardsPadding),
+              child: InformationCard(
+                label: emailLabel,
+                initialValue: _authHelper.getEmail(),
               ),
-              child: Row(children: [
-                const SizedBox(
-                  width: 10,
-                ),
-                _icon,
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                    child: Text(
-                  _title,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  maxLines: 1,
-                  softWrap: false,
-                  textAlign: TextAlign.left,
-                )),
-              ]),
             ),
-          ),
-        ]);
+            Padding(
+                padding: EdgeInsets.all(widget.cardsPadding),
+                child: InformationCard(
+                  label: usernameLabel,
+                  initialValue: _authHelper.getFullName(),
+                )),
+            Padding(
+                padding: EdgeInsets.all(widget.cardsPadding),
+                child: InformationCard(
+                  label: phoneLabel,
+                  initialValue: _authHelper.getPhone(),
+                )),
+            Padding(
+                padding: EdgeInsets.all(widget.cardsPadding),
+                child: InformationCard(
+                  label: addressLabel,
+                  initialValue: _authHelper.getAddress(),
+                  onPressed: () {
+                    _authHelper.setDeliveryAddresse(context);
+                  },
+                )),
+            Padding(
+                padding: EdgeInsets.all(widget.cardsPadding),
+                child: DefaultButton(
+                  text: logoutLabel,
+                  width: double.infinity,
+                  onPressed: () {
+                    _authHelper.logout();
+                    Navigator.of(context).pop();
+                  },
+                ))
+          ],
+        ),
+      ),
+    );
   }
 }

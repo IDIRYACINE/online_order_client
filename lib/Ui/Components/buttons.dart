@@ -5,7 +5,7 @@ class DefaultButton extends StatelessWidget {
   final Color? backgroundColor;
   final String text;
   final VoidCallback? onPressed;
-  final ShapeBorder? shape;
+  final ShapeBorder shape;
   final double? width;
   final double? height;
 
@@ -15,7 +15,7 @@ class DefaultButton extends StatelessWidget {
       this.backgroundColor,
       required this.text,
       this.onPressed,
-      this.shape,
+      this.shape = const StadiumBorder(),
       this.width,
       this.height})
       : super(key: key);
@@ -27,11 +27,11 @@ class DefaultButton extends StatelessWidget {
     ThemeData theme = Theme.of(context);
 
     return SizedBox(
-        width: width ?? double.infinity,
+        width: width,
         height: height ?? defaultHeight,
         child: MaterialButton(
           color: backgroundColor ?? theme.primaryColor,
-          shape: shape ?? const StadiumBorder(),
+          shape: shape,
           child: Text(
             text,
             style: theme.textTheme.button,
@@ -48,55 +48,52 @@ class UnitButton extends StatefulWidget {
   final bool fillBackground;
   final int initialCount;
   final CounterCallback onCountChange;
+  final Axis direction;
+  final EdgeInsets iconsPadding;
 
-  const UnitButton(
-      {Key? key,
-      this.borderRadius = 12.0,
-      this.fillBackground = false,
-      this.initialCount = 0,
-      required this.onCountChange})
-      : super(key: key);
+  const UnitButton({
+    Key? key,
+    this.borderRadius = 12.0,
+    this.fillBackground = false,
+    this.initialCount = 0,
+    required this.onCountChange,
+    this.direction = Axis.horizontal,
+    this.iconsPadding = const EdgeInsets.all(8.0),
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _UnitButtonState();
 }
 
 class _UnitButtonState extends State<UnitButton> {
-  late int _units;
-  late Color _backgroundColor;
-  late Color _iconBackgroundColor;
-  late Color _iconColor;
-  late TextStyle _counterTextStyle;
+  late ValueNotifier<int> _units;
 
   void _increameant(int step) {
-    int temp = _units + step;
+    int temp = _units.value + step;
     if (temp > 0) {
       widget.onCountChange(temp);
-      setState(() {
-        _units = temp;
-      });
-    }
-  }
-
-  void _setup(ThemeData theme) {
-    _units = widget.initialCount;
-
-    if (widget.fillBackground) {
-      _backgroundColor = theme.primaryColor;
-      _counterTextStyle = theme.textTheme.bodyText1!;
-      _iconBackgroundColor = theme.primaryColor;
-      _iconColor = theme.backgroundColor;
-    } else {
-      _backgroundColor = theme.backgroundColor;
-      _counterTextStyle = theme.textTheme.bodyText2!;
-      _iconBackgroundColor = theme.backgroundColor;
-      _iconColor = theme.primaryColor;
+      _units.value = temp;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _setup(Theme.of(context));
+    ThemeData theme = Theme.of(context);
+
+    late Color _backgroundColor;
+    late Color _iconColor;
+    late TextStyle _counterTextStyle;
+    _units = ValueNotifier(widget.initialCount);
+
+    if (widget.fillBackground) {
+      _backgroundColor = theme.primaryColor;
+      _counterTextStyle = theme.textTheme.bodyText1!;
+      _iconColor = theme.colorScheme.surface;
+    } else {
+      _backgroundColor = theme.colorScheme.surface;
+      _counterTextStyle = theme.textTheme.bodyText2!;
+      _iconColor = theme.colorScheme.primary;
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -105,33 +102,38 @@ class _UnitButtonState extends State<UnitButton> {
           Radius.circular(widget.borderRadius),
         ),
       ),
-      child: Row(
+      child: Flex(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        direction: widget.direction,
+        verticalDirection: VerticalDirection.up,
         children: [
           InkResponse(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: () {
-              _increameant(-1);
-            },
-            child: ColoredBox(
-                color: _iconBackgroundColor,
-                child: Icon(
-                  Icons.remove_circle_outlined,
-                  color: _iconColor,
-                )),
-          ),
-          Text(_units.toString(),
-              textAlign: TextAlign.center, style: _counterTextStyle),
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () {
+                _increameant(-1);
+              },
+              child: Padding(
+                  padding: widget.iconsPadding,
+                  child: Icon(
+                    Icons.remove_circle_outlined,
+                    color: _iconColor,
+                  ))),
+          ValueListenableBuilder(
+              valueListenable: _units,
+              builder: (context, value, child) {
+                return Text(_units.value.toString(),
+                    textAlign: TextAlign.center, style: _counterTextStyle);
+              }),
           InkResponse(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () {
               _increameant(1);
             },
-            child: ColoredBox(
-                color: _iconBackgroundColor,
+            child: Padding(
+                padding: widget.iconsPadding,
                 child: Icon(Icons.add_circle_rounded, color: _iconColor)),
           )
         ],

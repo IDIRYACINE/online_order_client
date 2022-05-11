@@ -9,6 +9,13 @@ import 'package:provider/provider.dart';
 import 'cart_item_widget.dart';
 
 class CartScreen extends StatefulWidget {
+  final double maxCartItemHieght = 300;
+  final double screenPadding = 15.0;
+  final int totalPriceFlex = 1;
+  final int cartItemsFlex = 5;
+  final int checkoutFlex = 1;
+  final double itemSpeperatorHieght = 10;
+
   const CartScreen({Key? key}) : super(key: key);
 
   @override
@@ -34,32 +41,43 @@ class _CartScreenState extends State<CartScreen> {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(widget.screenPadding),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SingleChildScrollView(
-              scrollDirection: Axis.vertical,
+          Expanded(
+              flex: widget.cartItemsFlex,
               child: ListView.separated(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    return CartItemWidget(_cartHelper.getProduct(index));
+                    return CartItemWidget(_cartHelper.getProduct(0));
                   },
-                  separatorBuilder: (context, index) => const Spacer(flex: 1),
-                  itemCount: _cartHelper.getCartItemCount())),
-          Text(
-            "$cartTotalPrice : ${_cartHelper.getTotalPrice()} \$",
-            textAlign: TextAlign.center,
-            style: theme.textTheme.headline2,
+                  separatorBuilder: (context, index) =>
+                      SizedBox(height: widget.itemSpeperatorHieght),
+                  itemCount: 10)),
+          Expanded(
+            flex: widget.totalPriceFlex,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(cartTotalPrice, style: theme.textTheme.headline2),
+                  Text("${_cartHelper.getTotalPrice()} \$",
+                      style: theme.textTheme.headline2)
+                ]),
           ),
-          Align(
-              alignment: AlignmentDirectional.bottomCenter,
-              child: DefaultButton(
-                text: buttonDelivery,
-                onPressed: _sendOrder,
-              ))
+          Expanded(
+            flex: widget.checkoutFlex,
+            child: Align(
+                alignment: AlignmentDirectional.bottomCenter,
+                child: DefaultButton(
+                  width: double.infinity,
+                  text: buttonDelivery,
+                  onPressed: _sendOrder,
+                )),
+          )
         ],
       ),
     );

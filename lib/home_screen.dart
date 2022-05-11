@@ -17,26 +17,21 @@ class HomeScreen extends StatelessWidget {
     HelpersProvider helpersProvider = Provider.of<HelpersProvider>(context);
 
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size(double.infinity, 150.0),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: ListTile(
-              title: Text(
-                appTitle,
-                style: theme.textTheme.headline2,
-              ),
-              trailing: Card(
-                elevation: 4.0,
-                color: theme.colorScheme.background,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(appTitle, style: theme.textTheme.headline3),
+              Card(
                 child: IconButton(
                     color: theme.primaryColor,
                     onPressed: () {
                       helpersProvider.authHelper.isLoggedIn(context);
                     },
                     icon: const Icon(Icons.person)),
-              ),
-            ),
+              )
+            ],
           ),
         ),
         body: navigationProvider.getScreen(),

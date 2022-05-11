@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 typedef OnChangeFunction = void Function(String value);
+typedef FormFieldValidator = String? Function(String? value);
 
 class CustomTextFormField extends StatefulWidget {
   final String? label;
@@ -13,6 +14,7 @@ class CustomTextFormField extends StatefulWidget {
   final OnChangeFunction onChange;
   final EdgeInsets? paddings;
   final Color? textFieldColor;
+  final FormFieldValidator? validator;
 
   const CustomTextFormField({
     Key? key,
@@ -26,6 +28,7 @@ class CustomTextFormField extends StatefulWidget {
     required this.onChange,
     this.paddings,
     this.textFieldColor,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -51,12 +54,12 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   void toggleObsecureText(bool value) {
     if (value) {
       sufficxIcon = showTextIcon;
-      obsecureText.value = value;
+      obsecureText.value = !value;
       return;
     }
 
     sufficxIcon = hideTextIcon;
-    obsecureText.value = value;
+    obsecureText.value = !value;
   }
 
   @override
@@ -66,47 +69,64 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
     return Padding(
         padding: widget.paddings ?? const EdgeInsets.all(8),
-        child: TextFormField(
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: widget.textFieldColor ?? theme.scaffoldBackgroundColor,
-            labelStyle: theme.textTheme.subtitle1,
-            labelText: widget.label,
-            hintText: widget.hint,
-            hintStyle: theme.textTheme.bodyText1,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-            suffixIcon: widget.canToggleObsecureText
-                ? ValueListenableBuilder<bool>(
-                    valueListenable: obsecureText,
-                    builder: (context, value, child) {
-                      return IconButton(
+        child: ValueListenableBuilder<bool>(
+            valueListenable: obsecureText,
+            builder: (context, value, child) {
+              return TextFormField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor:
+                      widget.textFieldColor ?? theme.scaffoldBackgroundColor,
+                  labelStyle: theme.textTheme.subtitle1,
+                  labelText: widget.label,
+                  hintText: widget.hint,
+                  hintStyle: theme.textTheme.bodyText1,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  suffixIcon: widget.canToggleObsecureText
+                      ? IconButton(
                           onPressed: () {
-                            toggleObsecureText(!obsecureText.value);
+                            toggleObsecureText(obsecureText.value);
                           },
-                          icon: Icon(sufficxIcon));
-                    })
-                : null,
-          ),
-          initialValue: widget.initialValue,
-          obscureText: widget.obsecureText,
-          onChanged: widget.onChange,
-        ));
+                          icon: Icon(sufficxIcon))
+                      : null,
+                ),
+                initialValue: widget.initialValue,
+                obscureText: obsecureText.value,
+                onChanged: widget.onChange,
+                validator: widget.validator,
+              );
+            }));
   }
 }
 
 class FaultTolerantImage extends StatelessWidget {
   final String src;
+  final double? height;
+  final double? width;
+  final BoxFit? fit;
 
   const FaultTolerantImage(
     this.src, {
     Key? key,
+    this.height,
+    this.width,
+    this.fit,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Image.network(
       src,
+      height: height,
+      width: width,
+      fit: fit,
       errorBuilder: (context, object, stackTrace) {
-        return Image.asset('assets/images/pizza2.jpg');
+        return Image.asset(
+          'assets/images/pizza2.jpg',
+          height: height,
+          width: width,
+          fit: fit,
+        );
       },
     );
   }

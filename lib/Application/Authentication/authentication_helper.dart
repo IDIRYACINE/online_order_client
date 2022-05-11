@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:online_order_client/Application/Authentication/authentication_error_handler.dart';
+import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
@@ -7,6 +8,8 @@ import 'package:online_order_client/Infrastructure/Authentication/iauthenticatio
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
 import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:provider/provider.dart';
+
+enum userData { fullName, phoneNumber, address, password, email }
 
 class AuthenticationHelper {
   late final IAuthenticationService _authService;
@@ -70,18 +73,6 @@ class AuthenticationHelper {
     _fbAuthentication.singIn();
   }
 
-  void requestPhoneValidation(String phone) {
-    _authService.requestPhoneVerification(
-        phone: phone,
-        onVerificationCompleted: () {
-          sendCodeAlert(_context, "Your phone has been validated");
-        },
-        onSmsCodeSent: () {
-          //Make a pop up widget asking for the code
-          //_authService.confirmPhoneVerification(smsCode: "913203");
-        });
-  }
-
   void sendPasswordResetCode() {
     _authService.requestNewPassword();
   }
@@ -115,11 +106,6 @@ class AuthenticationHelper {
     _profile.saveProfile();
   }
 
-  void setDeliveryAddresse(BuildContext context) {
-    Provider.of<NavigationProvider>(context, listen: false)
-        .navigateToDeliveryAddressScreen(context, () => {}, replace: false);
-  }
-
   void isLoggedIn(BuildContext context) {
     _authService.accountIsActive().then((value) {
       if (value) {
@@ -135,7 +121,43 @@ class AuthenticationHelper {
     });
   }
 
+  final Map<userData, String> _changedFields = {};
+
   ProfileModel getProfile() {
     return _profile;
+  }
+
+  String getAddress() {
+    return _profile.getAddress().getAddress();
+  }
+
+  void setDeliveryAddresse(BuildContext context) {
+    Provider.of<NavigationProvider>(context, listen: false)
+        .navigateToDeliveryAddressScreen(context, () => {}, replace: false);
+  }
+
+  String getFullName() {
+    return _profile.getFullName();
+  }
+
+  String getEmail() {
+    return _profile.getEmail();
+  }
+
+  String getPhone() {
+    return _profile.getPhoneNumber();
+  }
+
+  void cacheChangedField(userData fieldKey, String value) {
+    _changedFields[fieldKey] = value;
+  }
+
+  void saveDataChanges() {
+    _changedFields.forEach((key, value) {
+      if (key == userData.fullName) {
+      } else if (key == userData.email) {
+      } else if (key == userData.password) {
+      } else if (key == userData.phoneNumber) {}
+    });
   }
 }

@@ -1,7 +1,7 @@
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/category_screen.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/product_screen.dart';
-import 'package:online_order_client/Ui/Screens/DeliveryAddresse/gps_screen.dart';
+import 'package:online_order_client/Ui/Screens/DeliveryAddress/gps_screen.dart';
 import 'package:online_order_client/Ui/Screens/Login/login_screen.dart';
 import 'package:online_order_client/Ui/Screens/Login/new_account_screen.dart';
 import 'package:online_order_client/Ui/Screens/Cart/cart_screen.dart';
@@ -69,9 +69,14 @@ class NavigationProvider with ChangeNotifier {
     }
   }
 
-  void navigateToNewAccount(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const NewAccountScreen()));
+  void navigateToNewAccount(BuildContext context, {bool replace = false}) {
+    if (!replace) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const NewAccountScreen()));
+    } else {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const NewAccountScreen()));
+    }
   }
 
   void navigateToProfile(BuildContext context) {

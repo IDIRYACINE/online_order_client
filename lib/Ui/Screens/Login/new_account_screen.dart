@@ -1,155 +1,117 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
+import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Domain/Profile/profile_model.dart';
+import 'package:online_order_client/Ui/Components/buttons.dart';
+import 'package:online_order_client/Ui/Components/forms.dart';
+import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 
 class NewAccountScreen extends StatefulWidget {
   const NewAccountScreen({Key? key}) : super(key: key);
+  final double runSpacing = 8.0;
 
   @override
   _NewAccountScreenState createState() => _NewAccountScreenState();
 }
 
 class _NewAccountScreenState extends State<NewAccountScreen> {
-  bool isVisible = false;
-  IconData show = Icons.visibility_off;
-  IconData hide = Icons.remove_red_eye;
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
+  String email = "";
+  String password = "";
+  String username = "";
+  String phone = "";
+
+  void onEmailChanged(String value) {
+    email = value;
+  }
+
+  void onPasswordChanged(String value) {
+    password = value;
+  }
+
+  void onPhoneChanged(String value) {
+    email = value;
+  }
+
+  void onUsernameChanged(String value) {
+    password = value;
+  }
 
   @override
   Widget build(BuildContext context) {
-    final AuthenticationHelper _authHelper =
-        Provider.of<HelpersProvider>(context).authHelper;
+    final ThemeData theme = Theme.of(context);
+
+    final AuthenticationHelper _authenticationHelper =
+        Provider.of<HelpersProvider>(context, listen: false).authHelper;
+
+    final ProfileModel profile = _authenticationHelper.getProfile();
+
+    _authenticationHelper.setBuildContext(context);
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 40,
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Text(
-                "\"bienvenu dans notre restaurant , nous sommes tres heureux de votre visite a notre service alimentaire\"",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontFamily: "lobster",
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                "creé votre new compte , Now !!",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: "lobster",
-                  decoration: TextDecoration.underline,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 15),
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                  controller: _fullNameController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: "full name",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    prefixIcon: const Icon(
-                      Icons.person,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    hintText: "l'adresse Email",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    prefixIcon: const Icon(
-                      Icons.mail,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                  controller: _phoneNumberController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "number phone",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    prefixIcon: const Icon(
-                      Icons.phone,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              SizedBox(
-                width: 300,
-                child: TextFormField(
-                    controller: _passwordController,
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: isVisible,
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      prefixIcon: const Icon(
-                        Icons.lock,
-                      ),
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isVisible = !isVisible;
-                            });
-                          },
-                          icon: isVisible ? Icon(show) : Icon(hide)),
-                    )),
-              ),
-              const SizedBox(height: 7),
-              Container(
-                height: 60,
-                width: 220,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: MaterialButton(
-                  onPressed: () {
-                    String fullName = _fullNameController.text;
-                    String password = _passwordController.text;
-                    String email = _emailController.text;
-                    String phoneNumber = _phoneNumberController.text;
-                    /* TODO */
-                    _authHelper.setBuildContext(context);
-                    _authHelper.signUpWithEmailAndPassword(
-                        fullName, email, password, phoneNumber);
-                  },
-                  child: const Text(
-                    "Sign up",
-                  ),
-                ),
-              )
-            ],
+        body: Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              alignment: Alignment.center,
+              image: AssetImage("assets/images/food.png"),
+              fit: BoxFit.fill,
+            ),
           ),
         ),
-      ),
-    );
+        Container(
+          padding: const EdgeInsets.all(16),
+          color: theme.backgroundColor,
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CustomTextFormField(
+                  label: usernameLabel,
+                  initialValue: profile.getFullName(),
+                  onChange: (value) {},
+                  validator: UserInputValidtor.validateUsername,
+                ),
+                CustomTextFormField(
+                  label: emailLabel,
+                  initialValue: profile.getEmail(),
+                  onChange: (value) {},
+                  validator: UserInputValidtor.validateEmail,
+                ),
+                CustomTextFormField(
+                  label: phoneLabel,
+                  initialValue: profile.getPhoneNumber(),
+                  onChange: (value) {},
+                  validator: UserInputValidtor.validatePhoneNumber,
+                ),
+                CustomTextFormField(
+                  label: passwordLabel,
+                  hint: passwordHint,
+                  canToggleObsecureText: true,
+                  onChange: onPasswordChanged,
+                ),
+                DefaultButton(
+                  width: double.infinity,
+                  text: signupLabel,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      _authenticationHelper.signUpWithEmailAndPassword(
+                          username, email, password, phone);
+                    }
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    ));
   }
 }
