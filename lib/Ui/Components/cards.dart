@@ -52,39 +52,41 @@ class _InformationCardState extends State<InformationCard> {
           title: Text(widget.label),
           content: Form(
               key: formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flexible(
-                    child: CustomTextFormField(
-                      onChange: (value) {
-                        temp = value;
-                      },
-                      initialValue: value.value,
-                      validator: widget.validator,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Flexible(
+                      child: CustomTextFormField(
+                        onChange: (value) {
+                          temp = value;
+                        },
+                        initialValue: value.value,
+                        validator: widget.validator,
+                      ),
                     ),
-                  ),
-                  Flexible(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text(cancelLabel)),
-                        DefaultButton(
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                src.value = temp;
+                    Flexible(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                              onPressed: () {
                                 Navigator.of(context).pop();
-                              }
-                            },
-                            text: confirmLabel),
-                      ],
+                              },
+                              child: const Text(cancelLabel)),
+                          DefaultButton(
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  src.value = temp;
+                                  Navigator.of(context).pop();
+                                }
+                              },
+                              text: confirmLabel),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               )),
         );
       },
@@ -111,7 +113,7 @@ class _InformationCardState extends State<InformationCard> {
           color: widget.backgroundColor ?? theme.cardColor,
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
-              color: widget.borderColor ?? Colors.grey[300]!, width: 5),
+              color: widget.borderColor ?? Colors.grey[300]!, width: 2),
         ),
         child: Row(
           children: [

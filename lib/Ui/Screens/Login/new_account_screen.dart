@@ -9,8 +9,9 @@ import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 
 class NewAccountScreen extends StatefulWidget {
-  const NewAccountScreen({Key? key}) : super(key: key);
   final double runSpacing = 8.0;
+
+  const NewAccountScreen({Key? key}) : super(key: key);
 
   @override
   _NewAccountScreenState createState() => _NewAccountScreenState();
@@ -23,6 +24,8 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
   String password = "";
   String username = "";
   String phone = "";
+
+  final ValueNotifier<bool> isPasswordObsecure = ValueNotifier(true);
 
   void onEmailChanged(String value) {
     email = value;
@@ -38,6 +41,10 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
 
   void onUsernameChanged(String value) {
     password = value;
+  }
+
+  void toggleObsecurePassword(bool value) {
+    isPasswordObsecure.value = value;
   }
 
   @override
@@ -65,49 +72,67 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
           ),
         ),
         Container(
-          padding: const EdgeInsets.all(16),
-          color: theme.backgroundColor,
+          padding: const EdgeInsets.all(spaceDefault),
+          decoration: BoxDecoration(
+              color: theme.backgroundColor,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(borderCircularRaduisLarge),
+                topRight: Radius.circular(borderCircularRaduisLarge),
+              )),
           child: Form(
             key: formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CustomTextFormField(
-                  label: usernameLabel,
-                  initialValue: profile.getFullName(),
-                  onChange: (value) {},
-                  validator: UserInputValidtor.validateUsername,
-                ),
-                CustomTextFormField(
-                  label: emailLabel,
-                  initialValue: profile.getEmail(),
-                  onChange: (value) {},
-                  validator: UserInputValidtor.validateEmail,
-                ),
-                CustomTextFormField(
-                  label: phoneLabel,
-                  initialValue: profile.getPhoneNumber(),
-                  onChange: (value) {},
-                  validator: UserInputValidtor.validatePhoneNumber,
-                ),
-                CustomTextFormField(
-                  label: passwordLabel,
-                  hint: passwordHint,
-                  canToggleObsecureText: true,
-                  onChange: onPasswordChanged,
-                ),
-                DefaultButton(
-                  width: double.infinity,
-                  text: signupLabel,
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      _authenticationHelper.signUpWithEmailAndPassword(
-                          username, email, password, phone);
-                    }
-                  },
-                )
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustomTextFormField(
+                    label: usernameLabel,
+                    initialValue: profile.getFullName(),
+                    onChange: onUsernameChanged,
+                    validator: UserInputValidtor.validateUsername,
+                  ),
+                  CustomTextFormField(
+                    label: emailLabel,
+                    initialValue: profile.getEmail(),
+                    onChange: onEmailChanged,
+                    validator: UserInputValidtor.validateEmail,
+                  ),
+                  CustomTextFormField(
+                    label: phoneLabel,
+                    initialValue: profile.getPhoneNumber(),
+                    onChange: onPhoneChanged,
+                    validator: UserInputValidtor.validatePhoneNumber,
+                  ),
+                  ValueListenableBuilder<bool>(
+                    valueListenable: isPasswordObsecure,
+                    builder: (buildContext, value, child) {
+                      return CustomTextFormField(
+                        label: passwordLabel,
+                        hint: passwordHint,
+                        obsecureText: !value,
+                        trailing: ToggleButton(
+                          isActive: value,
+                          toggleCallback: (toggleValue) {
+                            isPasswordObsecure.value = toggleValue;
+                          },
+                        ),
+                        onChange: onPasswordChanged,
+                      );
+                    },
+                  ),
+                  DefaultButton(
+                    width: double.infinity,
+                    text: signupLabel,
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        _authenticationHelper.signUpWithEmailAndPassword(
+                            username, email, password, phone);
+                      }
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ),

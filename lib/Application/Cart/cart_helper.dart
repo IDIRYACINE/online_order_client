@@ -1,20 +1,20 @@
 import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
+import 'package:online_order_client/Domain/Cart/cart.dart';
+import 'package:online_order_client/Domain/Cart/cart_item.dart';
+import 'package:online_order_client/Domain/Orders/iorder.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
+import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
+import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
+import 'package:online_order_client/Ui/Screens/Cart/cart_item_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../../Domain/Cart/cart.dart';
-import '../../Domain/Cart/cart_item.dart';
-import '../../Domain/Orders/iorder.dart';
-import '../../Infrastructure/Authentication/iauthentication_service.dart';
-import '../../Infrastructure/Orders/iorder_service.dart';
-
 class CartHelper {
-  late final Cart _cart;
-  late final IOrderService _orderService;
-  late final IAuthenticationService _authenticationService;
-  late final VoidCallback _notifyChange;
+  final Cart _cart;
+  final IOrderService _orderService;
+  final IAuthenticationService _authenticationService;
+  final VoidCallback _notifyChange;
 
   CartHelper(this._cart, this._orderService, this._authenticationService,
       this._notifyChange);

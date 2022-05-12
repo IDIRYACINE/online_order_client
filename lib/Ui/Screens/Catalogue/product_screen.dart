@@ -16,6 +16,7 @@ class CategoryproductsScreen extends StatefulWidget {
   final double padding = 15.0;
   final double backbuttonPadding = 10.0;
   final double optionalItemsYpadding = 4.0;
+  final int productDescriptionMaxLines = 2;
   const CategoryproductsScreen(this.product, {Key? key}) : super(key: key);
 
   @override
@@ -57,7 +58,10 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  icon: const Icon(Icons.arrow_back_ios)),
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: theme.colorScheme.onBackground,
+                  )),
             ),
           ),
         ),
@@ -94,14 +98,16 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                 child: Align(
                     alignment: AlignmentDirectional.topEnd,
                     child: Text(
-                      widget.product.getPrice(_currentSizeIndex).toString(),
+                      "${widget.product.getPrice(_currentSizeIndex)} $labelCurrency",
                       style: theme.textTheme.headline2,
                     )),
               ),
               Flexible(
                 child: Text(
-                  "widget.product.getDescription()",
-                  style: theme.textTheme.subtitle1,
+                  "widget.product.getDescription()widget.product.getDescription()widget.product.getDescription()widget.product.getDwidget.product.getDescription()widget.product.getDwidget.product.getDescription()widget.product.getDescription()widget.product.getDescription()escription()escription()widget.product.getDescription()",
+                  style: theme.textTheme.subtitle2,
+                  maxLines: widget.productDescriptionMaxLines,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Padding(
@@ -129,7 +135,7 @@ class _CategoryproductsScreenState extends State<CategoryproductsScreen> {
                   )),
               Flexible(
                 child: DefaultButton(
-                  text: buttonDelivery,
+                  text: buttonAddProduct,
                   width: double.infinity,
                   onPressed: () {
                     Provider.of<HelpersProvider>(context, listen: false)

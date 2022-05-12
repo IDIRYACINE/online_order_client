@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Domain/Orders/order_status.dart';
-import 'package:online_order_client/Ui/Components/forms.dart';
-import 'package:online_order_client/Ui/Screens/Orders/status_widget.dart';
+import 'package:online_order_client/Ui/Screens/Orders/order_state_widget.dart';
 
 class StatusScreen extends StatefulWidget {
   const StatusScreen({Key? key}) : super(key: key);
@@ -18,34 +17,35 @@ class _StatusScreenState extends State<StatusScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          StatusWidget(
-            state: (OrderStatus.waiting),
-            title: "Order State",
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          OrderStateWidget(
+            state: OrderStatus.waiting,
+            title: OrderStatus.waiting,
             description:
                 "Here you can track your order status (Confirmed or Refused)",
           ),
-          const SizedBox(
+          SizedBox(
             child: VerticalDivider(
               color: Colors.black,
               thickness: 5.0,
             ),
             height: 150,
           ),
-          StatusWidget(
-              state: (OrderStatus.confirmed),
-              title: "Food State",
+          OrderStateWidget(
+              state: OrderStatus.confirmed,
+              title: OrderStatus.confirmed,
               description: "Here you can check your Food status"),
-          const SizedBox(
+          SizedBox(
             child: VerticalDivider(
               color: Colors.black,
               thickness: 5.0,
             ),
             height: 150,
           ),
-          StatusWidget(
-              state: (OrderStatus.onDelivery),
-              title: "Delivery State",
+          OrderStateWidget(
+              state: OrderStatus.onDelivery,
+              title: OrderStatus.onDelivery,
               description: "Here you can check your order Deliveration status"),
         ],
       ),

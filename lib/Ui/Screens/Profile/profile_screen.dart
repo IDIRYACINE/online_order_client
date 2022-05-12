@@ -39,7 +39,10 @@ class _ProfileState extends State<ProfileScreen> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  icon: const Icon(Icons.arrow_back_ios))),
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black,
+                  ))),
           Text(profileTitle, style: theme.textTheme.headline3),
           Card(
             elevation: 4.0,
@@ -48,56 +51,60 @@ class _ProfileState extends State<ProfileScreen> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                icon: const Icon(Icons.supervised_user_circle_sharp)),
+                icon: const Icon(
+                  Icons.supervised_user_circle_sharp,
+                  color: Colors.black,
+                )),
           ),
         ]),
       ),
-      backgroundColor: theme.colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(widget.cardsPadding),
-              child: InformationCard(
-                label: emailLabel,
-                initialValue: _authHelper.getEmail(),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(widget.cardsPadding),
+                child: InformationCard(
+                  label: emailLabel,
+                  initialValue: _authHelper.getEmail(),
+                ),
               ),
-            ),
-            Padding(
-                padding: EdgeInsets.all(widget.cardsPadding),
-                child: InformationCard(
-                  label: usernameLabel,
-                  initialValue: _authHelper.getFullName(),
-                )),
-            Padding(
-                padding: EdgeInsets.all(widget.cardsPadding),
-                child: InformationCard(
-                  label: phoneLabel,
-                  initialValue: _authHelper.getPhone(),
-                )),
-            Padding(
-                padding: EdgeInsets.all(widget.cardsPadding),
-                child: InformationCard(
-                  label: addressLabel,
-                  initialValue: _authHelper.getAddress(),
-                  onPressed: () {
-                    _authHelper.setDeliveryAddresse(context);
-                  },
-                )),
-            Padding(
-                padding: EdgeInsets.all(widget.cardsPadding),
-                child: DefaultButton(
-                  text: logoutLabel,
-                  width: double.infinity,
-                  onPressed: () {
-                    _authHelper.logout();
-                    Navigator.of(context).pop();
-                  },
-                ))
-          ],
+              Padding(
+                  padding: EdgeInsets.all(widget.cardsPadding),
+                  child: InformationCard(
+                    label: usernameLabel,
+                    initialValue: _authHelper.getFullName(),
+                  )),
+              Padding(
+                  padding: EdgeInsets.all(widget.cardsPadding),
+                  child: InformationCard(
+                    label: phoneLabel,
+                    initialValue: _authHelper.getPhone(),
+                  )),
+              Padding(
+                  padding: EdgeInsets.all(widget.cardsPadding),
+                  child: InformationCard(
+                    label: addressLabel,
+                    initialValue: _authHelper.getAddress(),
+                    onPressed: () {
+                      _authHelper.setDeliveryAddresse(context);
+                    },
+                  )),
+              Padding(
+                  padding: EdgeInsets.all(widget.cardsPadding),
+                  child: DefaultButton(
+                    text: logoutLabel,
+                    width: double.infinity,
+                    onPressed: () {
+                      _authHelper.logout();
+                      Navigator.of(context).pop();
+                    },
+                  ))
+            ],
+          ),
         ),
       ),
     );

@@ -7,7 +7,7 @@ class UserInputValidtor {
   static const _nullValue = "Value can't be empty";
   static const _shortValue = "Must contain 8 or more characters";
   static const _invalidEmail = "Invalid Email";
-  static const _invalidPhone = "_Invalid Phone Number";
+  static const _invalidPhone = "Invalid Phone Number";
 
   static String? validateUsername(String? value) {
     if (!_checkNull(value)) {

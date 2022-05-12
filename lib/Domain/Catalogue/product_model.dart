@@ -23,7 +23,7 @@ class Product {
     return _name;
   }
 
-  double getPrice(int index) {
+  double getPrice([int index = 0]) {
     return _prices[index];
   }
 

@@ -11,6 +11,8 @@ class ProductWidget extends StatelessWidget {
   final double cardBottomPadding;
   final double dividerThickness;
   final double productNameTopPadding;
+  final int imageFlex = 2;
+  final double cardElevation = 8.0;
 
   const ProductWidget(
     this.product, {
@@ -33,24 +35,27 @@ class ProductWidget extends StatelessWidget {
       },
       child: Card(
           color: backgroundColor ?? theme.cardColor,
-          elevation: 4.0,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(borderCircularRaduis)),
+          elevation: cardElevation,
           child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
-                flex: goldenRatioFlexLarge,
+                flex: imageFlex,
                 child: FaultTolerantImage(
                   product.getImageUrl(),
+                  fit: BoxFit.fitHeight,
                 ),
               ),
-              Flexible(
-                flex: goldenRatioFlexMeduim,
+              Expanded(
+                  child: Center(
                 child:
                     Text(product.getName(), style: theme.textTheme.headline2),
-              ),
-              Flexible(
-                flex: golenRatioFlexExtraSmall,
+              )),
+              const Divider(),
+              Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(bottom: cardBottomPadding),
                   child: Row(
@@ -58,10 +63,13 @@ class ProductWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          product.getPrice(0).toString(),
+                          product.getPrice().toString(),
                           style: theme.textTheme.headline2,
                         ),
-                        const Text(currencySymbol)
+                        const Text(
+                          currencySymbol,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )
                       ]),
                 ),
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Domain/Catalogue/optional_item.dart';
+import 'package:online_order_client/Ui/Components/forms.dart';
 
 typedef ItemPopulater = OptionalItem Function(int index);
 typedef ItemActivationFunction = bool Function(int index);
@@ -16,7 +17,8 @@ class OptionalItemsWidget extends StatefulWidget {
   final ItemActivationFunction onItemPressed;
   final bool displayItemLabel;
   final bool displayItemIcon;
-  final ShapeBorder? itemShape;
+  final ShapeBorder itemShape;
+  final EdgeInsets titlePadding;
   final double? minItemWidth;
   const OptionalItemsWidget(
     this.title, {
@@ -30,8 +32,9 @@ class OptionalItemsWidget extends StatefulWidget {
     this.unselectedItemTextColor,
     this.displayItemLabel = true,
     this.displayItemIcon = false,
-    this.itemShape,
+    this.itemShape = const StadiumBorder(),
     this.minItemWidth,
+    this.titlePadding = const EdgeInsets.only(bottom: 8.0),
   }) : super(key: key);
 
   @override
@@ -51,7 +54,7 @@ class _OptionalItemsWidgetState extends State<OptionalItemsWidget> {
       onItemPressed: widget.onItemPressed,
       displayIcon: widget.displayItemIcon,
       displayLabel: widget.displayItemLabel,
-      icon: item.getIconData(),
+      icon: FaultTolerantImage(item.getImageUrl()),
       selectedItemColor: widget.selectedItemColor ?? theme.primaryColor,
       unselectedItemColor:
           widget.unselectedItemColor ?? theme.colorScheme.background,
@@ -59,7 +62,7 @@ class _OptionalItemsWidgetState extends State<OptionalItemsWidget> {
           widget.selectedItemTextColor ?? theme.backgroundColor,
       unselectedItemTextColor:
           widget.unselectedItemTextColor ?? theme.colorScheme.onBackground,
-      shape: widget.itemShape ?? const StadiumBorder(),
+      shape: widget.itemShape,
       minWidth: widget.minItemWidth,
     );
   }
@@ -73,7 +76,7 @@ class _OptionalItemsWidgetState extends State<OptionalItemsWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 2.0),
+          padding: widget.titlePadding,
           child: Text(
             widget.title,
             style: theme.textTheme.headline2,
@@ -97,7 +100,7 @@ class _OptionalItemsWidgetState extends State<OptionalItemsWidget> {
 }
 
 class _ItemWidget extends StatefulWidget {
-  final IconData? icon;
+  final Widget? icon;
   final String label;
   final ItemActivationFunction? onItemPressed;
   final int index;
@@ -150,15 +153,13 @@ class _ItemWidgetState extends State<_ItemWidget> {
     setup();
 
     return MaterialButton(
+      elevation: 0,
       color: isSelected ? widget.selectedItemColor : widget.unselectedItemColor,
       minWidth: widget.minWidth,
       shape: widget.shape,
       child: Row(
         children: [
-          if (widget.displayIcon)
-            Icon(
-              widget.icon,
-            ),
+          if (widget.displayIcon) widget.icon!,
           if (widget.displayLabel)
             Text(
               widget.label,

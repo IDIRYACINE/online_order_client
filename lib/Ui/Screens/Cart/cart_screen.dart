@@ -25,7 +25,8 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   VoidCallback? _sendOrder;
   late ThemeData theme;
-
+  final BoxConstraints itemConstraints =
+      const BoxConstraints(minHeight: 100, maxHeight: 150);
   @override
   Widget build(BuildContext context) {
     CartHelper _cartHelper = Provider.of<HelpersProvider>(context).cartHelper;
@@ -53,7 +54,10 @@ class _CartScreenState extends State<CartScreen> {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    return CartItemWidget(_cartHelper.getProduct(0));
+                    return ConstrainedBox(
+                        constraints: const BoxConstraints(
+                            minHeight: 100, maxHeight: 150),
+                        child: CartItemWidget(_cartHelper.getProduct(0)));
                   },
                   separatorBuilder: (context, index) =>
                       SizedBox(height: widget.itemSpeperatorHieght),

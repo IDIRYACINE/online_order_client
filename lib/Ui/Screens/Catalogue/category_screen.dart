@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_order_client/Application/Catalogue/catalogue_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Domain/Catalogue/category_model.dart';
 import 'package:online_order_client/Domain/Catalogue/optional_item.dart';
@@ -8,14 +9,14 @@ import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 
 class CategoryScreen extends StatefulWidget {
-  final double padding = 16.0;
+  final double bodyPadding = 16.0;
   final double fixedCategoryWidth = 100;
-  final double spaceBetweenPreviewTitle = 00.0;
   final double spaceBetweenProducts = 10.0;
   final int categoriesScrollerFlex = 1;
   final int productsScrollerFlex = 2;
   final int previewHeaderFlex = 1;
   final int previewBodyFlex = 9;
+  final int productsFlex = 1;
   const CategoryScreen({Key? key}) : super(key: key);
 
   @override
@@ -24,15 +25,19 @@ class CategoryScreen extends StatefulWidget {
 
 class _CategoryScreenState extends State<CategoryScreen> {
   final ValueNotifier<int> _selectedCategoryIndex = ValueNotifier(0);
+  final BoxConstraints productsConstraints =
+      const BoxConstraints(minWidth: 130, maxWidth: 150);
 
   @override
   Widget build(BuildContext context) {
-    HelpersProvider catalogueProvider = Provider.of<HelpersProvider>(context);
+    CatalogueHelper catalogueHelper =
+        Provider.of<HelpersProvider>(context, listen: false).catalogueHelper;
+
     final ThemeData theme = Theme.of(context);
 
     return Scaffold(
         body: Padding(
-            padding: EdgeInsets.all(widget.padding),
+            padding: EdgeInsets.all(widget.bodyPadding),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,10 +47,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     child: OptionalItemsWidget(
                       categoriesTitle,
                       minItemWidth: widget.fixedCategoryWidth,
-                      itemCount: catalogueProvider.getCategoriesCount(),
+                      itemCount: catalogueHelper.getCategoriesCount(),
                       itemPopulater: (int index) {
-                        Category category =
-                            catalogueProvider.getCategory(index);
+                        Category category = catalogueHelper.getCategory(index);
                         return OptionalItem(category.getName());
                       },
                       onItemPressed: (int index) {
@@ -59,53 +63,54 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         valueListenable: _selectedCategoryIndex,
                         builder: (context, categoryIndex, child) {
                           Category category =
-                              catalogueProvider.getCategory(categoryIndex);
+                              catalogueHelper.getCategory(categoryIndex);
 
                           return Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Expanded(
-                                  flex: goldenRatioFlexMeduim,
-                                  child: Padding(
-                                      padding: EdgeInsets.only(
-                                          bottom:
-                                              widget.spaceBetweenPreviewTitle),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            category.getName(),
-                                            style: theme.textTheme.headline2,
+                                Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: spaceDefault),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          category.getName(),
+                                          style: theme.textTheme.headline2,
+                                        ),
+                                        InkResponse(
+                                          onTap: () {},
+                                          child: Text(
+                                            seeAllLabel,
+                                            style: theme.textTheme.overline,
                                           ),
-                                          InkResponse(
-                                            onTap: () {},
-                                            child: Text(
-                                              seeAllLabel,
-                                              style: theme.textTheme.subtitle2,
-                                            ),
-                                          )
-                                        ],
-                                      )),
-                                ),
+                                        )
+                                      ],
+                                    )),
                                 Expanded(
                                     flex: goldenRatioFlexLarge,
                                     child: ListView.separated(
                                         scrollDirection: Axis.horizontal,
-                                        itemCount: 5,
+                                        itemCount: catalogueHelper
+                                            .previewProductCount(categoryIndex),
                                         itemBuilder: (context, productIndex) =>
-                                            ProductWidget(category.getProduct(
-                                                productIndex: 0)),
+                                            ConstrainedBox(
+                                              constraints: productsConstraints,
+                                              child: ProductWidget(
+                                                  category.getProduct(
+                                                      productIndex:
+                                                          productIndex)),
+                                            ),
                                         separatorBuilder: (context, index) =>
                                             SizedBox(
                                                 width: widget
                                                     .spaceBetweenProducts))),
                               ]);
                         })),
-                const Spacer()
               ],
             )));
   }

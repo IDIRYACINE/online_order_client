@@ -38,6 +38,8 @@ const alternativeLoginLabel = " or login with ";
 const facebookLoginLabel = "Facbook";
 const registerAccountLabel = "Don't have an account yet ? ";
 const registerLabel = "Register now";
+const labelCurrency = "da";
+const labelForgotPassword = "Forgot";
 
 //Measures
 const appBarHeight = 100.0;
@@ -45,15 +47,28 @@ const goldenRatioFlexLarge = 8;
 const golenRationFlexSmall = 5;
 const golenRatioFlexExtraSmall = 2;
 const goldenRatioFlexMeduim = 3;
-const defaultIconsSize = 20.0;
+const iconSizeDefault = 30.0;
+const spaceDefault = 8.0;
+const spaceLarge = 16.0;
+const spaceSmall = 4.0;
+const dividerThickness = 2.0;
+const borderCircularRaduis = 20.0;
+const borderCircularRaduisLarge = 40.0;
 
 //Colors
 const primaryColor = Colors.orange;
 const darkColor = Colors.black;
-const backgroundColor = Colors.white;
-final surfaceColor = Colors.grey[200]!;
+const surfaceColor = Colors.white;
+final backgroundColor = Colors.grey[200]!;
 const errorColor = Colors.red;
 const secondaryShadowColor = Colors.grey;
 const notSetYet = Colors.black;
 const onPrimary = Colors.white;
 final hintColor = Colors.grey[300]!;
+const dividerColor = Colors.black;
+
+//Fonts
+const textSizeLarge = 36.0;
+const textSizeMeduim = 18.0;
+const textSizeMeduim2 = 14.0;
+const textSizeSmall = 9.0;

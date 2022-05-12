@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   final double runSpacing = 8.0;
+  final dividerThickness = 2.0;
+
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -53,8 +55,13 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         Container(
-            padding: const EdgeInsets.all(16),
-            color: theme.backgroundColor,
+            padding: const EdgeInsets.all(spaceDefault),
+            decoration: BoxDecoration(
+                color: theme.backgroundColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(borderCircularRaduisLarge),
+                  topRight: Radius.circular(borderCircularRaduisLarge),
+                )),
             child: Form(
               key: formKey,
               child: Column(
@@ -70,7 +77,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     CustomTextFormField(
                       label: passwordLabel,
                       hint: passwordHint,
-                      canToggleObsecureText: true,
+                      obsecureText: true,
+                      trailing: TextButton(
+                          onPressed: () {},
+                          child: const Text(labelForgotPassword)),
                       onChange: onPasswordChanged,
                     ),
                     DefaultButton(
@@ -84,12 +94,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                      ),
                       child: Text(alternativeLoginLabel,
-                          style: theme.textTheme.subtitle2),
+                          style: theme.textTheme.bodyText1),
                     ),
-                    const Divider(
-                      thickness: 4.0,
+                    Divider(
+                      thickness: widget.dividerThickness,
                     ),
                     DefaultButton(
                       backgroundColor: Colors.blue,
@@ -109,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             child: Text(
                               registerLabel,
-                              style: theme.textTheme.subtitle2,
+                              style: theme.textTheme.overline,
                             ))
                       ],
                     )

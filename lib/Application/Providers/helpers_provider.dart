@@ -1,28 +1,24 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Application/Authentication/authentication_error_handler.dart';
+import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
+import 'package:online_order_client/Application/Catalogue/catalogue_helper.dart';
 import 'package:online_order_client/Application/DeliveryAddress/delivery_address.dart';
-import 'package:online_order_client/Domain/Catalogue/category_model.dart';
+import 'package:online_order_client/Domain/Cart/cart.dart';
+import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
+import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import 'package:online_order_client/Infrastructure/UserData/customer_data_synchroniser.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
 import 'dart:developer' as dev;
-import '../../Domain/Cart/cart.dart';
-import '../../Domain/Catalogue/catalogue_model.dart';
-import '../../Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
-import '../Authentication/authentication_helper.dart';
 
 class HelpersProvider with ChangeNotifier {
-  late CatalogueModel _catalogueModel;
+  late CatalogueHelper _catalogueHelper;
   late CartHelper _cartHelper;
   late ServicesProvider services;
   late DeliveryAddress _addressHelper;
   late AuthenticationHelper _authHelper;
-
-  HelpersProvider() {
-    _catalogueModel = CatalogueModel();
-  }
 
   Future<bool> initApp() async {
     try {
@@ -30,7 +26,8 @@ class HelpersProvider with ChangeNotifier {
       services = ServicesProvider();
       await services.initialiaze();
       await services.productDatabase.connect();
-      await _catalogueModel.initCategories();
+      _catalogueHelper = CatalogueHelper(CatalogueModel());
+      await _catalogueHelper.initCategories();
     } catch (exception) {
       dev.log(exception.toString(), name: "IDIRIDR");
     }
@@ -56,17 +53,11 @@ class HelpersProvider with ChangeNotifier {
     _addressHelper = DeliveryAddress(profile.getAddress());
   }
 
-  Category getCategory(int categoryIndex) {
-    return _catalogueModel.getCategory(categoryIndex: categoryIndex);
-  }
-
-  int getCategoriesCount() {
-    return _catalogueModel.getCategoriesCount();
-  }
-
   void setUpHelpersContext(BuildContext context) {
     authHelper.setBuildContext(context);
   }
+
+  CatalogueHelper get catalogueHelper => _catalogueHelper;
 
   CartHelper get cartHelper => _cartHelper;
   DeliveryAddress get addressHelper => _addressHelper;

@@ -5,18 +5,18 @@ import 'package:online_order_client/Ui/Themes/constants.dart';
 ThemeData primaryTheme = ThemeData(
   primaryColor: primaryColor,
   errorColor: errorColor,
-  backgroundColor: surfaceColor,
-  scaffoldBackgroundColor: backgroundColor,
+  backgroundColor: backgroundColor,
+  scaffoldBackgroundColor: surfaceColor,
   hintColor: hintColor,
   shadowColor: darkColor,
-  cardColor: backgroundColor,
-  dividerColor: notSetYet,
+  cardColor: surfaceColor,
+  dividerColor: dividerColor,
 
   //Icons
-  iconTheme: const IconThemeData(color: primaryColor),
+  iconTheme: const IconThemeData(color: primaryColor, size: iconSizeDefault),
 
   //appBar
-  appBarTheme: AppBarTheme(
+  appBarTheme: const AppBarTheme(
     backgroundColor: surfaceColor,
     centerTitle: true,
     elevation: 0,
@@ -44,23 +44,31 @@ ThemeData primaryTheme = ThemeData(
   //text style
   textTheme: TextTheme(
     headline1: const TextStyle(
-        fontSize: 36.0, fontWeight: FontWeight.bold, color: darkColor),
+        fontSize: textSizeLarge, fontWeight: FontWeight.bold, color: darkColor),
     headline2: const TextStyle(
-        fontSize: 18.0, fontWeight: FontWeight.bold, color: darkColor),
+        fontSize: textSizeMeduim,
+        fontWeight: FontWeight.bold,
+        color: darkColor),
     headline3: const TextStyle(
-        fontSize: 18.0, fontWeight: FontWeight.bold, color: darkColor),
-    subtitle1: const TextStyle(fontSize: 18.0, color: darkColor),
-    subtitle2: const TextStyle(fontSize: 14.0, color: primaryColor),
-    bodyText1: TextStyle(fontSize: 14.0, color: surfaceColor),
-    bodyText2: const TextStyle(fontSize: 14.0, color: darkColor),
-    button: TextStyle(fontSize: 14.0, color: surfaceColor),
+        fontSize: textSizeMeduim,
+        fontWeight: FontWeight.bold,
+        color: darkColor),
+    subtitle1: const TextStyle(fontSize: textSizeMeduim, color: darkColor),
+    subtitle2: TextStyle(fontSize: textSizeMeduim2, color: hintColor),
+    bodyText1: const TextStyle(fontSize: textSizeMeduim2, color: primaryColor),
+    bodyText2: const TextStyle(fontSize: textSizeMeduim2, color: darkColor),
+    button: const TextStyle(fontSize: textSizeMeduim2, color: surfaceColor),
+    overline: const TextStyle(
+        fontSize: textSizeMeduim2,
+        fontWeight: FontWeight.bold,
+        color: primaryColor),
   ),
 
   //button
   textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
-    backgroundColor: MaterialStateProperty.all(backgroundColor),
+    backgroundColor: MaterialStateProperty.all(Colors.transparent),
     textStyle: MaterialStateProperty.all(
-        const TextStyle(fontSize: 14.0, color: primaryColor)),
+        const TextStyle(fontSize: textSizeMeduim2, color: primaryColor)),
   )),
 );

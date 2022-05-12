@@ -19,9 +19,13 @@ class _BottomNavBar extends State<BottomNavBar> {
         Provider.of<NavigationProvider>(context);
 
     return BottomNavigationBar(
-        iconSize: 40,
+        backgroundColor: theme.colorScheme.surface,
         selectedItemColor: theme.primaryColor,
+        iconSize: 30,
         currentIndex: navigationProvider.getIconIndex(),
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: [
           BottomNavigationBarItem(
             icon: IconButton(

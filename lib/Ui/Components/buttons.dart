@@ -51,6 +51,8 @@ class UnitButton extends StatefulWidget {
   final Axis direction;
   final EdgeInsets iconsPadding;
 
+  final MainAxisSize mainAxisSize;
+
   const UnitButton({
     Key? key,
     this.borderRadius = 12.0,
@@ -59,6 +61,7 @@ class UnitButton extends StatefulWidget {
     required this.onCountChange,
     this.direction = Axis.horizontal,
     this.iconsPadding = const EdgeInsets.all(8.0),
+    this.mainAxisSize = MainAxisSize.min,
   }) : super(key: key);
 
   @override
@@ -103,7 +106,7 @@ class _UnitButtonState extends State<UnitButton> {
         ),
       ),
       child: Flex(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: widget.mainAxisSize,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         direction: widget.direction,
         verticalDirection: VerticalDirection.up,
@@ -139,5 +142,44 @@ class _UnitButtonState extends State<UnitButton> {
         ],
       ),
     );
+  }
+}
+
+typedef ToggleCallback = void Function(bool value);
+
+class ToggleButton extends StatefulWidget {
+  final IconData showTextIcon;
+  final IconData hideTextIcon;
+  final ToggleCallback? toggleCallback;
+  final bool isActive;
+  const ToggleButton(
+      {Key? key,
+      this.showTextIcon = Icons.visibility,
+      this.hideTextIcon = Icons.visibility_off,
+      this.toggleCallback,
+      this.isActive = false})
+      : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _ToggleButtonState();
+}
+
+class _ToggleButtonState extends State<ToggleButton> {
+  late bool isActive;
+
+  @override
+  Widget build(BuildContext context) {
+    isActive = widget.isActive;
+
+    return InkResponse(
+        onTap: () {
+          setState(() {
+            isActive = !isActive;
+          });
+          if (widget.toggleCallback != null) {
+            widget.toggleCallback!(isActive);
+          }
+        },
+        child: Icon(isActive ? widget.hideTextIcon : widget.showTextIcon));
   }
 }

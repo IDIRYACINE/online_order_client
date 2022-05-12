@@ -1,8 +1,6 @@
-import 'package:flutter/widgets.dart';
-
 class OptionalItem {
   final String _label;
-  final IconData? _icon;
+  final String? _icon;
 
   OptionalItem(this._label, [this._icon]);
 
@@ -10,7 +8,7 @@ class OptionalItem {
     return _label;
   }
 
-  IconData? getIconData() {
-    return _icon;
+  String getImageUrl() {
+    return _icon ?? "";
   }
 }

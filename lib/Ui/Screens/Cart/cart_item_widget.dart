@@ -27,12 +27,15 @@ class _CartItemState extends State<CartItemWidget> {
               flex: widget.thumbnailFlex,
               child: FaultTolerantImage(
                 widget.cartItem.getThumbnailUrl(),
+                height: double.maxFinite,
+                fit: BoxFit.fitHeight,
               )),
           Expanded(
               flex: widget.contentFlex,
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(widget.cartItem.getName(),
@@ -48,6 +51,7 @@ class _CartItemState extends State<CartItemWidget> {
             flex: widget.actionsFLex,
             child: UnitButton(
               direction: Axis.vertical,
+              mainAxisSize: MainAxisSize.max,
               iconsPadding: const EdgeInsets.all(2.0),
               initialCount: widget.cartItem.getQuantity(),
               onCountChange: widget.cartItem.setQuantity,

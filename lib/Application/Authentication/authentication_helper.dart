@@ -1,12 +1,10 @@
 import "package:flutter/material.dart";
 import 'package:online_order_client/Application/Authentication/authentication_error_handler.dart';
-import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
-import 'package:online_order_client/Ui/Components/popup_widget.dart';
 import 'package:provider/provider.dart';
 
 enum userData { fullName, phoneNumber, address, password, email }
@@ -121,8 +119,6 @@ class AuthenticationHelper {
     });
   }
 
-  final Map<userData, String> _changedFields = {};
-
   ProfileModel getProfile() {
     return _profile;
   }
@@ -146,18 +142,5 @@ class AuthenticationHelper {
 
   String getPhone() {
     return _profile.getPhoneNumber();
-  }
-
-  void cacheChangedField(userData fieldKey, String value) {
-    _changedFields[fieldKey] = value;
-  }
-
-  void saveDataChanges() {
-    _changedFields.forEach((key, value) {
-      if (key == userData.fullName) {
-      } else if (key == userData.email) {
-      } else if (key == userData.password) {
-      } else if (key == userData.phoneNumber) {}
-    });
   }
 }
