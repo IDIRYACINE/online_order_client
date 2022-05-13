@@ -26,7 +26,7 @@ ThemeData primaryTheme = ThemeData(
   colorScheme: ColorScheme(
       primary: primaryColor,
       primaryVariant: notSetYet,
-      secondary: notSetYet,
+      secondary: disabledColor,
       secondaryVariant: notSetYet,
       surface: surfaceColor,
       background: backgroundColor,
@@ -49,10 +49,14 @@ ThemeData primaryTheme = ThemeData(
         fontSize: textSizeMeduim,
         fontWeight: FontWeight.bold,
         color: darkColor),
-    headline3: const TextStyle(
+    headline3: TextStyle(
         fontSize: textSizeMeduim,
         fontWeight: FontWeight.bold,
-        color: darkColor),
+        color: disabledColor),
+    headline4: const TextStyle(
+        fontSize: textSizeMeduim,
+        fontWeight: FontWeight.bold,
+        color: primaryColor),
     subtitle1: const TextStyle(fontSize: textSizeMeduim, color: darkColor),
     subtitle2: TextStyle(fontSize: textSizeMeduim2, color: hintColor),
     bodyText1: const TextStyle(fontSize: textSizeMeduim2, color: primaryColor),

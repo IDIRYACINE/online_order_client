@@ -5,13 +5,13 @@ class CartItem {
   late int _quantity;
   late double _price;
   late String _size;
+  late int _selectedSizeIndex;
 
   CartItem(
-      {required Product product,
-      required int quantity,
-      int selectedSizeIndex = 0}) {
+      {required Product product, int quantity = 0, int selectedSizeIndex = 0}) {
     _product = product;
     _quantity = quantity;
+    _selectedSizeIndex = selectedSizeIndex;
     _price = _product.getPrice(selectedSizeIndex);
     _size = _product.getSize(selectedSizeIndex);
   }
@@ -52,5 +52,13 @@ class CartItem {
   void setSize(int sizeIndex) {
     _size = _product.getSize(sizeIndex);
     _price = _product.getPrice(sizeIndex);
+  }
+
+  Product getProduct() {
+    return _product;
+  }
+
+  int getSelectedSizeIndex() {
+    return _selectedSizeIndex;
   }
 }

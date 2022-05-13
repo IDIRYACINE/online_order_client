@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(appTitle, style: theme.textTheme.headline3),
+              Text(appTitle, style: theme.textTheme.headline2),
               Card(
                 child: IconButton(
                     color: theme.primaryColor,

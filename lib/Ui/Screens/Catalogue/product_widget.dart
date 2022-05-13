@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
+import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Components/forms.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
@@ -31,7 +32,8 @@ class ProductWidget extends StatelessWidget {
 
     return InkResponse(
       onTap: () {
-        navigation.navigateToProductDetails(context, product);
+        navigation.navigateToProductDetails(
+            context, CartItem(product: product));
       },
       child: Card(
           color: backgroundColor ?? theme.cardColor,

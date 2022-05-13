@@ -22,31 +22,15 @@ class _StatusScreenState extends State<StatusScreen> {
           OrderStateWidget(
             state: OrderStatus.waiting,
             title: OrderStatus.waiting,
-            description:
-                "Here you can track your order status (Confirmed or Refused)",
-          ),
-          SizedBox(
-            child: VerticalDivider(
-              color: Colors.black,
-              thickness: 5.0,
-            ),
-            height: 150,
           ),
           OrderStateWidget(
-              state: OrderStatus.confirmed,
-              title: OrderStatus.confirmed,
-              description: "Here you can check your Food status"),
-          SizedBox(
-            child: VerticalDivider(
-              color: Colors.black,
-              thickness: 5.0,
-            ),
-            height: 150,
+            state: OrderStatus.confirmed,
+            title: OrderStatus.confirmed,
           ),
           OrderStateWidget(
-              state: OrderStatus.onDelivery,
-              title: OrderStatus.onDelivery,
-              description: "Here you can check your order Deliveration status"),
+            state: OrderStatus.onDelivery,
+            title: OrderStatus.onDelivery,
+          ),
         ],
       ),
     );

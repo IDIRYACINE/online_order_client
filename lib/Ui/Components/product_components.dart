@@ -20,6 +20,7 @@ class OptionalItemsWidget extends StatefulWidget {
   final ShapeBorder itemShape;
   final EdgeInsets titlePadding;
   final double? minItemWidth;
+  final int? activeItem;
   const OptionalItemsWidget(
     this.title, {
     Key? key,
@@ -35,6 +36,7 @@ class OptionalItemsWidget extends StatefulWidget {
     this.itemShape = const StadiumBorder(),
     this.minItemWidth,
     this.titlePadding = const EdgeInsets.only(bottom: 8.0),
+    this.activeItem,
   }) : super(key: key);
 
   @override
@@ -45,14 +47,24 @@ class _OptionalItemsWidgetState extends State<OptionalItemsWidget> {
   late ThemeData theme;
   final double seperatorWidth = 5.0;
   final double maxItemHeight = 50.0;
+  final bool isSelected = false;
+
+  bool checkSelectedItem(int index) {
+    if (widget.activeItem == null) {
+      return false;
+    }
+    return widget.activeItem! == index;
+  }
 
   Widget buildOptionalItem(BuildContext context, ThemeData theme, int index) {
     OptionalItem item = widget.itemPopulater(index);
+
     return _ItemWidget(
       index,
       item.getLabel(),
       onItemPressed: widget.onItemPressed,
       displayIcon: widget.displayItemIcon,
+      isSelected: checkSelectedItem(index),
       displayLabel: widget.displayItemLabel,
       icon: FaultTolerantImage(item.getImageUrl()),
       selectedItemColor: widget.selectedItemColor ?? theme.primaryColor,
@@ -112,6 +124,7 @@ class _ItemWidget extends StatefulWidget {
   final bool displayLabel;
   final bool displayIcon;
   final double? minWidth;
+  final bool isSelected;
 
   const _ItemWidget(
     this.index,
@@ -126,6 +139,7 @@ class _ItemWidget extends StatefulWidget {
     this.displayIcon = false,
     this.icon,
     this.minWidth,
+    this.isSelected = false,
   });
 
   @override
@@ -151,7 +165,6 @@ class _ItemWidgetState extends State<_ItemWidget> {
   @override
   Widget build(BuildContext context) {
     setup();
-
     return MaterialButton(
       elevation: 0,
       color: isSelected ? widget.selectedItemColor : widget.unselectedItemColor,

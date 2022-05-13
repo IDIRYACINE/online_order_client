@@ -39,11 +39,11 @@ class _ProfileState extends State<ProfileScreen> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_back_ios,
-                    color: Colors.black,
+                    color: theme.colorScheme.primary,
                   ))),
-          Text(profileTitle, style: theme.textTheme.headline3),
+          Text(profileTitle, style: theme.textTheme.headline2),
           Card(
             elevation: 4.0,
             color: theme.cardColor,
@@ -51,9 +51,9 @@ class _ProfileState extends State<ProfileScreen> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                icon: const Icon(
-                  Icons.supervised_user_circle_sharp,
-                  color: Colors.black,
+                icon: Icon(
+                  Icons.done,
+                  color: theme.colorScheme.primary,
                 )),
           ),
         ]),

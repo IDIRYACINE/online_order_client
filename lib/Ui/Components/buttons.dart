@@ -57,7 +57,7 @@ class UnitButton extends StatefulWidget {
     Key? key,
     this.borderRadius = 12.0,
     this.fillBackground = false,
-    this.initialCount = 0,
+    this.initialCount = 1,
     required this.onCountChange,
     this.direction = Axis.horizontal,
     this.iconsPadding = const EdgeInsets.all(8.0),
@@ -90,7 +90,7 @@ class _UnitButtonState extends State<UnitButton> {
 
     if (widget.fillBackground) {
       _backgroundColor = theme.primaryColor;
-      _counterTextStyle = theme.textTheme.bodyText1!;
+      _counterTextStyle = theme.textTheme.button!;
       _iconColor = theme.colorScheme.surface;
     } else {
       _backgroundColor = theme.colorScheme.surface;

@@ -66,6 +66,7 @@ const notSetYet = Colors.black;
 const onPrimary = Colors.white;
 final hintColor = Colors.grey[300]!;
 const dividerColor = Colors.black;
+final disabledColor = Colors.grey[300]!;
 
 //Fonts
 const textSizeLarge = 36.0;

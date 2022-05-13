@@ -1,4 +1,6 @@
+import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
+import 'package:online_order_client/Ui/Screens/Catalogue/catalogue_screen.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/category_screen.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/product_screen.dart';
 import 'package:online_order_client/Ui/Screens/DeliveryAddress/gps_screen.dart';
@@ -12,7 +14,7 @@ import 'package:online_order_client/Ui/Screens/Profile/profile_screen.dart';
 class NavigationProvider with ChangeNotifier {
   final List<Widget> _screens = [
     const CartScreen(),
-    const CategoryScreen(),
+    const CatalogueScreen(),
     const StatusScreen()
   ];
 
@@ -84,11 +86,14 @@ class NavigationProvider with ChangeNotifier {
         MaterialPageRoute(builder: (context) => const ProfileScreen()));
   }
 
-  void navigateToProductDetails(BuildContext context, Product product) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => CategoryproductsScreen(product)));
+  void navigateToCategory(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const CategoryScreen()));
+  }
+
+  void navigateToProductDetails(BuildContext context, CartItem cartItem) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => ProductsScreen(cartItem)));
   }
 
   int getScreenIndex() {

@@ -1,33 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Orders/order_status_helper.dart';
+import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 
 class OrderStateWidget extends StatefulWidget {
-  final double avatarSize;
-  final IconData iconStatus;
-  final Color? avatarColor;
-  final double iconeSize;
   final String state;
-  final IconData iconeStatusTrue;
-  final double iconeSizeTrue;
-  final double avatarSizeTrue;
-  final Color avatarColorTrue;
   final String title;
   final String? description;
+  final Color? activeColor;
+  final Color? unactiveColor;
+  final bool showExtension;
+  final double verticalDividerThickness = 5.0;
+  final double verticalDividerHeight = 150;
 
   const OrderStateWidget({
     Key? key,
-    this.iconStatus = Icons.access_time_outlined,
-    this.avatarSize = 35,
-    this.avatarColor,
-    this.iconeSize = 35,
-    this.iconeStatusTrue = Icons.check,
     required this.title,
-    this.avatarColorTrue = Colors.green,
     required this.state,
-    this.iconeSizeTrue = 40,
-    this.avatarSizeTrue = 40,
     this.description,
+    this.activeColor,
+    this.showExtension = true,
+    this.unactiveColor,
   }) : super(key: key);
 
   @override
@@ -37,36 +30,50 @@ class OrderStateWidget extends StatefulWidget {
 class _OrderStateWidgetState extends State<OrderStateWidget> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Consumer<OrderStatusProvider>(builder: (context, helper, child) {
-          bool state = helper.calculateOrderActiveState(widget.state);
-          return CircleAvatar(
-            child: Icon(
-              state ? widget.iconeStatusTrue : widget.iconStatus,
-              size: state ? widget.iconeSizeTrue : widget.iconeSize,
-            ),
-            radius: state ? widget.avatarSizeTrue : widget.avatarSize,
-            backgroundColor:
-                state ? widget.avatarColorTrue : widget.avatarColor,
-          );
-        }),
-        const SizedBox(
-          width: 10,
+    ThemeData theme = Theme.of(context);
+
+    Color activeColor = widget.activeColor ?? theme.colorScheme.primary;
+    Color unactiveColor = widget.unactiveColor ?? theme.colorScheme.secondary;
+    return Consumer<OrderStatusProvider>(builder: (context, helper, child) {
+      bool state = helper.calculateOrderActiveState(widget.state);
+      Color color = state ? activeColor : unactiveColor;
+
+      return Row(children: [
+        Flexible(
+          child: Column(
+            children: [
+              CircleAvatar(backgroundColor: color),
+              if (widget.showExtension)
+                SizedBox(
+                  height: widget.verticalDividerHeight,
+                  child: VerticalDivider(
+                    color: state ? activeColor : unactiveColor,
+                    thickness: widget.verticalDividerThickness,
+                  ),
+                ),
+            ],
+          ),
         ),
-        Column(
+        Expanded(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Tooltip(
-              message: widget.description,
-              child: Text(
-                widget.title,
-                style:
-                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+            Text(
+              widget.title,
+              style: TextStyle(
+                  fontSize: textSizeMeduim,
+                  color: color,
+                  fontWeight: FontWeight.bold),
             ),
+            if (widget.description != null)
+              Text(
+                widget.description!,
+                style: theme.textTheme.subtitle2,
+              )
           ],
-        )
-      ],
-    );
+        ))
+      ]);
+    });
   }
 }
