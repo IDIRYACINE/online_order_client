@@ -8,7 +8,7 @@ class CartItem {
   late int _selectedSizeIndex;
 
   CartItem(
-      {required Product product, int quantity = 0, int selectedSizeIndex = 0}) {
+      {required Product product, int quantity = 1, int selectedSizeIndex = 0}) {
     _product = product;
     _quantity = quantity;
     _selectedSizeIndex = selectedSizeIndex;

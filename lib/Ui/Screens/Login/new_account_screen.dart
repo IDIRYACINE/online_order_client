@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Ui/Components/buttons.dart';
 import 'package:online_order_client/Ui/Components/forms.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
@@ -36,11 +35,11 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
   }
 
   void onPhoneChanged(String value) {
-    email = value;
+    phone = value;
   }
 
   void onUsernameChanged(String value) {
-    password = value;
+    username = value;
   }
 
   void toggleObsecurePassword(bool value) {
@@ -53,8 +52,6 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
 
     final AuthenticationHelper _authenticationHelper =
         Provider.of<HelpersProvider>(context, listen: false).authHelper;
-
-    final ProfileModel profile = _authenticationHelper.getProfile();
 
     _authenticationHelper.setBuildContext(context);
 
@@ -88,19 +85,16 @@ class _NewAccountScreenState extends State<NewAccountScreen> {
                 children: [
                   CustomTextFormField(
                     label: usernameLabel,
-                    initialValue: profile.getFullName(),
                     onChange: onUsernameChanged,
                     validator: UserInputValidtor.validateUsername,
                   ),
                   CustomTextFormField(
                     label: emailLabel,
-                    initialValue: profile.getEmail(),
                     onChange: onEmailChanged,
                     validator: UserInputValidtor.validateEmail,
                   ),
                   CustomTextFormField(
                     label: phoneLabel,
-                    initialValue: profile.getPhoneNumber(),
                     onChange: onPhoneChanged,
                     validator: UserInputValidtor.validatePhoneNumber,
                   ),

@@ -46,14 +46,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
       body: Padding(
         padding: const EdgeInsets.all(spaceDefault),
         child: GridView.builder(
-            itemCount: 10,
+            itemCount: catalogueHelper.getCategory().getProductCount(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: widget.gridCrossAxisCount,
               crossAxisSpacing: widget.gridCrossAxisSpacing,
               mainAxisSpacing: widget.gridMainAxisSpacing,
             ),
             itemBuilder: (context, productIndex) =>
-                catalogueHelper.productWidgetBuilder(context, 0)),
+                catalogueHelper.productWidgetBuilder(context, productIndex)),
       ),
     );
   }

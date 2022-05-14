@@ -22,6 +22,8 @@ class ServicesProvider {
   static final ServicesProvider _instance = ServicesProvider._();
   static const String localHost = "192.168.1.8";
   static const String nodeJsHost = "https://orsnodejs.herokuapp.com";
+  static String databaseUrl =
+      "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app/";
   bool _isInit = false;
   ServicesProvider._();
 
@@ -58,18 +60,15 @@ class ServicesProvider {
   }
 
   Future<void> _initServerAcess() async {
-    // http://192.168.1.8:9000/?ns=online-order-client";
-    //https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app/
-    DatabaseReference _databaseReference = FirebaseDatabase(
-            databaseURL:
-                "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app/")
-        .reference();
+    DatabaseReference _databaseReference =
+        FirebaseDatabase(databaseURL: databaseUrl).reference();
 
     _serverAcess =
         FireBaseServices(FirebaseStorage.instance, _databaseReference);
   }
 
   Future<void> _useTestMode() async {
+    databaseUrl = "http://$localHost:9000/?ns=online-order-client";
     FirebaseAuth.instance.useAuthEmulator(localHost, 9099);
     FirebaseFirestore.instance.useFirestoreEmulator(localHost, 8080);
     FirebaseStorage.instance.useStorageEmulator(localHost, 9199);

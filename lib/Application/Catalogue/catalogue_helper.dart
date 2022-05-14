@@ -10,8 +10,11 @@ class CatalogueHelper {
   late Category _selectedCategory;
   CatalogueHelper(this._catalogueModel);
 
-  Category getCategory(int categoryIndex) {
-    return _catalogueModel.getCategory(categoryIndex: categoryIndex);
+  Category getCategory([int? categoryIndex]) {
+    if (categoryIndex != null) {
+      return _catalogueModel.getCategory(categoryIndex: categoryIndex);
+    }
+    return _selectedCategory;
   }
 
   int getCategoriesCount() {

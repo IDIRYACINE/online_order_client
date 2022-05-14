@@ -9,9 +9,9 @@ import 'package:online_order_client/Domain/Cart/cart.dart';
 import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
+import 'package:online_order_client/Infrastructure/Exceptions/server_exceptions.dart';
 import 'package:online_order_client/Infrastructure/UserData/customer_data_synchroniser.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
-import 'dart:developer' as dev;
 
 class HelpersProvider with ChangeNotifier {
   late CatalogueHelper _catalogueHelper;
@@ -26,11 +26,12 @@ class HelpersProvider with ChangeNotifier {
       services = ServicesProvider();
       await services.initialiaze();
       await services.productDatabase.connect();
-      _catalogueHelper = CatalogueHelper(CatalogueModel());
-      await _catalogueHelper.initCategories();
-    } catch (exception) {
-      dev.log(exception.toString(), name: "IDIRIDR");
+    } on LocalDatabaseNotFound catch (_) {
+      throw LocalDatabaseNotFound();
     }
+
+    _catalogueHelper = CatalogueHelper(CatalogueModel());
+    await _catalogueHelper.initCategories();
     _cartHelper = CartHelper(Cart(), services.orderService,
         services.authenticationService, notifyListeners);
     await _initProfile();

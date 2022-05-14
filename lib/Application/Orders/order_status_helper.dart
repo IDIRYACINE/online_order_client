@@ -6,7 +6,7 @@ import 'package:online_order_client/Infrastructure/service_provider.dart';
 class OrderStatusProvider with ChangeNotifier implements IOrderSubscriber {
   final String _id = "OrderStatusScreen";
   final _OrderState _stateDelegate = _OrderState();
-  String _orderStatus = OrderStatus.waiting;
+  String _orderStatus = OrderStatus.noOrder;
 
   OrderStatusProvider() {
     ServicesProvider().orderService.subscribeToOrdersStatus(this);
@@ -32,6 +32,10 @@ class OrderStatusProvider with ChangeNotifier implements IOrderSubscriber {
 
   bool calculateOrderActiveState(String widgetState) {
     return _stateDelegate.isActive(widgetState);
+  }
+
+  bool orderExists() {
+    return _orderStatus != OrderStatus.noOrder;
   }
 }
 

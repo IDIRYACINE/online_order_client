@@ -2,61 +2,50 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:online_order_client/Domain/GpsLocation/address.dart';
 import 'package:path_provider/path_provider.dart';
-import '../GpsLocation/address.dart';
-import 'iprofile.dart';
 
-class ProfileModel implements IProfile {
+class ProfileModel {
   late String _email, _fullName, _phoneNumber, _id;
   late Address _address;
   String _json = '';
 
-  @override
   String getEmail() {
     return _email;
   }
 
-  @override
   String getFullName() {
     return _fullName;
   }
 
-  @override
   String getPhoneNumber() {
     return _phoneNumber;
   }
 
-  @override
   void setEmail({required String email}) {
     _email = email;
   }
 
-  @override
   void setFullName({required String fullName}) {
     _fullName = fullName;
   }
 
-  @override
   void setPhoneNumber({required String number}) {
     _phoneNumber = number;
   }
 
-  @override
   Address getAddress() {
     return _address;
   }
 
-  @override
   void setAddress({required Address address}) {
     _address = address;
   }
 
-  @override
   String getUserId() {
     return _id;
   }
 
-  @override
   void setUserId({required String id}) {
     _id = id;
   }
@@ -70,7 +59,6 @@ class ProfileModel implements IProfile {
   }
 
   /// Save profile changes by writing it to json file
-  @override
   Future<void> saveProfile() async {
     try {
       File profile = await _getProfileFile();
@@ -90,7 +78,6 @@ class ProfileModel implements IProfile {
     return profile;
   }
 
-  @override
   String getProfileJson() {
     if (_json == '') {
       _encodeToJson();
@@ -115,7 +102,6 @@ class ProfileModel implements IProfile {
   }
 
   /// Read profile json from storage and decode it
-  @override
   Future<void> loadProfile() async {
     try {
       File profile = await _getProfileFile();
@@ -127,7 +113,6 @@ class ProfileModel implements IProfile {
     }
   }
 
-  @override
   Map<String, dynamic> toMap() {
     return {
       'id': _id,
@@ -135,5 +120,17 @@ class ProfileModel implements IProfile {
       'phoneNumber': _phoneNumber,
       'email': _email,
     };
+  }
+
+  /// Make sure all fields are set correctly
+  Future<bool> selfValidate() async {
+    bool emptyCheck(String value) {
+      return value != "";
+    }
+
+    if (emptyCheck(_fullName) || emptyCheck(_phoneNumber)) {
+      return false;
+    }
+    return true;
   }
 }

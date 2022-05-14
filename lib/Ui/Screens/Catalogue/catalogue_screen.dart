@@ -28,11 +28,17 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
 
   late CatalogueHelper catalogueHelper;
   late NavigationProvider navigationProvider;
+  VoidCallback? toggleLastSelectedCategory;
 
-  bool onCategoryPressed(int index) {
-    selectedCategoryIndex.value = index;
+  void onCategoryPressed(int index, VoidCallback toggleSelfCallback) {
+    if (toggleLastSelectedCategory != null) {
+      toggleLastSelectedCategory!();
+    }
+
+    toggleLastSelectedCategory = toggleSelfCallback;
     catalogueHelper.setSelectedCategory(index);
-    return selectedCategoryIndex.value == index;
+    // Rebuilding widget will cancel the execution of the function !
+    selectedCategoryIndex.value = index;
   }
 
   OptionalItem categoryPopulater(int index) {
@@ -64,7 +70,6 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
                     flex: golenRationFlexSmall,
                     child: OptionalItemsWidget(
                       categoriesTitle,
-                      displayItemIcon: true,
                       minItemWidth: widget.fixedCategoryWidth,
                       itemCount: catalogueHelper.getCategoriesCount(),
                       itemPopulater: categoryPopulater,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Ui/Components/buttons.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
@@ -23,23 +22,13 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  VoidCallback? _sendOrder;
   late ThemeData theme;
   final BoxConstraints itemConstraints =
       const BoxConstraints(minHeight: 100, maxHeight: 150);
   @override
   Widget build(BuildContext context) {
     CartHelper _cartHelper = Provider.of<HelpersProvider>(context).cartHelper;
-    NavigationProvider _navigation = Provider.of<NavigationProvider>(context);
     theme = Theme.of(context);
-
-    if (_cartHelper.getCartItemCount() > 0) {
-      _sendOrder = () {
-        _navigation.navigateToDeliveryAddressScreen(context, () {
-          _cartHelper.placeOrder(context);
-        }, replace: false);
-      };
-    }
 
     return Padding(
       padding: EdgeInsets.all(widget.screenPadding),
@@ -57,18 +46,18 @@ class _CartScreenState extends State<CartScreen> {
                     return ConstrainedBox(
                         constraints: const BoxConstraints(
                             minHeight: 100, maxHeight: 150),
-                        child: CartItemWidget(_cartHelper.getProduct(0)));
+                        child: CartItemWidget(_cartHelper.getProduct(index)));
                   },
                   separatorBuilder: (context, index) =>
                       SizedBox(height: widget.itemSpeperatorHieght),
-                  itemCount: 10)),
+                  itemCount: _cartHelper.getCartItemCount())),
           Expanded(
             flex: widget.totalPriceFlex,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(cartTotalPrice, style: theme.textTheme.headline2),
-                  Text("${_cartHelper.getTotalPrice()} \$",
+                  Text("${_cartHelper.getTotalPrice()} $labelCurrency",
                       style: theme.textTheme.headline2)
                 ]),
           ),
@@ -79,7 +68,9 @@ class _CartScreenState extends State<CartScreen> {
                 child: DefaultButton(
                   width: double.infinity,
                   text: buttonDelivery,
-                  onPressed: _sendOrder,
+                  onPressed: () {
+                    _cartHelper.placeOrder(context);
+                  },
                 )),
           )
         ],

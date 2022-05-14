@@ -96,12 +96,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.only(
                         top: 10,
+                        bottom: 10,
                       ),
                       child: Text(alternativeLoginLabel,
                           style: theme.textTheme.bodyText1),
-                    ),
-                    Divider(
-                      thickness: widget.dividerThickness,
                     ),
                     DefaultButton(
                       backgroundColor: Colors.blue,

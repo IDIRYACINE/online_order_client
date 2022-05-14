@@ -69,7 +69,7 @@ class ProductWidget extends StatelessWidget {
                           style: theme.textTheme.headline2,
                         ),
                         const Text(
-                          currencySymbol,
+                          labelCurrency,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         )
                       ]),

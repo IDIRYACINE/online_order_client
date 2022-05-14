@@ -18,6 +18,13 @@ class ProductsScreen extends StatefulWidget {
   final double optionalItemsYpadding = 4.0;
   final int productDescriptionMaxLines = 2;
 
+  final int imageFlex = 1;
+  final int productFlex = 2;
+
+  final int productNameFlex = 1;
+  final int productPriceFlex = 1;
+  final int productDescriptionFlex = 1;
+
   const ProductsScreen(this.cartItem, {Key? key}) : super(key: key);
 
   @override
@@ -25,29 +32,35 @@ class ProductsScreen extends StatefulWidget {
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
-  int _currentSizeIndex = 0;
-  int _units = 1;
+  int currentSizeIndex = 0;
+  ValueNotifier<int> units = ValueNotifier(1);
   late ThemeData theme;
   late Product product;
+
+  VoidCallback? toggleLastSelectedSize;
 
   OptionalItem getSize(int index) {
     return OptionalItem(product.getSize(index));
   }
 
-  bool selectSize(int index) {
-    _currentSizeIndex = index;
-    return _currentSizeIndex == index;
+  void selectSize(int index, VoidCallback selfToggle) {
+    if (toggleLastSelectedSize != null) {
+      toggleLastSelectedSize!();
+    }
+
+    toggleLastSelectedSize = selfToggle;
+    currentSizeIndex = index;
   }
 
   void setUnitsCount(int count) {
-    _units = count;
+    units.value = count;
   }
 
   @override
   Widget build(BuildContext context) {
     theme = Theme.of(context);
     product = widget.cartItem.getProduct();
-    _units = widget.cartItem.getQuantity();
+    units.value = widget.cartItem.getQuantity();
 
     return Scaffold(
         appBar: AppBar(
@@ -75,69 +88,85 @@ class _ProductsScreenState extends State<ProductsScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FaultTolerantImage(product.getImageUrl()),
-              Flexible(
-                child: Center(
-                    child: Stack(
-                  alignment: AlignmentDirectional.center,
-                  children: [
-                    Divider(
-                      thickness: widget.dividerThickness,
-                    ),
-                    UnitButton(
-                      fillBackground: true,
-                      initialCount: _units,
-                      onCountChange: setUnitsCount,
-                    ),
-                  ],
-                )),
-              ),
-              Flexible(
-                  child: Text(
-                product.getName(),
-                style: theme.textTheme.headline1,
-              )),
-              Flexible(
-                child: Align(
-                    alignment: AlignmentDirectional.topEnd,
-                    child: Text(
-                      "${product.getPrice(_currentSizeIndex)} $labelCurrency",
-                      style: theme.textTheme.headline2,
-                    )),
-              ),
-              Flexible(
-                child: Text(
-                  "product.getDescription()product.getDescription()product.getDescription()product.getDproduct.getDescription()product.getDproduct.getDescription()product.getDescription()product.getDescription()escription()escription()product.getDescription()",
-                  style: theme.textTheme.subtitle2,
-                  maxLines: widget.productDescriptionMaxLines,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Padding(
-                  padding: EdgeInsets.only(
-                      top: widget.optionalItemsYpadding,
-                      bottom: widget.optionalItemsYpadding),
-                  child: OptionalItemsWidget(
-                    sizesTitle,
-                    activeItem: widget.cartItem.getSelectedSizeIndex(),
-                    itemShape: const RoundedRectangleBorder(),
-                    unselectedItemColor: theme.colorScheme.background,
-                    itemCount: product.getSizesCount(),
-                    itemPopulater: getSize,
-                    onItemPressed: selectSize,
+              Expanded(
+                  flex: widget.imageFlex,
+                  child: FaultTolerantImage(
+                    product.getImageUrl(),
+                    width: double.infinity,
+                    fit: BoxFit.fill,
                   )),
-              Flexible(
-                child: DefaultButton(
-                  text: buttonAddProduct,
-                  width: double.infinity,
-                  onPressed: () {
-                    widget.cartItem.setSize(_currentSizeIndex);
-                    widget.cartItem.setQuantity(_units);
-                    Provider.of<HelpersProvider>(context, listen: false)
-                        .cartHelper
-                        .addCartItem(widget.cartItem, context);
-                  },
-                ),
+              Expanded(
+                flex: widget.productFlex,
+                child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                          child: Stack(
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          Divider(
+                            thickness: widget.dividerThickness,
+                          ),
+                          UnitButton(
+                            fillBackground: true,
+                            initialCount: units.value,
+                            onCountChange: setUnitsCount,
+                          ),
+                        ],
+                      )),
+                      Text(
+                        product.getName(),
+                        style: theme.textTheme.headline1,
+                      ),
+                      Align(
+                          alignment: AlignmentDirectional.topEnd,
+                          child: ValueListenableBuilder<int>(
+                              valueListenable: units,
+                              builder: (context, newValue, child) {
+                                return Text(
+                                  "${product.getPrice(currentSizeIndex) * newValue} $labelCurrency",
+                                  style: theme.textTheme.headline2,
+                                );
+                              })),
+                      Flexible(
+                        flex: widget.productDescriptionFlex,
+                        child: Text(
+                          product.getDescription(),
+                          style: theme.textTheme.subtitle1,
+                          maxLines: widget.productDescriptionMaxLines,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              top: widget.optionalItemsYpadding,
+                              bottom: widget.optionalItemsYpadding),
+                          child: OptionalItemsWidget(
+                            sizesTitle,
+                            activeItem: widget.cartItem.getSelectedSizeIndex(),
+                            itemShape: const RoundedRectangleBorder(),
+                            unselectedItemColor: theme.colorScheme.background,
+                            itemCount: product.getSizesCount(),
+                            itemPopulater: getSize,
+                            onItemPressed: selectSize,
+                          )),
+                      Flexible(
+                        child: DefaultButton(
+                          text: buttonAddProduct,
+                          width: double.infinity,
+                          onPressed: () {
+                            widget.cartItem.setSize(currentSizeIndex);
+                            widget.cartItem.setQuantity(units.value);
+                            Provider.of<HelpersProvider>(context, listen: false)
+                                .cartHelper
+                                .addCartItem(widget.cartItem, context);
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      )
+                    ]),
               )
             ],
           ),

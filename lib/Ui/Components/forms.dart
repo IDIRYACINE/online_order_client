@@ -84,7 +84,7 @@ class FaultTolerantImage extends StatelessWidget {
       fit: fit,
       errorBuilder: (context, object, stackTrace) {
         return Image.asset(
-          'assets/images/pizza2.jpg',
+          'assets/images/no-preview-available.png',
           height: height,
           width: width,
           fit: fit,

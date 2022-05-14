@@ -48,6 +48,9 @@ class OrderService implements IOrderService {
             subscriber.notify(status);
           });
         } else {
+          _ordersStatusSubscribers.forEach((key, subscriber) {
+            subscriber.notify(OrderStatus.noOrder);
+          });
           cancelAllSubscribtions();
         }
       });

@@ -1,7 +1,6 @@
 // ignore_for_file: unused_local_variable
 
 import 'dart:convert';
-import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
 import 'package:http/http.dart' as http;
 
@@ -31,15 +30,17 @@ class CustomerDataSynchroniser implements ICustomerDataSynchroniser {
   }
 
   @override
-  Future<void> fetchUserPhone(ProfileModel profile) async {
-    Uri url = Uri.parse(
-        '$_host/FetchCustomerPhone?customerId=${profile.getUserId()}');
+  Future<String> fetchUserPhone(String id) async {
+    Uri url = Uri.parse('$_host/FetchCustomerPhone?customerId=$id');
+    String result = "";
     try {
       http.get(url).then((value) {
         final data = jsonDecode(value.body);
-        profile.setPhoneNumber(number: data["PhoneNumber"]);
-        profile.saveProfile();
+        result = (data["PhoneNumber"]! as String);
       });
-    } catch (e) {}
+    } catch (e) {
+      result = "";
+    }
+    return result;
   }
 }

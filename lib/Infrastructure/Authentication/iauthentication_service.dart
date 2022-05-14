@@ -2,7 +2,10 @@ import 'package:flutter/foundation.dart';
 
 abstract class IAuthenticationService {
   Future<void> signUpWithEmailAndPassword(
-      {required String email, required String password});
+      {required String email,
+      required String password,
+      required String fullName,
+      required String phoneNumber});
 
   Future<void> signInWithEmailAndPassword(
       {required String email, required String password});
@@ -39,4 +42,7 @@ abstract class IAuthenticationService {
   String getEmail();
   String getUsername();
   String getId();
+  String getPhoneNumber();
+
+  Future<void> updateFullName({required String fullName});
 }

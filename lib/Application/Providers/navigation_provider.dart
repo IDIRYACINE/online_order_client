@@ -1,5 +1,4 @@
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
-import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/catalogue_screen.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/category_screen.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/product_screen.dart';

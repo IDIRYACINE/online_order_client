@@ -8,14 +8,13 @@ class UserInputValidtor {
   static const _shortValue = "Must contain 8 or more characters";
   static const _invalidEmail = "Invalid Email";
   static const _invalidPhone = "Invalid Phone Number";
+  static const _invalidUsername = "Invalid Username";
 
   static String? validateUsername(String? value) {
-    if (!_checkNull(value)) {
+    if (_checkNull(value)) {
       return _nullValue;
-    } else if (!RegExp(
-            r"^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$")
-        .hasMatch(value!)) {
-      return _invalidEmail;
+    } else if (!RegExp(r"^[a-zA-Z].[^0-9._-]{3,30}").hasMatch(value!)) {
+      return _invalidUsername;
     }
 
     return null;
@@ -43,7 +42,7 @@ class UserInputValidtor {
   static String? validatePhoneNumber(String? value) {
     if (_checkNull(value)) {
       return _nullValue;
-    } else if (!RegExp(r"^0[5|6|7].[1-9]+").hasMatch(value!)) {
+    } else if (!RegExp(r"^0[5|6|7].[0-9]+").hasMatch(value!)) {
       return _invalidPhone;
     }
     return null;

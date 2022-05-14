@@ -6,6 +6,7 @@ import 'package:online_order_client/Infrastructure/Authentication/Authentication
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer' as dev;
 
 enum userData { fullName, phoneNumber, address, password, email }
 
@@ -39,8 +40,15 @@ class AuthenticationHelper {
   void signUpWithEmailAndPassword(
       String fullName, String email, String password, String phone) {
     _authService
-        .signUpWithEmailAndPassword(email: email, password: password)
+        .signUpWithEmailAndPassword(
+            email: email,
+            password: password,
+            fullName: fullName,
+            phoneNumber: phone)
         .then((value) {
+      _dataSynchroniser.setId(_authService.getId());
+      _dataSynchroniser.setPhone(phone);
+      _dataSynchroniser.updateUserPhone();
       _authService
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
@@ -50,15 +58,16 @@ class AuthenticationHelper {
                 replace: true);
       });
     }).catchError((e) {
+      dev.log(e.toString());
       _errorHandler.handleErrors(e.code);
     });
   }
 
   void _reloadProfile() {
-    _dataSynchroniser.setId(_authService.getId());
-    _dataSynchroniser.fetchUserPhone(_profile).then((value) {
+    _dataSynchroniser.fetchUserPhone(_authService.getId()).then((value) {
       _profile.setEmail(email: _authService.getEmail());
       _profile.setFullName(fullName: _authService.getUsername());
+      _profile.setPhoneNumber(number: value);
       _profile.saveProfile();
     });
   }
@@ -85,6 +94,12 @@ class AuthenticationHelper {
         .then((value) => {_profile.setEmail(email: newEmail)});
   }
 
+  void updateFullName(String fullName) {
+    _authService
+        .updateFullName(fullName: fullName)
+        .then((value) => {_profile.setFullName(fullName: fullName)});
+  }
+
   void logout() {
     _authService.signOut();
   }
@@ -100,6 +115,7 @@ class AuthenticationHelper {
   void _updateProfile(String fullName, String phone, String email) {
     _profile.setEmail(email: email);
     _profile.setFullName(fullName: fullName);
+    dev.log("signup : $phone");
     _profile.setPhoneNumber(number: phone);
     _profile.saveProfile();
   }

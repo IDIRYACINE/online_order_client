@@ -139,13 +139,28 @@ class FirebaseAuthenticationService implements IAuthenticationService {
 
   @override
   Future<void> signUpWithEmailAndPassword(
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      required String fullName,
+      required String phoneNumber}) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      _user = _auth.currentUser!;
-    } on FirebaseAuthException catch (_) {
-      throw EmailAlreadyUsed();
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) {
+        _user = value.user!;
+        _user.updateDisplayName(fullName);
+      });
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "email-already-in-use":
+          throw EmailAlreadyUsed();
+        case "invalid-email":
+          throw InvalidEmail();
+        case "weak-password":
+          throw WeakPassword();
+        default:
+          throw UnexpectedError();
+      }
     }
   }
 
@@ -184,5 +199,15 @@ class FirebaseAuthenticationService implements IAuthenticationService {
   @override
   String getUsername() {
     return _user.displayName!;
+  }
+
+  @override
+  String getPhoneNumber() {
+    return _user.phoneNumber!;
+  }
+
+  @override
+  Future<void> updateFullName({required String fullName}) async {
+    _user.updateDisplayName(fullName);
   }
 }

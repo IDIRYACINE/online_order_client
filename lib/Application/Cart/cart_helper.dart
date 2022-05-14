@@ -7,7 +7,6 @@ import 'package:online_order_client/Domain/Orders/iorder.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
-import 'package:online_order_client/Ui/Screens/Cart/cart_item_widget.dart';
 import 'package:provider/provider.dart';
 
 class CartHelper {
@@ -33,19 +32,14 @@ class CartHelper {
   }
 
   void placeOrder(BuildContext context) {
-    IOrder order = _cart.placeOrder();
-    ProfileModel profile = Provider.of<HelpersProvider>(context, listen: false)
-        .authHelper
-        .getProfile();
-
-    Map<String, dynamic> result = {
-      "order": order.formatOnlineOrder(),
-      "infos": profile.getProfileJson()
-    };
-
-    _authenticationService
-        .accountIsActive()
-        .then((value) => _sendOrderToShop(value, result, context));
+    _authenticationService.accountIsActive().then((isActive) {
+      if (isActive) {
+        _sendOrderToShop(context);
+      } else {
+        Provider.of<NavigationProvider>(context, listen: false)
+            .navigateToLogin(context);
+      }
+    });
   }
 
   void removeProduct(CartItem item) {
@@ -53,15 +47,27 @@ class CartHelper {
     _notifyChange();
   }
 
-  void _sendOrderToShop(
-      bool isActive, Map<String, dynamic> orderJson, BuildContext context) {
-    if (isActive) {
-      _orderService.sendOrderToShop(orderJson, _authenticationService.getId());
-      _cart.clearCart();
-    } else {
+  void _sendOrderToShop(BuildContext context) {
+    ProfileModel profile = Provider.of<HelpersProvider>(context, listen: false)
+        .authHelper
+        .getProfile();
+
+    profile.selfValidate().then((value) {
+      IOrder order = _cart.placeOrder();
+
+      Map<String, dynamic> orderJson = {
+        "order": order.formatOnlineOrder(),
+        "infos": profile.getProfileJson()
+      };
+
       Provider.of<NavigationProvider>(context, listen: false)
-          .navigateToLogin(context);
-    }
+          .navigateToDeliveryAddressScreen(context, () {
+        _orderService.sendOrderToShop(
+            orderJson, _authenticationService.getId());
+        _cart.clearCart();
+        _notifyChange();
+      }, replace: false);
+    });
   }
 
   String getTotalPrice() {

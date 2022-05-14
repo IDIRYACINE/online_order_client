@@ -25,7 +25,6 @@ const passwordHint = "Enter your password";
 const emailLabel = "Email";
 const passwordLabel = "Password";
 const seeAllLabel = "See all";
-const currencySymbol = "da";
 const profileTitle = "Profile";
 const usernameLabel = "Full Name";
 const phoneLabel = "Phone";
@@ -38,8 +37,9 @@ const alternativeLoginLabel = " or login with ";
 const facebookLoginLabel = "Facbook";
 const registerAccountLabel = "Don't have an account yet ? ";
 const registerLabel = "Register now";
-const labelCurrency = "da";
+const labelCurrency = "\$";
 const labelForgotPassword = "Forgot";
+const labelNoOrder = "You have no orders";
 
 //Measures
 const appBarHeight = 100.0;

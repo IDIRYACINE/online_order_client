@@ -3,7 +3,8 @@ import 'package:online_order_client/Domain/Catalogue/optional_item.dart';
 import 'package:online_order_client/Ui/Components/forms.dart';
 
 typedef ItemPopulater = OptionalItem Function(int index);
-typedef ItemActivationFunction = bool Function(int index);
+typedef ItemActivationFunction = void Function(
+    int index, VoidCallback selfToggle);
 typedef OptionalItemBuilder = Widget Function(BuildContext context, int index);
 
 class OptionalItemsWidget extends StatefulWidget {
@@ -114,7 +115,7 @@ class _OptionalItemsWidgetState extends State<OptionalItemsWidget> {
 class _ItemWidget extends StatefulWidget {
   final Widget? icon;
   final String label;
-  final ItemActivationFunction? onItemPressed;
+  final ItemActivationFunction onItemPressed;
   final int index;
   final Color selectedItemColor;
   final Color unselectedItemColor;
@@ -129,7 +130,7 @@ class _ItemWidget extends StatefulWidget {
   const _ItemWidget(
     this.index,
     this.label, {
-    this.onItemPressed,
+    required this.onItemPressed,
     required this.selectedItemColor,
     required this.unselectedItemColor,
     required this.shape,
@@ -152,12 +153,14 @@ class _ItemWidgetState extends State<_ItemWidget> {
   late Color textColor;
   late ItemActivationFunction onPressed;
 
-  bool selfToggle(int index) {
-    return !isSelected;
+  void selfToggle() {
+    setState(() {
+      isSelected = !isSelected;
+    });
   }
 
   void setup() {
-    onPressed = widget.onItemPressed ?? selfToggle;
+    onPressed = widget.onItemPressed;
     backgroundColor = widget.unselectedItemColor;
     textColor = widget.unselectedItemTextColor;
   }
@@ -184,9 +187,8 @@ class _ItemWidgetState extends State<_ItemWidget> {
         ],
       ),
       onPressed: () {
-        setState(() {
-          isSelected = onPressed(widget.index);
-        });
+        selfToggle();
+        onPressed(widget.index, selfToggle);
       },
     );
   }

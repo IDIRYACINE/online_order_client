@@ -70,6 +70,7 @@ class _ProfileState extends State<ProfileScreen> {
                 child: InformationCard(
                   label: emailLabel,
                   initialValue: _authHelper.getEmail(),
+                  onChangeConfirm: _authHelper.updateEmail,
                 ),
               ),
               Padding(
@@ -77,12 +78,14 @@ class _ProfileState extends State<ProfileScreen> {
                   child: InformationCard(
                     label: usernameLabel,
                     initialValue: _authHelper.getFullName(),
+                    onChangeConfirm: _authHelper.updateFullName,
                   )),
               Padding(
                   padding: EdgeInsets.all(widget.cardsPadding),
                   child: InformationCard(
                     label: phoneLabel,
                     initialValue: _authHelper.getPhone(),
+                    onChangeConfirm: _authHelper.updatePhoneNumber,
                   )),
               Padding(
                   padding: EdgeInsets.all(widget.cardsPadding),
@@ -92,6 +95,7 @@ class _ProfileState extends State<ProfileScreen> {
                     onPressed: () {
                       _authHelper.setDeliveryAddresse(context);
                     },
+                    onChangeConfirm: (value) {},
                   )),
               Padding(
                   padding: EdgeInsets.all(widget.cardsPadding),
