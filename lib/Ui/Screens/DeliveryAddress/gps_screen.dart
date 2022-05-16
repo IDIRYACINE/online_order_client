@@ -32,6 +32,7 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
   Widget build(BuildContext context) {
     _address =
         Provider.of<HelpersProvider>(context, listen: false).addressHelper;
+    _deliveryAddress = _address.getAddress();
 
     ValueNotifier<LatLng> _markerLocation =
         ValueNotifier<LatLng>(_address.getLocation().instance);
@@ -88,7 +89,8 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
                         top: widget._textFieldtopPadding),
                     child: ColoredBox(
                       color: theme.colorScheme.background,
-                      child: TextField(
+                      child: TextFormField(
+                        initialValue: _deliveryAddress,
                         decoration: InputDecoration(
                           border: const OutlineInputBorder(),
                           hintText: addressHint,

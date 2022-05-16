@@ -21,8 +21,8 @@ class Order implements IOrder {
   }
 
   @override
-  Map<String, dynamic> formatOnlineOrder() {
-    return {'items': _items};
+  List<Map<String, dynamic>> formatOnlineOrder() {
+    return _items;
   }
 
   @override

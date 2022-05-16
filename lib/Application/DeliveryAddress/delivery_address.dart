@@ -24,4 +24,8 @@ class DeliveryAddress {
     _address.updateAddress(infos: infos);
     _address.updateCoordinates(latitude: latitude, longitude: longitude);
   }
+
+  String getAddress() {
+    return _address.getAddress();
+  }
 }
