@@ -51,10 +51,15 @@ class ProfileModel {
   }
 
   String _encodeToJson() {
-    Map<String, dynamic> addressJson = _address.toMap();
-    Map<String, dynamic> profileJson = toMap();
-
-    _json = jsonEncode({"profile": profileJson, "address": addressJson});
+    _json = jsonEncode({
+      'id': _id,
+      "latitude": _address.getCoordinates().latitude,
+      "longitude": _address.getCoordinates().longitude,
+      "address": _address.getAddress(),
+      "fullName": _fullName,
+      "phoneNumber": _phoneNumber,
+      "email": _email,
+    });
     return _json;
   }
 
@@ -98,7 +103,9 @@ class ProfileModel {
     _phoneNumber = dataSource['phoneNumber']!;
     _fullName = dataSource['fullName']!;
     _id = dataSource['id']!;
-    _address = Address();
+
+    _address = Address(
+        dataSource['address'], dataSource['latitude'], dataSource['longitude']);
   }
 
   /// Read profile json from storage and decode it
@@ -107,19 +114,10 @@ class ProfileModel {
       File profile = await _getProfileFile();
       _json = await profile.readAsString();
       Map<String, dynamic> decodedProfile = jsonDecode(_json);
-      _populateProfileData(decodedProfile['profile']);
+      _populateProfileData(decodedProfile);
     } catch (e) {
       _initProfileWithDefaults();
     }
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': _id,
-      'fullName': _fullName,
-      'phoneNumber': _phoneNumber,
-      'email': _email,
-    };
   }
 
   /// Make sure all fields are set correctly

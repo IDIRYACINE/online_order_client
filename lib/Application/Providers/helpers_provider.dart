@@ -26,17 +26,19 @@ class HelpersProvider with ChangeNotifier {
       services = ServicesProvider();
       await services.initialiaze();
       await services.productDatabase.connect();
+      _catalogueHelper = CatalogueHelper(CatalogueModel());
+
+      await _catalogueHelper.initCategories();
+
+      _cartHelper = CartHelper(Cart(), services.orderService,
+          services.authenticationService, notifyListeners);
+
+      await _initProfile();
+
+      await services.permissionsService.requestGpsPermission();
     } on LocalDatabaseNotFound catch (_) {
       throw LocalDatabaseNotFound();
     }
-
-    _catalogueHelper = CatalogueHelper(CatalogueModel());
-    await _catalogueHelper.initCategories();
-    _cartHelper = CartHelper(Cart(), services.orderService,
-        services.authenticationService, notifyListeners);
-    await _initProfile();
-
-    await services.permissionsService.requestGpsPermission();
 
     return true;
   }

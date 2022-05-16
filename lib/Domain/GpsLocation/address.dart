@@ -4,7 +4,7 @@ import '../../Application/DeliveryAddress/latlng.dart';
 
 class Address {
   late String _address;
-  late final LatLng _latlng = LatLng(0, 0);
+  final LatLng _latlng = LatLng(0, 0);
 
   Address([String? address, double? latitude, double? longitude]) {
     _address = address ?? "";
@@ -42,14 +42,5 @@ class Address {
   /// Update associated address infos
   void updateAddress({required String infos}) {
     _address = infos;
-  }
-
-  /// Encode address as a json
-  Map<String, dynamic> toMap() {
-    return {
-      "latitude": _latlng.latitude,
-      "longitude": _latlng.longitude,
-      "address": _address
-    };
   }
 }

@@ -5,8 +5,8 @@ import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/Authentication/AuthenticationProviders/facebook_authentication.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
+import 'package:online_order_client/Infrastructure/service_provider.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer' as dev;
 
 enum userData { fullName, phoneNumber, address, password, email }
 
@@ -31,6 +31,9 @@ class AuthenticationHelper {
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
       _reloadProfile();
+      ServicesProvider()
+          .orderService
+          .listenToOrderStatusOnServer(_authService.getId());
       Navigator.pop(_context);
     }).catchError((e) {
       _errorHandler.handleErrors(e.code);
@@ -58,15 +61,14 @@ class AuthenticationHelper {
                 replace: true);
       });
     }).catchError((e) {
-      dev.log(e.toString());
       _errorHandler.handleErrors(e.code);
     });
   }
 
   void _reloadProfile() {
-    _dataSynchroniser.fetchUserPhone(_authService.getId()).then((value) {
-      _profile.setEmail(email: _authService.getEmail());
-      _profile.setFullName(fullName: _authService.getUsername());
+    _profile.setEmail(email: _authService.getEmail());
+    _profile.setFullName(fullName: _authService.getUsername());
+    _dataSynchroniser.fetchUserPhone(_authService.getId(), (value) {
       _profile.setPhoneNumber(number: value);
       _profile.saveProfile();
     });
@@ -102,9 +104,11 @@ class AuthenticationHelper {
 
   void logout() {
     _authService.signOut();
+    ServicesProvider().orderService.cancelAllSubscribtions();
   }
 
   void updatePhoneNumber(String newPhone) {
+    _dataSynchroniser.setId(_authService.getId());
     _dataSynchroniser.setPhone(newPhone);
     _dataSynchroniser.updateUserPhone().then((value) {
       _profile.setPhoneNumber(number: newPhone);
@@ -115,7 +119,7 @@ class AuthenticationHelper {
   void _updateProfile(String fullName, String phone, String email) {
     _profile.setEmail(email: email);
     _profile.setFullName(fullName: fullName);
-    dev.log("signup : $phone");
+
     _profile.setPhoneNumber(number: phone);
     _profile.saveProfile();
   }
@@ -158,5 +162,9 @@ class AuthenticationHelper {
 
   String getPhone() {
     return _profile.getPhoneNumber();
+  }
+
+  void saveProfile() {
+    _profile.saveProfile();
   }
 }

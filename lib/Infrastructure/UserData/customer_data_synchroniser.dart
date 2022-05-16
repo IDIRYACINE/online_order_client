@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
 import 'package:http/http.dart' as http;
+import 'dart:developer' as dev;
 
 class CustomerDataSynchroniser implements ICustomerDataSynchroniser {
   final String _host;
@@ -12,35 +13,33 @@ class CustomerDataSynchroniser implements ICustomerDataSynchroniser {
 
   @override
   void setPhone(String phoneNumber) {
-    infos['PhoneNumber'] = phoneNumber;
+    infos['phoneNumber'] = phoneNumber;
   }
 
   @override
   void setId(String id) {
-    infos['Id'] = id;
+    infos['id'] = id;
   }
 
   @override
   Future<void> updateUserPhone() async {
     Uri url = Uri.parse('$_host/UpdateCustomerPhone');
     String json = jsonEncode(infos);
+
     http.Response response = await http.post(url,
         headers: {"Content-Type": "application/json; charset=utf-8"},
         body: json);
   }
 
   @override
-  Future<String> fetchUserPhone(String id) async {
+  Future<void> fetchUserPhone(String id, OnResult onResult) async {
     Uri url = Uri.parse('$_host/FetchCustomerPhone?customerId=$id');
-    String result = "";
-    try {
-      http.get(url).then((value) {
-        final data = jsonDecode(value.body);
-        result = (data["PhoneNumber"]! as String);
-      });
-    } catch (e) {
-      result = "";
-    }
-    return result;
+
+    http.get(url).then((value) {
+      final data = jsonDecode(value.body);
+      onResult(data["PhoneNumber"]!.toString());
+    }).catchError((e) {
+      onResult("not set");
+    });
   }
 }

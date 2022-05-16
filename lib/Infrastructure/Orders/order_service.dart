@@ -6,7 +6,7 @@ import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_subscriber.dart';
 
 class OrderService implements IOrderService {
-  late final StreamSubscription _ordersStatusSubscription;
+  StreamSubscription? _ordersStatusSubscription;
   final Map<String, IOrderSubscriber> _ordersStatusSubscribers = {};
   final IOnlineServerAcess _serverAcess;
 
@@ -61,7 +61,9 @@ class OrderService implements IOrderService {
   @override
   void cancelAllSubscribtions() {
     _ordersStatusSubscribers.clear();
-    _ordersStatusSubscription.cancel();
+    if (_ordersStatusSubscription != null) {
+      _ordersStatusSubscription!.cancel();
+    }
     _isSubscribedToServer = false;
   }
 }

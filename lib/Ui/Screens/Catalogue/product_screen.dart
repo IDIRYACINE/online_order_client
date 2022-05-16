@@ -32,7 +32,7 @@ class ProductsScreen extends StatefulWidget {
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
-  int currentSizeIndex = 0;
+  ValueNotifier<int> currentSizeIndex = ValueNotifier(0);
   ValueNotifier<int> units = ValueNotifier(1);
   late ThemeData theme;
   late Product product;
@@ -49,7 +49,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     }
 
     toggleLastSelectedSize = selfToggle;
-    currentSizeIndex = index;
+    currentSizeIndex.value = index;
   }
 
   void setUnitsCount(int count) {
@@ -124,11 +124,15 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           alignment: AlignmentDirectional.topEnd,
                           child: ValueListenableBuilder<int>(
                               valueListenable: units,
-                              builder: (context, newValue, child) {
-                                return Text(
-                                  "${product.getPrice(currentSizeIndex) * newValue} $labelCurrency",
-                                  style: theme.textTheme.headline2,
-                                );
+                              builder: (context, newUnits, child) {
+                                return ValueListenableBuilder<int>(
+                                    valueListenable: currentSizeIndex,
+                                    builder: (context, newSize, child) {
+                                      return Text(
+                                        "${product.getPrice(newSize) * newUnits} $labelCurrency",
+                                        style: theme.textTheme.headline2,
+                                      );
+                                    });
                               })),
                       Flexible(
                         flex: widget.productDescriptionFlex,
@@ -157,7 +161,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           text: buttonAddProduct,
                           width: double.infinity,
                           onPressed: () {
-                            widget.cartItem.setSize(currentSizeIndex);
+                            widget.cartItem.setSize(currentSizeIndex.value);
                             widget.cartItem.setQuantity(units.value);
                             Provider.of<HelpersProvider>(context, listen: false)
                                 .cartHelper

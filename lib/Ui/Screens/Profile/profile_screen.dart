@@ -49,6 +49,7 @@ class _ProfileState extends State<ProfileScreen> {
             color: theme.cardColor,
             child: IconButton(
                 onPressed: () {
+                  _authHelper.saveProfile();
                   Navigator.of(context).pop();
                 },
                 icon: Icon(
