@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:online_order_client/Domain/Catalogue/category_model.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
 import 'package:online_order_client/Infrastructure/Database/idatabase.dart';
@@ -54,9 +53,17 @@ class ProductsMapper {
   }
 
   List<double> _rawStringToList(String raw) {
-    List<double> result =
-        List<String>.from(jsonDecode(raw)).map((e) => double.parse(e)).toList();
+    List<double> result = [];
+    late double temp;
 
+    for (var element in List<dynamic>.from(jsonDecode(raw))) {
+      try {
+        temp = double.parse(element);
+        result.add(temp);
+      } catch (error) {
+        result.add(element.toDouble());
+      }
+    }
     return result;
   }
 

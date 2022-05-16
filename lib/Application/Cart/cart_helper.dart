@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:online_order_client/Application/DeliveryAddress/latlng.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Domain/Cart/cart.dart';
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
+import 'package:online_order_client/Domain/GpsLocation/address.dart';
 import 'package:online_order_client/Domain/Orders/iorder.dart';
 import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
@@ -54,10 +56,17 @@ class CartHelper {
 
     profile.selfValidate().then((value) {
       IOrder order = _cart.placeOrder();
-
+      final Address address = profile.getAddress();
+      final LatLng coordinates = address.getCoordinates();
       Map<String, dynamic> orderJson = {
-        "order": order.formatOnlineOrder(),
-        "infos": profile.getProfileJson()
+        "items": order.formatOnlineOrder(),
+        "latitude": coordinates.latitude,
+        "longitude": coordinates.longitude,
+        "address": address.getAddress(),
+        "fullName": profile.getFullName(),
+        "phoneNumber": profile.getPhoneNumber(),
+        "email": profile.getEmail(),
+        "time": _getTimeStamp()
       };
 
       Provider.of<NavigationProvider>(context, listen: false)
@@ -72,5 +81,10 @@ class CartHelper {
 
   String getTotalPrice() {
     return _cart.getTotalPrice().toStringAsFixed(2);
+  }
+
+  String _getTimeStamp() {
+    DateTime now = DateTime.now();
+    return '${now.hour} : ${now.minute}';
   }
 }
