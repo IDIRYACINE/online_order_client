@@ -7,9 +7,13 @@ class OrderStatusProvider with ChangeNotifier implements IOrderSubscriber {
   final String _id = "OrderStatusScreen";
   final _OrderState _stateDelegate = _OrderState();
   String _orderStatus = OrderStatus.noOrder;
+  bool _isSubscribed = false;
 
-  OrderStatusProvider() {
-    ServicesProvider().orderService.subscribeToOrdersStatus(this);
+  void subscribeToOrderStatusStream() {
+    if (!_isSubscribed) {
+      ServicesProvider().orderService.subscribeToOrdersStatus(this);
+      _isSubscribed = true;
+    }
   }
 
   void unsbscribeFromStatusStream() {
@@ -22,10 +26,12 @@ class OrderStatusProvider with ChangeNotifier implements IOrderSubscriber {
   }
 
   @override
-  void notify(String orderStatus) {
+  void notify(String orderStatus, [bool rebuild = true]) {
     _orderStatus = orderStatus;
     _stateDelegate.setState(orderStatus);
-    notifyListeners();
+    if (rebuild) {
+      notifyListeners();
+    }
   }
 
   String get orderStatus => _orderStatus;

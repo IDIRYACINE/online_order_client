@@ -9,14 +9,17 @@ class OrderService implements IOrderService {
   StreamSubscription? _ordersStatusSubscription;
   final Map<String, IOrderSubscriber> _ordersStatusSubscribers = {};
   final IOnlineServerAcess _serverAcess;
-
-  bool _isSubscribedToServer = false;
+  String? _latestOrderStatus;
 
   OrderService(this._serverAcess);
   @override
   void subscribeToOrdersStatus(IOrderSubscriber subscriber) {
     String subscriberId = subscriber.getId();
     _ordersStatusSubscribers[subscriberId] = subscriber;
+
+    if (_latestOrderStatus != null) {
+      subscriber.notify(_latestOrderStatus!, false);
+    }
   }
 
   @override
@@ -38,24 +41,20 @@ class OrderService implements IOrderService {
 
   @override
   void listenToOrderStatusOnServer(String userId) {
-    if (!_isSubscribedToServer) {
-      _ordersStatusSubscription = _serverAcess
-          .getDataStream(dataUrl: "OrdersStatus/$userId/status")
-          .listen((event) {
-        String? status = event.snapshot.value;
-        if (status != null) {
-          _ordersStatusSubscribers.forEach((key, subscriber) {
-            subscriber.notify(status);
-          });
-        } else {
-          _ordersStatusSubscribers.forEach((key, subscriber) {
-            subscriber.notify(OrderStatus.noOrder);
-          });
-          cancelAllSubscribtions();
-        }
-      });
-      _isSubscribedToServer = true;
-    }
+    _ordersStatusSubscription ??= _serverAcess
+        .getDataStream(dataUrl: "OrdersStatus/$userId/status")
+        .listen((event) {
+      _latestOrderStatus = event.snapshot.value;
+      if (_checkValidState()) {
+        _ordersStatusSubscribers.forEach((key, subscriber) {
+          subscriber.notify(_latestOrderStatus!);
+        });
+      } else {
+        _ordersStatusSubscribers.forEach((key, subscriber) {
+          subscriber.notify(OrderStatus.noOrder);
+        });
+      }
+    });
   }
 
   @override
@@ -64,6 +63,12 @@ class OrderService implements IOrderService {
     if (_ordersStatusSubscription != null) {
       _ordersStatusSubscription!.cancel();
     }
-    _isSubscribedToServer = false;
+    _ordersStatusSubscription = null;
+  }
+
+  bool _checkValidState() {
+    return (_latestOrderStatus != null) &&
+        (_latestOrderStatus != "") &&
+        (_latestOrderStatus != "null");
   }
 }

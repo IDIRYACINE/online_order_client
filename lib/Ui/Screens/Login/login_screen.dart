@@ -79,7 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       hint: passwordHint,
                       obsecureText: true,
                       trailing: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _authenticationHelper.sendPasswordResetCode();
+                          },
                           child: const Text(labelForgotPassword)),
                       onChange: onPasswordChanged,
                     ),

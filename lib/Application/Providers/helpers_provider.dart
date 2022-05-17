@@ -29,13 +29,18 @@ class HelpersProvider with ChangeNotifier {
       _catalogueHelper = CatalogueHelper(CatalogueModel());
 
       await _catalogueHelper.initCategories();
-
       _cartHelper = CartHelper(Cart(), services.orderService,
           services.authenticationService, notifyListeners);
-
       await _initProfile();
 
       await services.permissionsService.requestGpsPermission();
+
+      services.authenticationService.accountIsActive().then((value) {
+        if (value) {
+          services.orderService.listenToOrderStatusOnServer(
+              services.authenticationService.getId());
+        }
+      });
     } on LocalDatabaseNotFound catch (_) {
       throw LocalDatabaseNotFound();
     }
@@ -54,10 +59,6 @@ class HelpersProvider with ChangeNotifier {
         CustomerDataSynchroniser(ServicesProvider.nodeJsHost));
 
     _addressHelper = DeliveryAddress(profile.getAddress());
-  }
-
-  void setUpHelpersContext(BuildContext context) {
-    authHelper.setBuildContext(context);
   }
 
   CatalogueHelper get catalogueHelper => _catalogueHelper;

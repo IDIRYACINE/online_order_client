@@ -1,4 +1,4 @@
 abstract class IOrderSubscriber {
-  void notify(String orderStatus);
+  void notify(String orderStatus, [bool rebuild = true]);
   String getId();
 }

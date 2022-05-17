@@ -16,6 +16,7 @@ class _StatusScreenState extends State<StatusScreen> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
+    Provider.of<OrderStatusProvider>(context).subscribeToOrderStatusStream();
 
     return Padding(
         padding: const EdgeInsets.all(8.0),

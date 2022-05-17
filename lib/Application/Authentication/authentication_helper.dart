@@ -6,6 +6,8 @@ import 'package:online_order_client/Infrastructure/Authentication/Authentication
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
+import 'package:online_order_client/Ui/Components/dialogs.dart';
+import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 
 enum userData { fullName, phoneNumber, address, password, email }
@@ -83,7 +85,26 @@ class AuthenticationHelper {
   }
 
   void sendPasswordResetCode() {
-    _authService.requestNewPassword();
+    GlobalKey<FormState> formKey = GlobalKey();
+
+    showDialog<AlertDialog>(
+        context: _context,
+        builder: (context) {
+          return TextFieldAlertDialog(
+            label: emailLabel,
+            formKey: formKey,
+            onConfirm: (String value) {
+              _authService.requestNewPassword().then((value) {
+                Navigator.of(context).pop();
+                showDialog<AlertDialog>(
+                    context: _context,
+                    builder: (context) {
+                      return const ErrorAlertDialog(labelNewPassword);
+                    });
+              });
+            },
+          );
+        });
   }
 
   void updatePassword(String password) {
