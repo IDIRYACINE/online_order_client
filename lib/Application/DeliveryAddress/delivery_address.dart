@@ -1,6 +1,9 @@
+import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Application/DeliveryAddress/latlng.dart';
+import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Domain/GpsLocation/address.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
+import 'package:provider/provider.dart';
 
 class DeliveryAddress {
   final Address _address;
@@ -27,5 +30,15 @@ class DeliveryAddress {
 
   String getAddress() {
     return _address.getAddress();
+  }
+
+  Future<void> requestGpsPermissions(BuildContext context) async {
+    ServicesProvider().permissionsService.requestGpsPermission().then((value) {
+      if (value) {
+        Navigator.pop(context);
+        Provider.of<NavigationProvider>(context, listen: false)
+            .navigateToDeliveryAddressScreen(context, () {}, replace: false);
+      }
+    });
   }
 }
