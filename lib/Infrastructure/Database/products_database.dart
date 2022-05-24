@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:online_order_client/Infrastructure/Database/idatabase.dart';
+import 'package:online_order_client/Infrastructure/Exceptions/server_exceptions.dart';
 import 'package:online_order_client/Infrastructure/Server/ionline_data_service.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -18,19 +19,32 @@ class ProductsDatabase implements IProductsDatabase {
     File databaseFile = await _getLocalDatabaseFile();
 
     if (!await databaseFile.exists()) {
-      _serverAccess.downloadFile(
-          fileUrl: _productsDatabaseName, out: databaseFile);
+      try {
+        _serverAccess.downloadFile(
+            fileUrl: _productsDatabaseName, out: databaseFile);
+      } catch (e) {
+        //throw RemoteDatabaseNotFound();
+      }
     }
 
-    await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
-    int databaseVersion = await _serverAccess.fetchData(dataUrl: 'version');
-
-    if (await _checkForNewVersion(databaseVersion)) {
-      disconnect();
-      await _serverAccess.downloadFile(
-          fileUrl: _productsDatabaseName, out: databaseFile);
+    try {
       await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
-      _productsDatabase.setVersion(databaseVersion);
+    } catch (e) {
+      throw LocalDatabaseNotFound();
+    }
+
+    try {
+      int databaseVersion = await _serverAccess.fetchData(dataUrl: 'version');
+
+      if (await _checkForNewVersion(databaseVersion)) {
+        disconnect();
+        await _serverAccess.downloadFile(
+            fileUrl: _productsDatabaseName, out: databaseFile);
+        await _connectToLocalDatabase(localDatabasePath: databaseFile.path);
+        _productsDatabase.setVersion(databaseVersion);
+      }
+    } catch (e) {
+      // dont care
     }
   }
 
@@ -64,9 +78,7 @@ class ProductsDatabase implements IProductsDatabase {
 
   Future<void> _connectToLocalDatabase(
       {required String localDatabasePath}) async {
-    try {
-      _productsDatabase = await openDatabase(localDatabasePath);
-    } catch (e) {}
+    _productsDatabase = await openDatabase(localDatabasePath);
   }
 
   Future<bool> _checkForNewVersion(int fireBaseDatabaseVersion) async {

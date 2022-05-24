@@ -43,6 +43,8 @@ class HelpersProvider with ChangeNotifier {
       });
     } on LocalDatabaseNotFound catch (_) {
       throw LocalDatabaseNotFound();
+    } catch (e) {
+      // we dont care
     }
 
     return true;
