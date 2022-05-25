@@ -3,4 +3,5 @@
     <string name="app_name">online_order_client</string>
     <string name="facebook_app_id">1276491726199106</string>
     <string name="fb_login_protocol_scheme">fb1276491726199106</string>
+    <string name="notification_title">Order status</string>
 </resources>

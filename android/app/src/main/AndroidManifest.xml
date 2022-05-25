@@ -11,6 +11,13 @@
         android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic= "true"
         >
+
+
+         <service
+            android:name="com.idir.online_order_client.StatusService.OrderStatusService"
+            android:exported="false"/>
+
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

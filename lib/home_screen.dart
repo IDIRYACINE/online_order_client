@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
+import 'package:online_order_client/Infrastructure/service_provider.dart';
 import 'package:online_order_client/Ui/Components/bottom_nav_bar.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,11 @@ class HomeScreen extends StatelessWidget {
                 child: IconButton(
                     color: theme.primaryColor,
                     onPressed: () {
-                      helpersProvider.authHelper.isLoggedIn(context);
+                      ServicesProvider()
+                          .orderService
+                          .listenToOrderStatusOnServer(
+                              ServicesProvider().authenticationService.getId());
+                      //helpersProvider.authHelper.isLoggedIn(context);
                     },
                     icon: const Icon(Icons.person)),
               )

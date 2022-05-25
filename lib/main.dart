@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:online_order_client/Application/Orders/order_status_helper.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
+import 'package:online_order_client/Ui/Components/dialogs.dart';
+import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:online_order_client/Ui/Themes/main_theme.dart';
 import 'package:online_order_client/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +32,12 @@ class MyApp extends StatelessWidget {
               return const HomeScreen();
             }
             if (snapshot.hasError) {
-              return const HomeScreen();
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const ErrorAlertDialog(labelError);
+                  });
+              return const SplashScreen();
             } else {
               return const SplashScreen();
             }
@@ -53,24 +60,17 @@ class SplashScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: const <Widget>[
               Text(
-                'Shop',
+                shopLabel,
                 style: TextStyle(fontSize: 40, color: Colors.white),
               ),
               SizedBox(
                 height: 20,
               ),
-              CircularProgressIndicator()
+              CircularProgressIndicator(
+                color: Colors.white,
+              )
             ],
           ),
         ));
-  }
-}
-
-class Root extends StatelessWidget {
-  const Root({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

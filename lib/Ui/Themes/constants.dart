@@ -42,6 +42,8 @@ const labelForgotPassword = "Forgot";
 const labelNoOrder = "You have no orders";
 const labelNewPassword = "A password reset link was sent to your email";
 const labelError = "An error occured";
+const buttonRequestGpsPermissions = "Request Gps permissions";
+const shopLabel = "Shop";
 
 //Measures
 const appBarHeight = 100.0;
