@@ -27,7 +27,7 @@ ThemeData primaryTheme = ThemeData(
       primary: primaryColor,
       primaryVariant: notSetYet,
       secondary: disabledColor,
-      secondaryVariant: notSetYet,
+      secondaryVariant: secondaryVariant,
       surface: surfaceColor,
       background: backgroundColor,
       error: errorColor,
@@ -62,10 +62,10 @@ ThemeData primaryTheme = ThemeData(
     bodyText1: const TextStyle(fontSize: textSizeMeduim2, color: primaryColor),
     bodyText2: const TextStyle(fontSize: textSizeMeduim2, color: darkColor),
     button: const TextStyle(fontSize: textSizeMeduim2, color: surfaceColor),
-    overline: const TextStyle(
+    overline: TextStyle(
         fontSize: textSizeMeduim2,
         fontWeight: FontWeight.bold,
-        color: primaryColor),
+        color: secondaryVariant),
   ),
 
   //button

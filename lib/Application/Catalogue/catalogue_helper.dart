@@ -6,7 +6,7 @@ import 'package:online_order_client/Ui/Screens/Catalogue/product_widget.dart';
 
 class CatalogueHelper {
   final CatalogueModel _catalogueModel;
-  final int _maxProductsPreview = 5;
+  final int _maxProductsPreview = 20;
   late Category _selectedCategory;
   CatalogueHelper(this._catalogueModel);
 

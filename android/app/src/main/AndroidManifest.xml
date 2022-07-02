@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
    <application
-        android:label="online_order_client"
+        android:label="المنال"
         android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic= "true"
         >

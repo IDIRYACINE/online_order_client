@@ -76,7 +76,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   },
                   icon: Icon(
                     Icons.arrow_back_ios,
-                    color: theme.colorScheme.primary,
+                    color: theme.colorScheme.secondaryVariant,
                   )),
             ),
           ),

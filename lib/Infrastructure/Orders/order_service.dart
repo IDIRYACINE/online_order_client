@@ -60,13 +60,13 @@ class OrderService implements IOrderService {
 
   @override
   void listenToOrderStatusOnServer(String userId) {
-    _controlsChannel.invokeMethod(
+    /*_controlsChannel.invokeMethod(
         _listenToOrderStatusMethod, {"userId": userId}).then((value) {
-      dev.log(value);
+     
       _ordersStatusSubscription =
           _orderStatusChannel.receiveBroadcastStream().listen((event) {
         _latestOrderStatus = event;
-        dev.log('here : ${event}');
+       
         if (_checkValidState()) {
           _ordersStatusSubscribers.forEach((key, subscriber) {
             subscriber.notify(_latestOrderStatus!);
@@ -77,6 +77,20 @@ class OrderService implements IOrderService {
           });
         }
       });
+    });*/
+    _ordersStatusSubscription ??= _serverAcess
+        .getDataStream(dataUrl: "OrdersStatus/$userId/status")
+        .listen((event) {
+      _latestOrderStatus = event.snapshot.value;
+      if (_checkValidState()) {
+        _ordersStatusSubscribers.forEach((key, subscriber) {
+          subscriber.notify(_latestOrderStatus!);
+        });
+      } else {
+        _ordersStatusSubscribers.forEach((key, subscriber) {
+          subscriber.notify(OrderStatus.noOrder);
+        });
+      }
     });
   }
 

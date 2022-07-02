@@ -33,19 +33,19 @@ class _StatusScreenState extends State<StatusScreen> {
             children: [
               OrderStateWidget(
                 state: OrderStatus.waiting,
-                title: OrderStatus.waiting,
+                title: OrderStatus.waitingTitle,
                 activeState:
                     helper.calculateOrderActiveState(OrderStatus.waiting),
               ),
               OrderStateWidget(
                 state: OrderStatus.confirmed,
-                title: OrderStatus.confirmed,
+                title: OrderStatus.confirmedTitle,
                 activeState:
                     helper.calculateOrderActiveState(OrderStatus.confirmed),
               ),
               OrderStateWidget(
                 state: OrderStatus.onDelivery,
-                title: OrderStatus.onDelivery,
+                title: OrderStatus.onDeliveryTitle,
                 activeState:
                     helper.calculateOrderActiveState(OrderStatus.onDelivery),
               ),

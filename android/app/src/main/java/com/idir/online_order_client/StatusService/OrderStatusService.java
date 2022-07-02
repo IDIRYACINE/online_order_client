@@ -76,7 +76,7 @@ public class OrderStatusService extends Service {
                 if(eventSink != null){
                     eventSink.success(status);
                 }
-                new Notification(context,status); //not done yet 
+                //new Notification(context,status); //not done yet 
             }
 
             @Override

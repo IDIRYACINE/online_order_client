@@ -26,13 +26,13 @@ class HomeScreen extends StatelessWidget {
               Text(appTitle, style: theme.textTheme.headline2),
               Card(
                 child: IconButton(
-                    color: theme.primaryColor,
+                    color: theme.colorScheme.secondaryVariant,
                     onPressed: () {
-                      ServicesProvider()
+                      /*ServicesProvider()
                           .orderService
                           .listenToOrderStatusOnServer(
-                              ServicesProvider().authenticationService.getId());
-                      //helpersProvider.authHelper.isLoggedIn(context);
+                              ServicesProvider().authenticationService.getId());*/
+                      helpersProvider.authHelper.isLoggedIn(context);
                     },
                     icon: const Icon(Icons.person)),
               )

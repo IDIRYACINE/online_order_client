@@ -20,7 +20,7 @@ class _BottomNavBar extends State<BottomNavBar> {
 
     return BottomNavigationBar(
         backgroundColor: theme.colorScheme.surface,
-        selectedItemColor: theme.primaryColor,
+        selectedItemColor: theme.colorScheme.secondaryVariant,
         iconSize: 30,
         currentIndex: navigationProvider.getIconIndex(),
         type: BottomNavigationBarType.fixed,
