@@ -28,7 +28,7 @@ class FireBaseServices implements IOnlineServerAcess {
   }
 
   @override
-  Stream<Event> getDataStream({required String dataUrl}) {
+  Stream<DatabaseEvent> getDataStream({required String dataUrl}) {
     return _firebaseDatabase.child(dataUrl).onValue;
   }
 

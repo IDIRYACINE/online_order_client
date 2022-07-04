@@ -38,20 +38,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 },
                 icon: Icon(
                   Icons.arrow_back_ios,
-                  color: theme.colorScheme.primary,
+                  color: theme.colorScheme.secondaryVariant,
                 )),
           ),
         ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(spaceDefault),
-        child: GridView.builder(
+        child: ListView.builder(
             itemCount: catalogueHelper.getCategory().getProductCount(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: widget.gridCrossAxisCount,
-              crossAxisSpacing: widget.gridCrossAxisSpacing,
-              mainAxisSpacing: widget.gridMainAxisSpacing,
-            ),
+            scrollDirection: Axis.vertical,
             itemBuilder: (context, productIndex) =>
                 catalogueHelper.productWidgetBuilder(context, productIndex)),
       ),

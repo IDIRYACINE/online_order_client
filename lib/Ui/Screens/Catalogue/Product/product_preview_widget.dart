@@ -6,7 +6,7 @@ import 'package:online_order_client/Ui/Components/forms.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 
-class ProductWidget extends StatelessWidget {
+class ProductPreview extends StatelessWidget {
   final Product product;
   final Color? backgroundColor;
   final double cardBottomPadding;
@@ -15,7 +15,7 @@ class ProductWidget extends StatelessWidget {
   final int imageFlex = 2;
   final double cardElevation = 8.0;
 
-  const ProductWidget(
+  const ProductPreview(
     this.product, {
     Key? key,
     this.backgroundColor,
@@ -48,13 +48,13 @@ class ProductWidget extends StatelessWidget {
                 flex: imageFlex,
                 child: FaultTolerantImage(
                   product.getImageUrl(),
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               Expanded(
                   child: Center(
                 child:
-                    Text(product.getName(), style: theme.textTheme.headline2),
+                    Text(product.getName(), style: theme.textTheme.bodyText1),
               )),
               const Divider(),
               Expanded(
@@ -66,7 +66,7 @@ class ProductWidget extends StatelessWidget {
                       children: [
                         Text(
                           product.getPrice().toString(),
-                          style: theme.textTheme.headline2,
+                          style: theme.textTheme.bodyText1,
                         ),
                         const Text(
                           labelCurrency,

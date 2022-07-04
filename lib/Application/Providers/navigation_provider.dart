@@ -1,7 +1,7 @@
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/catalogue_screen.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/category_screen.dart';
-import 'package:online_order_client/Ui/Screens/Catalogue/product_screen.dart';
+import 'package:online_order_client/Ui/Screens/Catalogue/Product/product_screen.dart';
 import 'package:online_order_client/Ui/Screens/DeliveryAddress/gps_screen.dart';
 import 'package:online_order_client/Ui/Screens/Login/login_screen.dart';
 import 'package:online_order_client/Ui/Screens/Login/new_account_screen.dart';

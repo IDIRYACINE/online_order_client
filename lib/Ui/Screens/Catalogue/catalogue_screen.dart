@@ -119,7 +119,7 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
                                             .previewProductCount(categoryIndex),
                                         itemBuilder: (context, productIndex) =>
                                             catalogueHelper
-                                                .productWidgetBuilder(
+                                                .productPreviewWidgetBuilder(
                                                     context, productIndex),
                                         separatorBuilder: (context, index) =>
                                             SizedBox(

@@ -82,7 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: () {
                             _authenticationHelper.sendPasswordResetCode();
                           },
-                          child: const Text(labelForgotPassword)),
+                          child: Text(
+                            labelForgotPassword,
+                            style: theme.textTheme.overline,
+                          )),
                       onChange: onPasswordChanged,
                     ),
                     DefaultButton(

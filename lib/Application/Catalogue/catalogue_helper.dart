@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
 import 'package:online_order_client/Domain/Catalogue/category_model.dart';
-import 'package:online_order_client/Ui/Screens/Catalogue/product_widget.dart';
+import 'package:online_order_client/Ui/Screens/Catalogue/Product/product_preview_widget.dart';
+import 'package:online_order_client/Ui/Screens/Catalogue/Product/product_widget.dart';
 
 class CatalogueHelper {
   final CatalogueModel _catalogueModel;
@@ -38,13 +39,24 @@ class CatalogueHelper {
         _catalogueModel.getCategory(categoryIndex: categoryIndex);
   }
 
-  final BoxConstraints _defaultProductWidgetConstraints =
-      const BoxConstraints(minWidth: 130, maxWidth: 150);
+  final BoxConstraints _productWidthConstraints =
+      const BoxConstraints(minWidth: 130, maxWidth: 180);
+
+  Widget productPreviewWidgetBuilder(BuildContext context, int productIndex,
+      [BoxConstraints? productConstraints]) {
+    return ConstrainedBox(
+        constraints: productConstraints ?? _productWidthConstraints,
+        child: ProductPreview(
+            _selectedCategory.getProduct(productIndex: productIndex)));
+  }
+
+  final BoxConstraints _productHeightConstraints =
+      const BoxConstraints(minHeight: 130, maxHeight: 180);
 
   Widget productWidgetBuilder(BuildContext context, int productIndex,
       [BoxConstraints? productConstraints]) {
     return ConstrainedBox(
-        constraints: productConstraints ?? _defaultProductWidgetConstraints,
+        constraints: productConstraints ?? _productHeightConstraints,
         child: ProductWidget(
             _selectedCategory.getProduct(productIndex: productIndex)));
   }

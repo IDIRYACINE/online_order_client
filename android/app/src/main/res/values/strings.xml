@@ -4,4 +4,6 @@
     <string name="facebook_app_id">1276491726199106</string>
     <string name="fb_login_protocol_scheme">fb1276491726199106</string>
     <string name="notification_title">Order status</string>
+    <string name="facebook_client_token">5fe8b062899516edab3fd56c853d4806</string>
+    
 </resources>

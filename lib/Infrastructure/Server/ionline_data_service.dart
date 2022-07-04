@@ -8,5 +8,5 @@ abstract class IOnlineServerAcess {
   Future<dynamic> fetchData({required String dataUrl});
   Future<void> postData({required String dataUrl, required dynamic data});
   Future<void> updateData({required String dataUrl, required dynamic data});
-  Stream<Event> getDataStream({required String dataUrl});
+  Stream<DatabaseEvent> getDataStream({required String dataUrl});
 }

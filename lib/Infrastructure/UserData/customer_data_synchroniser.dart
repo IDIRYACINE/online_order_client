@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synchroniser.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer' as dev;
 
 class CustomerDataSynchroniser implements ICustomerDataSynchroniser {
   final String _host;

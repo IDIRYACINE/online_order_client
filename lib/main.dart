@@ -4,7 +4,6 @@ import 'package:online_order_client/Application/Orders/order_status_helper.dart'
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Ui/Components/dialogs.dart';
-import 'package:online_order_client/Ui/Components/forms.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:online_order_client/Ui/Themes/main_theme.dart';
 import 'package:online_order_client/home_screen.dart';
@@ -61,7 +60,8 @@ class SplashScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ConstrainedBox(
-                constraints: BoxConstraints.loose(Size(double.infinity, 200)),
+                constraints:
+                    BoxConstraints.loose(const Size(double.infinity, 200)),
                 child: Image.asset(
                   'assets/images/logo.png',
                   height: double.infinity,
