@@ -43,19 +43,29 @@ class _ProductWidgetState extends State<ProductWidget> {
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Expanded(
+                    flex: 3,
+                    child: Align(
+                      alignment: AlignmentDirectional.centerEnd,
                       child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(widget.product.getName(),
-                        style: theme.textTheme.bodyText1),
-                  )),
+                        padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                        child: Text(widget.product.getName(),
+                            style: theme.textTheme.bodyText1),
+                      ),
+                    ),
+                  ),
                   Expanded(
+                    flex: 1,
                     child: Align(
                       alignment: AlignmentDirectional.bottomEnd,
-                      child: Text(
-                        '${widget.product.getPrice().toString()} $labelCurrency',
-                        style: theme.textTheme.bodyText1,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 4.0, bottom: 8.0),
+                        child: Text(
+                          '${widget.product.getPrice().toString()} $labelCurrency',
+                          style: theme.textTheme.bodyText1,
+                        ),
                       ),
                     ),
                   ),
