@@ -4,26 +4,36 @@ import 'package:online_order_client/Domain/Catalogue/catalogue_model.dart';
 import 'package:online_order_client/Domain/Catalogue/category_model.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/Product/product_preview_widget.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/Product/product_widget.dart';
+import 'package:online_order_client/Ui/Screens/Catalogue/category_widget.dart';
 
 class CatalogueHelper {
   final CatalogueModel _catalogueModel;
-  final int _maxProductsPreview = 20;
+  final int _maxProductsPreview = 5;
   late Category _selectedCategory;
   CatalogueHelper(this._catalogueModel);
 
-  Category getCategory([int? categoryIndex]) {
+  Category selectCategory([int? categoryIndex]) {
     if (categoryIndex != null) {
       return _catalogueModel.getCategory(categoryIndex: categoryIndex);
     }
     return _selectedCategory;
   }
 
+  Category getCategory(int categoryIndex) {
+    return _catalogueModel.getCategory(categoryIndex: categoryIndex);
+  }
+
   int getCategoriesCount() {
     return _catalogueModel.getCategoriesCount();
   }
 
+  int getCategoriesPreviewCount() {
+    int count = getCategoriesCount();
+    return count < _maxProductsPreview ? count : _maxProductsPreview;
+  }
+
   int previewProductCount(int categoryIndex) {
-    int productCount = getCategory(categoryIndex).getProductCount();
+    int productCount = selectCategory(categoryIndex).getProductCount();
     productCount =
         productCount > _maxProductsPreview ? _maxProductsPreview : productCount;
     return productCount;
@@ -59,5 +69,12 @@ class CatalogueHelper {
         constraints: productConstraints ?? _productHeightConstraints,
         child: ProductWidget(
             _selectedCategory.getProduct(productIndex: productIndex)));
+  }
+
+  categoryWidgetBuilder(BuildContext context, int categoryIndex,
+      [BoxConstraints? productConstraints]) {
+    return ConstrainedBox(
+        constraints: productConstraints ?? _productHeightConstraints,
+        child: CategoryWidget(getCategory(categoryIndex), categoryIndex));
   }
 }

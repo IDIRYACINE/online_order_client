@@ -1,4 +1,5 @@
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
+import 'package:online_order_client/Ui/Screens/Catalogue/catalogue_all_screen.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/catalogue_screen.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/category_screen.dart';
 import 'package:online_order_client/Ui/Screens/Catalogue/Product/product_screen.dart';
@@ -101,5 +102,10 @@ class NavigationProvider with ChangeNotifier {
 
   int getIconIndex() {
     return _iconIndex;
+  }
+
+  void navigateToAllCategories(BuildContext context) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const CatalogueAllScreen()));
   }
 }

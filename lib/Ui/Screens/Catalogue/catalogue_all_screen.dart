@@ -4,18 +4,18 @@ import 'package:online_order_client/Application/Providers/helpers_provider.dart'
 import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 
-class CategoryScreen extends StatefulWidget {
-  final int gridCrossAxisCount = 2;
+class CatalogueAllScreen extends StatefulWidget {
   final double gridCrossAxisSpacing = spaceDefault;
-  final double gridMainAxisSpacing = 5.0;
 
-  const CategoryScreen({Key? key}) : super(key: key);
+  final double verticalSpacing = 3.00;
+
+  const CatalogueAllScreen({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _CategoryScreenState();
+  State<StatefulWidget> createState() => _CatalogueAllScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
+class _CatalogueAllScreenState extends State<CatalogueAllScreen> {
   late CatalogueHelper catalogueHelper;
 
   @override
@@ -46,10 +46,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
       body: Padding(
         padding: const EdgeInsets.all(spaceDefault),
         child: ListView.builder(
-            itemCount: catalogueHelper.selectCategory().getProductCount(),
+            itemCount: catalogueHelper.getCategoriesCount(),
             scrollDirection: Axis.vertical,
-            itemBuilder: (context, productIndex) =>
-                catalogueHelper.productWidgetBuilder(context, productIndex)),
+            itemBuilder: (context, categoryIndex) =>
+                catalogueHelper.categoryWidgetBuilder(context, categoryIndex)),
       ),
     );
   }

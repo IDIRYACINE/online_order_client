@@ -148,7 +148,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                               top: widget.optionalItemsYpadding,
                               bottom: widget.optionalItemsYpadding),
                           child: OptionalItemsWidget(
-                            sizesTitle,
+                            title: Text(
+                              sizesTitle,
+                              style: theme.textTheme.headline2,
+                            ),
                             activeItem: widget.cartItem.getSelectedSizeIndex(),
                             itemShape: const RoundedRectangleBorder(),
                             unselectedItemColor: theme.colorScheme.background,

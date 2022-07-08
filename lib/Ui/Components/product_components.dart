@@ -8,7 +8,7 @@ typedef ItemActivationFunction = void Function(
 typedef OptionalItemBuilder = Widget Function(BuildContext context, int index);
 
 class OptionalItemsWidget extends StatefulWidget {
-  final String title;
+  final Widget title;
   final int itemCount;
   final Color? selectedItemColor;
   final Color? unselectedItemColor;
@@ -22,9 +22,10 @@ class OptionalItemsWidget extends StatefulWidget {
   final EdgeInsets titlePadding;
   final double? minItemWidth;
   final int? activeItem;
-  const OptionalItemsWidget(
-    this.title, {
+
+  const OptionalItemsWidget({
     Key? key,
+    required this.title,
     required this.itemCount,
     required this.itemPopulater,
     required this.onItemPressed,
@@ -90,10 +91,7 @@ class _OptionalItemsWidgetState extends State<OptionalItemsWidget> {
       children: [
         Padding(
           padding: widget.titlePadding,
-          child: Text(
-            widget.title,
-            style: theme.textTheme.headline2,
-          ),
+          child: widget.title,
         ),
         SizedBox(
             height: maxItemHeight,

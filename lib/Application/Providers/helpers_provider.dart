@@ -13,6 +13,8 @@ import 'package:online_order_client/Infrastructure/Exceptions/server_exceptions.
 import 'package:online_order_client/Infrastructure/UserData/customer_data_synchroniser.dart';
 import 'package:online_order_client/Infrastructure/service_provider.dart';
 
+import 'dart:developer' as dev;
+
 class HelpersProvider with ChangeNotifier {
   late CatalogueHelper _catalogueHelper;
   late CartHelper _cartHelper;
@@ -44,7 +46,7 @@ class HelpersProvider with ChangeNotifier {
     } on LocalDatabaseNotFound catch (_) {
       throw LocalDatabaseNotFound();
     } catch (e) {
-      // we dont care
+      dev.log(e.toString());
     }
 
     return true;

@@ -42,12 +42,16 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
   }
 
   OptionalItem categoryPopulater(int index) {
-    Category category = catalogueHelper.getCategory(index);
+    Category category = catalogueHelper.selectCategory(index);
     return OptionalItem(category.getName(), category.getImageUrl());
   }
 
-  void onSeeAllPressed(BuildContext context) {
+  void seeAllProducts(BuildContext context) {
     navigationProvider.navigateToCategory(context);
+  }
+
+  void seeAllCategories(BuildContext context) {
+    navigationProvider.navigateToAllCategories(context);
   }
 
   @override
@@ -69,9 +73,25 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
                 Flexible(
                     flex: golenRationFlexSmall,
                     child: OptionalItemsWidget(
-                      categoriesTitle,
+                      title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              categoriesTitle,
+                              style: theme.textTheme.headline2,
+                            ),
+                            InkResponse(
+                              onTap: () {
+                                seeAllCategories(context);
+                              },
+                              child: Text(
+                                seeAllLabel,
+                                style: theme.textTheme.overline,
+                              ),
+                            )
+                          ]),
                       minItemWidth: widget.fixedCategoryWidth,
-                      itemCount: catalogueHelper.getCategoriesCount(),
+                      itemCount: catalogueHelper.getCategoriesPreviewCount(),
                       itemPopulater: categoryPopulater,
                       onItemPressed: onCategoryPressed,
                     )),
@@ -81,7 +101,7 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
                         valueListenable: selectedCategoryIndex,
                         builder: (context, categoryIndex, child) {
                           Category category =
-                              catalogueHelper.getCategory(categoryIndex);
+                              catalogueHelper.selectCategory(categoryIndex);
 
                           return Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -102,7 +122,7 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
                                         ),
                                         InkResponse(
                                           onTap: () {
-                                            onSeeAllPressed(context);
+                                            seeAllProducts(context);
                                           },
                                           child: Text(
                                             seeAllLabel,
