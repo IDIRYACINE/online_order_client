@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:online_order_client/Application/Orders/order_status_helper.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
@@ -10,6 +11,10 @@ import 'package:online_order_client/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => NavigationProvider()),
     ChangeNotifierProvider(create: (_) => HelpersProvider()),

@@ -165,7 +165,9 @@ class AuthenticationHelper {
 
   void setDeliveryAddresse(BuildContext context) {
     Provider.of<NavigationProvider>(context, listen: false)
-        .navigateToDeliveryAddressScreen(context, () => {}, replace: false);
+        .navigateToDeliveryAddressScreen(
+            context, () => {Navigator.pop(context)},
+            replace: false);
   }
 
   String getFullName() {

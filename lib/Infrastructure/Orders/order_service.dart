@@ -93,4 +93,9 @@ class OrderService implements IOrderService {
         (_latestOrderStatus != "") &&
         (_latestOrderStatus != "null");
   }
+
+  @override
+  bool canModifyOrder() {
+    return (!_checkValidState() || (_latestOrderStatus == OrderStatus.waiting));
+  }
 }

@@ -46,21 +46,23 @@ class _ProfileState extends State<ProfileScreen> {
                   },
                   icon: Icon(
                     Icons.arrow_back_ios,
-                    color: theme.colorScheme.secondary,
+                    color: theme.colorScheme.secondaryContainer,
                   ))),
           Text(profileTitle, style: theme.textTheme.headline2),
           Card(
             elevation: 4.0,
             color: theme.cardColor,
-            child: IconButton(
-                onPressed: () {
-                  _authHelper.saveProfile();
-                  Navigator.of(context).pop();
-                },
-                icon: Icon(
-                  Icons.done,
-                  color: theme.colorScheme.secondary,
-                )),
+            child: !widget.isSendingOrder
+                ? IconButton(
+                    onPressed: () {
+                      _authHelper.saveProfile();
+                      Navigator.of(context).pop();
+                    },
+                    icon: Icon(
+                      Icons.done,
+                      color: theme.colorScheme.secondaryContainer,
+                    ))
+                : const SizedBox(),
           ),
         ]),
       ),
@@ -103,7 +105,6 @@ class _ProfileState extends State<ProfileScreen> {
                     },
                     onChangeConfirm: (value) {},
                   )),
-             
               Padding(
                   padding: EdgeInsets.all(widget.cardsPadding),
                   child: DefaultButton(

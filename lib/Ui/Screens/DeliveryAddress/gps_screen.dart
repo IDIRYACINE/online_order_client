@@ -118,7 +118,6 @@ class _DeliveryAddresState extends State<DeliveryAddresScreen> {
                           longitude: _markerLocation.value.longitude,
                           infos: _deliveryAddress);
                       widget._callback();
-                      Navigator.pop(context);
                     },
                   ),
                 ),

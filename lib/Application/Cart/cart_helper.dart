@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Application/DeliveryAddress/latlng.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
@@ -10,6 +11,7 @@ import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer' as dev;
 
 class CartHelper {
   final Cart _cart;
@@ -35,12 +37,17 @@ class CartHelper {
 
   void placeOrder(BuildContext context) {
     _authenticationService.accountIsActive().then((isActive) {
-      if (isActive) {
-        _sendOrderToShop(context);
-      } else {
-        Provider.of<NavigationProvider>(context, listen: false)
-            .navigateToLogin(context);
+      if (_orderService.canModifyOrder()) {
+        if (isActive) {
+          _sendOrderToShop(context);
+        } else {
+          Provider.of<NavigationProvider>(context, listen: false)
+              .navigateToLogin(context);
+        }
+        return;
       }
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("votre commande est déjà confirmée")));
     });
   }
 
@@ -78,7 +85,8 @@ class CartHelper {
             orderJson, _authenticationService.getId());
         _cart.clearCart();
         _notifyChange();
-      }, true);
+        Navigator.pop(context);
+      }, true, true);
     }, replace: false);
   }
 

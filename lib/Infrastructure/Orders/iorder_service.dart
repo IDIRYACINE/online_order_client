@@ -6,4 +6,5 @@ abstract class IOrderService {
   void unsubscribeFromOrdersStatus(String subscriberId);
   void cancelAllSubscribtions();
   void listenToOrderStatusOnServer(String userId);
+  bool canModifyOrder();
 }

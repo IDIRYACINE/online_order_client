@@ -69,6 +69,11 @@ class _CartScreenState extends State<CartScreen> {
                   width: double.infinity,
                   text: buttonDelivery,
                   onPressed: () {
+                    if (_cartHelper.getCartItemCount() == 0) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Le panier est vide")));
+                      return;
+                    }
                     _cartHelper.placeOrder(context);
                   },
                 )),
