@@ -1,46 +1,5 @@
 import 'package:flutter/material.dart';
 
-class DefaultButton extends StatelessWidget {
-  final Color? textColor;
-  final Color? backgroundColor;
-  final String text;
-  final VoidCallback? onPressed;
-  final ShapeBorder shape;
-  final double? width;
-  final double? height;
-
-  const DefaultButton(
-      {Key? key,
-      this.textColor,
-      this.backgroundColor,
-      required this.text,
-      this.onPressed,
-      this.shape = const StadiumBorder(),
-      this.width,
-      this.height})
-      : super(key: key);
-
-  final double defaultHeight = 50.0;
-
-  @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-
-    return SizedBox(
-        width: width,
-        height: height ?? defaultHeight,
-        child: MaterialButton(
-          color: backgroundColor ?? theme.primaryColor,
-          shape: shape,
-          child: Text(
-            text,
-            style: theme.textTheme.button,
-          ),
-          onPressed: onPressed ?? () {},
-        ));
-  }
-}
-
 typedef CounterCallback = void Function(int count);
 
 class UnitButton extends StatefulWidget {
@@ -142,44 +101,5 @@ class _UnitButtonState extends State<UnitButton> {
         ],
       ),
     );
-  }
-}
-
-typedef ToggleCallback = void Function(bool value);
-
-class ToggleButton extends StatefulWidget {
-  final IconData showTextIcon;
-  final IconData hideTextIcon;
-  final ToggleCallback? toggleCallback;
-  final bool isActive;
-  const ToggleButton(
-      {Key? key,
-      this.showTextIcon = Icons.visibility,
-      this.hideTextIcon = Icons.visibility_off,
-      this.toggleCallback,
-      this.isActive = false})
-      : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _ToggleButtonState();
-}
-
-class _ToggleButtonState extends State<ToggleButton> {
-  late bool isActive;
-
-  @override
-  Widget build(BuildContext context) {
-    isActive = widget.isActive;
-
-    return InkResponse(
-        onTap: () {
-          setState(() {
-            isActive = !isActive;
-          });
-          if (widget.toggleCallback != null) {
-            widget.toggleCallback!(isActive);
-          }
-        },
-        child: Icon(isActive ? widget.hideTextIcon : widget.showTextIcon));
   }
 }

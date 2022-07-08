@@ -1,6 +1,5 @@
 // ignore_for_file: unused_element
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -21,7 +20,7 @@ import 'package:online_order_client/Infrastructure/UserData/icustomer_data_synch
 
 class ServicesProvider {
   static final ServicesProvider _instance = ServicesProvider._();
-  static const String localHost = "192.168.1.8";
+  static const String localHost = "192.168.1.6";
   static const String nodeJsHost = "https://orsnodejs.herokuapp.com";
   static String databaseUrl =
       "https://online-order-client-default-rtdb.europe-west1.firebasedatabase.app/";
@@ -51,8 +50,8 @@ class ServicesProvider {
 
   Future<void> _initServices() async {
     await _initServerAcess();
-    _authenticationService = FirebaseAuthenticationService(
-        FirebaseAuth.instance, FirebaseFirestore.instance);
+    _authenticationService =
+        FirebaseAuthenticationService(FirebaseAuth.instance);
     _orderService = OrderService(_serverAcess);
     _productsDatabase = ProductsDatabase(_serverAcess);
     _productsMapper = ProductsMapper(_productsDatabase);
@@ -72,7 +71,6 @@ class ServicesProvider {
   Future<void> _useTestMode() async {
     databaseUrl = "http://$localHost:9000/?ns=online-order-client";
     FirebaseAuth.instance.useAuthEmulator(localHost, 9099);
-    FirebaseFirestore.instance.useFirestoreEmulator(localHost, 8080);
     FirebaseStorage.instance.useStorageEmulator(localHost, 9199);
   }
 

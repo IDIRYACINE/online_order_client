@@ -3,7 +3,7 @@ import 'package:online_order_client/Application/Authentication/authentication_he
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
-import 'package:online_order_client/Ui/Components/buttons.dart';
+import 'package:online_order_client/Ui/Components/Buttons/buttons_default.dart';
 import 'package:online_order_client/Ui/Components/forms.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
@@ -96,22 +96,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           _authenticationHelper.signInWithEmailAndPassword(
                               email, password);
                         }
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                        bottom: 10,
-                      ),
-                      child: Text(alternativeLoginLabel,
-                          style: theme.textTheme.bodyText1),
-                    ),
-                    DefaultButton(
-                      backgroundColor: Colors.blue,
-                      text: facebookLoginLabel,
-                      width: double.infinity,
-                      onPressed: () {
-                        _authenticationHelper.signInWithFacebook();
                       },
                     ),
                     Row(

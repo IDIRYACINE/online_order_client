@@ -76,14 +76,6 @@ class AuthenticationHelper {
     });
   }
 
-  void signUpWithFacebook() {
-    _fbAuthentication.signUp();
-  }
-
-  void signInWithFacebook() {
-    _fbAuthentication.singIn();
-  }
-
   void sendPasswordResetCode() {
     GlobalKey<FormState> formKey = GlobalKey();
 
@@ -149,7 +141,10 @@ class AuthenticationHelper {
     _authService.accountIsActive().then((value) {
       if (value) {
         Provider.of<NavigationProvider>(context, listen: false)
-            .navigateToProfile(context);
+            .navigateToProfile(context, () {
+          logout();
+          Navigator.pop(context);
+        });
       } else {
         Provider.of<NavigationProvider>(context, listen: false)
             .navigateToLogin(context);
@@ -187,5 +182,22 @@ class AuthenticationHelper {
 
   void saveProfile() {
     _profile.saveProfile();
+  }
+
+  void signInWithFacebook() {
+    _fbAuthentication.singIn().then((profileFb) {
+      ServicesProvider()
+          .orderService
+          .listenToOrderStatusOnServer(_authService.getId());
+      Navigator.pop(_context);
+    });
+  }
+
+  void unlinkFacbookAccount() {
+    _fbAuthentication.unlinkFacebook();
+  }
+
+  void linkFacbookAccount() {
+    _fbAuthentication.linkFacebook();
   }
 }

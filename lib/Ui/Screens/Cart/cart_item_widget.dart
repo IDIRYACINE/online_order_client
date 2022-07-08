@@ -3,7 +3,7 @@ import 'package:online_order_client/Application/Cart/cart_helper.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
-import 'package:online_order_client/Ui/Components/buttons.dart';
+import 'package:online_order_client/Ui/Components/Buttons/button_units.dart';
 import 'package:online_order_client/Ui/Components/forms.dart';
 import 'package:provider/provider.dart';
 

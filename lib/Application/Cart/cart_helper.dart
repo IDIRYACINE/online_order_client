@@ -54,29 +54,32 @@ class CartHelper {
         .authHelper
         .getProfile();
 
-    profile.selfValidate().then((value) {
-      IOrder order = _cart.placeOrder();
-      final Address address = profile.getAddress();
-      final LatLng coordinates = address.getCoordinates();
-      Map<String, dynamic> orderJson = {
-        "items": order.formatOnlineOrder(),
-        "latitude": coordinates.latitude,
-        "longitude": coordinates.longitude,
-        "address": address.getAddress(),
-        "fullName": profile.getFullName(),
-        "phoneNumber": profile.getPhoneNumber(),
-        "email": profile.getEmail(),
-        "time": _getTimeStamp()
-      };
+    IOrder order = _cart.placeOrder();
+    final Address address = profile.getAddress();
+    final LatLng coordinates = address.getCoordinates();
 
-      Provider.of<NavigationProvider>(context, listen: false)
-          .navigateToDeliveryAddressScreen(context, () {
+    NavigationProvider navigationProvider =
+        Provider.of<NavigationProvider>(context, listen: false);
+
+    Map<String, dynamic> orderJson = {
+      "items": order.formatOnlineOrder(),
+      "latitude": coordinates.latitude,
+      "longitude": coordinates.longitude,
+      "address": address.getAddress(),
+      "fullName": profile.getFullName(),
+      "phoneNumber": profile.getPhoneNumber(),
+      "email": profile.getEmail(),
+      "time": _getTimeStamp()
+    };
+
+    navigationProvider.navigateToDeliveryAddressScreen(context, () {
+      navigationProvider.navigateToProfile(context, () {
         _orderService.sendOrderToShop(
             orderJson, _authenticationService.getId());
         _cart.clearCart();
         _notifyChange();
-      }, replace: false);
-    });
+      }, true);
+    }, replace: false);
   }
 
   String getTotalPrice() {

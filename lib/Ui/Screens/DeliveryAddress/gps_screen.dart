@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/DeliveryAddress/delivery_address.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:online_order_client/Ui/Components/buttons.dart';
+import 'package:online_order_client/Ui/Components/Buttons/buttons_default.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_map/flutter_map.dart';

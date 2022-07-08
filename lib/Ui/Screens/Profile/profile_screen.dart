@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:online_order_client/Ui/Components/buttons.dart';
+import 'package:online_order_client/Ui/Components/Buttons/button_facebook_link.dart';
+import 'package:online_order_client/Ui/Components/Buttons/buttons_default.dart';
 import 'package:online_order_client/Ui/Components/cards.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final bool isSendingOrder;
+  final VoidCallback triggerCallback;
   final double cardsPadding = 10.0;
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen(
+      {Key? key, required this.isSendingOrder, required this.triggerCallback})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _ProfileState();
@@ -41,7 +46,7 @@ class _ProfileState extends State<ProfileScreen> {
                   },
                   icon: Icon(
                     Icons.arrow_back_ios,
-                    color: theme.colorScheme.secondaryVariant,
+                    color: theme.colorScheme.secondary,
                   ))),
           Text(profileTitle, style: theme.textTheme.headline2),
           Card(
@@ -54,7 +59,7 @@ class _ProfileState extends State<ProfileScreen> {
                 },
                 icon: Icon(
                   Icons.done,
-                  color: theme.colorScheme.secondaryVariant,
+                  color: theme.colorScheme.secondary,
                 )),
           ),
         ]),
@@ -98,14 +103,14 @@ class _ProfileState extends State<ProfileScreen> {
                     },
                     onChangeConfirm: (value) {},
                   )),
+             
               Padding(
                   padding: EdgeInsets.all(widget.cardsPadding),
                   child: DefaultButton(
-                    text: logoutLabel,
+                    text: widget.isSendingOrder ? confirmLabel : logoutLabel,
                     width: double.infinity,
                     onPressed: () {
-                      _authHelper.logout();
-                      Navigator.of(context).pop();
+                      widget.triggerCallback();
                     },
                   ))
             ],

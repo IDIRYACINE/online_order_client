@@ -33,7 +33,7 @@ class _OrderStateWidgetState extends State<OrderStateWidget> {
     ThemeData theme = Theme.of(context);
 
     Color activeColor =
-        widget.activeColor ?? theme.colorScheme.secondaryVariant;
+        widget.activeColor ?? theme.colorScheme.secondaryContainer;
     Color unactiveColor = widget.unactiveColor ?? theme.colorScheme.secondary;
     Color color = widget.activeState ? activeColor : unactiveColor;
 

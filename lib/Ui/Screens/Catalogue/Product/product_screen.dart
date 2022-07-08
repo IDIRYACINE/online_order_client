@@ -3,7 +3,8 @@ import 'package:online_order_client/Application/Providers/helpers_provider.dart'
 import 'package:online_order_client/Domain/Cart/cart_item.dart';
 import 'package:online_order_client/Domain/Catalogue/optional_item.dart';
 import 'package:online_order_client/Domain/Catalogue/product_model.dart';
-import 'package:online_order_client/Ui/Components/buttons.dart';
+import 'package:online_order_client/Ui/Components/Buttons/button_units.dart';
+import 'package:online_order_client/Ui/Components/Buttons/buttons_default.dart';
 import 'package:online_order_client/Ui/Components/product_components.dart';
 import 'package:online_order_client/Ui/Components/forms.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
@@ -76,7 +77,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                   },
                   icon: Icon(
                     Icons.arrow_back_ios,
-                    color: theme.colorScheme.secondaryVariant,
+                    color: theme.colorScheme.secondaryContainer,
                   )),
             ),
           ),

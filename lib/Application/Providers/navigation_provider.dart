@@ -81,9 +81,25 @@ class NavigationProvider with ChangeNotifier {
     }
   }
 
-  void navigateToProfile(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const ProfileScreen()));
+  void navigateToProfile(BuildContext context, VoidCallback trigger,
+      [bool isSendingOrder = false, bool replace = false]) {
+    if (!replace) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ProfileScreen(
+                    triggerCallback: trigger,
+                    isSendingOrder: isSendingOrder,
+                  )));
+    } else {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ProfileScreen(
+                    triggerCallback: trigger,
+                    isSendingOrder: isSendingOrder,
+                  )));
+    }
   }
 
   void navigateToCategory(BuildContext context) {

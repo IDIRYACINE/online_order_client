@@ -25,7 +25,8 @@ class CartItem {
       'name': _product.getName(),
       'quantity': _quantity,
       'size': _size,
-      'price': _price
+      'price': _price,
+      'image': _product.getImageUrl()
     };
   }
 

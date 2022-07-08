@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class IAuthenticationService {
@@ -31,7 +32,8 @@ abstract class IAuthenticationService {
 
   Future<void> confirmPhoneVerification({required String smsCode});
 
-  Future<void> linkAuthProviderWithProfile({required dynamic authProvider});
+  Future<void> linkAuthProviderWithProfile(
+      {required AuthCredential authProvider});
 
   Future<bool> accountIsActive();
 
@@ -44,5 +46,12 @@ abstract class IAuthenticationService {
   String getId();
   String getPhoneNumber();
 
+  Future<void> signInWithPhoneNumber();
+
   Future<void> updateFullName({required String fullName});
+
+  Future<void> signInWithFacebook({required AuthCredential credential});
+
+  Future<void> unlinkProvider({required String providerId});
+  Future<bool> isLinkedWithProvider({required String providerId});
 }

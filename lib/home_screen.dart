@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
               Text(appTitle, style: theme.textTheme.headline2),
               Card(
                 child: IconButton(
-                    color: theme.colorScheme.secondaryVariant,
+                    color: theme.colorScheme.secondaryContainer,
                     onPressed: () {
                       /*ServicesProvider()
                           .orderService

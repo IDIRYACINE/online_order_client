@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,11 +11,10 @@ import 'package:online_order_client/Infrastructure/Exceptions/server_exceptions.
 class FirebaseAuthenticationService implements IAuthenticationService {
   final FirebaseAuth _auth;
   late User _user;
-  final FirebaseFirestore _firestore;
   late String _smsCodeId;
   int? _forceSmsResendToken;
 
-  FirebaseAuthenticationService(this._auth, this._firestore);
+  FirebaseAuthenticationService(this._auth);
 
   @override
   Future<bool> accountIsActive() async {
@@ -24,6 +22,7 @@ class FirebaseAuthenticationService implements IAuthenticationService {
     //&& _user.phoneNumber != null fireAuth cant use both email and phone
     // need a fix !
     if (_auth.currentUser != null) {
+      _user = _auth.currentUser!;
       return true;
     }
     return false;
@@ -47,7 +46,8 @@ class FirebaseAuthenticationService implements IAuthenticationService {
   }
 
   @override
-  Future<void> linkAuthProviderWithProfile({required authProvider}) async {
+  Future<void> linkAuthProviderWithProfile(
+      {required AuthCredential authProvider}) async {
     try {
       _user.linkWithCredential(authProvider);
     } catch (e) {
@@ -122,6 +122,20 @@ class FirebaseAuthenticationService implements IAuthenticationService {
       {required String email, required String password}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      _user = _auth.currentUser!;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "wrong-password") {
+        throw InvalidLoginInfos();
+      } else {
+        throw InvalidUser();
+      }
+    }
+  }
+
+  @override
+  Future<void> signInWithFacebook({required AuthCredential credential}) async {
+    try {
+      await _auth.signInWithCredential(credential);
       _user = _auth.currentUser!;
     } on FirebaseAuthException catch (e) {
       if (e.code == "wrong-password") {
@@ -209,5 +223,23 @@ class FirebaseAuthenticationService implements IAuthenticationService {
   @override
   Future<void> updateFullName({required String fullName}) async {
     _user.updateDisplayName(fullName);
+  }
+
+  @override
+  Future<void> signInWithPhoneNumber() {
+    // TODO: implement signInWithPhoneNumber
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> unlinkProvider({required String providerId}) async {
+    try {
+      _user.unlink(providerId);
+    } catch (e) {}
+  }
+
+  @override
+  Future<bool> isLinkedWithProvider({required String providerId}) {
+    throw UnimplementedError();
   }
 }
