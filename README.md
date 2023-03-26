@@ -1,5 +1,23 @@
 # online_order_client
 
+## Note
+    The build folder is not included which would cause some errors in your ide after cloning for the first time execute flutter run or flutter pub get to fix the issues.
+
+## PlayStore
+  [PlayStore Link](https://play.google.com/store/apps/details?id=com.idir.online_order_client)  
+
+
+![1](./screenshots/1.png)
+![2](./screenshots/2.png)
+![3](./screenshots/3.png)
+![4](./screenshots/4.png)
+![5](./screenshots/5.png)
+![6](./screenshots/6.png)
+![7](./screenshots/7.png)
+![8](./screenshots/8.png)
+![9](./screenshots/9.png)
+![10](./screenshots/10.png)
+
 <h1>Cart</h1>
 <table>
   <tr>
@@ -12,13 +30,13 @@
     <td>Design Cart Screen</td>
     <td> Done</td>
     <td>1</td>
-    <td>Houssem</td>
+    <td>IDIR</td>
   </tr>
  <tr>
     <td>Display Products In Cart</td>
     <td> Done</td>
     <td>1</td>
-    <td>Houssem</td>
+    <td>IDIR</td>
   </tr>
   <tr>
     <td>Customer Can Add Product To Cart</td>
@@ -36,7 +54,7 @@
     <td>Customer Can Edit Products</td>
     <td> Done</td>
     <td>1</td>
-    <td>Houssem</td>
+    <td>IDIR</td>
   </tr>
    <tr>
     <td>Customer Can Clear Cart</td>
@@ -140,7 +158,7 @@
     <td>Check Deliverability To Address</td>
     <td>Done</td>
     <td>1</td>
-    <td>Houssem</td>
+    <td>IDIR</td>
   </tr>
   <tr>
     <td>Check Ban Status</td>
@@ -158,7 +176,7 @@
     <td>Create Order Status Screen</td>
     <td>Done</td>
     <td>1</td>
-    <td>Houssem</td>
+    <td>IDIR</td>
   </tr>
 <table/>
 
@@ -174,13 +192,13 @@
     <td>Display Products By Category</td>
     <td> Done</td>
     <td>1</td>
-    <td>Houssem</td>
+    <td>IDIR</td>
   </tr>
    <tr>
     <td>Create Catalogue Screen</td>
     <td>Done</td>
     <td>1</td>
-    <td>Houssem</td>
+    <td>IDIR</td>
   </tr>
    <tr>
     <td>Load More Products As Needed</td>
@@ -202,7 +220,7 @@
     <td>Create Product Details Screen</td>
     <td> Done</td>
     <td>1</td>
-    <td>Houssem</td>
+    <td>IDIR</td>
   </tr>
 </table>
   
@@ -218,7 +236,7 @@
     <td>Create Profile Screen</td>
     <td>Done</td>
     <td>1</td>
-    <td>Houssem</td>
+    <td>IDIR</td>
   </tr>
  <tr>
     <td>Create Profile Model</td>
