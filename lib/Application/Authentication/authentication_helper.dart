@@ -59,7 +59,7 @@ class AuthenticationHelper {
           .then((value) {
         Provider.of<NavigationProvider>(_context, listen: false)
             .navigateToDeliveryAddressScreen(
-                _context, () => {_updateProfile(fullName, phone, email)},
+                _context, () => _updateProfile(fullName, phone, email),
                 replace: true);
       });
     }).catchError((e) {
@@ -166,7 +166,7 @@ class AuthenticationHelper {
   void setDeliveryAddresse(BuildContext context) {
     Provider.of<NavigationProvider>(context, listen: false)
         .navigateToDeliveryAddressScreen(
-            context, () => {Navigator.pop(context)},
+            context, () => Navigator.pop(context),
             replace: false);
   }
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:online_order_client/Application/DeliveryAddress/latlng.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
 import 'package:online_order_client/Application/Providers/navigation_provider.dart';
@@ -11,7 +10,6 @@ import 'package:online_order_client/Domain/Profile/profile_model.dart';
 import 'package:online_order_client/Infrastructure/Authentication/iauthentication_service.dart';
 import 'package:online_order_client/Infrastructure/Orders/iorder_service.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer' as dev;
 
 class CartHelper {
   final Cart _cart;

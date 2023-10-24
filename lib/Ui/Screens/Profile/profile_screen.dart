@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:online_order_client/Application/Authentication/authentication_helper.dart';
 import 'package:online_order_client/Application/Authentication/user_input_validator.dart';
 import 'package:online_order_client/Application/Providers/helpers_provider.dart';
-import 'package:online_order_client/Ui/Components/Buttons/button_facebook_link.dart';
 import 'package:online_order_client/Ui/Components/Buttons/buttons_default.dart';
 import 'package:online_order_client/Ui/Components/cards.dart';
 import 'package:online_order_client/Ui/Themes/constants.dart';
