@@ -6,6 +6,8 @@
 ## PlayStore
   [PlayStore Link](https://play.google.com/store/apps/details?id=com.idir.online_order_client)  
 
+## SisterApp 
+  [Worker App Repo](https://github.com/IDIRYACINE/online_order_shop_mobile)  
 
 ![1](./screenshots/1.jpg)
 ![2](./screenshots/2.jpg)
